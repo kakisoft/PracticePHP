@@ -1,0 +1,6 @@
+## ビルトインWebサーバ起動
+```
+php -S <IP>:<Port>
+（例）
+php -S localhost:8000
+```
