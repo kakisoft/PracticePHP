@@ -88,7 +88,6 @@ $s5 = "hello " . "world";
 var_dump($s5);
 
 echo "<br>";
-
 //==========================
 // if 条件分岐
 //   比較演算子 >   <   >=   <=   ==   ===   !=   !==
@@ -104,6 +103,7 @@ if ($score > 80) {
   echo "so so ...";
 }
 
+echo "<br>";
 //==========================
 //        真偽値
 // falseになる場合
@@ -123,7 +123,7 @@ if ($x09 == true) {
 // 三項演算子
 $a09 = 10;
 $b09 = 20;
-$max09 = ($a09 > $b09) ? $a09 : $b09; //($a > $b) の条件が真だったら $a を、偽だったら $b を max に代入
+$max09 = ($a09 > $b09) ? $a09 : $b09; // () の条件が真だったら $a09 を、偽だったら $b09 を max09 に代入
 
 if ($a09 > $b09) {
   $max09 = $a09;
@@ -131,6 +131,27 @@ if ($a09 > $b09) {
   $max09 = $b09;
 }
 
+echo "<br>";
+//==========================
+//    switch 条件分岐
+//==========================
+$signal10 = "green";
+
+switch ($signal10) {
+  case "red":
+    echo "stop!";
+    break;
+  case "blue":
+  case "green":
+    echo "go!";
+    break;
+  case "yellow":
+    echo "caution!";
+    break;
+  default:
+    echo "wrong signal";
+    break;
+}
 
 
 ?>
