@@ -183,7 +183,69 @@ for ($i12 = 0; $i12 < 10; $i12++) {
   echo $i12;
 }
 
+echo "<br>";
+//==========================
+//       配列
+//==========================
+// key value
+$sales13A = array(
+  "taguchi" => 200,
+  "fkoji" => 800,
+  "dotinstall" => 600,
+);
+
+// PHP5.4～
+$sales13B = [
+  "taguchi" => 200,
+  "fkoji" => 800,
+  "dotinstall" => 600,
+];
+
+var_dump($sales13B["fkoji"]); // 800
+$sales13B["fkoji"] = 900;
+var_dump($sales13B["fkoji"]); // 900
+
+$colors13 = ["red", "blue", "pink"];
+var_dump($colors13[1]); // blue
+
+echo "<br>";
+//==========================
+//       foreach
+//==========================
+$sales14 = [
+  "taguchi" => 200,
+  "fkoji" => 800,
+  "dotinstall" => 600,
+];
+
+foreach ($sales14 as $key => $value) {
+  echo "($key) $value ";
+}
+
+$colors14 = ["red", "blue", "pink"];
+
+foreach ($colors14 as $value) {
+  echo "$value ";
+}
+
+// foreach if while for コロン構文
+foreach ($colors as $value) :
+  echo "$value ";
+endforeach;
+?>
+<ul>
+  <?php foreach ($colors as $value) : ?>
+  <li><?php echo "$value "; ?></li>
+  <?php endforeach; ?>
+</ul>
+
+<?php
+echo "<br>";
+//==========================
+//       
+//==========================
 
 ?>
+
 </body>
 </html>
