@@ -293,10 +293,12 @@ class User {
   public $name;
   # private $name;
   # protected $name;
+  public static $count = 0;
 
   // constructor
   public function __construct($name) {
     $this->name = $name;
+    self::$count++;
   }
 
   // method
@@ -308,6 +310,11 @@ class User {
   final public function sayYes() {
     echo "Yes. I am $this->name!";
   }  
+
+  // staticメソッド
+  public static function getMessage() {
+    echo "hello from User class!";
+  }
 }
 
 $tom = new User("Tom");
@@ -329,6 +336,15 @@ class AdminUser extends User {
   }
 }
 
+//==========================
+//        static
+//==========================
+User::getMessage();
+
+$Yamada = new User("Yamada");
+$Koga = new User("Koga");
+
+echo User::$count; // 2
 
 
 ?>
