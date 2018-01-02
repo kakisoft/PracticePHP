@@ -1,4 +1,5 @@
 <?php
+namespace Kakisoft\Lib; //namespaceは、ファイルの先頭に書かないと、エラーとなる
 
 class Team {
   public $name;

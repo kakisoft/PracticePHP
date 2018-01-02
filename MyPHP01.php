@@ -19,15 +19,22 @@ echo "hello from the TOP!";
 // autoload：クラスのみ使用可能
 //==========================
 
-// require "resources/Team.class.php";
+require "resources/Team.class.php";
 // include "resources/Team.class.php";
 
-spl_autoload_register(function($class) {
-  require "resources/". $class . ".class.php";
-});
+// spl_autoload_register(function($class) {
+//   require "resources/". $class . ".class.php";
+// });
 
-$TokkouyarouA = new Team("TokkouyarouA");
+use Kakisoft\Lib as Lib;
+# use Kakisoft\Lib;
+
+$TokkouyarouA = new Lib\Team("TokkouyarouA");
 $TokkouyarouA->sayHi();
+
+# use Kakisoft\Lib;
+# $TokkouyarouA = new Lib\Team("TokkouyarouA");
+
 
 ?>
 <!DOCTYPE html>
