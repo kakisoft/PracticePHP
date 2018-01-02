@@ -229,12 +229,12 @@ foreach ($colors14 as $value) {
 }
 
 // foreach if while for コロン構文
-foreach ($colors as $value) :
+foreach ($colors14 as $value) :
   echo "$value ";
 endforeach;
 ?>
 <ul>
-  <?php foreach ($colors as $value) : ?>
+  <?php foreach ($colors14 as $value) : ?>
   <li><?php echo "$value "; ?></li>
   <?php endforeach; ?>
 </ul>
@@ -242,8 +242,20 @@ endforeach;
 <?php
 echo "<br>";
 //==========================
-//       
+//         関数
 //==========================
+function sayHi15($name = "taguchi") {
+  echo "hi! " . $name;
+  return "hi! " . $name;
+}
+
+sayHi15("Tom");
+sayHi15("Bob");
+sayHi15();
+
+$s15 = sayHi15();
+var_dump($s15);
+
 
 ?>
 
