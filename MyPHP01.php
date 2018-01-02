@@ -347,6 +347,24 @@ $Koga = new User("Koga");
 echo User::$count; // 2
 
 
+echo "<br>";
+//==========================
+//       抽象クラス
+//==========================
+abstract class BaseStaff {
+  public $name;
+  abstract public function sayHi();
+}
+
+class Staff extends BaseStaff {
+  public function sayHi() {
+    echo "hello from User";
+  }
+}
+
+$Sawai = new Staff("Sawai");
+$Sawai->sayHi();
+
 ?>
 
 </body>
