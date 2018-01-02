@@ -301,6 +301,11 @@ class User {
   public function sayHi() {
     echo "hi, i am $this->name!";
   }
+
+  // finalを付けると、オーバーライド不可。
+  final public function sayYes() {
+    echo "Yes. I am $this->name!";
+  }  
 }
 
 $tom = new User("Tom");
@@ -308,6 +313,27 @@ $bob = new User("Bob");
 
 echo $tom->name; // Tom
 $bob->sayHi(); // hi, i am Bob!
+
+//==========================
+//         継承
+//==========================
+class AdminUser extends User {
+  public function sayHello() {
+    echo "hello from Admin!";
+  }
+  // override
+  public function sayHi() {
+    echo "[admin] hi, i am $this->name!";
+  }
+}
+
+$tom = new User("Tom");
+$steve = new AdminUser("Steve");
+// echo $steve->name;
+$tom->sayHi();
+$steve->sayHi();
+// $steve->sayHello();
+
 
 
 ?>
