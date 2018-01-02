@@ -244,8 +244,14 @@ echo "<br>";
 //==========================
 //         関数
 //==========================
-function sayHi15($name = "taguchi") {
-  echo "hi! " . $name;
+function sayHi14($name) {
+  echo "hi! $name";
+}
+sayHi14("John");
+
+function sayHi15($name = "taguchi") { //引数のデフォルト値を設定
+  $lang = "php";
+  echo "hi! $name from $lang";  
   return "hi! " . $name;
 }
 
@@ -255,6 +261,53 @@ sayHi15();
 
 $s15 = sayHi15();
 var_dump($s15);
+
+
+echo "<br>";
+//==========================
+//       組み込み関数
+//==========================
+$x17 = 5.6;
+echo ceil($x17);  // 6  小数切り上げ
+echo floor($x17); // 5  少数切り捨て
+echo round($x17); // 6  四捨五入
+echo rand(1, 10); // 1～10 の範囲でランダム
+
+$s17A = "hello";
+$s17B = "ねこ";
+echo strlen($s17A); // 5  文字数
+echo mb_strlen($s17B); // 2  日本語はマルチバイトなので、mb_ 開始の関数を使用する
+printf("%s - %s - %.3f", $s17A, $s17B, $x17); //書式を指定して出力。stringはs、floatはf。
+
+$colors17 = ["red", "blue", "pink"];
+echo count($colors17);
+echo implode("@", $colors17);
+
+
+echo "<br>";
+//==========================
+//       class
+//==========================
+class User {
+  // property
+  public $name;
+
+  // constructor
+  public function __construct($name) {
+    $this->name = $name;
+  }
+
+  // method
+  public function sayHi() {
+    echo "hi, i am $this->name!";
+  }
+}
+
+$tom = new User("Tom");
+$bob = new User("Bob");
+
+echo $tom->name; // Tom
+$bob->sayHi(); // hi, i am Bob!
 
 
 ?>
