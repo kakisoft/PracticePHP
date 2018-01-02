@@ -418,7 +418,23 @@ $Hatano = new Player("Hatano");
 $Hatano->sayHi();
 $Hatano->sayHello();
 
+echo "<br>";
+//==========================
+//           例外
+//==========================
+function div27($a, $b) {
+  try {
+    if ($b === 0) {
+      throw new Exception("cannot divide by 0!");
+    }
+    echo $a / $b;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+}
 
+div27(7, 2);
+div27(5, 0);
 ?>
 
 </body>
