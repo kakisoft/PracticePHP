@@ -291,6 +291,8 @@ echo "<br>";
 class User {
   // property
   public $name;
+  # private $name;
+  # protected $name;
 
   // constructor
   public function __construct($name) {
@@ -326,13 +328,6 @@ class AdminUser extends User {
     echo "[admin] hi, i am $this->name!";
   }
 }
-
-$tom = new User("Tom");
-$steve = new AdminUser("Steve");
-// echo $steve->name;
-$tom->sayHi();
-$steve->sayHi();
-// $steve->sayHello();
 
 
 
