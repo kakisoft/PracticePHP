@@ -8,6 +8,27 @@
 
 echo "hello from the TOP!";
 
+//==========================
+//     外部ファイル読み込み
+// require: エラー時に fatal errorが発生して処理が終了。
+// require_once：once：PHPが読み込まれているかをチェックする。読まれていればスキップする。
+//
+// include: warning：エラー時に warningが発生し、処理は継続。
+// include_once：
+//
+// autoload：クラスのみ使用可能
+//==========================
+
+// require "resources/Team.class.php";
+// include "resources/Team.class.php";
+
+spl_autoload_register(function($class) {
+  require "resources/". $class . ".class.php";
+});
+
+$TokkouyarouA = new Team("TokkouyarouA");
+$TokkouyarouA->sayHi();
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
