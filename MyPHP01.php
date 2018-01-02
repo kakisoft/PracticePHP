@@ -365,6 +365,32 @@ class Staff extends BaseStaff {
 $Sawai = new Staff("Sawai");
 $Sawai->sayHi();
 
+echo "<br>";
+//==========================
+//     インターフェース
+//==========================
+interface sayHi {
+  public function sayHi();
+}
+
+interface sayHello {
+  public function sayHello();
+}
+
+class Player implements sayHi, sayHello {
+  public function sayHi() {
+    echo "impl hi!";
+  }
+  public function sayHello() {
+    echo "impl hello!";
+  }
+}
+
+$Hatano = new Player("Hatano");
+$Hatano->sayHi();
+$Hatano->sayHello();
+
+
 ?>
 
 </body>
