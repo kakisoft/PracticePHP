@@ -10,6 +10,9 @@ http://sprint-life.hatenablog.com/entry/2014/02/24/150423
  ※PHP7  
 http://pear.php.net/go-pear
 
+#### （公式サイト）
+https://pear.php.net/manual/en/installation.getting.php  
+https://pear.php.net/go-pear.phar  
 
 ### ２．
 PHPのインストールフォルダに、「PEAR」というフォルダを作って、そこに保存します。
