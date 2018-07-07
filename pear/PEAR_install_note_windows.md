@@ -48,5 +48,7 @@ C:\tools\php72\PEAR　にて実行。
 ```
 php go-pear.phar
 ```
+※要管理者権限
+
 
 
