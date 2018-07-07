@@ -21,3 +21,7 @@ php.iniファイルに、以下の設定を追加する。
 ```
 extension=php_mbstring.dll
 ``` 
+
+
+C:\tools\php72\php.ini
+
