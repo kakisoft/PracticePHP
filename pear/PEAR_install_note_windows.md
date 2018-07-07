@@ -1,12 +1,15 @@
 # Windows
 
 ## 参考サイト
-http://pentan.info/server/windows/win_php_pear.html
+http://sprint-life.hatenablog.com/entry/2014/02/24/150423  
+―http://pentan.info/server/windows/win_php_pear.html  
 
 
 ### １．
-下記のURLより、PEARインストールのためのPHPのソースコードをダウンロードします。  
+下記のURLより、PEARインストールのためのPHPのソースコードをダウンロードします。    
+ ※PHP7  
 http://pear.php.net/go-pear
+
 
 ### ２．
 PHPのインストールフォルダに、「PEAR」というフォルダを作って、そこに保存します。
@@ -33,21 +36,17 @@ PHPのインストールフォルダ(C:\Program Files\PHP または C:\PHP)
 │└ go-pear.php
 └ go-pear.bat
 ```
-
-
-#### エラーメッセージ
+## 環境変数追加
+※choco 使った場合
 ```
-phar "C:\tools\php72\PEAR\go-pear.php" has a broken signaturePHP Warning:  requi
-re_once(phar://go-pear.phar/index.php): failed to open stream: phar error: inval
-id url or non-existent phar "phar://go-pear.phar/index.php" in C:\tools\php72\PE
-AR\go-pear.php on line 1271
-続行するには何かキーを押してください . . .
+PHP_PEAR_SYSCONF_DIR
+C:\tools\php72\PEAR
 ```
 
-#### 解決策：参考サイト
-http://d.hatena.ne.jp/MugeSo/20080907/1220772672
+## 最終的に使用したコマンド
+C:\tools\php72\PEAR　にて実行。
 ```
-
+php go-pear.phar
 ```
 
 
