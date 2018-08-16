@@ -1,7 +1,9 @@
 <?php
 
 $username = '';
+#  $_SERVER という定義済みの変数の中の、REQUEST_METHOD というものがある。
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  # $_POST で名前を渡してあげると、POST された内容を取得することができます。
   $username = $_POST['username'];
   $err = false;
   if (strlen($username) > 8) {
@@ -9,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+# ↓は、「form action=""」となっているので、submitしたら、このページに遷移する。
 ?>
 <!DOCTYPE html>
 <html lang="ja">
