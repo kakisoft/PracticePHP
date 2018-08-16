@@ -9,4 +9,6 @@ setcookie("username", "taguchi"); // 第三引数にて、有効期限を設定�
 
 // setcookie("username", "taguchi", time()-60*60); // Cookieを削除する場合、適当なマイナス値を設定する。
 
+# ＜Cookieの取得＞
+# $_COOKIE という定義済みの変数があるので、それに対して 'username' というキーを与えてあげます。
 echo $_COOKIE['username'];
