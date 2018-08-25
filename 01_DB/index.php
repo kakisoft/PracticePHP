@@ -19,6 +19,20 @@ PDO::PARAM_BOOL
 
 */
 
+
+class User {
+  //======( 省略可 )=====
+  // public $id;
+  // public $name;
+  // public $score;
+
+  public function show() {
+      echo "<pre>";
+      echo "$this->name ($this->score)";
+      echo "</pre>";
+  }
+}
+
 try {
     //=================================
     //            connect
@@ -169,25 +183,19 @@ SQL;
     }
     echo $stmt->rowCount() . " records found.";
 
-    // // select
-    // // $stmt = $db->query("select * from users");
-    // // $stmt = $db->prepare("select score from users where score > ?");
-    // // $stmt->execute([60]);
-    // // $stmt = $db->prepare("select name from users where name like ?");
-    // // $stmt->execute(['%t%']);
-    // $stmt = $db->prepare("select score from users order by score desc limit ?");
-    // $stmt->bindValue(1, 1, PDO::PARAM_INT);
-    // $stmt->execute();
-    // // $stmt->execute([1]);
-    // $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // foreach ($users as $user) {
-    //   var_dump($user);
-    // }
-    // echo $stmt->rowCount() . " records found.";
 
 
+    //=================================
+    //   FETCH_CLASS  フェッチクラス
+    //=================================
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    $stmt = $db->query("select * from users limit 3");
+    $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'User');
+    foreach ($users as $user) {
+        $user->show();
+    }
 
-  //=================================
+    //=================================
     //          disconnect
     //=================================
     // disconnect
