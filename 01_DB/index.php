@@ -117,7 +117,7 @@ SQL;
     $stmt->bindParam(':name' , $name , PDO::PARAM_STR);
     $stmt->bindParam(':score', $score, PDO::PARAM_INT);
 
-    $name = "a";    $score = 1;   $stmt->execute();
+    $name = "a";    $score = 1;    $stmt->execute();
     $name = "bb";   $score = 22;   $stmt->execute();
     $name = "ccc";  $score = 333;  $stmt->execute();
 
@@ -134,6 +134,56 @@ SQL;
       echo "</pre>";
     }
     echo $stmt->rowCount() . " records found.";
+
+    
+    //=================================
+    //     query （select） 条件付き
+    //=================================
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    $sql =<<<SQL
+select
+    *
+from
+    users
+where  1=1
+  and  name like :target_name
+  and  score >   :min_score
+order by
+    score desc limit :disp_recored
+SQL;
+
+    $target_name  = "%k%";
+    $min_score    = 70;
+    $disp_recored = 5;
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':target_name' , $target_name  );
+    $stmt->bindValue(':min_score'   , $min_score    );
+    $stmt->bindValue(':disp_recored', $disp_recored , PDO::PARAM_INT);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($users as $user) {
+      echo "<pre>";
+      var_dump($user);
+      echo "</pre>";      
+    }
+    echo $stmt->rowCount() . " records found.";
+
+    // // select
+    // // $stmt = $db->query("select * from users");
+    // // $stmt = $db->prepare("select score from users where score > ?");
+    // // $stmt->execute([60]);
+    // // $stmt = $db->prepare("select name from users where name like ?");
+    // // $stmt->execute(['%t%']);
+    // $stmt = $db->prepare("select score from users order by score desc limit ?");
+    // $stmt->bindValue(1, 1, PDO::PARAM_INT);
+    // $stmt->execute();
+    // // $stmt->execute([1]);
+    // $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // foreach ($users as $user) {
+    //   var_dump($user);
+    // }
+    // echo $stmt->rowCount() . " records found.";
 
 
 
