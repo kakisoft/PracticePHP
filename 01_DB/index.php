@@ -195,6 +195,33 @@ SQL;
         $user->show();
     }
 
+
+    //=================================
+    //             UPDATE
+    //=================================
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    // update
+    $stmt = $db->prepare("update users set score = :score where name = :name");
+    $stmt->execute([
+        ':score' => 100,
+        ':name' => 'taguchi'
+    ]);
+    echo 'row updated: ' . $stmt->rowCount();
+
+
+    //=================================
+    //             DELETE
+    //=================================
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    // delete
+    $stmt = $db->prepare("delete from users where name = :name");
+    $stmt->execute([
+        ':name' => 'bb'
+    ]);
+    echo 'row deleted: ' . $stmt->rowCount();
+
+
+
     //=================================
     //          disconnect
     //=================================
