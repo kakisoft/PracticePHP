@@ -92,9 +92,9 @@ try {
 
     
     $sql =<<<SQL
-insert into users 
+INSERT INTO users 
  (name , score) 
-values 
+VALUES 
  (:name, :score)
 SQL;
 
@@ -121,9 +121,9 @@ SQL;
     //        bindParam  HON
     //=================================    
     $sql =<<<SQL
-insert into users 
+INSERT INTO users 
  (name , score) 
-values 
+VALUES 
  (:name, :score)
 SQL;
 
@@ -155,15 +155,16 @@ SQL;
     //=================================
     echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
     $sql =<<<SQL
-select
+SELECT
     *
-from
+FROM
     users
-where  1=1
-  and  name like :target_name
-  and  score >   :min_score
-order by
-    score desc limit :disp_recored
+WHERE  1=1
+  AND  NAME LIKE :target_name
+  AND  score >   :min_score
+ORDER BY
+    score DESC 
+LIMIT :disp_recored
 SQL;
 
     $target_name  = "%k%";
@@ -220,6 +221,50 @@ SQL;
     ]);
     echo 'row deleted: ' . $stmt->rowCount();
 
+
+    //=================================
+    //          UPDATE HON
+    //=================================
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    $sql =<<<SQL
+
+UPDATE users
+   SET name  = CONCAT(name,  '_ad')
+      ,score = score + 3
+WHERE  1=1
+ AND  NAME LIKE :target_name
+ AND  score >   :min_score
+SQL;
+
+    $target_name  = "%k%";
+    $min_score    = 70;
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':target_name' , $target_name  );
+    $stmt->bindValue(':min_score'   , $min_score    );
+    $stmt->execute();
+    echo 'row updated: ' . $stmt->rowCount();
+
+
+    //=================================
+    //          DELETE HON
+    //=================================
+//    $stmt = $db->prepare("delete from users where name = :name");
+    
+    echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
+    $sql =<<<SQL
+
+DELETE FROM users
+ WHERE  1=1
+  AND  id = :target_id
+SQL;
+
+      $target_id  = 5;
+
+      $stmt = $db->prepare($sql);
+      $stmt->bindValue(':target_id' , $target_id  );
+      $stmt->execute();
+      echo 'row deleted: ' . $stmt->rowCount();
 
 
     //=================================
