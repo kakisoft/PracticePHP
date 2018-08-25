@@ -10,28 +10,51 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('PDO_DSN', 'mysql:dbhost=localhost;dbname=' . DB_DATABASE);  //Data Source Name
 
+
+/*
+PDO::PARAM_STR
+PDO::PARAM_INT
+PDO::PARAM_NULL
+PDO::PARAM_BOOL
+
+*/
+
 try {
-    // connect
+    //=================================
+    //            connect
+    //=================================
     $db = new PDO(PDO_DSN, DB_USERNAME, DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // insert
+
+    //=================================
+    //            insert
+    //=================================
     $db->exec("insert into users (name, score) values ('taguchi', 55)");
     //// execは、結果を返す必要が無いクエリを実行する時に使う。
 
-    //==========<< ? >>==========
+
+    //=================================
+    //            
+    //=================================
     $stmt = $db->prepare("insert into users (name, score) values (?, ?)");
     $stmt->execute(['taguchi', 44]);
     echo "inserted: " . $db->lastInsertId();
     echo "<br>";
 
-    //==========<< 名前付きパラメータ >>==========
+
+    //=================================
+    //       名前付きパラメータ
+    //=================================
     $stmt = $db->prepare("insert into users (name, score) values (:name, :score)");
     $stmt->execute([':name'=>'fkoji', ':score'=>80]);
     echo "inserted: " . $db->lastInsertId();
     echo "<br>";
   
-    //==========<< bindValue >>==========
+
+    //=================================
+    //             bindValue
+    //=================================
     $stmt = $db->prepare("insert into users (name, score) values (?, ?)");    
     $name = 'yamada';
     $stmt->bindValue(1, $name, PDO::PARAM_STR);
@@ -47,8 +70,63 @@ try {
     // PDO::PARAM_BOOL
 
 
+    //=================================
+    //        bindValue  HON
+    //=================================
+    $name = "kaki";
+    $score = "80";
+
+    
+    $sql =<<<SQL
+insert into users 
+ (name , score) 
+values 
+ (:name, :score)
+SQL;
+
+    $stmt = $db->prepare($sql);    
+    $stmt->bindValue(':name' , $name);
+    $stmt->bindValue(':score', $score);
+    $stmt->execute();
 
 
+    //=================================
+    //          bindParam
+    //=================================
+    $stmt = $db->prepare("insert into users (name, score) values (?, ?)");
+
+    $name = 'taguchi';
+    $stmt->bindValue(1, $name , PDO::PARAM_STR);  
+    $stmt->bindParam(2, $score, PDO::PARAM_INT);
+    $score = 52;    $stmt->execute();
+    $score = 44;    $stmt->execute();
+    $score = 6;     $stmt->execute();
+  
+
+    //=================================
+    //        bindParam  HON
+    //=================================    
+    $sql =<<<SQL
+insert into users 
+ (name , score) 
+values 
+ (:name, :score)
+SQL;
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':name' , $name , PDO::PARAM_STR);
+    $stmt->bindParam(':score', $score, PDO::PARAM_INT);
+
+    $name = "a";    $score = 1;   $stmt->execute();
+    $name = "bb";   $score = 22;   $stmt->execute();
+    $name = "ccc";  $score = 333;  $stmt->execute();
+
+
+
+
+    //=================================
+    //          disconnect
+    //=================================
     // disconnect
     $db = null;
 
