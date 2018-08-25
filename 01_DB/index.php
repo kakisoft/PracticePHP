@@ -277,3 +277,23 @@ SQL;
   echo $e->getMessage();
   exit;
 }
+
+//=================================
+//        トランザクション
+//=================================
+try {
+  // connect
+  $db = new PDO(PDO_DSN, DB_USERNAME, DB_PASSWORD);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  // transaction
+  $db->beginTransaction();
+  $db->exec("update users set score = score - 10 where name = 'taguchi'");
+  $db->exec("update users set score = score + 10 where name = 'fkoji'");
+  $db->commit();
+
+} catch (PDOException $e) {
+  $db->rollback();
+  echo $e->getMessage();
+  exit;
+}
