@@ -122,9 +122,22 @@ SQL;
     $name = "ccc";  $score = 333;  $stmt->execute();
 
 
-
-
     //=================================
+    //        query （select）
+    //=================================
+    // select all
+    $stmt = $db->query("select * from users");
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($users as $user) {
+      echo "<pre>";
+      var_dump($user);
+      echo "</pre>";
+    }
+    echo $stmt->rowCount() . " records found.";
+
+
+
+  //=================================
     //          disconnect
     //=================================
     // disconnect
