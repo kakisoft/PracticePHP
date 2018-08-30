@@ -237,6 +237,17 @@ $colors13 = ["red", "blue", "pink"];
 var_dump($colors13[1]); // blue
 
 echo "<br>";
+
+//-----< 末尾に要素を追加 >-----
+$array2 = [];
+array_push($array2, "a");
+array_push($array2, "bb");
+
+
+//-----< 連結(join) >-----
+echo( join('<br>', $array2) );
+
+
 //==========================
 //       foreach
 //==========================
