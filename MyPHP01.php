@@ -258,6 +258,22 @@ var_dump($array3);
 echo "<br>==============<br>";
 
 
+//-----< 入れ子 >-----
+/*
+Smarty_Variable Object (3)
+->value = Array (16)
+  user_id => null
+  password => ""
+  company_name => ""
+  errMessageArray => Array (6)
+    email => "Eメールが入力されていません"
+    password => "パスワードが入力されていません"
+    company_name => "会社名が入力されていません"
+*/
+/*
+echo "$userParameters['errMessageArray']['email']";
+*/
+
 //==========================
 //       foreach
 //==========================
