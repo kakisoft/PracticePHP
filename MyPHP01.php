@@ -248,6 +248,16 @@ array_push($array2, "bb");
 echo( join('<br>', $array2) );
 
 
+//-----< キーを指定して追加（連想配列） >-----
+$array3 = [];
+$array3['a'] = "a";
+$array3['b'] = "bb";
+$array3['c'] = "ccc";
+echo "<br>==============<br>";
+var_dump($array3);
+echo "<br>==============<br>";
+
+
 //==========================
 //       foreach
 //==========================
