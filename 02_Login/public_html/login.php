@@ -21,7 +21,7 @@ $app->run();
 </head>
 <body>
   <div id="container">
-    <form action="login.php" method="post" id="login">
+    <form action="" method="post" id="login">
       <p>
         <input type="text" name="email" placeholder="email" value="<?= isset($app->getValues()->email) ? h($app->getValues()->email) : ''; ?>">
       </p>
