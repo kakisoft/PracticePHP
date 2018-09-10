@@ -4,6 +4,8 @@ namespace MyApp;
 
 class ImageUploader {
 
+  private _imageFileName;
+
   public function upload() {
     try {
       // error check
@@ -15,6 +17,8 @@ class ImageUploader {
       // exit;
 
       // save
+      $this->_save($ext);
+
       // create thumbnail
     } catch (\Exception $e) {
       echo $e->getMessage();
@@ -23,6 +27,20 @@ class ImageUploader {
     // redirect
     header('Location: http://' . $_SERVER['HTTP_HOST']);
     exit;
+  }
+
+  private function _save($ext) {
+    $this->_imageFileName = sprintf(
+      '%s_%s.%s',
+      time(),
+      sha1(uniqid(mt_rand(), true))
+      $ext
+    );
+    $savePath = IMAGES_DIR . '/' . $this->_imageFileName;
+    $res = move_uploaded_file($_FILES['image']['tmp_name'], $savePath);
+    if ($res === false) {
+      throw new \Exception('Could not upload!');
+    }
   }
 
   private function _validateImageType() {

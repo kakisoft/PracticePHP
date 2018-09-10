@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
   <form action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="MAX_FILE_SIZE" value="<?php h(MAX_FILE_SIZE); ?>">
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo h(MAX_FILE_SIZE); ?>">
     <input type="file" name="image">
     <input type="submit" value="upload">
   </form>
