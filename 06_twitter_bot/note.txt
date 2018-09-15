@@ -13,3 +13,18 @@ php composer.phar equire abraham/twitteroauth
 
 
 https://twitteroauth.com/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+＜実行＞
+php bot.php
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+＜APIリファレンス＞
+https://developer.twitter.com/en/docs/api-reference-index
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+
+
