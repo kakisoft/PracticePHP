@@ -2,7 +2,7 @@ https://qiita.com/tokutoku393/items/3c3ba3ca581bc0381e35
 <?php
 
 // $url = 'http://...?name=Tom'; // リクエストするURLとパラメータ
-$url = 'http://challenge-your-limits.herokuapp.com/call/me'; 
+$url = 'http://challenge-your-limits.herokuapp.com/call/me';
 
 // curlの処理を始める合図
 $curl = curl_init($url);
