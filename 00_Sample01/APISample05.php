@@ -1,38 +1,22 @@
 <?php
+//よくわかんないけど、パラメータを渡すとエラーになった。「"ignore_errors" => true,」で回避（？）できた。
 
-$url = "http://challenge-your-limits.herokuapp.com/challenge_users";
+$context = stream_context_create(
+    array(
+        'http' => array(
+            // "ignore_errors" => true,
+            'method'=> 'POST',
+            'header'=> 'Content-type: application/json; charset=UTF-8',
+            'content' => json_encode(
+                array(
+                    'title' => 'file_get_contents で POST',
+                    'raw' => "file_get_contents で POST\nPHP すごい...\n"
+                )
+            )
+        )
+    )
+);
 
-//$posted ：渡すパラメータ（Array）
-$posted = ["name" => "Tom"];
+$content = file_get_contents('http://challenge-your-limits.herokuapp.com/call/me', false, $context);
 
-        $post = http_build_query($posted, "", "&");
-
-        $header = array(
-                    'Content-Type: application/x-www-form-urlencoded',
-                    'Content-Length: ' . strlen($post)
-                );
- 
-        $context = array(
-                    'http' => array(
-                            'method' => 'POST',
-                            'header' => implode("\r\n", $header),
-                            'content' => $post
-                        ),
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false
-                    )
-                );
- 
-
-        $data = file_get_contents($url, false, stream_context_create($context));
-
-
-//$http_response_header
-
-//file_get_contents を実行すると、HTTPヘッダ情報が色々詰め込まれる。
-var_dump($http_response_header);
-
-var_dump(json_decode($data));
-
-
+var_dump($content);
