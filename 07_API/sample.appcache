@@ -1,8 +1,8 @@
 CACHE MANIFEST
 # version: 1.0.0
 
-CACHE:
-sample01.gif
+#CACHE:
+#sample01.gif
 
 NETWORK:
 *
