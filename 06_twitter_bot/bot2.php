@@ -15,7 +15,7 @@ $connection = new TwitterOAuth(
 // var_dump($content);
 
 
-$statuses = $connection->get("lists/list");
+// $statuses = $connection->get("lists/list");
 
 var_dump($statuses);
 
