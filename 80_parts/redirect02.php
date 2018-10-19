@@ -4,12 +4,12 @@ echo "redirect";
 
 $statusCode = 302;
 $targetUrl  = "http://www.example.com/";
-//ƒuƒ‰ƒEƒU‚ğƒŠƒ_ƒCƒŒƒNƒg‚µ‚Ü‚·
+//ãƒ–ãƒ©ã‚¦ã‚¶ã‚’ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã—ã¾ã™
 header("HTTP", true,  $statusCode);
 header("Location: " . $targetUrl );
 //header("Location: http://www.example.com/");
 
-//ƒŠƒ_ƒCƒŒƒNƒg‚·‚éÛ‚ÉA‚±‚êˆÈ~‚ÌƒR[ƒh‚ªÀs‚³‚ê‚È‚¢‚±‚Æ‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢
+//ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã™ã‚‹éš›ã«ã€ã“ã‚Œä»¥é™ã®ã‚³ãƒ¼ãƒ‰ãŒå®Ÿè¡Œã•ã‚Œãªã„ã“ã¨ã‚’ç¢ºèªã—ã¦ãã ã•ã„
 //exit;
 
 echo "aa";
