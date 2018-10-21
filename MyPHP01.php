@@ -274,6 +274,13 @@ Smarty_Variable Object (3)
 echo "$userParameters['errMessageArray']['email']";
 */
 
+//////  配列の結合 /////
+$pager["chunk"] = array_merge($pager["chunk"], $dynamicContentArray);
+$pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
+
+// $newArray01 = array_merge($arrayFirst, $arraySecond)
+// $newArray02 = array_merge_recursive($arrayFirst, $arraySecond)
+
 //==========================
 //       foreach
 //==========================

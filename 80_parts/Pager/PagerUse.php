@@ -5,14 +5,17 @@ require "./MyPagerClass.php";
 
 $pager = MyPagerClass::getPager();
 
-// var_dump($pager);
 
 
 foreach ($pager["chunk"] as $value) {
     // echo "【" . $value . ";
     echo "【{$value}】";
 }
-  
+
+
+echo "<br><br><br>";
+// var_dump($pager);
+
 
 $a1 = "aaaaaaaaaa"; 
 
