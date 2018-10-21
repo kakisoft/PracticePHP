@@ -16,12 +16,13 @@ class MyPagerClass {
 
 
 	public static function getPager() {
-		$current_page = 1;
+		$currentPage = 2;
 		$dispPageNumber = 5;
 
 
 		// $pager = [];
-		$pager["dispPageNumber"] = $dispPageNumber;
+		$pager["current_page"] = $currentPage;
+		$pager["disp_page_number"] = $dispPageNumber;
 		$pager["max_page_number"] = 10;
 
 
@@ -29,8 +30,18 @@ class MyPagerClass {
 		//---------------------------
 		//       Create Chunk
 		//---------------------------
+		$middlePoint = ceil($pager["disp_page_number"] / 2);
 
+		//----------< 制御が必要かどうかの判定 >----------
 		$isContainSpecialCharFirst = false;
+		$isContainSpecialCharLast  = false;
+
+		if($pager["current_page"]> $middlePoint){
+			$isContainSpecialCharFirst = true;	
+		}
+
+
+
 		$isContainSpecialCharLast  = false;
 
 
@@ -43,12 +54,12 @@ class MyPagerClass {
 			$dispLoopCount = $pager["max_page_number"];
 		}else{
 			//最大ページ数が、表示する数よりも大きい場合、表示するページ数を採用する
-			$dispLoopCount = $pager["dispPageNumber"];
-			if($isContainSpecialCharFirst == false){
+			$dispLoopCount = $pager["disp_page_number"];
+			if($isContainSpecialCharFirst == true){
 				//開始位置に特殊制御が入る場合、表示する数をデクリメント
 				$dispLoopCount--;
 			}
-			if($isContainSpecialCharLast == false){
+			if($isContainSpecialCharLast == true){
 				//終了位置に特殊制御が入る場合、表示する数をデクリメント
 				$dispLoopCount--;
 			}
@@ -57,6 +68,10 @@ class MyPagerClass {
 		//----------< 動的コンテンツにおける開始ページ数の設定 >----------
 		$dynamicPagePoint = 1;
 
+		if($pager["current_page"] <= $middlePoint){
+			//現在のページが、表示数の中間よりも小さい場合、動的コンテンツ開始位置は、1ページ目から
+			$dynamicPagePoint = 1;
+		}
 		
 		//----------< 動的コンテンツの格納 >----------
 		$dynamicContentArray = [];

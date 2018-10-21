@@ -8,11 +8,17 @@ $pager = MyPagerClass::getPager();
 
 
 foreach ($pager["chunk"] as $value) {
-    // echo "【" . $value . ";
-    echo "【{$value}】";
+    $dispContent = $value;
+
+    if($value == $pager['current_page']){
+        echo "【☆{$dispContent}】";
+    }else{
+        echo "【{$dispContent}】";
+    }
 }
 
-
+echo "<br><br>";
+echo "{$pager['current_page']} / {$pager['max_page_number']}" ;
 echo "<br><br><br>";
 // var_dump($pager);
 
