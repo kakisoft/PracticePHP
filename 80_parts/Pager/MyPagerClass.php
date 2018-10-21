@@ -1,9 +1,10 @@
 <?php
 class MyPagerClass {
 	const NUMBER_OF_BOX = 5;
+	const DISP_RECORD_COUNT = 20;
 
 	/**
-	 * ページャー作成：意外と苦労した。世のエンジニアの大半は、こういうのサクッと作れるの？
+	 * ページャー作成： 【1】【...】【3】【4】【5】【...】【10】
 	 *
 	 * @param string  $currentPage     - 現在のページ
 	 * @param string  $dispRecordCount - 1ページに表示するレコードの件数
