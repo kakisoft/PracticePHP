@@ -70,14 +70,14 @@ $a1 = "aaaaaaaaaa";
         <hr>
         <div>
             <br>
-            <div><label>【画面上に表示する、選択可能ページ数】<input type="number" name="number_of_box"     id="number_of_box"     value="<?php echo $numberOfBox; ?>"></label></div>
+            <div><label>【画面上に表示する、選択可能ページ数】<input type="number" name="number_of_box"     id="number_of_box"     value="<?php echo $numberOfBox; ?>"> ※5 以上</label></div>
             <br>
             <hr>
             <div><label>【現在のページ】                    <input type="number" name="current_page"      id="current_page"      value="<?php echo $currentPage; ?>"></label></div>
             <br>
             <hr>
-            <div><label>【トータルのレコード数】             <input type="number" name="all_record_count"  id="all_record_count"  value="<?php echo $allRecordCount; ?>"></label></div>
             <div><label>【1ページに表示するレコードの件数】   <input type="number" name="disp_record_count" id="disp_record_count" value="<?php echo $dispRecordCount; ?>"></label></div>
+            <div><label>【トータルのレコード数】             <input type="number" name="all_record_count"  id="all_record_count"  value="<?php echo $allRecordCount; ?>"></label></div>
 
             <br>
             <br>
