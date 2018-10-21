@@ -7,19 +7,26 @@ class MyPagerClass {
 	 * ページャー作成： 【1】【...】【3】【4】【5】【...】【10】
 	 *
 	 * @param string  $currentPage     - 現在のページ
-	 * @param string  $dispRecordCount - 1ページに表示するレコードの件数
 	 * @param string  $allRecordCount  - トータルのレコード数
+	 * @param string  $dispRecordCount - 1ページに表示するレコードの件数
 	 * @param string  $numberOfBox     - 画面上に表示する、選択可能ページ数
 	 * 
 	 * @return array  
 	 */	
-	public static function getPager() {
-		$currentPage = 1;
-		$numberOfBox = self::NUMBER_OF_BOX;
+	public static function getPager($currentPage, $allRecordCount, $dispRecordCount=self::NUMBER_OF_BOX, $numberOfBox=self::NUMBER_OF_BOX) {
+
+		$currentPage     = htmlspecialchars($currentPage    , ENT_QUOTES, 'UTF-8');
+		$allRecordCount  = htmlspecialchars($allRecordCount , ENT_QUOTES, 'UTF-8');
+		$dispRecordCount = htmlspecialchars($dispRecordCount, ENT_QUOTES, 'UTF-8');
+		$numberOfBox     = htmlspecialchars($numberOfBox    , ENT_QUOTES, 'UTF-8');
+
+		if(!is_numeric($currentPage))      $currentPage     = 1;
+		if(!is_numeric($allRecordCount))   $allRecordCount  = 0;
+		if(!is_numeric($dispRecordCount))  $dispRecordCount = self::DISP_RECORD_COUNT;
+		if(!is_numeric($numberOfBox))      $numberOfBox     = self::NUMBER_OF_BOX;
 
 		//
-		$maxPageNumber = 10;
-
+		$maxPageNumber = 5;
 
 		//---------------------------
 		$pager["current_page"] = $currentPage;
@@ -27,11 +34,15 @@ class MyPagerClass {
 		$pager["max_page_number"] = $maxPageNumber;
 		$pager["chunk"] = [];
 
+
+		//---------------------------
+		//       
+		//---------------------------
 		if($pager["current_page"] > $pager["max_page_number"]){
 			return null;
 		}
 
-
+		
 		//---------------------------
 		//       
 		//---------------------------

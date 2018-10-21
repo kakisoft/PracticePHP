@@ -2,8 +2,19 @@
 // require "./Team.class.php";
 require "./MyPagerClass.php";
 
+$currentPage     = "";
+$allRecordCount  = "";
+$dispRecordCount = "";
+$numberOfBox     = "";
 
-$pager = MyPagerClass::getPager();
+if(isset($_GET['current_page']))       $currentPage     = htmlspecialchars($_GET['current_page']     , ENT_QUOTES, 'UTF-8');
+if(isset($_GET['all_record_count']))   $allRecordCount  = htmlspecialchars($_GET['all_record_count'] , ENT_QUOTES, 'UTF-8');
+if(isset($_GET['disp_record_count']))  $dispRecordCount = htmlspecialchars($_GET['disp_record_count'], ENT_QUOTES, 'UTF-8');
+if(isset($_GET['number_of_box']))      $numberOfBox     = htmlspecialchars($_GET['number_of_box']    , ENT_QUOTES, 'UTF-8');
+
+// $pager = MyPagerClass::getPager();
+// $pager = MyPagerClass::getPager(1,2);
+$pager = MyPagerClass::getPager($currentPage, $allRecordCount, $dispRecordCount, $numberOfBox);
 
 
 if(isset($pager["chunk"] )){
