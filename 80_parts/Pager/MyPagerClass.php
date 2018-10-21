@@ -26,7 +26,9 @@ class MyPagerClass {
 		if(!is_numeric($numberOfBox))      $numberOfBox     = self::NUMBER_OF_BOX;
 
 		//
-		$maxPageNumber = 5;
+		// $maxPageNumber = 5;
+		$maxPageNumber = ceil($allRecordCount / $dispRecordCount);
+
 
 		//---------------------------
 		$pager["current_page"] = $currentPage;
@@ -57,22 +59,27 @@ class MyPagerClass {
 
 		//----------< 動的コンテンツにおける開始ページ数の設定 >----------
 		$dynamicStartPagePoint = 1;
-		if($pager["current_page"] <= $middlePoint){
-			//現在のページが、表示数の中間よりも小さい場合、動的コンテンツ開始位置は、1ページ目から
+		if($pager["max_page_number"] <= $pager["number_of_box"]){
+			//最大ページ数が、選択可能ページ数よりも小さい場合、動的コンテンツ開始位置は、1ページ目から
 			$dynamicStartPagePoint = 1;
 		}else{
-			$dynamicStartPagePoint = $pager["current_page"] - $middleOffset;
-			if($dynamicStartPagePoint > $maxPageStartPoint){
-				$dynamicStartPagePoint = $maxPageStartPoint;
-				//（例）max  10
-				// page  6  ⇒  1  ... 5  6  7  ... 10
-				// page  7  ⇒  1  ... 6  7  8  ... 10
-				// page  8  ⇒  1  ... 7  8  9  10
-				// page  9  ⇒  1  ... 7  8  9  10
-				// page 10  ⇒  1  ... 7  8  9  10
-
-				//開始位置のページが、max_page_number(10) - (disp_page_number(5) -1) + 1
-				//よりも大きい場合、↑の規定値を使用。 
+			if($pager["current_page"] <= $middlePoint){
+				//現在のページが、表示数の中間よりも小さい場合、動的コンテンツ開始位置は、1ページ目から
+				$dynamicStartPagePoint = 1;
+			}else{
+				$dynamicStartPagePoint = $pager["current_page"] - $middleOffset;
+				if($dynamicStartPagePoint > $maxPageStartPoint){
+					$dynamicStartPagePoint = $maxPageStartPoint;
+					//（例）max  10
+					// page  6  ⇒  1  ... 5  6  7  ... 10
+					// page  7  ⇒  1  ... 6  7  8  ... 10
+					// page  8  ⇒  1  ... 7  8  9  10
+					// page  9  ⇒  1  ... 7  8  9  10
+					// page 10  ⇒  1  ... 7  8  9  10
+	
+					//開始位置のページが、max_page_number(10) - (disp_page_number(5) -1) + 1
+					//よりも大きい場合、↑の規定値を使用。 
+				}
 			}
 		}
 
@@ -130,6 +137,4 @@ class MyPagerClass {
 	}
 
 }
-
-
 
