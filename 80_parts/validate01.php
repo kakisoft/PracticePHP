@@ -66,5 +66,47 @@ class MyUtilClass {
         if (!preg_match('/\A[!-~]{4,8}\z/', $parameterValue)) {
             $this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
         }
-    }  
+    }
+
+	protected function checkForDateFormat($variableName, $parameterValue){
+		if (!isset($parameterValue) || $parameterValue == "") {
+			return "";
+		}
+
+		$dataArray = explode("/", $parameterValue);
+		if(count($dataArray) < 3){
+			$dataArray = explode("-", $parameterValue);
+		}
+
+		if(count($dataArray) >= 3){
+			if(checkdate($dataArray[1], $dataArray[2], $dataArray[0])) {
+				return "";
+			} else {
+				$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+				return "";
+			}
+
+		}else{
+			if(count($dataArray) >= 1){
+				if(strlen($dataArray[0]) != 8){
+					return "";
+					$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+				}else{
+					$yyyy = substr($dataArray[0], 0 , 4);
+					$mm   = substr($dataArray[0], 4 , 2);
+					$dd   = substr($dataArray[0], 6 , 4);
+					if(checkdate($mm, $dd, $yyyy)) {
+						return "";
+					} else {
+						$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+						return "";
+					}
+				}
+			}else{
+				return "";
+			}
+		}
+	}
+
+
 }
