@@ -274,6 +274,15 @@ Smarty_Variable Object (3)
 echo "$userParameters['errMessageArray']['email']";
 */
 
+
+// split
+$pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
+$pieces = explode(" ", $pizza);
+
+// join
+$array = array('lastname', 'email', 'phone');
+$comma_separated = implode(",", $array);
+
 //////  配列の結合 /////
 $pager["chunk"] = array_merge($pager["chunk"], $dynamicContentArray);
 $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
