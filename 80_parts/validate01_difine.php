@@ -95,6 +95,15 @@ class XiJmesseBaseClass {
 		}
 	}
 
+	protected function setErrorContentParams($mainKey, $subKeys){
+		foreach ($subKeys as $value) {
+			if($this->errContentArray[$value] == self::CONTAIN_ERROR_VALUE){
+				$this->errContentArray[$mainKey] = self::CONTAIN_ERROR_VALUE;
+				return;
+			}
+		}
+	}
+
 	protected function checkForRequired($variableName, $parameterValue){
 		if (!isset($parameterValue) || Xi_Jetro_Plugin_Utils::mb_trim($parameterValue) == "") {
 			if(trim($this->errMessageArray[$variableName]) != ""){
@@ -190,4 +199,46 @@ class XiJmesseBaseClass {
 			$this->errMessageArray[$variableName] .= sprintf(MY_LANG_Util_01::$util_message['validate_error_message_for_password_policy'], 4, 8);
 		}
 	}
+
+	// protected function checkForDateFormat($variableName, $parameterValue){
+	// 	if (!isset($parameterValue) || $parameterValue == "") {
+	// 		return "";
+	// 	}
+
+	// 	$dataArray = explode("/", $parameterValue);
+	// 	if(count($dataArray) < 3){
+	// 		$dataArray = explode("-", $parameterValue);
+	// 	}
+
+	// 	if(count($dataArray) >= 3){
+	// 		if(checkdate($dataArray[1], $dataArray[2], $dataArray[0])) {
+	// 			return "";
+	// 		} else {
+	// 			$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+	// 			return "";
+	// 		}
+
+	// 	}else{
+	// 		if(count($dataArray) >= 1){
+	// 			if(strlen($dataArray[0]) != 8){
+	// 				return "";
+	// 				$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+	// 			}else{
+	// 				$yyyy = substr($dataArray[0], 0, 4);
+	// 				$mm   = substr($dataArray[0], 4, 2);
+	// 				$dd   = substr($dataArray[0], 6, 4);
+	// 				if(checkdate($mm, $dd, $yyyy)) {
+	// 					return "";
+	// 				} else {
+	// 					$this->errContentArray[$variableName] = self::CONTAIN_ERROR_VALUE;
+	// 					return "";
+	// 				}
+	// 			}
+	// 		}else{
+	// 			return "";
+	// 		}
+	// 	}
+	// }
+
+
 }
