@@ -8,6 +8,12 @@
 
 echo "hello from the TOP!";
 
+const CANONICAL_TAG_TEMPLATE = "<link rel=\"canonical\" href=\"%s\">";
+
+// private $canonicalContents = "";
+// private $canonicalFullContents = "";
+
+
 //==========================
 //     外部ファイル読み込み
 // require: エラー時に fatal errorが発生して処理が終了。
