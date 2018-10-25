@@ -13,6 +13,10 @@ const CANONICAL_TAG_TEMPLATE = "<link rel=\"canonical\" href=\"%s\">";
 // private $canonicalContents = "";
 // private $canonicalFullContents = "";
 
+// $this->canonicalContents = "canonicalllllllll";
+// $this->canonicalFullContents = sprintf(self::CANONICAL_TAG_TEMPLATE, $this->canonicalContents);
+
+
 
 //==========================
 //     外部ファイル読み込み
