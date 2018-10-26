@@ -73,7 +73,7 @@ class User extends MyUtilClass {
             $stmt->bindValue(':created_user_id' ,$this->created_user_id);
             $stmt->execute();
         }
-        catch(MSM_Exception $e) {
+        catch(MY_EXCEPTION_01 $e) {
             $msg = $e->getMessage();
             echo "$msg\n";
         }
@@ -188,7 +188,7 @@ SQL;
             }
             $stmt->execute();
         }
-        catch(MSM_Exception $e) {
+        catch(MY_EXCEPTION_01 $e) {
             $msg = $e->getMessage();
             echo "$msg\n";
         }
@@ -238,34 +238,76 @@ SQL;
      */
     public static function delete($key) {
         try {
-            $sql = <<<SQL
-DELETE FROM xi_jmesse_user
-WHERE user_id = :user_id
-SQL;
-
-            $db = MSM_DB::master();
+            $db = MY_DB_UTIL_01::master();
+            $sql = "DELETE FROM users WHERE id = :id";
             $stmt = $db->prepare($sql);
-            $stmt->bindValue(':user_id', $key);
+            $stmt->bindValue(':id', $key);
             $stmt->execute();
 
             return;
          }
-         catch(MSM_Exception $e) {
+         catch(MY_EXCEPTION_01 $e) {
              $msg = $e->getMessage();
              echo "$msg\n";
              exit();
          }
-    }    
+    }
+
+    /**
+     * 
+     */
+    public static function getUserIdByEmail($email) {
+        try {
+            $db = MY_DB_UTIL_01::slave();
+            $sql = "SELECT user_id FROM users WHERE email = :email";
+            $stmt = $db->prepare($sql);				
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+
+            $recordSet = $stmt->fetchAll(MY_DB_UTIL_01::FETCH_ASSOC);
+            $userId = $recordSet[0]['user_id'];
+
+            return $userId;
+         }
+         catch(MY_EXCEPTION_01 $e) {
+             $msg = $e->getMessage();
+             echo "$msg\n";
+             exit();
+         }
+    }
+
+    /**
+     * 
+     */    
+    public static function getAllRecordCount() {
+        try {
+            $db = MY_DB_UTIL_01::slave();
+            $sql = "SELECT count(*) AS recoud_count FROM xi_jmesse_user";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+
+            $recordSet = $stmt->fetchAll(MY_DB_UTIL_01::FETCH_ASSOC);
+            $recordCount = (int)$recordSet[0]['recoud_count'];
+
+            return $recordCount;
+         }
+         catch(MY_EXCEPTION_01 $e) {
+             $msg = $e->getMessage();
+             echo "$msg\n";
+             exit();
+         }
+    }
+    
     /**
      * 
      */
     public function findById($id){
-        $db = MSM_DB::slave();
+        $db = MY_DB_UTIL_01::slave();
         $sql = "SELECT * from users WHERE id = :id ";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', MSM_Utils_Text::escHtml($id));
         $stmt->execute();
-        $recordSet = $stmt->fetchAll(MSM_DB_CONST::FETCH_ASSOC);
+        $recordSet = $stmt->fetchAll(MY_DB_UTIL_01::FETCH_ASSOC);
         $recordInstance = $recordSet[0];			
 
         return $recordInstance;
