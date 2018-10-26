@@ -73,7 +73,7 @@ class MY_LANG_Util_01 {
  *  ・エラー状態・エラーメッセージ管理
  * 　等
  ***********************************************/
-class XiJmesseBaseClass {
+class MyUtilBaseClass {
 	const ERROR_MESSAGE_SEPARATOR = "<br>";
 	public $errMessageArray = ["0", "Error checking Not execute yet"];  //Smarty側からもエラー内容を取り出せるようにするため、スコープを publicにしています。
 	public $hasError   = false; //本当は publicのgetterとprivateのsetterにしたかったけど、Smartyで取り出せるようにするため、スコープを publicにしています。
@@ -105,7 +105,7 @@ class XiJmesseBaseClass {
 	}
 
 	protected function checkForRequired($variableName, $parameterValue){
-		if (!isset($parameterValue) || Xi_Jetro_Plugin_Utils::mb_trim($parameterValue) == "") {
+		if (!isset($parameterValue) || MY_UTIL_01::mb_trim($parameterValue) == "") {
 			if(trim($this->errMessageArray[$variableName]) != ""){
 				$this->errMessageArray[$variableName] .= self::ERROR_MESSAGE_SEPARATOR;
 			}
@@ -114,7 +114,7 @@ class XiJmesseBaseClass {
 	}
 
 	protected function checkForRequiredSelect($variableName, $parameterValue){
-		if (!isset($parameterValue) || Xi_Jetro_Plugin_Utils::mb_trim($parameterValue) == "") {
+		if (!isset($parameterValue) || MY_UTIL_01::mb_trim($parameterValue) == "") {
 			if(trim($this->errMessageArray[$variableName]) != ""){
 				$this->errMessageArray[$variableName] .= self::ERROR_MESSAGE_SEPARATOR;
 			}
