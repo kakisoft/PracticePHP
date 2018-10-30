@@ -1,6 +1,10 @@
 <?php
 
     /**
+	 * 以下を削除
+	 * 　・左右の半角空白および全角空白
+	 * 　・タブ
+	 * 　・改行
 	 * 
 	 */
 	public static function sharpen($str) {
