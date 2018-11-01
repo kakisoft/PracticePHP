@@ -125,7 +125,60 @@ if($functionKey == "update"){
 【 日付を整形して出力 】
 https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
-{strtotime($userParameters.update_date)|date_format:"%G/%m/%d %H:%M:%S"}
+{strtotime($userParameters.update_date)|date_format:"%G/%m/%d %H:%M"}
+
+{$app.product_detail.updated_at|date_format:"%Y年 %m月 %d日"}
+
+{date('Y年 m月 d日', strtotime($userParameters.update_date))}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 置換 】
+
+{$param1|replace:"&lt;br/&gt;":"<br>"}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 include 】
+
+<head>
+{include file="include_common_head.tpl"}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 literal 】
+
+<script type="text/javascript">
+{literal}
+
+	function answer(url) {
+		if($("input[name=a_id]").filter(":checked").val()){
+ 			//is checked
+			$.ajax({
+		        url: url,
+		        type: "GET",
+		        data: {action_detailQuestionnaire : true, a_id : $("input[name=a_id]").filter(":checked").val(), lang : "J"},
+		        beforeSend: function(){
+		        	$("#questionnaire").attr("disabled", true);
+		        },
+		        success: function(response) {
+					if(response.trim()=='success'){
+						$("#question_area").hide();
+						$("#thank_you_area").show();
+						$("#thank_you").html("<br>&nbsp<br><span><b>Thank you for your response.</b></span><br />&nbsp");
+					} else {
+						//Err
+						$("#questionnaire").removeAttr("disabled");
+					}
+		        },
+		        error:function() {
+					//do Nothing
+					$("#questionnaire").removeAttr("disabled");
+		        }
+		    });
+	    }
+	}
+{/literal}
+</script>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
 ```
