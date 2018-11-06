@@ -136,7 +136,13 @@ $targetText = "AABBAA";
 // "A" という文字列を "×" に置換する
 $replaceText = str_replace("A", "×", $targetText);
 
+// 小文字に変更
+$str = "Mary Had A Little Lamb and She LOVED It So";
+$str = mb_strtolower($str);
 
+// 大文字に変更
+$str = "Mary Had A Little Lamb and She LOVED It So";
+$str = strtoupper($str);
 
 //==========================
 // if 条件分岐
