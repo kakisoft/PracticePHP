@@ -318,6 +318,11 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 // $newArray01 = array_merge($arrayFirst, $arraySecond)
 // $newArray02 = array_merge_recursive($arrayFirst, $arraySecond)
 
+//-----( map )-----
+$a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
+$a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
+
+
 //==========================
 //       foreach
 //==========================
