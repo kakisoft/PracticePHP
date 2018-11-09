@@ -323,6 +323,15 @@ $a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
 $a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
 
 
+//-----( 要素が含まれているか確認 )-----
+$os = array("Mac", "NT", "Irix", "Linux");
+if (in_array("Irix", $os)) {
+    echo "Got Irix";
+}
+if (in_array("mac", $os)) {
+    echo "Got mac";
+}
+
 //==========================
 //       foreach
 //==========================
