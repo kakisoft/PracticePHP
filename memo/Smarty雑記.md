@@ -134,6 +134,11 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
 {date('Y年 m月 d日', strtotime($userParameters.update_date))}
 
+
+＜英語形式＞
+【{$el.fair_start_date|date_format:$config.date}】 => Dec 4, 2018
+【{$smarty.now|date_format:"%A, %e %B %Y"} 】 => Tuesday, 13 November 2018 
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 置換 】
 
