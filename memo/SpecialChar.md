@@ -17,3 +17,33 @@ echo PHP_VERSION."<br>";//PHPのバージョン
 
 ```
 <http://php.vowshe.info/tag/__function__/>
+
+
+
+## スーパーグローバル
+http://php.net/manual/ja/language.variables.superglobals.php
+
+ * $GLOBALS
+ * $_SERVER
+ * $_GET
+ * $_POST
+ * $_FILES
+ * $_COOKIE
+ * $_SESSION
+ * $_REQUEST
+ * $_ENV
+
+
+
+```php
+<?php
+$var = '変数です。';//グローバルスコープのグローバル変数
+echo $var."<br/>\n";
+echo $GLOBALS['var']."<br/>\n";//グローバル変数の参照を含む
+?>
+
+//------
+変数です。
+変数です。
+
+```
