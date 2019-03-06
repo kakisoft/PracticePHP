@@ -191,3 +191,18 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
 
 ```
+## debug
+```
+
+====================================
+【 Smarty 】（ Smarty Debug Console  ）
+------------------------
+{debug}
+
+{php}
+
+{/php}
+------------------------
+
+
+```

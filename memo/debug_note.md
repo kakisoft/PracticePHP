@@ -5,6 +5,20 @@ var_dump($array);
 echo "</pre>";
 ```
 
+## エラー内容をブラウザ上に表示
+```php
+/etc/php.ini　（環境によってパスが違うかも）
+display_errors = Off　⇒  display_errors = On
+
+
+/* または、php のコードにて以下を指定 */
+
+// display_errorsをOFFに設定
+ini_set('display_errors', 0);
+
+// display_errorsをONに設定
+ini_set('display_errors', 1);
+```
 
 ## ログに吐いて確認
 **＜ サーバ側 ＞**  
@@ -30,23 +44,7 @@ ______________________________________________________
 
 # ログ出力設定
 
-## php.iniによる設定
-```
-display_errors = OFF
-　     ↓
-display_errors = ON
-```
 
-## ini_set関数を使用
-```php
-/* php のコードにて以下を指定 */
-
-// display_errorsをOFFに設定
-ini_set('display_errors', 0);
-
-// display_errorsをONに設定
-ini_set('display_errors', 1);
-```
 
 ## 表示するエラーのレベルを設定
 
@@ -84,6 +82,22 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 // 全てのエラーを表示
 error_reporting(E_ALL);
+```
+
+
+## debug_backtrace（ファイルパス）
+```php
+$traceArr = version_compare(phpversion(), '5.4.0') >=0 ? debug_backtrace(false, 1) : debug_backtrace();
+$path = $traceArr[0]['file'];
+
+echo "<pre>";
+print_r($traceArr);
+print_r($path);
+echo "</pre>";			
+
+
+//debug_backtrace(false, 1)    //第一引数： trueだとObject、falseだとArray。多分。
+                               //第二引数： 0 だと情報がいっぱい出てくる。
 ```
 
 ______________________________________________________
