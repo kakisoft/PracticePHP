@@ -12,3 +12,13 @@ setcookie("username", "taguchi"); // 第三引数にて、有効期限を設定�
 # ＜Cookieの取得＞
 # $_COOKIE という定義済みの変数があるので、それに対して 'username' というキーを与えてあげます。
 echo $_COOKIE['username'];
+
+
+//-----------
+//  トレース
+//-----------
+var_dump($_COOKIE);
+// print_r よりも、dmp のが良さげ。
+
+// あと、Chromo Developer Tools が便利。
+
