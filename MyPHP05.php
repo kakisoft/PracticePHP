@@ -7,3 +7,4 @@ var_dump($_SESSION['username']);
 echo "<br>";
 var_dump($_COOKIE['username']);
 
+//var_dump($_COOKIE);
