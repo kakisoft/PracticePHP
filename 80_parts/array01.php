@@ -20,3 +20,9 @@ return array_filter($domains, function ($d) use ($ignoreDomainList) {
 // ## array_filter
 // コールバック関数を使用して、配列の要素をフィルタリングする
 
+
+
+
+
+// // 文字列を配列にする
+// $secureUrlArray = [$secureUrlString];
