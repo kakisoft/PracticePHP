@@ -38,7 +38,7 @@ http://php.net/manual/ja/language.variables.superglobals.php
 // GET の値をそのまま取得可
 $_SERVER["QUERY_STRING"]
 
-//
+// https://www.mysite01?mode=assist&param1=aaa
 string 'mode=assist&param1=aaa' (length=24)
 
 $_SERVER
