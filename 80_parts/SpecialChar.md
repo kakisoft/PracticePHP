@@ -33,7 +33,18 @@ http://php.net/manual/ja/language.variables.superglobals.php
  * $_REQUEST
  * $_ENV
 
+## SERVER
+```php
+// GET の値をそのまま取得可
+$_SERVER["QUERY_STRING"]
 
+//
+string 'mode=assist&param1=aaa' (length=24)
+
+$_SERVER
+https://www.php.net/manual/ja/reserved.variables.server.php
+
+```
 
 ```php
 <?php
