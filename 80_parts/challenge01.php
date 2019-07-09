@@ -22,4 +22,6 @@ echo repeatNumber(5);
 
 
 
-//array_fill
+// function repeatNumber($n){
+//     return implode('',array_fill(0,$n,$n));
+// }
