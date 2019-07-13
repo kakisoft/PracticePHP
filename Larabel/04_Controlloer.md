@@ -44,6 +44,9 @@ dd は dump と die の略で結果を出力してその場で処理を終了さ
 ```php
 class PostsController extends Controller
 {
+    //==================================
+    // 
+    //==================================
     public function index() {
         // $posts = \App\Post::all();
         // $posts = Post::all();
@@ -66,10 +69,27 @@ class PostsController extends Controller
         // ＜方法２＞ with を使う
         return view('posts.index')->with('posts', $posts);
     }
+
+
+    //==================================
+    //  show アクション
+    //==================================
+
+/*
+    // public function show($id) {
+      // $post = Post::find($id);
+      $post = Post::findOrFail($id);
+      return view('posts.show')->with('post', $post);
+    }
+*/
+
+    // 【 Implicit Binding 】
+    // URL から $id を受け取り、 Controller でその $id を元にモデルを引っ張ってくるという流れはよく行うので、
+    // 暗黙的にモデルをデータに結びつける事ができる。
+    public function show(Post $post) {
+      return view('posts.show')->with('post', $post);
+    }
+
 }
 ```
-
-
-
-
 
