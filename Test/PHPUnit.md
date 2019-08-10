@@ -50,8 +50,13 @@ class AccountTest extends TestCase
         // $this->assertRegExp('/[-_]/', $password);
 
         
-        // $this->assertEmpty($stack);        
+        // $this->assertEmpty($stack);
 
+
+
+        $this->assertEmpty($stack);
+        $this->assertTrue(empty($this->stack));
+        $this->assertSame('foo', $this->stack[count($this->stack)-1]);
     }
 }
 
