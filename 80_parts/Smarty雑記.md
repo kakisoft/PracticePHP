@@ -148,7 +148,7 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 デフォルト値 】
 
-<input type="text" class="my_class01" name="something_name" id="something_name" maxlength="200" value="{{$value.something_name|default:"初期値だぞ！"}}" />
+<input type="text" class="my_class01" value="{{$value.something_name|default:"初期値だぞ！"}}" />
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 include 】
 
