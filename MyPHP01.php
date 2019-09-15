@@ -144,6 +144,11 @@ $str = mb_strtolower($str);
 $str = "Mary Had A Little Lamb and She LOVED It So";
 $str = strtoupper($str);
 
+// 改行コード(\nまたは\rまたは\r\n)を''(空文字)に置き換える
+$text = "";
+$text = preg_replace('/\r\n|\r|\n/', '', $text);
+
+
 //==========================
 // if 条件分岐
 //   比較演算子 >   <   >=   <=   ==   ===   !=   !==
@@ -537,6 +542,29 @@ function div27($a, $b) {
 
 div27(7, 2);
 div27(5, 0);
+
+
+//==========================
+//           改行
+//==========================
+//改行コード
+echo PHP_EOL;
+
+
+$message = "Melon\r\nBanana\r\nApple";
+ 
+echo nl2br($message);
+// Melon<br />
+// Banana<br />
+// Apple
+
+
+echo nl2br($message, false);
+// Melon<br>
+// Banana<br>
+// Apple
+
+
 ?>
 
 </body>
