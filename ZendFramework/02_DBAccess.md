@@ -52,7 +52,22 @@ ________________________________________________________________________________
     // $query_data = $result->fetchAll();
 
 ```
+_____________________________________________________________________________________
+## join
+joinLeft(【テーブル名】, 【JOIN条件】[, 【取得するカラム】])  
+https://pentan.info/php/zend_fw/zend_db_select.html
 
+```php
+$sql = $this->db->select()
+                // ユーザ
+                ->from( array( 'us' => 'users' ), $col )
+                    // 何かの状態
+                    ->joinleft( array( 'mtp' => _TBL_MS_PATTERN ), 'us.pattern_id = mtp.id', array() )
+                    // 何かの区分名称
+                    ->joinleft( array( 'cdscn' => _TBL_MS_M_COMMON_DETAIL ), 'us.some_category = cdscn.category_id and cdscn.common_id="17" ', array() )
+
+
+```
 _____________________________________________________________________________________
 ## update
 ```php

@@ -565,6 +565,27 @@ echo nl2br($message, false);
 // Apple
 
 
+//==========================
+//        current
+//==========================
+// current : 配列の現在の内部ポインタの要素の値を取得
+$array = array('Apple', 'Banana', 'Pineapple', 'Strawberry');
+echo $mode = current($array)."<br/>\n"; // Apple
+echo $mode = next($array)."<br/>\n"; // Banana
+echo $mode = current($array)."<br/>\n"; // Banana
+echo $mode = prev($array)."<br/>\n"; // Apple
+echo $mode = end($array)."<br/>\n"; // Strawberry
+echo $mode = current($array)."<br/>\n"; // Strawberry
+
+
+
+//==========================
+//        文字コード
+//==========================
+mb_convert_encoding( $ex->getMessage(), 'utf-8', 'shift_jis' );
+
+
+
 ?>
 
 </body>
