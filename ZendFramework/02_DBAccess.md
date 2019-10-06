@@ -52,6 +52,55 @@ ________________________________________________________________________________
     // $query_data = $result->fetchAll();
 
 ```
+
+
+## SELECTでIN()を使う場合
+http://nohohox.hateblo.jp/entry/20091226/1261850642  
+tableオブジェクトに対してWhereの指定を行う
+```php
+// テーブルオブジェクト
+// Zend_Db_Table_Abstractクラスを継承
+$table=new ItemTable($con);
+
+// 取得したいIDを配列で
+$idList=array(1,5,9,11,3);
+
+// Where句で渡すだけ
+$rowset=$table->fetchAll($table->select()->where("item_id IN(?)",$idList));
+
+var_dump($rowset);
+```
+
+## UPDATEでIN()を使う場合
+tableオブジェクトに対してではなく、アダプタを使用して、Whereの条件文字列を生成する  
+生成した条件文字列に対して、tableオブジェクトからupdate()メソッドを使用する
+```php
+// テーブルオブジェクト
+// Zend_Db_Table_Abstractクラスを継承
+$table=new ItemTable($con);
+
+// 取得したいIDを配列で
+$idList=array(1,5,9,11,3);
+
+// カラム名 => 値 の連想配列で
+// たとえば、在庫を0にする場合
+$data=array("stock"=>0);
+```
+
+
+## select
+```php
+// SELECT
+$select=$table->getAdapter()->quoteInto("order_number IN (?)",$idList);
+
+// var_dump($select);
+// string(*) "order_number IN ('1', '5', '9',......)" のような文字列が生成されている
+		
+// クエリー実行
+$table->update($data,$select);
+```
+
+
 _____________________________________________________________________________________
 ## join
 joinLeft(【テーブル名】, 【JOIN条件】[, 【取得するカラム】])  
