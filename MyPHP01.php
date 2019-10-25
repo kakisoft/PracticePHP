@@ -585,6 +585,21 @@ echo $mode = current($array)."<br/>\n"; // Strawberry
 mb_convert_encoding( $ex->getMessage(), 'utf-8', 'shift_jis' );
 
 
+//==========================
+//        to_string
+//==========================
+var_dump($select->__toString());
+
+
+//==========================
+//       int キャスト
+//==========================
+// 切り捨て
+echo intval(1.1);  echo PHP_EOL;
+echo intval(1.9);  echo PHP_EOL;
+echo intval(2.9);  echo PHP_EOL;
+
+
 
 ?>
 
