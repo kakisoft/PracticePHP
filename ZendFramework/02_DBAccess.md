@@ -167,6 +167,15 @@ ________________________________________________________________________________
     );
     $dbAdapter->insert("clients", $data);
 ```
+
+## insert後の last inserted id 
+```php
+$this->db->insert( self::TBL_NAME, $target_data );
+
+// last inserted id
+$target_data[self::PK] = $this->db->lastInsertId();
+```
 _____________________________________________________________________________________
+
 
 
