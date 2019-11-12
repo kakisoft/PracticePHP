@@ -5,7 +5,7 @@
 
 
 ## トランザクション
-```
+```php
 $db = MY_DB_UTIL::master();
 $db->query('BEGIN TRANSACTION');
 

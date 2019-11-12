@@ -81,6 +81,24 @@ echo "</pre>";
 {/foreach}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 foreachelse 】
+
+{foreach from=$office_list item=item name=loop}
+	<tr>
+		<td class="left">
+			{$item.telephone_number}
+		</td>
+	</tr>
+{foreachelse}
+	<tr>
+		<td class="center" colspan="5">
+			登録済の営業所はありません。
+		</td>
+	</tr>
+{/foreach}
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 for 】
 
 <ul>

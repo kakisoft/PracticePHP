@@ -601,6 +601,61 @@ echo intval(2.9);  echo PHP_EOL;
 
 
 
+//====================================
+//  特殊文字を HTML エンティティに変換
+//====================================
+$a1 = array("1","2","3","&","'","<",">",'"');
+$r1 = htmlspecialchars_recursive($a1);
+print_r($r1);
+// Array
+// (
+//     [0] => 1
+//     [1] => 2
+//     [2] => 3
+//     [3] => &amp;
+//     [4] => '
+//     [5] => &lt;
+//     [6] => &gt;
+//     [7] => &quot;
+// )
+
+function htmlspecialchars_recursive( $arg ) {
+
+    $callback = function(&$value) {
+        $value = htmlspecialchars($value);
+    };
+
+    array_walk_recursive( $arg, $callback );
+
+    return $arg;
+}
+
+//====================================
+//  HTML および PHP タグを取り除く
+//====================================
+$a2 = array("aa<br>bb","<?php  aaa<div>bbb</div>ccc");
+$r2 = strip_tags_recursive($a2);
+print_r($r2);
+// Array
+// (
+//     [0] => aabb
+//     [1] =>
+// )
+
+function strip_tags_recursive( $arg ) {
+
+    $callback = function(&$value) {
+        $value = strip_tags($value);
+    };
+
+    array_walk_recursive( $arg, $callback );
+
+    return $arg;
+}
+
+
+
+
 ?>
 
 </body>
