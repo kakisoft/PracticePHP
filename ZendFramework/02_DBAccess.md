@@ -97,7 +97,7 @@ $select=$table->getAdapter()->quoteInto("order_number IN (?)",$idList);
 // string(*) "order_number IN ('1', '5', '9',......)" のような文字列が生成されている
 		
 // クエリー実行
-$table->update($data,$select);
+$table->update($data, $select);
 ```
 
 
@@ -137,7 +137,36 @@ ________________________________________________________________________________
     $where = $dbAdapter->quoteInto('id = ?' , $pb_t_news_id);
     $dbAdapter->update(self::TBL_NAME, $detail, $where);
 ```
-_____________________________________________________________________________________
 
+```php
+//-----< 更新内容を取得 >-----
+$value_of_update = array(
+                      'company_id'       => $original_petition_record['transfer_target_company_id']
+                    , 'office_id'        => $original_petition_record['transfer_target_office_id']
+                    , 'update_user_id'   => $this->_userData['company_user_id']
+                    , 'update_datetime'  => date( "Y-m-d H:i:s", time() )
+                );
+
+$value_of_where = array(
+                    $this->db->quoteInto( 'client_id = ?' , $original_petition_record['client_id'] )
+                );
+
+//-----< 更新処理 >-----
+$this->db->update('clients', $value_of_update, $value_of_where );
+```
+_____________________________________________________________________________________
+## insert
+```php
+    global $dbAdapter;
+    $data = array();
+    $data = array(
+          'client_id'       => $original_record['client_id']
+        , 'estimate_id'     => "0"
+        , 'regist_user_id'  => $this->_userData['company_user_id']
+        , 'regist_datetime' => date( "Y-m-d H:i:s", time() )
+    );
+    $dbAdapter->insert("clients", $data);
+```
+_____________________________________________________________________________________
 
 
