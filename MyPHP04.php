@@ -13,3 +13,5 @@ echo $_SESSION['username'];
 
 // unset($_SESSION['username']); //セッション終了
 
+
+// session_destroy

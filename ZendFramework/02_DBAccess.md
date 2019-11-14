@@ -101,6 +101,36 @@ $table->update($data, $select);
 ```
 
 
+## orWhere
+```php
+    $select = $dbAdapter->select()->from( _COMPANIES_ . ' AS cmp', array( 'cmp.*' ) );
+
+	$select->joinleft(
+		_COMPANIES_.' AS ofc'
+		,'cmp.company_id = ofc.company_id'
+		,array(
+			'ofc.company_office_id',
+			'ofc.office_name',
+			'ofc.pb_branch_name',
+			'ofc.telephone_number AS company_office_telephone_number',
+			'ofc.fax_number AS company_office_fax_number',
+		)
+	);
+	// OR検索条件：利用
+	$or1 = $dbAdapter->select();
+
+	// 加盟店会社情報の会社名/会社名カナ/代表者名 部分一致
+	if(!empty($search_value['src_company_str'])){
+		$or1->orWhere('cmp.company_name LIKE ?', '%'.$search_value['src_company_str'].'%');
+		$or1->orWhere('cmp.company_name_kana LIKE ?', '%'.$search_value['src_company_str'].'%');
+		$or1->orWhere('cmp.represent_name LIKE ?', '%'.$search_value['src_company_str'].'%');
+	}
+
+	if (count($or1->getPart('where')) > 0) {
+		$select->where(implode('', $or1->getPart('where')));
+	}
+```
+
 _____________________________________________________________________________________
 ## join
 joinLeft(【テーブル名】, 【JOIN条件】[, 【取得するカラム】])  
@@ -176,6 +206,4 @@ $this->db->insert( self::TBL_NAME, $target_data );
 $target_data[self::PK] = $this->db->lastInsertId();
 ```
 _____________________________________________________________________________________
-
-
 
