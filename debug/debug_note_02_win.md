@@ -53,7 +53,7 @@ error_log(print_r($array01, true),'3','C:\logs\php\tmp_log_02.log');```
 
 ## 出力した値をリアルタイムでトレース
 ```
-tail -f tmp_log_02.log
+tail -f C:\logs\php\tmp_log_02.log
 ```
 
 
