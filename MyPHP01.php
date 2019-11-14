@@ -335,6 +335,11 @@ $a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
 $a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
 
 
+//-----( filter )-----
+// フィルタリング（先頭が '?' で開始する文字を対象外とする）
+$stringQueryExcludedRequestUri = array_filter($requestUri, function($v){ return strpos($v, '?') === 0 ? false : true; } );
+
+
 //-----( 要素が含まれているか確認 )-----
 $os = array("Mac", "NT", "Irix", "Linux");
 if (in_array("Irix", $os)) {

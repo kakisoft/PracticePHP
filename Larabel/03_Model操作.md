@@ -3,8 +3,8 @@
 ### コンソールから入力
 php artisan tinker
 
-```
-※デフォルトで名前空間が App になっている。
+```php
+//※デフォルトで名前空間が App になっている。
 
 $post = new App\Post();
 $post->title = 'title 1';
@@ -13,7 +13,7 @@ $post->save();
 
  -> true
 
-（内容確認）
+//（内容確認）
 APP\Post::all();
 App\Post::all()->toArray();
 
@@ -37,7 +37,7 @@ App\Post::create(['title'=>'title 2', 'body'=>'body 2']);
 
 
 ### CRUD
-```
+```php
 $post = new App\Post();
 
 // id が 3 のデータを参照
