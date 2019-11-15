@@ -56,4 +56,22 @@ error_log(print_r($array01, true),'3','C:\logs\php\tmp_log_02.log');```
 tail -f C:\logs\php\tmp_log_02.log
 ```
 
+_________________________________________________
+# cmder設定
+bash
+```
+vi ~/.bashrc
+```
+
+```
+alias ll='ls -la'
+alias tlog='tail -f /c/logs/php/tmp_log_02.log'
+alias clog=': >  /c/logs/php/tmp_log_02.log'
+```
+
+```
+source ~/.bashrc
+```
+
+
 
