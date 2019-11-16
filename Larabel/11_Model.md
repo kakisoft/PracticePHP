@@ -4,9 +4,17 @@ Eloquent モデル（エルクェントモデル？）と呼ばれていて SQL 
 _________________________________________________________
 ## マイグレーションの設定
 ```
+php artisan make:model Post --migration
+
+編集
+
+php artisan migrate
+
+
+------------------
+
 （ Model作成（以下は「Post」という名称） 今回の例では、myblog の階層で実行。）
 // その後にバージョン管理するためのマイグレーションファイルも作りたいので、 php artisan make:model Post --migration のようなオプションを付けてあげましょう。
-php artisan make:model Post --migration
 
 （こんな感じのファイルが作成される）
 database/migrations/2019_06_28_145931_create_posts_table.php
@@ -14,7 +22,6 @@ database/migrations/2019_06_28_145931_create_posts_table.php
 // down() はそれを巻き戻すための処理
 
 
-php artisan migrate
 
 ------------------------------------------
 （作成したテーブルを確認）
