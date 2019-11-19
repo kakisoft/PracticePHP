@@ -15,13 +15,17 @@ _________________________________________________________
 （プロジェクトのルート階層にて）
 php artisan make:model Post --migration
 
+　↓
+
 ファイルが作成される。
 「database\migrations\2019_11_19_101723_create_posts_table.php」
 など
 
+　↓
 
-編集
+作成された migrations ファイルを編集
 
+　↓
 
 php artisan migrate
 
