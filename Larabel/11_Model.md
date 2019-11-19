@@ -2,15 +2,28 @@
 Eloquent モデル（エルクェントモデル？）と呼ばれていて SQL を意識しなくても直感的にデータが操作できるようになっている。
 
 _________________________________________________________
+## 準備
+「.env」の設定  
+「database/migrations/」内のファイル削除  
+「database/database.sqlite」仮作成  
+等  
+
+
+_________________________________________________________
 ## マイグレーションの設定
 ```
 （プロジェクトのルート階層にて）
 php artisan make:model Post --migration
 
+ファイルが作成される。
+「database\migrations\2019_11_19_101723_create_posts_table.php」
+など
+
+
 編集
 
-php artisan migrate
 
+php artisan migrate
 
 ------------------
 
