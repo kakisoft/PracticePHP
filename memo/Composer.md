@@ -27,8 +27,32 @@ php composer-setup.php --install-dir=bin --filename=composer
 
 ## パッケージスト
 composer を使ってインストールできる定番パッケージリスト。  
-<https://packagist.org/>
+https://packagist.org/  
 
 
-https://twitteroauth.com/
+https://twitteroauth.com/  
+
+
+________________________________________________________________________
+# Win
+## composerインストール（Win）
+公式サイトより、「Composer-Setup.exe 」をダウンロード。
+
+
+```
+composer -V
+
+
+composer create-project --prefer-dist laravel/laravel myblog
+```
+
+
+## コマンドラインから
+まだ試してない。
+https://getcomposer.org/doc/00-intro.md#manual-installation
+
+
+_______________________________________________________________________
+
+
 

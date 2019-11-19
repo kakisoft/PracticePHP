@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up()  // up() このマイグレーションで行いたい処理
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down()  // down() はそれを巻き戻すための処理
     {
         Schema::dropIfExists('posts');
     }
