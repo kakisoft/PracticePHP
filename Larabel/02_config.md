@@ -14,7 +14,7 @@ DB_PASSWORD=secret
 DB_CONNECTION=sqlite
 
 ※注意※
-余計なものを消しておかないと、
+余計なものを消しておかないと、 
 Illuminate\Database\QueryException  : Database (homestead) does not exist. (SQL: PRAGMA foreign_keys = ON;)
 といったエラーが発生する。
 ```
@@ -36,5 +36,16 @@ Illuminate\Database\QueryException  : Database (homestead) does not exist. (SQL:
 ```
 
 _________________________________________________________
+## env-helper
+env と書かれている関数。こういの。  
+.env ファイルから値を持ってくるための命令。
+```php
+//app.php
+    'name' => env('APP_NAME', 'Laravel'),
+```
+（例）  
+app に関しては env の APP_NAME に値が設定されていたらそれを、値が設定されていなかったら Laravel を使う意味になる。
+
+
 
 

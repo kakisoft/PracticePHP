@@ -658,6 +658,35 @@ function strip_tags_recursive( $arg ) {
     return $arg;
 }
 
+//==========================
+//   null 合体演算子 (??)
+//==========================
+//https://www.php.net/manual/ja/migration70.new-features.php
+
+// $_GET['user'] を取得します。もし存在しない場合は
+// 'nobody' を用います。
+$username = $_GET['user'] ?? 'nobody';
+// 上のコードは、次のコードと同じ意味です。
+$username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
+
+// 合体演算子を連結することもできます。次のように書くと、
+// $_GET['user']、$_POST['user'] そして 'nobody'
+// の順に調べて、非 &null; が定義されている最初の値を返します。
+$username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
+
+
+
+//==========================
+//      宇宙船演算子 
+//==========================
+
+// 二つの式を比較するために使う。
+// $a が $b より大きい場合は 1、 $a と $b が等しい場合は 0、 $a が $b より小さい場合は -1 をそれぞれ返します。
+
+// 整数値
+echo 1 <=> 1; // 0
+echo 1 <=> 2; // -1
+echo 2 <=> 1; // 1
 
 
 
