@@ -20,6 +20,17 @@ File -> Preference -> User Snipets
         ],
         "description": "error log output 02"
     },
+
+    "var_dump_exit": {
+        "prefix": "de",
+        "body": [
+            "echo '<pre>';",
+            "var_dump($$value);",
+            "echo '</pre>';",
+            "exit;",
+        ],
+        "description": "var dump exit"
+    },
 ```
 
 「$」を表現する場合、「$$」  

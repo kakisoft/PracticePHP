@@ -50,6 +50,13 @@ sqlite3 database/database.sqlite
 ```
 
 _________________________________________________________
+## リセット（手動）
+ * Modelを削除（app/Post.php 等）
+ * migrationsファイルを削除（database\migrations/2019_11_20_101202_create_posts_table.php 等）
+ * DBを削除（database/database.sqlite 等）
+
+
+_________________________________________________________
 ## モデルをインタラクティブに操作
 
 ### コンソールから入力
