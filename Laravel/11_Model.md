@@ -12,7 +12,10 @@ _________________________________________________________
 _________________________________________________________
 ## マイグレーションの設定
 ```
-（プロジェクトのルート階層にて）
+＜ プロジェクトのルート階層にて実行 ＞
+
+（ Model作成。以下は「Post」という名称 ）
+// バージョン管理するためのマイグレーションファイルも作る場合、  --migration オプションを付与。
 php artisan make:model Post --migration
 
 　↓
@@ -31,14 +34,11 @@ php artisan migrate
 
 ------------------
 
-（ Model作成（以下は「Post」という名称） 今回の例では、myblog の階層で実行。）
-// その後にバージョン管理するためのマイグレーションファイルも作りたいので、 php artisan make:model Post --migration のようなオプションを付けてあげましょう。
 
-（こんな感じのファイルが作成される）
-database/migrations/2019_06_28_145931_create_posts_table.php
-// up() がこのマイグレーションで行いたい処理
-// down() はそれを巻き戻すための処理
-
+## Models 階層に作成
+php artisan make:model Models/Post                   # app/Models  に、ファイルが生成される。
+php artisan make:migration create_posts_table        # database/migrations/yyyy_mm_dd_hhmmss_create_posts_table.php に、ファイルが生成される。
+php artisan migrate                                  # DBにその内容が反映される。
 
 
 ------------------------------------------
@@ -47,6 +47,15 @@ sqlite3 database/database.sqlite
 .schema posts
 
 .quit
+```
+
+_________________________________________________________
+## 巻き戻し
+```
+php artisan migrate:rollback
+
+
+php artisan migrate:rollback --step=1
 ```
 
 _________________________________________________________
