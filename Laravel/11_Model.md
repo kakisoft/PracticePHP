@@ -50,6 +50,12 @@ sqlite3 database/database.sqlite
 ```
 
 _________________________________________________________
+## --migration オプション
+// --migration または -m オプション  
+// モデル作成時にデータベースマイグレーションも生成  
+https://readouble.com/laravel/5.4/ja/eloquent.html  
+
+_________________________________________________________
 ## 巻き戻し
 ```
 php artisan migrate:rollback
