@@ -99,6 +99,16 @@ echo "</pre>";
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 foreach 最初のレコード 】
+
+{{foreach from=$category_list item=category key=id name=main_loop}}
+	{{$category.category_name}}
+	{{if $smarty.foreach.main_loop.first}}
+		1st
+	{{/if}}
+{{/foreach}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 for 】
 
 <ul>
@@ -234,3 +244,9 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
 {$var|@debug_print_var}
 ```
+
+
+
+
+
+
