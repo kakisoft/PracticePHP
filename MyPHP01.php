@@ -284,6 +284,22 @@ array_push($array2, "a");
 array_push($array2, "bb");
 
 
+//-----< 末尾に要素を追加（ [] を使うパターン） >-----
+// array_push は、入れ子になってると上手く動かないケースがある？
+// array_push() expects parameter 1 to be array, string given in XXX
+
+//配列を設定する
+$fruits = ['apple', 'orange', 'melon'];
+//値を追加する
+$fruits[] = 'banana';
+$fruits[] = 'pineapple';
+
+
+//-----< 先頭に要素を追加 >-----
+// array_unshift
+
+
+
 //-----< 連結(join) >-----
 echo( join('<br>', $array2) );
 
@@ -571,7 +587,7 @@ echo nl2br($message, false);
 
 
 //==========================
-//        current
+//    current() / next() / prev()
 //==========================
 // current : 配列の現在の内部ポインタの要素の値を取得
 $array = array('Apple', 'Banana', 'Pineapple', 'Strawberry');
@@ -581,6 +597,24 @@ echo $mode = current($array)."<br/>\n"; // Banana
 echo $mode = prev($array)."<br/>\n"; // Apple
 echo $mode = end($array)."<br/>\n"; // Strawberry
 echo $mode = current($array)."<br/>\n"; // Strawberry
+
+
+
+//==========================
+//    reset() / end()
+//==========================
+// ポインタをリセットし、再度ステップ１開始します
+$array = array('step one', 'step two', 'step three', 'step four');
+next($array);
+reset($array);
+echo current($array) . "<br />\n"; // "step one"
+
+
+// end - 配列の内部ポインタを最終要素にセットする
+$fruits = array('リンゴ', 'バナナ', 'クランベリー');
+echo end($fruits); // クランベリー
+
+// array_key_last ((PHP 7 >= 7.3.0))
 
 
 

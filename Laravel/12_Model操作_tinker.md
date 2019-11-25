@@ -19,9 +19,11 @@ App\Post::all()->toArray();
 
 ```
 
+________________________________________________________________________
+# MassAssignmentエラーを回避
 
-### まとめて入力
-設定
+### まとめて入力（ MassAssignment 設定を変更）
+設定（ app/Models/ のファイルを編集）
 ```php
 class Post extends Model
 {

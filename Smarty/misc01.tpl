@@ -225,6 +225,12 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
 {/php}
 ------------------------
+セキュリティがTRUEだとダメみたい。
 
 
+{$var|@var_dump}
+
+{$var|@print_r}
+
+{$var|@debug_print_var}
 ```
