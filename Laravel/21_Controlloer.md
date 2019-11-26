@@ -11,7 +11,7 @@ Route::get('/posts/{id}', 'PostsController@show');  // show アクション
 
 ## コントローラ作成
 ```
-php artisan make:controller PostsControlloer
+php artisan make:controller PostsController
 
 
 /app/Http/Controllers/PostsControlloer.php
