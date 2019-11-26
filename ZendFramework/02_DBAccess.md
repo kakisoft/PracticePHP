@@ -15,6 +15,39 @@ $configuration = new Zend_Config_Ini(APPLICATION_PATH . '/config/app.ini', APPLI
 =================================================================
 ```
 
+## トランザクション
+```php
+$dbAdapter->beginTransaction();
+
+$dbAdapter->commit();
+
+$dbAdapter->rollback();
+```
+```php
+public function registDetail($value_list) {
+
+	try{
+		global $dbAdapter;
+
+		$dbAdapter->beginTransaction();
+		foreach ($value_list as $value) {
+			$sql = $this->getForRegistQuery($value);
+			$dbAdapter->query($sql);
+		}
+		$dbAdapter->rollback();
+
+		return true;
+
+	} catch( Exception $ex ){
+		//あとで書く
+		// throw new Exception("SQL実行エラー",$ex->getCode(),$ex);
+
+		return false;
+	}
+
+}
+```
+
 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 
 ## 生SQL
