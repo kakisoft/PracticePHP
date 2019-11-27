@@ -239,4 +239,28 @@ $this->db->insert( self::TBL_NAME, $target_data );
 $target_data[self::PK] = $this->db->lastInsertId();
 ```
 _____________________________________________________________________________________
+## merge(upsert)
+```php
+	global $dbAdapter;
+
+	$select = $dbAdapter->select();
+	$select->from( array('MY_TABLE_01' => 'MY_TABLE_01'));
+	$where = $dbAdapter->quoteInto('id = ?' , $value['id']);
+	$select->where($where);
+	$query_data = $dbAdapter->query($select)->fetchAll();
+	if(count($query_data) > 0){
+		$data = array();
+		$data['remarks'] = $value['remarks'];
+		$dbAdapter->update('MY_TABLE_01', $data, $where);
+
+	}
+	else{
+		$data = array();
+		$data['repor_id'] = 22;
+		$data['part_id']  = 33;
+		$data['remarks']  = "new";
+
+		$dbAdapter->insert('MY_TABLE_01', $data);
+	}
+```
 

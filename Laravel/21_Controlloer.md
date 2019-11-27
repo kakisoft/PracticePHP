@@ -1,5 +1,6 @@
 ## routs/web.php
 ```php
+// ↓ 「resources\views\welcome.blade.php」を返す
 // Route::get('/', function () {
 //     return view('welcome');
 // });

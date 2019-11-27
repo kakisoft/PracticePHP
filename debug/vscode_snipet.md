@@ -25,7 +25,7 @@ File -> Preference -> User Snipets
         "prefix": "de",
         "body": [
             "echo '<pre>';",
-            "var_dump($$value);",
+            "print_r($value);",
             "echo '</pre>';",
             "exit;",
         ],
