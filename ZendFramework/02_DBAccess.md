@@ -264,3 +264,32 @@ ________________________________________________________________________________
 	}
 ```
 
+_____________________________________________________________________________________
+## bindValue
+```php
+## bindValue
+//$db = Zend_Db::factory('PDO_SQLITE', $params);
+
+    // $dbAdapter = Zend_Db::factory($configuration->database);
+    global $dbAdapter;
+
+
+	$params = array();
+    $params['case_id'] = $case_id;
+    $params['category_id'] = $category_id;
+    if( !empty($direction_id) ){
+        $params['direction_id'] = $direction_id;
+    }
+
+
+    $result = $dbAdapter->query(
+        $sql,
+        $params
+    );
+    $fetchedData = $result->fetchAll();
+
+
+```
+
+_____________________________________________________________________________________
+
