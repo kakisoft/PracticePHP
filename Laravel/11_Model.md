@@ -73,7 +73,15 @@ _________________________________________________________
  * DBを削除（database/database.sqlite 等）
 
 _________________________________________________________
+## 12_Model_example01
+https://github.com/kakisoft/PracticePHP/blob/master/Laravel/12_Model_example01.md
 
+
+## 13_Model_operate_tinker
+https://github.com/kakisoft/PracticePHP/blob/master/Laravel/13_Model_operate_tinker.md
+
+
+_________________________________________________________
 ## SQLiteで確認
 ```
 （作成したテーブルを確認）
