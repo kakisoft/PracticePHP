@@ -80,6 +80,17 @@ echo "</pre>";
    <li>{$value@key}: {$value}</li>
 {/foreach}
 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 foreach（キーを含む２） 】
+https://www.smarty.net/docsv2/ja/language.function.foreach.tpl
+
+    {{foreach from=$category_list key=k item=v}}
+        <td class="row_head center color3" style="width:50px;">
+            {{$k}}<br>
+            {{$v}}
+        </td>
+    {{/foreach}}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 foreachelse 】
 
@@ -194,6 +205,14 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 【 キャスト 】
 {{$detail.report_id|intval}}
 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 計算 】
+間にスペースを空けてるとダメみたい。
+
+{$foo+1}
+
+{$foo*$bar}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 assign 】
