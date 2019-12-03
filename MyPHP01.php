@@ -365,6 +365,22 @@ if (in_array("mac", $os)) {
     echo "Got mac";
 }
 
+
+//-----( 特定の要素をカウント )-----
+//array_count_values() 
+
+$array = array(1, "hello", 1, "world", "hello");
+print_r(array_count_values($array));
+
+// Array
+// (
+//     [1] => 2
+//     [hello] => 2
+//     [world] => 1
+// )
+
+
+
 //==========================
 //       foreach
 //==========================
