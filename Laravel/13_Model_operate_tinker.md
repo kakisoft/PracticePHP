@@ -23,6 +23,9 @@ $post->save();
 //（内容確認）
 App\Models\Post::all();
 App\Models\Post::all()->toArray();
+App\Models\Post::all()->toJson();
+
+
 ```
 
 ________________________________________________________________________
@@ -52,17 +55,23 @@ $post = new App\Models\Post::where('id', '>', 1);
 $post = new App\Models\Post();
 
 // id が 3 のデータを参照
+App\Models\Post::find(1);     //findを使う場合、get や firstは不要
 App\Models\Post::find(1)->toArray();
+
 
 // id が 1 より大きいデータを取得
 App\Models\Post::where('id', '>', 1)->get();
 App\Models\Post::where('id', '>', 1)->get()->toArray();
+App\Models\Post::where('id', '>', 1)->first();
+
 
 // 並び替え
 App\Models\Post::where('id', '>', 1)->orderBy('created_at', 'desc')->get()->toArray();
 
+
 // limit
 App\Models\Post::where('id', '>', 1)->take(1)->get()->toArray();
+
 
 // 更新
 $post = App\Models\Post::find(1);
@@ -70,9 +79,11 @@ $post->title = 'title 3 updated';
 $post->save();
 App\Models\Post::all()->toArray();
 
+
 // 削除
 $post->delete();
 App\Models\Post::all()->toArray();
+
 
 ```
 

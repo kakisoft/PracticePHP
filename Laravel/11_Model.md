@@ -84,18 +84,21 @@ https://github.com/kakisoft/PracticePHP/blob/master/Laravel/13_Model_operate_tin
 _________________________________________________________
 ## SQLiteで確認
 ```
+（データ参照）
+sqlite3 database/database.sqlite
+select * from posts;
+.quit
+
+
+
+
 （作成したテーブルを確認）
 sqlite3 database/database.sqlite
 .schema posts
 
 .quit
-
-
-（データ参照）
-sqlite3 database/database.sqlite
-select * from posts;
-.quit
 ```
+
 
 
 

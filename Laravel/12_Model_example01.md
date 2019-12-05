@@ -1,4 +1,4 @@
-## add
+## create
 ```php
 <?php
 
@@ -46,10 +46,11 @@ php artisan make:migration add_user_id_to_posts_table --table=posts
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            // $table->string('summary');  //カラム追加
+            // カラム追加
+            // $table->string('summary');
 
+            // カラム追加（SQLite の場合）
             $table->string('summary')->default('default_value');
-            // ↑## SQLite の場合
             // [migrations] SQLite General error: 1 Cannot add a NOT NULL column with default value NULL
             // のエラーを回避。
         });
@@ -59,7 +60,8 @@ php artisan make:migration add_user_id_to_posts_table --table=posts
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('summary');  //カラムの削除
+            // カラムの削除
+            $table->dropColumn('summary');
         });
     }
 ```
