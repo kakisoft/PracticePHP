@@ -85,6 +85,17 @@ $post->delete();
 App\Models\Post::all()->toArray();
 
 
+// merge/upsert（未登録であれば insert、登録済みであれば update）
+$post = App\Models\Post::updateOrCreate(
+                                           ['id' => 1]
+                                          ,['title' => 'title 4', 'body' => 'body 4']
+                                       );
+
+// saveメソッドは、
+// 新しい Eloquent のインスタンスを作って新規に保存する
+// 既存の Eloquent のインスタンスを取得してから更新する
+// という使い方をすることが想定されている。
+
 ```
 
 ## _
