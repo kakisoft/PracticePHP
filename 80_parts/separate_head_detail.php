@@ -22,9 +22,9 @@ function getFormattedRecordData($response_data)
         if( $break_key != $el['category_id'] ){
 
             $header_array = array(
-                'category_id'    => $el['category_id'],
-                'category_name'                => $el['category_name'],
-                'detail_array'                 => array()
+                'category_id'   => $el['category_id'],
+                'category_name' => $el['category_name'],
+                'detail_array'  => array()
               );
 
             array_push($formattedResponseData, $header_array);
