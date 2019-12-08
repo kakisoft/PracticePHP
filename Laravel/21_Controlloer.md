@@ -6,7 +6,10 @@
 // });
 
 Route::get('/', 'PostsController@index');
-Route::get('/posts/{id}', 'PostsController@show');  // show アクション
+
+// コントローラに渡す値を設定。（ $id ）        show アクション
+Route::get('/posts/{id}', 'PostsController@show');
+
 ```
 
 
@@ -30,9 +33,21 @@ use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     public function index() {
-        return "hello";
+        // return "hello";
 
-        // return view('posts.index');
+        // フォルダの区切りは「.」となっている。
+        return view('posts.index');
+    }
+
+
+    public function show($id) {
+      // $post = Post::find($id);
+
+      // $id でデータが見つからなかった場合に、例外を返す。
+      $post = Post::findOrFail($id);
+
+
+      return view('posts.show')->with('post', $post);
     }
 }
 ```
@@ -43,6 +58,8 @@ dd は dump と die の略で結果を出力してその場で処理を終了さ
 
 ## Viewに値を渡す
 ```php
+use App\Models\Post;
+
 class PostsController extends Controller
 {
     //==================================
@@ -58,12 +75,18 @@ class PostsController extends Controller
         $posts = Post::latest()->get();
 
         // $posts = [];
-        // dd($posts->toArray()); // dump die
+
+
+        // dump die
+        // dd($posts->toArray());
 
         //----------------------------------------------
         //   resources/views/posts/index.blade.php 
         //----------------------------------------------
 
+        // return view('posts.index');　
+
+        // 【 引数の渡し方 】
         // ＜方法１＞ return view() の第 2 引数に渡す
         return view('posts.index', ['posts' => $posts]);　
 
