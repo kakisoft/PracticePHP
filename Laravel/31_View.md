@@ -47,15 +47,20 @@ ______________________________________
 <body>
   <div class="container">
     <h1>{{ $post->title }}</h1>
-    <!-- 改行を br タグに変換（中身をエスケープしないで値を出力） -->
-    <p>{!! nl2br(e($post->body)) !!}</p>
+    <!-- 中身をエスケープしないで値を出力 -->
+    <p>{!! nl2br(e($post->body)) !!}</p><!-- 改行を br タグに変換 -->
   </div>
 </body>
 </html>
 ```
 
+## resources\views\posts\preview.blade.php
+```
+（省略）
+```
+
 ### e()
-https://laravel.com/docs/master/helpers#method-e
+https://laravel.com/docs/master/helpers#method-e    
 The e function runs PHP's htmlspecialchars function with the double_encode option set to true by default:  
 ```php
 echo e('<html>foo</html>');
@@ -69,12 +74,15 @@ echo e('<html>foo</html>');
  * action
 など複数あるが、挙動に差異は無い。
 ```php
-      @forelse ($posts as $post)
-      <!-- <li><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></li> -->
-      <!-- <li><a href="{{ url('/posts', $post->id) }}">{{ $post->title }}</a></li> -->
-      <!-- <li><a href="{{ action('PostsController@show', $post->id) }}">{{ $post->title }}</a></li> -->
-      <li><a href="{{ action('PostsController@show', $post) }}">{{ $post->title }}</a></li>
-      @empty
+    @forelse ($posts as $post)
+        <li><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></li>
+
+        <li><a href="{{ url('/posts', $post->id) }}">{{ $post->title }}</a></li>
+
+        <li><a href="{{ action('PostsController@show', $post->id) }}">{{ $post->title }}</a></li>
+
+        <li><a href="{{ action('PostsController@preview', $post) }}">{{ $post->title }}</a></li>
+    @empty
 ```
 
 * url() を使う場合
