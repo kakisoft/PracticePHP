@@ -25,44 +25,12 @@ php artisan make:controller PostsController
 ```
 
 
-## app/Http/Controllers/PostsControlloer.php
+## dd
+dump & die。  
+結果を出力してその場で処理を終了させてくれる。  
 ```php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use App\Models\Post;
-
-class PostsController extends Controller
-{
-    public function index() {
-        // return "hello";
-
-        // フォルダの区切りは「.」となっている。
-        return view('posts.index');
-    }
-
-
-    public function show($id) {
-        // $post = Post::find($id);
-
-        // $id でデータが見つからなかった場合に、例外を返す。
-        $post = Post::findOrFail($id);
-
-
-        return view('posts.show')->with('post', $post);
-    }
-
-    public function preview(Post $post) {
-        return view('posts.preview')->with('post', $post);
-    }
-
-}
+        dd($posts->toArray());
 ```
-
-
-dd は dump と die の略で結果を出力してその場で処理を終了させてくれる命令になります。
 
 
 ## Viewに値を渡す
@@ -75,7 +43,7 @@ class PostsController extends Controller
     // 
     //==================================
     public function index() {
-        // $posts = \App\Post::all();
+        // $posts = \App\Models\Post::all();
         // $posts = Post::all();
         $posts = Post::orderBy('created_at', 'desc')->get();
 
@@ -86,8 +54,8 @@ class PostsController extends Controller
         // $posts = [];
 
 
-        // dump die
         // dd($posts->toArray());
+
 
         //----------------------------------------------
         //   resources/views/posts/index.blade.php 
@@ -107,22 +75,20 @@ class PostsController extends Controller
     //==================================
     //  show アクション
     //==================================
-
-/*
     // public function show($id) {
       // $post = Post::find($id);
       $post = Post::findOrFail($id);
       return view('posts.show')->with('post', $post);
     }
-*/
 
     // 【 Implicit Binding 】
     // URL から $id を受け取り、 Controller でその $id を元にモデルを引っ張ってくるという流れはよく行うので、
     // 暗黙的にモデルをデータに結びつける事ができる。
-    public function show(Post $post) {
+    public function preview(Post $post) {
       return view('posts.show')->with('post', $post);
     }
 
 }
 ```
+
 
