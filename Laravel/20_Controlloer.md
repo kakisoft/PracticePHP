@@ -13,9 +13,18 @@ Route::get('/posts/{id}', 'PostsController@show');
 // Implicit Binding
 Route::get('/posts/preview/{post}', 'PostsController@preview');
 
+// 正規表現で値のルールを指定
+Route::get('/books/{book}', 'BooksController@show')->where('book', '[0-9]+');
+
 ```
 
+#### 注意点
+```php
+Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
+Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。
+```
 
+________________________________________________________________________
 ## コントローラ作成
 ```
 php artisan make:controller PostsController
@@ -25,12 +34,24 @@ php artisan make:controller PostsController
 ```
 
 
+________________________________________________________________________
 ## dd
 dump & die。  
 結果を出力してその場で処理を終了させてくれる。  
 ```php
         dd($posts->toArray());
 ```
+
+## CSRF 対策
+```
+{{ csrf_field() }}
+```
+最終的には、
+```html
+<input type="hidden" name="_token" value="7753xoabfc5SK4hv1mJo3NGwC47DLZ2ZbmGoJihX">
+```
+といった値が出力される。  
+webミドルウェアグループに含まれている、VerifyCsrfToken ミドルウェアが動いている。（らしい）  
 
 
 ## Viewに値を渡す
@@ -81,7 +102,9 @@ class PostsController extends Controller
       return view('posts.show')->with('post', $post);
     }
 
-    // 【 Implicit Binding 】
+    //==================================
+    //  Implicit Binding
+    //==================================
     // URL から $id を受け取り、 Controller でその $id を元にモデルを引っ張ってくるという流れはよく行うので、
     // 暗黙的にモデルをデータに結びつける事ができる。
     public function preview(Post $post) {
