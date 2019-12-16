@@ -16,6 +16,9 @@ Route::get('/posts/preview/{post}', 'PostsController@preview');
 // 正規表現で値のルールを指定
 Route::get('/books/{book}', 'BooksController@show')->where('book', '[0-9]+');
 
+// 複数パラメータ
+Route::get('/sample/{a}/{b}', 'SampleController@test');
+
 ```
 
 #### 注意点
