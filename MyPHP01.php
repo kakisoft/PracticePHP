@@ -149,6 +149,21 @@ $text = "";
 $text = preg_replace('/\r\n|\r|\n/', '', $text);
 
 
+//-------------------
+//   文字列の検索
+//-------------------
+$mystring = 'abc';
+$findme   = 'a';
+$pos = strpos($mystring, $findme);
+
+// 見つからなかったら falseを返す
+if ($pos === false) {
+    echo "文字列 '$findme' は、文字列 '$mystring' の中で見つかりませんでした";
+} else {
+    echo "文字列 '$findme' が文字列 '$mystring' の中で見つかりました";
+    echo " 見つかった位置は $pos です";
+}
+
 //==========================
 // if 条件分岐
 //   比較演算子 >   <   >=   <=   ==   ===   !=   !==

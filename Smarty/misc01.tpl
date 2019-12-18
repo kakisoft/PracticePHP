@@ -214,6 +214,20 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 
 {$foo*$bar}
 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 定数（他に方法あるかも・・・） 】
+
+//php
+const DISP_SP_PATTERN_1 = "211";
+
+$this->view->assign('DISP_SP_PATTERN_1' , MyModel01::DISP_SP_PATTERN_1);
+
+
+//smarty
+{{if $detail.sp_input_id == $DISP_SP_PATTERN_1}}
+
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 assign 】
 {{assign var='detail1' value=$direc_detail.1}}
