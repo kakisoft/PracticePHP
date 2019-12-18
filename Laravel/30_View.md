@@ -41,3 +41,17 @@ URL がどうなっているかは知らなくてもいい
 
 という前提の違いがある。
 
+
+## Validate
+```php
+    <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
+    @if ($errors->has('title'))
+        <span class="error">{{ $errors->first('title') }}</span>
+    @endif
+
+    <textarea name="body" placeholder="enter body">{{ old('body') }}</textarea>
+    @if ($errors->has('body'))
+        <span class="error">{{ $errors->first('body') }}</span>
+    @endif
+```
+

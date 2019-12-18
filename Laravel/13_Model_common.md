@@ -4,18 +4,18 @@
 ```php
 class UserController extends Controller
 {
-    /**
-     * 新しいユーザーを保存
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $name = $request->input('name');
+    /**
+    * 新しいユーザーを保存
+    *
+    * @param  Request  $request
+    * @return Response
+    */
+    public function store(Request $request)
+    {
+        $name = $request->input('name');
 
-        //
-    }
+        //
+    }
 }
 ```
 
