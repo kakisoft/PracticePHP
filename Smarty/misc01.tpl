@@ -119,6 +119,16 @@ https://www.smarty.net/docsv2/ja/language.function.foreach.tpl
 	{{/if}}
 {{/foreach}}
 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 foreach インデックス番号 】
+
+{{foreach from=$category_list item=category key=id name=main_loop}}
+    『{{ $smarty.foreach.main_loop.index}}}』
+    {{$category.category_name}}
+{{/foreach}}
+
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 for 】
 
@@ -213,6 +223,14 @@ https://www.smarty.net/docs/ja/language.modifier.date.format.tpl
 {$foo+1}
 
 {$foo*$bar}
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【 math 】
+
+{math equation="x + y" x=$height y=$width}
+
+{{math equation=a+b a=$judgment_category_list|@count b=$smarty.foreach.loop.index+1}}
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
