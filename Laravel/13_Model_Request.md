@@ -19,24 +19,6 @@ class UserController extends Controller
 }
 ```
 
-
-
-## Validate
-https://readouble.com/laravel/5.8/ja/validation.html  
-```php
-    public function store(Request $request) {
-      $this->validate($request, [
-        'title' => 'required|min:3',
-        'body' => 'required'
-      ]);
-      $post = new Post();
-      $post->title = $request->title;
-      $post->body = $request->body;
-      $post->save();
-      return redirect('/');
-    }
-```
-
 _________________________________________________________________
 ## Request クラス作成
 ```
@@ -65,6 +47,9 @@ public function test(Request $request)
         $request->method(),
         // リクエストメソッドの取得
         $request->isMethod('post')
+
+        //// すべてのクエリストリングを取得
+        $query = $request->query();
     );
     return view('test.index');
 }
