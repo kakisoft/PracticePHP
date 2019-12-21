@@ -248,9 +248,11 @@ $this->view->assign('DISP_SP_PATTERN_1' , MyModel01::DISP_SP_PATTERN_1);
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【 assign 】
+{{assign var="assigned_value" value="何か出ろ"}}
+【{{$assigned_value}}】
+
+
 {{assign var='detail1' value=$direc_detail.1}}
-
-
 {{$detail1.name}}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
