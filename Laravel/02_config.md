@@ -48,4 +48,12 @@ app に関しては env の APP_NAME に値が設定されていたらそれを�
 
 
 
-
+_________________________________________________________
+## オートロード
+vendor/composer/autoload_classmap.php  
+composerが管理しているクラス。  
+「Class XXX not found」というエラーが発生した場合、composer がクラスを認識していない可能性がある。  
+その場合、以下のコマンドで解決。
+```
+composer dump-autoload
+```
