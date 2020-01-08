@@ -373,10 +373,10 @@ $stringQueryExcludedRequestUri = array_filter($requestUri, function($v){ return 
 
 //-----( 要素が含まれているか確認 )-----
 $os = array("Mac", "NT", "Irix", "Linux");
-if (in_array("Irix", $os)) {
+if (in_array("Irix", $os, true)) {
     echo "Got Irix";
 }
-if (in_array("mac", $os)) {
+if (in_array("mac", $os, true)) {
     echo "Got mac";
 }
 
@@ -394,6 +394,17 @@ print_r(array_count_values($array));
 //     [world] => 1
 // )
 
+
+//-----( キーのみを取得 )-----
+array_keys($a);
+
+
+//-----( 値のみを取得 )-----
+array_values($a);
+
+
+//-----( 重複を削除 )-----
+array_unique($template_list);
 
 
 //==========================
