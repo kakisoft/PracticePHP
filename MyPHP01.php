@@ -463,7 +463,41 @@ endforeach;
   <?php endforeach; ?>
 </ul>
 
+
 <?php
+
+//===================================
+//    current() / next() / prev()
+//===================================
+// current : 配列の現在の内部ポインタの要素の値を取得
+$array = array('Apple', 'Banana', 'Pineapple', 'Strawberry');
+echo $mode = current($array)."<br/>\n"; // Apple
+echo $mode = next($array)."<br/>\n"; // Banana
+echo $mode = current($array)."<br/>\n"; // Banana
+echo $mode = prev($array)."<br/>\n"; // Apple
+echo $mode = end($array)."<br/>\n"; // Strawberry
+echo $mode = current($array)."<br/>\n"; // Strawberry
+
+
+
+//===================================
+//        reset() / end()
+//===================================
+// ポインタをリセットし、再度ステップ１開始します
+$array = array('step one', 'step two', 'step three', 'step four');
+next($array);
+reset($array);
+echo current($array) . "<br />\n"; // "step one"
+
+
+// end - 配列の内部ポインタを最終要素にセットする
+$fruits = array('リンゴ', 'バナナ', 'クランベリー');
+echo end($fruits); // クランベリー
+
+// array_key_last ((PHP 7 >= 7.3.0))
+
+
+
 echo "<br>";
 //==========================
 //         関数
@@ -652,37 +686,6 @@ echo nl2br($message, false);
 // Melon<br>
 // Banana<br>
 // Apple
-
-
-//==========================
-//    current() / next() / prev()
-//==========================
-// current : 配列の現在の内部ポインタの要素の値を取得
-$array = array('Apple', 'Banana', 'Pineapple', 'Strawberry');
-echo $mode = current($array)."<br/>\n"; // Apple
-echo $mode = next($array)."<br/>\n"; // Banana
-echo $mode = current($array)."<br/>\n"; // Banana
-echo $mode = prev($array)."<br/>\n"; // Apple
-echo $mode = end($array)."<br/>\n"; // Strawberry
-echo $mode = current($array)."<br/>\n"; // Strawberry
-
-
-
-//==========================
-//    reset() / end()
-//==========================
-// ポインタをリセットし、再度ステップ１開始します
-$array = array('step one', 'step two', 'step three', 'step four');
-next($array);
-reset($array);
-echo current($array) . "<br />\n"; // "step one"
-
-
-// end - 配列の内部ポインタを最終要素にセットする
-$fruits = array('リンゴ', 'バナナ', 'クランベリー');
-echo end($fruits); // クランベリー
-
-// array_key_last ((PHP 7 >= 7.3.0))
 
 
 
