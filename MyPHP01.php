@@ -407,6 +407,32 @@ array_values($a);
 array_unique($template_list);
 
 
+//-----( 配列をソート )-----
+$fruits = array("lemon", "orange", "banana", "apple");
+sort($fruits);
+
+// fruits[0] = apple
+// fruits[1] = banana
+// fruits[2] = lemon
+// fruits[3] = orange
+
+
+//-----( 配列を逆順にソート )-----
+$fruits = array("lemon", "orange", "banana", "apple");
+rsort($fruits); 
+
+// 0 = orange
+// 1 = lemon
+// 2 = banana
+// 3 = apple
+
+
+//-----( 連想配列のソート )-----
+
+// arsort() - 連想キーと要素との関係を維持しつつ配列を逆順にソートする
+// krsort() - 配列をキーで逆順にソートする
+
+
 //==========================
 //       foreach
 //==========================
