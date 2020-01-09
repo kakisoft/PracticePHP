@@ -10,4 +10,10 @@ Zend だとこれ。
 ### fgets
 これでも行けるの？
 
+### HTTP_Request2
+時々見る。
+
+### Guzzle
+最近だとこれ？
+
 
