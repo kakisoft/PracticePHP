@@ -1,6 +1,13 @@
 https://pear.php.net/package/HTTP_Request2
 
 <?php
+/*
+
+$url = $this->_api_url . "/template/{$key}";
+$json = HttpClientUtils::getJson($url);
+
+*/
+
 
     // SSL対応版
     static function getJson( $url ) {
