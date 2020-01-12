@@ -428,9 +428,30 @@ rsort($fruits);
 
 
 //-----( 連想配列のソート )-----
+//// arsort() - 連想キーと要素との関係を維持しつつ配列を逆順にソートする
+$fruits = array("d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple");
+arsort($fruits);
+foreach ($fruits as $key => $val) {
+    echo "$key = $val\n";
+}
 
-// arsort() - 連想キーと要素との関係を維持しつつ配列を逆順にソートする
-// krsort() - 配列をキーで逆順にソートする
+// a = orange
+// d = lemon
+// b = banana
+// c = apple
+
+
+//// krsort() - 配列をキーで逆順にソートする
+$fruits = array("d"=>"lemon", "a"=>"orange", "b"=>"banana", "c"=>"apple");
+krsort($fruits);
+foreach ($fruits as $key => $val) {
+    echo "$key = $val\n";
+}
+
+// d = lemon
+// c = apple
+// b = banana
+// a = orange
 
 
 //==========================
