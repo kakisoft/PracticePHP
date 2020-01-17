@@ -923,7 +923,7 @@ var_dump($array_02);
 
 
 
-/**
+    /**
      *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
      *  
      *＜例＞
@@ -952,9 +952,9 @@ var_dump($array_02);
      *  戻り値：'ビン'
      * 
      * */
-    private function getRelativeValueFromTargetList($target_array, $target_keys_name, $target_keys_val, $value_of_you_want_keys_name) {
+     private function getRelativeValueFromTargetList($target_array, $target_keys_name, $target_keys_val, $value_of_you_want_keys_name) {
 
-          foreach($target_array as $value){
+    foreach($target_array as $value){
               if($value[$target_keys_name] === $target_keys_val) {
                   return $value[$value_of_you_want_keys_name];
               }
