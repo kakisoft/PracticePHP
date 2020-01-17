@@ -455,6 +455,46 @@ foreach ($fruits as $key => $val) {
 
 
 //==========================
+//     最大値・最小値
+//==========================
+echo max(2, 3, 1, 6, 7);   //=> 7
+echo max(array(2, 4, 5));  //=> 5
+
+
+echo min(2, 3, 1, 6, 7);   //=> 1
+echo min(array(2, 4, 5));  //=> 2
+
+
+$array = array(2,6,3,10,4);
+echo max($array);  //=> 10
+echo min($array);  //=> 2
+
+
+
+//==========================
+//         平均
+//==========================
+$params = [1, 2, 3, 4, 5];
+$total = array_sum($params);
+$average = round( $total / count($params), 0);
+
+echo $average;  //=> 3
+
+
+// 小数点第２位以下は切り捨て
+$tmp_params = [1,2];
+$tmp_avg_val_1 = round( array_sum($tmp_params) / count($tmp_params), 2, PHP_ROUND_HALF_DOWN);
+
+// 小数点第１位以下は切り捨て
+$tmp_avg_val_2 = floor( array_sum($tmp_params) / count($tmp_params) );
+
+
+echo $tmp_avg_val_1;  //=> 1.5
+echo $tmp_avg_val_2;  //=> 1
+
+
+
+//==========================
 //       foreach
 //==========================
 $sales14 = [
@@ -726,9 +766,52 @@ var_dump($select->__toString());
 //       int キャスト
 //==========================
 // 切り捨て
-echo intval(1.1);  echo PHP_EOL;
-echo intval(1.9);  echo PHP_EOL;
-echo intval(2.9);  echo PHP_EOL;
+echo intval(1.1);  echo PHP_EOL;  //=> 1
+echo intval(1.9);  echo PHP_EOL;  //=> 1
+echo intval(2.9);  echo PHP_EOL;  //=> 2
+
+
+//==========================
+//       string キャスト
+//==========================
+echo strval("3");  echo PHP_EOL;  //=> 3
+
+
+//==========================
+//       () キャスト
+//==========================
+(int)$value;
+(bool)$value;
+(float)$value;
+(string)$value;
+(array)$value;
+(object)$value;
+
+// (array) の挙動について
+//   ・NULL → 空の配列
+//   ・その他のスカラー値 → 1個だけ入った配列
+//   ・配列 → そのまま
+//   ・オブジェクト → プロパティ値をキーにした連想配列
+
+
+
+//=============================
+//        日付の差分
+//=============================
+$time = '2001/7/24';
+
+echo date_create($time)->diff(date_create())->format('%y');
+echo date_create($time)->diff(date_create())->format('%y歳 %mヶ月 %d日 %h時間 %i分 %s秒');
+
+
+
+
+//====================================
+//        メソッドの存在チェック
+//====================================
+if (method_exists($this->_account, $name) || preg_match('/^find/', $name)) {
+  return call_user_func_array(array($this->_account, $name), $args);
+}
 
 
 
@@ -815,6 +898,71 @@ echo 1 <=> 2; // -1
 echo 2 <=> 1; // 1
 
 
+
+//==========================
+//    クラスに設定する定数
+//==========================
+class TmpClass01
+{
+    const DIRECTION_ID_EAST  = 1;
+    const DIRECTION_ID_SOUTH = 2;
+    const DIRECTION_ID_WEST  = 3;
+    const DIRECTION_ID_NORTH = 4;
+
+    const CONST_ARRAY_01 = [1,2,3];  // PHP7 なら使用可
+
+    public static $PUBLIC_STATIC_ARRAY_01 = array(1, 3, 5);  // ↑の記述ができない古いPHPバージョンでの苦し紛れの策
+}
+
+$array_01 = TmpClass01::CONST_ARRAY_01;
+$array_02 = TmpClass01::$PUBLIC_STATIC_ARRAY_01;
+
+
+var_dump($array_01);
+var_dump($array_02);
+
+
+
+/**
+     *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
+     *  
+     *＜例＞
+     *第１引数（$target_array） : 
+     * Array
+     * (
+     *     [0] => Array
+     *         (
+     *             [detail_id] => 1
+     *             [category_id] => 10
+     *             [category_name] => '缶'
+     *         )
+     *     [1] => Array
+     *         (
+     *             [detail_id] => 2
+     *             [category_id] => 11
+     *             [category_name] => 'ビン'
+     *         )
+     * )
+     * 
+     *  第２引数（$target_keys_name） : "detail_id"
+     *  第３引数（$target_keys_val）    : 2 
+     *  第３引数（$value_of_you_want_keys_name） : "category_name"
+     * 
+     * 
+     *  戻り値：'ビン'
+     * 
+     * */
+    private function getRelativeValueFromTargetList($target_array, $target_keys_name, $target_keys_val, $value_of_you_want_keys_name) {
+
+          foreach($target_array as $value){
+              if($value[$target_keys_name] === $target_keys_val) {
+                  return $value[$value_of_you_want_keys_name];
+              }
+          }
+  
+          return null;
+      }
+  
 
 ?>
 
