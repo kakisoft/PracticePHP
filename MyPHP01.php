@@ -904,14 +904,14 @@ echo 2 <=> 1; // 1
 //==========================
 class TmpClass01
 {
-    const DIRECTION_ID_EAST  = 1;
-    const DIRECTION_ID_SOUTH = 2;
-    const DIRECTION_ID_WEST  = 3;
-    const DIRECTION_ID_NORTH = 4;
+    const DIRECTION_ID_EAST  = 1;
+    const DIRECTION_ID_SOUTH = 2;
+    const DIRECTION_ID_WEST  = 3;
+    const DIRECTION_ID_NORTH = 4;
 
-    const CONST_ARRAY_01 = [1,2,3];  // PHP7 なら使用可
+    const CONST_ARRAY_01 = [1,2,3];  // PHP7 なら使用可
 
-    public static $PUBLIC_STATIC_ARRAY_01 = array(1, 3, 5);  // ↑の記述ができない古いPHPバージョンでの苦し紛れの策
+    public static $PUBLIC_STATIC_ARRAY_01 = array(1, 3, 5);  // ↑の記述ができない古いPHPバージョンでの苦し紛れの策
 }
 
 $array_01 = TmpClass01::CONST_ARRAY_01;
@@ -923,7 +923,7 @@ var_dump($array_02);
 
 
 
-    /**
+     /**
      *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
      *  
      *＜例＞
@@ -954,15 +954,15 @@ var_dump($array_02);
      * */
      private function getRelativeValueFromTargetList($target_array, $target_keys_name, $target_keys_val, $value_of_you_want_keys_name) {
 
-    foreach($target_array as $value){
-              if($value[$target_keys_name] === $target_keys_val) {
-                  return $value[$value_of_you_want_keys_name];
-              }
-          }
-  
-          return null;
-      }
-  
+         foreach($target_array as $value){
+             if($value[$target_keys_name] === $target_keys_val) {
+                 return $value[$value_of_you_want_keys_name];
+             }
+         }
+
+         return null;
+     }
+
 
 ?>
 
