@@ -570,7 +570,7 @@ sayHi14("John");
 
 function sayHi15($name = "taguchi") { //引数のデフォルト値を設定
   $lang = "php";
-  echo "hi! $name from $lang";  
+  echo "hi! $name from $lang";
   return "hi! " . $name;
 }
 
@@ -774,7 +774,7 @@ echo intval(2.9);  echo PHP_EOL;  //=> 2
 //==========================
 //       string キャスト
 //==========================
-echo strval("3");  echo PHP_EOL;  //=> 3
+echo strval("3");  echo PHP_EOL;  //=> 3
 
 
 //==========================
@@ -835,13 +835,13 @@ print_r($r1);
 
 function htmlspecialchars_recursive( $arg ) {
 
-    $callback = function(&$value) {
-        $value = htmlspecialchars($value);
-    };
+    $callback = function(&$value) {
+        $value = htmlspecialchars($value);
+    };
 
-    array_walk_recursive( $arg, $callback );
+    array_walk_recursive( $arg, $callback );
 
-    return $arg;
+    return $arg;
 }
 
 //====================================
@@ -858,13 +858,13 @@ print_r($r2);
 
 function strip_tags_recursive( $arg ) {
 
-    $callback = function(&$value) {
-        $value = strip_tags($value);
-    };
+    $callback = function(&$value) {
+        $value = strip_tags($value);
+    };
 
-    array_walk_recursive( $arg, $callback );
+    array_walk_recursive( $arg, $callback );
 
-    return $arg;
+    return $arg;
 }
 
 //==========================
