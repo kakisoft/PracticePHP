@@ -158,10 +158,10 @@ $pos = strpos($mystring, $findme);
 
 // 見つからなかったら falseを返す
 if ($pos === false) {
-    echo "文字列 '$findme' は、文字列 '$mystring' の中で見つかりませんでした";
+    echo "文字列 '$findme' は、文字列 '$mystring' の中で見つかりませんでした";
 } else {
-    echo "文字列 '$findme' が文字列 '$mystring' の中で見つかりました";
-    echo " 見つかった位置は $pos です";
+    echo "文字列 '$findme' が文字列 '$mystring' の中で見つかりました";
+    echo " 見つかった位置は $pos です";
 }
 
 //==========================
