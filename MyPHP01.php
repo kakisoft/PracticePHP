@@ -94,12 +94,14 @@ echo $msg;
 echo "<br>";
 var_dump($msg); //変数の型をトレース
 
+
 //==========================
 //          定数
 //==========================
 define("MY_EMAIL", "taguchi@dotinstall.com");
 echo MY_EMAIL;
 echo "<br>";
+
 
 //=============================
 // 特殊用途の定数（自動的に定義）
@@ -108,6 +110,7 @@ var_dump(__LINE__); // 現在の行数
 var_dump(__FILE__); // ファイル名
 var_dump(__DIR__);  // ディレクトリ 
 echo "<br>";
+
 
 //==========================
 //      数値型の演算
@@ -131,8 +134,8 @@ $x2 = $x2 * 2;
 $x2 *= 2;
 var_dump($x2);
 
-echo "<br>";
 
+echo "<br>";
 //==========================
 // 文字列
 // "" 特殊文字(\n, \t) 、変数が展開される
@@ -177,10 +180,10 @@ $text = preg_replace('/\r\n|\r|\n/', '', $text);
 
 
 //-------------------
-//   文字列の検索
+//    文字列の検索
 //-------------------
 $mystring = 'abc';
-$findme   = 'a';
+$findme   = 'a';
 $pos = strpos($mystring, $findme);
 
 // 見つからなかったら falseを返す
@@ -536,17 +539,17 @@ foreach ($fruits as $key => $val) {
 //==========================
 //     最大値・最小値
 //==========================
-echo max(2, 3, 1, 6, 7);   //=> 7
-echo max(array(2, 4, 5));  //=> 5
+echo max(2, 3, 1, 6, 7);   //=> 7
+echo max(array(2, 4, 5));  //=> 5
 
 
-echo min(2, 3, 1, 6, 7);   //=> 1
-echo min(array(2, 4, 5));  //=> 2
+echo min(2, 3, 1, 6, 7);   //=> 1
+echo min(array(2, 4, 5));  //=> 2
 
 
 $array = array(2,6,3,10,4);
-echo max($array);  //=> 10
-echo min($array);  //=> 2
+echo max($array);  //=> 10
+echo min($array);  //=> 2
 
 
 
@@ -557,7 +560,7 @@ $params = [1, 2, 3, 4, 5];
 $total = array_sum($params);
 $average = round( $total / count($params), 0);
 
-echo $average;  //=> 3
+echo $average;  //=> 3
 
 
 // 小数点第２位以下は切り捨て
@@ -568,8 +571,8 @@ $tmp_avg_val_1 = round( array_sum($tmp_params) / count($tmp_params), 2, PHP_ROUN
 $tmp_avg_val_2 = floor( array_sum($tmp_params) / count($tmp_params) );
 
 
-echo $tmp_avg_val_1;  //=> 1.5
-echo $tmp_avg_val_2;  //=> 1
+echo $tmp_avg_val_1;  //=> 1.5
+echo $tmp_avg_val_2;  //=> 1
 
 
 
@@ -707,7 +710,7 @@ class User {
   // finalを付けると、オーバーライド不可。
   final public function sayYes() {
     echo "Yes. I am $this->name!";
-  }  
+  }
 
   // staticメソッド
   public static function getMessage() {
@@ -851,15 +854,15 @@ var_dump($select->__toString());
 //       int キャスト
 //==========================
 // 切り捨て
-echo intval(1.1);  echo PHP_EOL;  //=> 1
-echo intval(1.9);  echo PHP_EOL;  //=> 1
-echo intval(2.9);  echo PHP_EOL;  //=> 2
+echo intval(1.1);  echo PHP_EOL;  //=> 1
+echo intval(1.9);  echo PHP_EOL;  //=> 1
+echo intval(2.9);  echo PHP_EOL;  //=> 2
 
 
 //==========================
 //       string キャスト
 //==========================
-echo strval("3");  echo PHP_EOL;  //=> 3
+echo strval("3");  echo PHP_EOL;  //=> 3
 
 
 //==========================
@@ -971,7 +974,7 @@ $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 
 
 //==========================
-//      宇宙船演算子 
+//      宇宙船演算子
 //==========================
 
 // 二つの式を比較するために使う。
@@ -989,14 +992,14 @@ echo 2 <=> 1; // 1
 //==========================
 class TmpClass01
 {
-    const DIRECTION_ID_EAST  = 1;
+    const DIRECTION_ID_EAST  = 1;
     const DIRECTION_ID_SOUTH = 2;
-    const DIRECTION_ID_WEST  = 3;
+    const DIRECTION_ID_WEST  = 3;
     const DIRECTION_ID_NORTH = 4;
 
-    const CONST_ARRAY_01 = [1,2,3];  // PHP7 なら使用可
+    const CONST_ARRAY_01 = [1,2,3];   // PHP7 なら使用可
 
-    public static $PUBLIC_STATIC_ARRAY_01 = array(1, 3, 5);  // ↑の記述ができない古いPHPバージョンでの苦し紛れの策
+    public static $PUBLIC_STATIC_ARRAY_01 = array(1, 3, 5);  // ↑の記述ができない古いPHPバージョンでの苦し紛れの策
 }
 
 $array_01 = TmpClass01::CONST_ARRAY_01;
