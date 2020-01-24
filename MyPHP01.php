@@ -36,6 +36,10 @@ require "resources/Team.class.php";
 //   require "resources/". $class . ".class.php";
 // });
 
+
+//===========================
+//  use - 名前空間のインポート
+//===========================
 use Kakisoft\Lib as Lib;
 # use Kakisoft\Lib;
 
@@ -52,6 +56,29 @@ $TokkouyarouA->sayHi();
 <body>
   <p>Hello World <?php echo " from PHP"; ?></p>
 <?php
+
+
+
+//=============================
+//       ヒアドキュメント
+//=============================
+$string_01 = <<<HTML
+変数を解釈する
+HTML;
+
+
+$this_alias = 'alias_01';
+$html_01 = <<<HTML
+変数を解釈する
+<form name="admin_login" id="admin_login" method="POST" action="{$this_alias}">
+HTML;
+
+
+$html_02 = <<<'HTML'
+そのまま表示する
+<form name="admin_login" id="admin_login" method="POST" action="{$this_alias}">
+HTML;
+
 
 //==========================
 // データ型:
@@ -365,10 +392,62 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 $a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
 $a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
 
+$array_01 = ["1", "2", "", "3", "4", null, "5"];
+$manipulated_array_01 = array_map(function($v) { return intval($v); }, $array_01 );  //=> [1, 2, 0, 3, 4, 0, 5]
+$manipulated_array_02 = array_map('intval', $array_01);                              //=> [1, 2, 0, 3, 4, 0, 5]  （↑と同じ）
+
+
 
 //-----( filter )-----
 // フィルタリング（先頭が '?' で開始する文字を対象外とする）
 $stringQueryExcludedRequestUri = array_filter($requestUri, function($v){ return strpos($v, '?') === 0 ? false : true; } );
+
+$array_11 = [1, 2, null, 3, 4, 0, 5];
+$filterd_array_01 = array_filter($array_11);  // コールバック関数省略時、FALSE と等しいもの (boolean への変換 を参照ください) がすべて削除されます。
+//// インデックスは変わらない？
+// Array
+// (
+//     [0] => 1
+//     [1] => 2
+//     [3] => 3
+//     [4] => 4
+//     [6] => 5
+// )
+
+$filterd_array_02 = array_filter($array_11, "odd");   //=> [1, 3, 5]
+$filterd_array_03 = array_filter($array_11, "even");  //=> [2,  , 4,  0]
+
+//-----------------------
+function odd($var)
+{
+    // returns whether the input integer is odd
+    return($var & 1);
+}
+
+function even($var)
+{
+    // returns whether the input integer is even
+    return(!($var & 1));
+}
+//-----------------------
+
+
+//-----( 便利関数 )-----
+$string_a01 = 
+<<<STRING
+a
+bb
+ccc
+STRING;
+// My favourite use of this function is converting a string to an array, trimming each line and removing empty lines:
+$array_a01 = array_filter(array_map('trim', explode("\n", $string_a01)), 'strlen');
+
+// Array
+// (
+//     [0] => a
+//     [1] => bb
+//     [2] => ccc
+// )
 
 
 //-----( 要素が含まれているか確認 )-----
@@ -736,8 +815,10 @@ echo PHP_EOL;
 
 
 $message = "Melon\r\nBanana\r\nApple";
- 
+
+// string に含まれるすべての改行文字 (\r\n、 \n\r、\n および \r) の前に <br /> あるいは <br> を挿入して返します。 
 echo nl2br($message);
+
 // Melon<br />
 // Banana<br />
 // Apple
@@ -748,6 +829,10 @@ echo nl2br($message, false);
 // Banana<br>
 // Apple
 
+
+//-----( <br>を改行に置換・・・するメソッドは無いんかな。 )-----
+$str_02 = "line1<br>line2<br>line3";
+$replaceText = str_replace("<br>", PHP_EOL, $str_02);
 
 
 //==========================
