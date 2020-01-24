@@ -245,6 +245,45 @@ ________________________________________________________________________________
 ```
 
 _____________________________________________________________________________________
+## where : in への引数
+```php
+global $dbAdapter;
+
+    $select = $dbAdapter->select();
+    $table = array(
+        MY_TABLE_01 => MY_TABLE_01
+    );
+    $column = array(
+                'item_id',
+                'item_quantity'
+            );
+    $select->from($table, $column);
+    $select->where("report_id  = ?", $report_id);
+    $select->where("checked_item_id in (?)", $checked_item_id_list);  // 配列を引数に渡す
+    $query_data = $dbAdapter->query($select)->fetchAll();
+```
+
+_____________________________________________________________________________________
+## select : join, where, order by
+```php
+$select = $this->dbAdapter->select()
+                                ->from( array( 'my_table_01' => 'my_table_01' ), $column )
+                                ->joinleft( array( 'buildings' => 'buildings' ),'ptbd.building_id = ptb.building_id', '*' )
+                                ->joinleft( array( 'clients' => 'clients' ),'ptbd.client_id = ptcl.client_id', '*' )
+                                ->where( 'my_table_01.client_id > ?', 0)
+                                ->where( 'my_table_01.service_id = ?', 1 )
+                                ->where( 'my_table_01.del_flag = ?', 0 )
+                                ->where( 'my_table_01.building_detail_id IN(?)', $idList )
+                                ->where( 'tc.id is null', '' )
+                                ->order( 'ptbd.building_detail_id' )
+
+    $select->order(array(
+        "category_id DESC",
+        "chart_id",
+    ));
+```
+
+_____________________________________________________________________________________
 ## bindValue
 ```php
 ## bindValue
