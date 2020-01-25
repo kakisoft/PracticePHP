@@ -302,21 +302,21 @@ echo "<br>";
 //==========================
 // key value
 $sales13A = array(
-  "taguchi" => 200,
-  "fkoji" => 800,
-  "dotinstall" => 600,
+  "kaki" => 200,
+  "ogawa" => 800,
+  "shin" => 600,
 );
 
 // PHP5.4～
 $sales13B = [
-  "taguchi" => 200,
-  "fkoji" => 800,
-  "dotinstall" => 600,
+  "kaki" => 200,
+  "ogawa" => 800,
+  "shin" => 600,
 ];
 
-var_dump($sales13B["fkoji"]); // 800
-$sales13B["fkoji"] = 900;
-var_dump($sales13B["fkoji"]); // 900
+var_dump($sales13B["ogawa"]); // 800
+$sales13B["ogawa"] = 900;
+var_dump($sales13B["ogawa"]); // 900
 
 $colors13 = ["red", "blue", "pink"];
 var_dump($colors13[1]); // blue
@@ -626,9 +626,9 @@ var_export(array_column($rows, 'title', 'id'));
 //       foreach
 //==========================
 $sales14 = [
-  "taguchi" => 200,
-  "fkoji" => 800,
-  "dotinstall" => 600,
+  "kaki" => 200,
+  "ogawa" => 800,
+  "shin" => 600,
 ];
 
 foreach ($sales14 as $key => $value) {
@@ -696,7 +696,7 @@ function sayHi14($name) {
 }
 sayHi14("John");
 
-function sayHi15($name = "taguchi") { //引数のデフォルト値を設定
+function sayHi15($name = "kaki") { //引数のデフォルト値を設定
   $lang = "php";
   echo "hi! $name from $lang";
   return "hi! " . $name;
