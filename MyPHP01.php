@@ -98,7 +98,7 @@ var_dump($msg); //変数の型をトレース
 //==========================
 //          定数
 //==========================
-define("MY_EMAIL", "taguchi@dotinstall.com");
+define("MY_EMAIL", "kakinohana@kakisoft.com");
 echo MY_EMAIL;
 echo "<br>";
 
