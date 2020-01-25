@@ -391,6 +391,14 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 // $newArray01 = array_merge($arrayFirst, $arraySecond)
 // $newArray02 = array_merge_recursive($arrayFirst, $arraySecond)
 
+
+//文字列⇒配列化
+$piecesUserId = explode(" ", preg_replace('/\s+/', ' ', trim($_GET['user_id'])));
+
+//配列⇒文字列
+$separatedArray = implode(",", $pieces);
+
+
 //-----( map )-----
 $a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
 $a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
@@ -582,6 +590,36 @@ $tmp_avg_val_2 = floor( array_sum($tmp_params) / count($tmp_params) );
 echo $tmp_avg_val_1;  //=> 1.5
 echo $tmp_avg_val_2;  //=> 1
 
+
+//==============================================================
+//                       array_column
+//==============================================================
+$rows = [
+  0 => [ 'id' => 40, 'title' => 'dave',    'comment' => 'Hello, world!'],
+  1 => [ 'id' => 10, 'title' => 'alice',   'comment' => '你好，世界！'],
+  2 => [ 'id' => 30, 'title' => 'charlie', 'comment' => 'こんにちは、世界！' ],
+  3 => [ 'id' => 20, 'title' => 'bob',     'comment' => 'Salve , per omnia saecula !' ],
+];
+
+//------------------------------------------------
+var_export(array_column($rows, 'id'));
+// =>
+// array (
+//   0 => 40,
+//   1 => 10,
+//   2 => 30,
+//   3 => 20,
+// )
+
+//------------------------------------------------
+var_export(array_column($rows, 'title', 'id'));
+// =>
+// array (
+//   40 => 'dave',
+//   10 => 'alice',
+//   30 => 'charlie',
+//   20 => 'bob',
+// )
 
 
 //==========================
