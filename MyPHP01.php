@@ -417,6 +417,14 @@ $filterd_array_01 = array_filter($array_11);  // コールバック関数省略�
 //     [6] => 5
 // )
 
+
+//「無視リストにあるドメインは false を返す」みたいな感じの。
+return array_filter($domains, function ($d) use ($ignoreDomainList) {
+  return !in_array($d, $ignoreDomainList);
+});
+
+
+// 自前で作ったメソッドをコールするパターン
 $filterd_array_02 = array_filter($array_11, "odd");   //=> [1, 3, 5]
 $filterd_array_03 = array_filter($array_11, "even");  //=> [2,  , 4,  0]
 
@@ -501,7 +509,7 @@ sort($fruits);
 
 //-----( 配列を逆順にソート )-----
 $fruits = array("lemon", "orange", "banana", "apple");
-rsort($fruits); 
+rsort($fruits);
 
 // 0 = orange
 // 1 = lemon
