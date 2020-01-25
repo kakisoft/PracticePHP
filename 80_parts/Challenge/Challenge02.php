@@ -1,7 +1,7 @@
 <?php
 function repeatNumber($n){
 
-    class Challenge {        
+    class Challenge {
         function ret1(){ return 1; }
         function ret2(){ return 22; }
         function ret3(){ return 333; }
@@ -22,7 +22,7 @@ function repeatNumber($n){
         }
 
     }
-    
+
     $chal = new Challenge();
 
     return $chal->executeGetnum($n);

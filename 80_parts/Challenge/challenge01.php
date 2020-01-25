@@ -14,7 +14,7 @@ function repeatNumber($n){
             array_push($box, $r);
         }
     }
-    
+
     return join("", $box);
 }
 
