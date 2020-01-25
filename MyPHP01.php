@@ -143,8 +143,8 @@ echo "<br>";
 //==========================
 $name = "kaki";
 $s1 = "hello $name!\nhello again!";
-$s2 = "hello {$name}!\nhello again!"; // 変数を{}で囲う事もできる
-$s3 = "hello ${name}!\nhello again!"; // $を外に出せる
+$s2 = "hello {$name}!\nhello again!";  // 変数を{}で囲う事もできる
+$s3 = "hello ${name}!\nhello again!";  // $を外に出せる
 $s4 = 'hello $name!\nhello again!';
 var_dump($s1);
 var_dump($s2);
