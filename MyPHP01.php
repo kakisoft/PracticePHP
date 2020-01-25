@@ -141,7 +141,7 @@ echo "<br>";
 // "" 特殊文字(\n, \t) 、変数が展開される
 // '' そのまま出力する
 //==========================
-$name = "taguchi";
+$name = "kaki";
 $s1 = "hello $name!\nhello again!";
 $s2 = "hello {$name}!\nhello again!"; // 変数を{}で囲う事もできる
 $s3 = "hello ${name}!\nhello again!"; // $を外に出せる
