@@ -64,12 +64,12 @@ try {
     $stmt->execute([':name'=>'fkoji', ':score'=>80]);
     echo "inserted: " . $db->lastInsertId();
     echo "<br>";
-  
+
 
     //=================================
     //             bindValue
     //=================================
-    $stmt = $db->prepare("insert into users (name, score) values (?, ?)");    
+    $stmt = $db->prepare("insert into users (name, score) values (?, ?)");
     $name = 'yamada';
     $stmt->bindValue(1, $name, PDO::PARAM_STR);
     // $stmt->bindValue(':name', $name, PDO::PARAM_STR);
@@ -79,7 +79,7 @@ try {
     $score = 44;
     $stmt->bindValue(2, $score, PDO::PARAM_INT);
     $stmt->execute();
-  
+
     // PDO::PARAM_NULL
     // PDO::PARAM_BOOL
 
@@ -90,15 +90,15 @@ try {
     $name = "kaki";
     $score = "80";
 
-    
+
     $sql =<<<SQL
-INSERT INTO users 
- (name , score) 
-VALUES 
+INSERT INTO users
+ (name , score)
+VALUES
  (:name, :score)
 SQL;
 
-    $stmt = $db->prepare($sql);    
+    $stmt = $db->prepare($sql);
     $stmt->bindValue(':name' , $name);
     $stmt->bindValue(':score', $score);
     $stmt->execute();
@@ -110,20 +110,20 @@ SQL;
     $stmt = $db->prepare("insert into users (name, score) values (?, ?)");
 
     $name = 'taguchi';
-    $stmt->bindValue(1, $name , PDO::PARAM_STR);  
+    $stmt->bindValue(1, $name , PDO::PARAM_STR);
     $stmt->bindParam(2, $score, PDO::PARAM_INT);
     $score = 52;    $stmt->execute();
     $score = 44;    $stmt->execute();
     $score = 6;     $stmt->execute();
-  
+
 
     //=================================
     //        bindParam  HON
-    //=================================    
+    //=================================
     $sql =<<<SQL
-INSERT INTO users 
- (name , score) 
-VALUES 
+INSERT INTO users
+ (name , score)
+VALUES
  (:name, :score)
 SQL;
 
@@ -149,7 +149,7 @@ SQL;
     }
     echo $stmt->rowCount() . " records found.";
 
-    
+
     //=================================
     //     query （select） 条件付き
     //=================================
@@ -163,7 +163,7 @@ WHERE  1=1
   AND  NAME LIKE :target_name
   AND  score >   :min_score
 ORDER BY
-    score DESC 
+    score DESC
 LIMIT :disp_recored
 SQL;
 
@@ -180,7 +180,7 @@ SQL;
     foreach ($users as $user) {
       echo "<pre>";
       var_dump($user);
-      echo "</pre>";      
+      echo "</pre>";
     }
     echo $stmt->rowCount() . " records found.";
 
@@ -250,7 +250,7 @@ SQL;
     //          DELETE HON
     //=================================
 //    $stmt = $db->prepare("delete from users where name = :name");
-    
+
     echo "<br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>";
     $sql =<<<SQL
 
