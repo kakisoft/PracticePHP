@@ -2,27 +2,37 @@
 
 $url = "http://challenge-your-limits.herokuapp.com/challenge_users";
 
+//$posted ：渡すパラメータ（Array）
+$posted = ["name" => "Tom"];
 
-$postdata = http_build_query(
-    array(
-        'var1' => 'value 1',
-        'var2' => 'value 2'
-    )
-);
+        $post = http_build_query($posted, "", "&");
+
+        $header = array(
+                    'Content-Type: application/x-www-form-urlencoded',
+                    'Content-Length: ' . strlen($post)
+                );
  
-$opts = array('http' =>
-    array(
-        'protocol_version' => '1.1',        
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/x-www-form-urlencoded',
-        'content' => $postdata,
-        'ignore_errors' => true
-    )
-);
+        $context = array(
+                    'http' => array(
+                            'method' => 'POST',
+                            'header' => implode("\r\n", $header),
+                            'content' => $post
+                        ),
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false
+                    )
+                );
  
-$context  = stream_context_create($opts);
- 
-$result = file_get_contents($url, false, $context);
+
+        $data = file_get_contents($url, false, stream_context_create($context));
 
 
-var_dump($result);
+//$http_response_header
+
+//file_get_contents を実行すると、HTTPヘッダ情報が色々詰め込まれる。
+var_dump($http_response_header);
+
+var_dump(json_decode($data));
+
+

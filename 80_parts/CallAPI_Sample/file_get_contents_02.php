@@ -1,31 +1,42 @@
 <?php
 
-// $base_url = 'https://qiita.com';
 
-// $tag = 'PHP';
-// $query = ['page'=>'1','per_page'=>'5'];
+function connectByPost($url, $argary) {
+    //$url = "http://localhost/example.php";
+    //$argary = array('Apple','Banana','love' => 'Orange');
 
-// $response = file_get_contents(
-//                   $base_url.'/api/v2/tags/'.$tag.'/items?' .
-//                   http_build_query($query)
-//             );
-// // https://qiita.com/api/v2/tags/PHP/items?page=1&per_page=5
+    // URLエンコードされたクエリ文字列を生成する
+    $query_string = http_build_query($argary);
 
-// // 結果はjson形式で返されるので
-// $result = json_decode($response,true);
+    // HTTP設定
+    $options = array (
+       'http' => array (
+           'method' => 'POST',
+           'header' => 'Content-type: application/x-www-form-urlencoded',
+           'content' => $query_string,
+           'ignore_errors' => true,
+           'protocol_version' => '1.1'
+           ),
+       'ssl' => array (
+           'verify_peer' => false,
+           'verify_peer_name' => false
+           )
+       );
+    $contents = @file_get_contents($url, false, stream_context_create($options));
 
-//=================================================================
+    // レスポンスステータス
+    $statusCode = http_response_code();
+    if($statusCode === 200) {
+       // 200 success
+    } elseif(preg_match ("/^4\d\d/", $statusCode)) {
+       // 4xx Client Error
+       $contents = false;
+    } elseif(preg_match ('/^5\d\d/', $statusCode)) {
+       // 5xx Server Error
+       $contents = false;
+    } else {
+       $contents = false;
+    }
 
-$base_url = 'http://challenge-your-limits.herokuapp.com/challenge_users'; 
-
-$tag = 'PHP';
-$query = ['page'=>'1','per_page'=>'5'];
-
-$response = file_get_contents(
-                  $base_url
-            );
-
-// 結果はjson形式で返されるので
-$result = json_decode($response,true);
-
-var_dump($result);
+    return $content;
+   }

@@ -308,7 +308,7 @@ SQL;
         $stmt->bindValue(':id', MSM_Utils_Text::escHtml($id));
         $stmt->execute();
         $recordSet = $stmt->fetchAll(MY_DB_UTIL_01::FETCH_ASSOC);
-        $recordInstance = $recordSet[0];			
+        $recordInstance = $recordSet[0];
 
         return $recordInstance;
     }
