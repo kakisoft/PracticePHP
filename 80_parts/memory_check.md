@@ -26,13 +26,13 @@ define( 'DOCUMENT_ROOT_REALPATH', realpath(dirname(__FILE__)) );           
     public function testlibxlAction(){
         set_time_limit(0);
         ini_set('memory_limit', '2G');
-        
+
         // LIB XLで試すバージョン
         $this->_helper->viewRenderer->setNoRender();
-        
-        $time_start = microtime(true);
-        $memory_start = memory_get_usage();
-        // logout2("LIBXL-START " , $this->debug($time_start, $memory_start));
+
+$time_start = microtime(true);
+$memory_start = memory_get_usage();
+// logout2("LIBXL-START " , $this->debug($time_start, $memory_start));
 
         // 準備部
         set_include_path(get_include_path() . PATH_SEPARATOR . DOCUMENT_ROOT_REALPATH . '/library/php_excel/docs');
@@ -54,7 +54,7 @@ define( 'DOCUMENT_ROOT_REALPATH', realpath(dirname(__FILE__)) );           
         header('Content-Disposition:attachment;filename="test.xlsx"');
         $objExcel->save('php://output');
 
-        // logout2("LIBXL-END ", $this->debug($time_start, $memory_start));
+// logout2("LIBXL-END ", $this->debug($time_start, $memory_start));
     }
 ```
 
