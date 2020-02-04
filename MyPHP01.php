@@ -1001,6 +1001,29 @@ function strip_tags_recursive( $arg ) {
     return $arg;
 }
 
+
+
+//===========================
+//      HTTP header
+//===========================
+
+// PDFを出力します
+header('Content-Type: application/pdf');
+
+// downloaded.pdf という名前で保存させます
+header('Content-Disposition: attachment; filename="downloaded.pdf"');
+
+// もとの PDF ソースは original.pdf です
+readfile('original.pdf');
+
+////
+$path = urlencode($file);
+header('Content-Type: application/pdf');
+header("Content-Disposition: attachment; filename*=utf-8'ja'{$path}");
+header('Content-Transfer-Encoding: binary');
+
+
+
 //==========================
 //   null 合体演算子 (??)
 //==========================

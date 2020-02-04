@@ -7,7 +7,11 @@ exit；
 ## ブラウザ常にトレース
 ```php
 echo "<pre>";
-var_dump($array);
+var_dump($array);  // 型まで分かる
+
+print_r($array);   // 見やすい
+
+var_export($array);
 echo "</pre>";
 ```
 
