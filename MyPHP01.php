@@ -109,6 +109,7 @@ echo "<br>";
 var_dump(__LINE__); // 現在の行数
 var_dump(__FILE__); // ファイル名
 var_dump(__DIR__);  // ディレクトリ
+var_dump($_SERVER['SERVER_NAME']);
 echo "<br>";
 
 
@@ -928,6 +929,23 @@ echo strval("3");  echo PHP_EOL;  //=> 3
 //   ・オブジェクト → プロパティ値をキーにした連想配列
 
 
+//====================================
+//  number_format   数値フォーマット
+//====================================
+
+$number_01 = 1234.56;
+
+// 英語での表記 (デフォルト)
+$english_format_number_01 = number_format($number_01);  //=> 1,235
+
+// フランスの表記
+$nombre_format_francais = number_format($number_01, 2, ',', ' ');  //=> 1 234,56
+
+
+// 千位毎の区切りがない英語での表記
+$number_02 = 1234.5678;
+$english_format_number_02 = number_format($number_02, 2, '.', ''); //=> 1234.57
+
 
 //=============================
 //        日付の差分
@@ -939,6 +957,60 @@ echo date_create($time)->diff(date_create())->format('%y歳 %mヶ月 %d日 %h時
 
 
 
+//=====================================
+//  list を使用した、疑似的な複数戻り値
+//=====================================
+list($array_01, $array_02, $array_03) = getListData();
+
+function getListData(){
+    $array_01 = [1, 3, 5];
+    $array_02 = ['A', 'C', 'D'];
+    $array_03 = ['n', 'm', 'k'];
+
+    return array($array_01, $array_02, $array_03);
+}
+
+
+//// 公式マニュアル、こんな感じ。（初見、これ見た時「要るのかこれ？」と思った。）
+$info = array('コーヒー', '茶色', 'カフェイン');
+list($drink, $color, $power) = $info;
+
+
+//=======================================
+//  ファイル存在チェック / ファイルサイズ
+//=======================================
+$target_file_full_path = __FILE__;
+
+// ファイルシステム関数の中には 2GB より大きなファイルについては期待とは違う値を返すものがあります。
+$size = filesize($target_file_full_path);  // 単位は多分 byte
+
+$exists = file_exists($target_file_full_path); // true / false
+
+
+
+//=============================
+//   ファイル読み込み  readfile
+//=============================
+
+$file_name = __FILE__;  // フルパスが入ってる
+readfile(__FILE__);     // 標準出力（コンソールに、このファイルの内容が出てくる）
+
+////
+$file = 'monkey.gif';
+
+if (file_exists($file)) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+    exit;
+}
+
+
 
 //====================================
 //        メソッドの存在チェック
@@ -946,6 +1018,27 @@ echo date_create($time)->diff(date_create())->format('%y歳 %mヶ月 %d日 %h時
 if (method_exists($this->_account, $name) || preg_match('/^find/', $name)) {
   return call_user_func_array(array($this->_account, $name), $args);
 }
+
+
+//==========================
+//      URLエンコード
+//==========================
+//URLとして使用できない文字や記号を、使用できる文字の特殊な組み合わせで表すように変換する。
+
+// urlencode
+$a1 = urlencode('abc_defああああ');
+
+echo $a1;  #=> abc_def%E3%81%82%E3%81%82%E3%81%82%E3%81%82
+echo "<br>";
+
+// rawurlencode
+//awurlencode関数は、インターネットに関する様々な仕様をまとめたRFC3986に沿った変換をしているため、urlencode関数よりrawurlencode関数を使ったほうが安全
+$a2 = rawurlencode('abc_defああああ');
+
+echo $a2;
+
+// UTF-8の文字列をSJISに変換
+$sjisStr = mb_convert_encoding($utf8Str, 'SJIS', 'UTF-8');
 
 
 

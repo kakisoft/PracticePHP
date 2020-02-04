@@ -73,6 +73,11 @@ error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
 
 php.iniを設定したあとは、Webサーバーを再起動することで設定が有効になります。  
 
+### server
+```php
+var_dump($_SERVER['SERVER_NAME']);
+```
+
 
 ### 【 error_reporting関数から設定する方法 】
 Webサーバの再起動不要。
