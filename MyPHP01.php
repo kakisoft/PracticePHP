@@ -345,6 +345,23 @@ $fruits[] = 'pineapple';
 // array_unshift
 
 
+//-----< 末尾に要素を取り出す（破壊的に） >----
+//array_pop() は配列 array の最後の要素の値を取り出して返します。 配列 array は、要素一つ分短くなります。
+
+$stack = array("orange", "banana", "apple", "raspberry");
+$fruit = array_pop($stack);
+
+print_r($fruit);  //-> "raspberry"
+print_r($stack);
+// Array
+// (
+//     [0] => orange
+//     [1] => banana
+//     [2] => apple
+// )
+
+
+
 
 //-----< 連結(join) >-----
 echo( join('<br>', $array2) );
@@ -468,6 +485,17 @@ $array_a01 = array_filter(array_map('trim', explode("\n", $string_a01)), 'strlen
 //     [1] => bb
 //     [2] => ccc
 // )
+
+
+
+//-----( キーの存在チェック )-----
+// array_key_exists — 指定したキーまたは添字が配列にあるかどうかを調べる
+
+$search_array = array('first' => 1, 'second' => 4);
+if (array_key_exists('first', $search_array)) {
+    echo "この配列には 'first' という要素が存在します";
+}
+
 
 
 //-----( 要素が含まれているか確認 )-----
@@ -1011,6 +1039,52 @@ if (file_exists($file)) {
 }
 
 
+//==========================
+//     ファイル書き込み
+//==========================
+$file = 'people.txt';
+// ファイルをオープンして既存のコンテンツを取得します
+$current = file_get_contents($file);
+// 新しい人物をファイルに追加します
+$current .= "John Smith\n";
+// 結果をファイルに書き出します
+file_put_contents($file, $current);
+
+
+//==========================
+//     ファイル削除
+//==========================
+// ファイル削除
+unlink($file_name);
+
+
+// ディレクトリ削除
+if (!is_dir('examples')) {
+    mkdir('examples');
+}
+
+rmdir('examples');
+
+
+
+//================================================================================
+//  ob_start / ob_get_contents / ob_end_flush  （出力内容を buffer に貯めておく）
+//================================================================================
+ob_start();               // start output buffer 1
+echo "a";                 // fill ob1
+
+    ob_start();               // start output buffer 2
+    echo "b";                 // fill ob2
+    $s1 = ob_get_contents();  // read ob2 ("b")
+    ob_end_flush();           // flush ob2 to ob1
+
+echo "c";                 // continue filling ob1
+$s2 = ob_get_contents();  // read ob1 ("a" . "b" . "c")
+ob_end_flush();           // flush ob1 to browser
+
+// echoes "b" followed by "abc", as supposed to:
+echo "<HR>$s1<HR>$s2<HR>";  // この時点で初めて標準出力として出てくる。（上記の echo の時は出力されない）
+
 
 //====================================
 //        メソッドの存在チェック
@@ -1018,6 +1092,21 @@ if (file_exists($file)) {
 if (method_exists($this->_account, $name) || preg_match('/^find/', $name)) {
   return call_user_func_array(array($this->_account, $name), $args);
 }
+
+
+
+//===========================
+//  json エンコード/デコード
+//===========================
+$original_json_data = '{"id":1, "product_name":"K001-X299022A"}';
+$decoded_data = json_decode($original_json_data, true);  // true の場合、返されるオブジェクトは連想配列形式になります。
+$decoded_data['check_user']     = "5656";
+$decoded_data['check_datetime'] = date("Y/m/d H:i");
+$encoded_data = json_encode($decoded_data);
+
+
+var_dump($encoded_data);  //=> string(97) "{"id":1,"product_name":"K001-X299022A","check_user":"5656","check_datetime":"2020\/02\/04 12:28"}"
+
 
 
 //==========================
