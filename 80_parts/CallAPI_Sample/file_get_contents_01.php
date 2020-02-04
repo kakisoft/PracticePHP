@@ -13,3 +13,7 @@ var_dump($res);
 // string(48) "{"message":"Almost! It's not GET. Keep trying."}"
 
 
+
+
+// file_get_contents
+// 空白のような特殊な文字を有する URI をオープンする場合には、 urlencode() でその URI をエンコードする必要があります。
