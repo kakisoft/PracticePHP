@@ -103,7 +103,7 @@ $path = $traceArr[0]['file'];
 echo "<pre>";
 print_r($traceArr);
 print_r($path);
-echo "</pre>";			
+echo "</pre>";
 
 
 //debug_backtrace(false, 1)    //第一引数： trueだとObject、falseだとArray。多分。
