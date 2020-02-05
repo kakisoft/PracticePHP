@@ -175,6 +175,14 @@ $str = mb_strtolower($str);
 $str = "Mary Had A Little Lamb and She LOVED It So";
 $str = strtoupper($str);
 
+//----------( 正規表現による置換 )----------
+//連続したスペースを、スペース１個分に置換
+$string = "a  b  c       ddd";
+$pattern = '/\s+/';
+$replacement = ' ';
+echo preg_replace($pattern, $replacement, $string);  #=> 「a b c ddd」
+$pieces = explode(" ", $a);
+
 // 改行コード(\nまたは\rまたは\r\n)を''(空文字)に置き換える
 $text = "";
 $text = preg_replace('/\r\n|\r|\n/', '', $text);
