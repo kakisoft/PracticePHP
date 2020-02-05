@@ -227,7 +227,10 @@ if ($x09 == true) {
   echo "great";
 }
 
-// 三項演算子
+
+//==========================
+//        三項演算子
+//==========================
 $a09 = 10;
 $b09 = 20;
 $max09 = ($a09 > $b09) ? $a09 : $b09; // () の条件が真だったら $a09 をmax09 に代入。偽だったら $b09 を max09 に代入
@@ -238,12 +241,60 @@ if ($a09 > $b09) {
   $max09 = $b09;
 }
 
-echo "<br>";
-
 
 // if($cond===true){ func1(); }else{ func2(); }
 // $cond===true ? func1() : func2();
 
+
+//==========================
+//    エルビス演算子  5.3～
+//==========================
+// 左辺が真と判断できる値であればその値が返却される
+$param_e1 = 'exists';
+$param_e2 = null;
+// $param_e3 = '定義しない';
+$param_e4 = 0;
+
+$getted_param_e1 = $param_e1 ?: 'not_exists';
+$getted_param_e2 = $param_e2 ?: 'not_exists';
+$getted_param_e3 = $param_e3 ?: 'not_exists';  // PHP Notice:  Undefined variable:
+$getted_param_e4 = $param_e4 ?: 'not_exists';
+
+echo($getted_param_e1 . PHP_EOL);  //=> 'exists'
+echo($getted_param_e2 . PHP_EOL);  //=> 'not_exists'
+echo($getted_param_e3 . PHP_EOL);  //=> 'not_exists'
+echo($getted_param_e4 . PHP_EOL);  //=> 'not_exists'
+
+// リクエストパラメータに使ったりとか
+$user_name = $_POST['user_name'] ?: 'default_user';
+
+
+//==========================
+//     NULL合体演算子  7～
+//==========================
+// 未定義でもNULLでもなければ左オペランドの値を採用
+// 未定義またはNULLのとき右オペランドの値を採用
+// (内部でisset相当のチェックを行っているのでエラーが発生しない)
+//
+// エルビス演算子と似てるけど、こっち使った方がベターなケースが多そう。
+
+$param_n1 = 'exists';
+$param_n2 = null;
+// $param_n3 = '定義しない';
+$param_n4 = 0;
+
+$getted_param_n1 = $param_n1 ?? 'not_exists';
+$getted_param_n2 = $param_n2 ?? 'not_exists';
+$getted_param_n3 = $param_n3 ?? 'not_exists';  // PHP Notice が発生しない
+$getted_param_n4 = $param_n4 ?? 'not_exists';
+
+echo($getted_param_n1 . PHP_EOL);  //=> 'exists'
+echo($getted_param_n2 . PHP_EOL);  //=> 'not_exists'
+echo($getted_param_n3 . PHP_EOL);  //=> 'not_exists'
+echo($getted_param_n4 . PHP_EOL);  //=> '0'
+
+// リクエストパラメータに使ったりとか
+$user_name = $_POST['user_name'] ?? 'default_user';
 
 
 //==========================
@@ -649,6 +700,94 @@ var_export(array_column($rows, 'title', 'id'));
 //   30 => 'charlie',
 //   20 => 'bob',
 // )
+
+
+//==========================
+//      filter_var
+//      filter_var_array
+//==========================
+//----------( filter_var )----------
+// 指定したフィルタでデータをフィルタリングする
+
+var_dump(filter_var('bob@example.com', FILTER_VALIDATE_EMAIL));  //=> 'bob@example.com'
+var_dump(filter_var('aaabbccccdddddd', FILTER_VALIDATE_EMAIL));  //=> false
+
+var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL));  //=> 'http://example.com'
+var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));  //=> false
+var_dump(filter_var('http://example.com/', FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));  //=> 'http://example.com/'
+var_dump(filter_var('http://example.com/', FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED));       //=> false
+var_dump(filter_var('http://example.com/?a=1', FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED));   //=> 'http://example.com/?a=1'
+
+
+//// 検証フィルタ
+// https://www.php.net/manual/ja/filter.filters.validate.php
+//
+//    FILTER_VALIDATE_BOOLEAN
+//    FILTER_VALIDATE_EMAIL
+//    FILTER_VALIDATE_FLOAT
+//    FILTER_VALIDATE_INT
+//    FILTER_VALIDATE_IP
+//    FILTER_VALIDATE_MAC
+//    FILTER_VALIDATE_REGEXP
+//    FILTER_VALIDATE_URL     値が URL 形式である - ( http://www.faqs.org/rfcs/rfc2396 に準拠している) かどうか、
+//        FILTER_FLAG_SCHEME_REQUIRED
+//        FILTER_FLAG_HOST_REQUIRED
+//        FILTER_FLAG_PATH_REQUIRED     末尾に「/」が必要か
+//        FILTER_FLAG_QUERY_REQUIRED    クエリ文字必須
+//
+
+
+//----------( filter_var_array )----------
+error_reporting(E_ALL | E_STRICT);
+$data = array(
+    'product_id'  => 'libgd<script>',
+    'component'   => '10',
+    'versions'    => '2.0.33',
+    'testscalar'  => array('2', '23', '10', '12'),
+    'testarray'   => '2',
+);
+
+$args = array(
+    'product_id'  => FILTER_SANITIZE_ENCODED,
+    'component'   => array('filter'  => FILTER_VALIDATE_INT,
+                            'flags'   => FILTER_FORCE_ARRAY, 
+                            'options' => array('min_range' => 1, 'max_range' => 10)
+                           ),
+    'versions'      => FILTER_SANITIZE_ENCODED,
+    'doesnotexist'  => FILTER_VALIDATE_INT,
+    'testscalar'    => array(
+                              'filter' => FILTER_VALIDATE_INT,
+                              'flags'  => FILTER_REQUIRE_SCALAR
+                            ),
+    'testarray'     => array(
+                            'filter' => FILTER_VALIDATE_INT,
+                            'flags'  => FILTER_FORCE_ARRAY,
+                           )
+
+);
+
+$myinputs = filter_var_array($data, $args);
+
+print_r($myinputs);
+// Array
+// (
+//     [product_id] => libgd%3Cscript%3E
+//     [component] => Array
+//         (
+//             [0] => 10
+//         )
+//
+//     [versions] => 2.0.33
+//     [doesnotexist] =>
+//     [testscalar] =>
+//     [testarray] => Array
+//         (
+//             [0] => 2
+//         )
+//
+// )
+
+
 
 
 //==========================
