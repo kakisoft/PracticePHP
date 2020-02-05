@@ -44,7 +44,7 @@ class MyPagerClass {
 			return null;
 		}
 
-		
+
 		//---------------------------
 		//       
 		//---------------------------
@@ -76,9 +76,9 @@ class MyPagerClass {
 					// page  8  ⇒  1  ... 7  8  9  10
 					// page  9  ⇒  1  ... 7  8  9  10
 					// page 10  ⇒  1  ... 7  8  9  10
-	
+
 					//開始位置のページが、max_page_number(10) - (disp_page_number(5) -1) + 1
-					//よりも大きい場合、↑の規定値を使用。 
+					//よりも大きい場合、↑の規定値を使用。
 				}
 			}
 		}
@@ -89,10 +89,10 @@ class MyPagerClass {
 
 		if($pager["max_page_number"] > $pager["number_of_box"]){
 			if($pager["current_page"] > $middlePoint){
-				$isContainSpecialCharFirst = true;	
+				$isContainSpecialCharFirst = true;
 			}
 			if($dynamicStartPagePoint < $maxPageStartPoint){
-				$isContainSpecialCharLast = true;	
+				$isContainSpecialCharLast = true;
 			}
 		}
 
@@ -113,7 +113,7 @@ class MyPagerClass {
 				$dispLoopCount--;
 			}
 		}
-		
+
 		//----------< 動的コンテンツの格納 >----------
 		$dynamicContentArray = [];
 		for ($i = $dynamicStartPagePoint; $i < ($dynamicStartPagePoint + $dispLoopCount); $i++) {
