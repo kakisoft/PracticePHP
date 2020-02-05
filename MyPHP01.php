@@ -712,8 +712,8 @@ var_export(array_column($rows, 'title', 'id'));
 var_dump(filter_var('bob@example.com', FILTER_VALIDATE_EMAIL));  //=> 'bob@example.com'
 var_dump(filter_var('aaabbccccdddddd', FILTER_VALIDATE_EMAIL));  //=> false
 
-var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL));  //=> 'http://example.com'
-var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));  //=> false
+var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL));  //=> 'http://example.com'
+var_dump(filter_var('http://example.com',  FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));  //=> false
 var_dump(filter_var('http://example.com/', FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED));  //=> 'http://example.com/'
 var_dump(filter_var('http://example.com/', FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED));       //=> false
 var_dump(filter_var('http://example.com/?a=1', FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED));   //=> 'http://example.com/?a=1'
