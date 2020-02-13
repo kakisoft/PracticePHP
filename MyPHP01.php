@@ -1408,6 +1408,43 @@ var_dump($array_01);
 var_dump($array_02);
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//==================================================
+//   http_build_query（リクエストパラメータを生成）
+//==================================================
+$request_params_01 = array(
+  'foo' => 'bar',
+  'baz' => 'boom',
+  'cow' => 'milk',
+  'php' => 'hypertext processor'
+);
+
+echo http_build_query($request_params_01);                //=> foo=bar&baz=boom&cow=milk&php=hypertext+processor
+echo http_build_query($request_params_01, '', '&amp;');   //=> foo=bar&amp;baz=boom&amp;cow=milk&amp;php=hypertext+processor
+
+//==================================================
+//      parse_str（リクエストパラメータを分解）
+//==================================================
+$str = "first=value&arr[]=foo+bar&arr[]=baz";
+
+parse_str($str, $output);
+echo $output['first'];    // value
+echo $output['arr'][0];   // foo bar
+echo $output['arr'][1];   // baz
+
+parse_str(http_build_query($request_params_01), $output2);
+print_r($output2);
+// Array
+// (
+//     [foo] => bar
+//     [baz] => boom
+//     [cow] => milk
+//     [php] => hypertext processor
+// )
+
+
 
      /**
      *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
