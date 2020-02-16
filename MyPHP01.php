@@ -113,6 +113,27 @@ var_dump($_SERVER['SERVER_NAME']);
 echo "<br>";
 
 
+//-------------------
+//      
+//-------------------
+if (PHP_SAPI === 'cli'){
+    echo "CLI!";
+}
+else{
+    echo "CLI じゃない";
+}
+
+$sapi_type = php_sapi_name();
+if (substr($sapi_type, 0, 3) == 'cgi') {
+    echo "CGI 版の PHP を使用しています\n";
+}
+else {
+    echo "CGI 版の PHP を使用していません\n";
+}
+
+echo PHP_BINARY;  // C:\tools\php73\php.exe   //  /usr/bin/phppckaki301:PracticePHP
+
+
 //==========================
 //      数値型の演算
 //==========================
@@ -1410,7 +1431,6 @@ var_dump($array_02);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 //==================================================
 //   http_build_query（リクエストパラメータを生成）
 //==================================================
@@ -1443,6 +1463,48 @@ print_r($output2);
 //     [cow] => milk
 //     [php] => hypertext processor
 // )
+
+
+//====================================
+//             get_headers
+//====================================
+// HTTP リクエストに対するレスポンス内で サーバーによって送出された全てのヘッダを取得する
+$target_url = "http://www.example.com";
+
+$headers_01 = get_headers($target_url);
+
+// print_r($headers_01);
+// Array
+// (
+//     [0] => HTTP/1.0 200 OK
+//     [1] => Age: 552408
+//     [2] => Cache-Control: max-age=604800
+//     [3] => Content-Type: text/html; charset=UTF-8
+//     [4] => Date: Thu, 13 Feb 2020 00:34:23 GMT
+//     [5] => Etag: "3147526947+ident"
+//     [6] => Expires: Thu, 20 Feb 2020 00:34:23 GMT
+//     [7] => Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT
+//     [8] => Server: ECS (sjc/4FB8)
+//     [9] => Vary: Accept-Encoding
+//     [10] => X-Cache: HIT
+//     [11] => Content-Length: 1256
+//     [12] => Connection: close
+// )
+
+
+
+//====================================
+//      apache_request_headers
+//====================================
+// 現在のリクエストにおけるすべての HTTP ヘッダの連想配列、 あるいは失敗時は FALSE を返します。
+
+// $headers = apache_request_headers();  // PHP Fatal error:  Uncaught Error: Call to undefined function apache_request_headers() 
+
+// foreach ($headers as $header => $value) {
+//     echo "$header: $value <br />\n";
+// }
+
+
 
 
 
