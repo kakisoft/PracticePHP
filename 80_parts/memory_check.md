@@ -19,9 +19,60 @@ define( 'DOCUMENT_ROOT_REALPATH', realpath(dirname(__FILE__)) );           
 ```
 
 
+________________________________________________________________________
+## _
+```php
+
+//==========================
+//      メモリチェック
+//==========================
+// memory_get_usage
+// PHP に割り当てられたメモリの量を返す
+// 現在の PHP スクリプトに割り当てられたメモリの量をバイト単位で返します。
+
+echo memory_get_usage() . "\n"; // 393120(数字は適当。場合によって変わる)
+
+$a = str_repeat("Hello", 4242);
+
+echo memory_get_usage() . "\n"; // 417728(数字は適当。場合によって変わる)
 
 
+//---------------
+//
+//---------------
+echo "before:".memory_get_usage() / (1024 * 1024)."MB\n";  //=> before:0.40116882324219MB
 
+$arr = [];
+for($i=0;$i<10000;$i++) {
+    $arr[] = $i;
+}
+
+echo "after:".memory_get_usage() / (1024 * 1024)."MB\n"; //=> after:0.90512847900391MB
+
+
+//---------------
+//  最大使用量
+//---------------
+// memory_get_peak_usage
+// phpに割り当てられたメモリ使用量の最大値を取得
+echo "before:".memory_get_usage() / (1024 * 1024)."MB\n";  //=> before:0.90512847900391MB
+
+$arr = [];
+for($i=0;$i<10000;$i++) {
+    $arr[] = $i;
+}
+
+//半分開放する
+for($i=0;$i<5000;$i++) {
+    unset($arr[$i]);
+}
+
+echo "after:".memory_get_usage() / (1024 * 1024)."MB\n";        //=> after:0.90512847900391MB
+echo "peak:".memory_get_peak_usage() / (1024 * 1024)."MB\n";    //=> peak:0.90541839599609MB
+```
+
+________________________________________________________________________
+## __
 ```php
     public function testlibxlAction(){
         set_time_limit(0);
@@ -56,7 +107,7 @@ $memory_start = memory_get_usage();
 
 // logout2("LIBXL-END ", $this->debug($time_start, $memory_start));
     }
-```
+``` 
 
 
 
