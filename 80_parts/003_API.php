@@ -1,6 +1,6 @@
 <?php
 
-require_once 'kakisoft_utils\file_get_contents_util.php';
+require_once 'kakisoft_utils/file_get_contents_util.php';
 use kakisoft_utils_02 as Lib;
 
 
