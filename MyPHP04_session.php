@@ -15,3 +15,8 @@ echo $_SESSION['username'];
 
 
 // session_destroy
+
+
+// 現在のセッション ID を取得または設定する
+$a1 = session_id();  //=> odqq13fskp08jlaj83gr2bafh5
+
