@@ -1041,7 +1041,103 @@ $Hatano = new Player("Hatano");
 $Hatano->sayHi();
 $Hatano->sayHello();
 
-echo "<br>";
+
+//===========================
+//         トレイト
+//===========================
+// コードを再利用するための仕組み。多重継承みたいな事をさせたい時に。
+// 基底クラスのメソッドを trait に持たせた方がよさそう？
+// 基底クラスから継承したメンバーよりも、トレイトで追加したメンバーのほうが優先されます。
+class Base {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        echo 'Hey! ';
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();  //=> Hey! Hello World!
+
+
+//----------------------------
+//  トレイトの優先順位について
+//----------------------------
+trait HelloWorld {
+    public function sayHello() {
+        echo 'Hello World!';
+    }
+}
+
+class TheWorldIsNotEnough {
+    use HelloWorld;
+    public function sayHello() {
+        echo 'Hello Universe!';  // この場合、こっちが優先される。
+    }
+}
+
+$o = new TheWorldIsNotEnough();
+$o->sayHello();  //=> Hello Universe!
+
+
+
+//-------------------------------------------------------------------------------------------------------
+// 同一クラス内での複数のトレイト間の名前の衝突を解決するには、 insteadof 演算子を使って そのうちのひとつを選ぶ。
+//-------------------------------------------------------------------------------------------------------
+trait A {
+    public function smallTalk() {
+        echo 'trant A - smallTalk'. PHP_EOL;
+    }
+    public function bigTalk() {
+        echo 'trant A - bigTalk' . PHP_EOL;
+    }
+}
+
+trait B {
+    public function smallTalk() {
+        echo 'trant B - smallTalk'. PHP_EOL;
+    }
+    public function bigTalk() {
+        echo 'trant B - bigTalk' . PHP_EOL;
+    }
+}
+
+class Talker {
+    use A, B {
+        B::smallTalk insteadof A;
+        A::bigTalk insteadof B;
+    }
+}
+
+class Aliased_Talker {
+    use A, B {
+        B::smallTalk insteadof A;
+        A::bigTalk insteadof B;
+        B::bigTalk as talk;  // as 演算子を使って B の bigTalk の実装に talk というエイリアスを指定して使います
+    }
+}
+
+
+$talker = new Talker();
+$talker->smallTalk();   //=> trant B - smallTalk
+$talker->bigTalk();     //=> trant A - bigTalk
+
+$aliased_talker = new Aliased_Talker();
+$aliased_talker->smallTalk();   //=> trant B - smallTalk
+$aliased_talker->bigTalk();     //=> trant A - bigTalk
+$aliased_talker->talk();        //=> trant B - bigTalk
+
+
 //==========================
 //           例外
 //==========================
