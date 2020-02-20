@@ -1142,18 +1142,24 @@ $aliased_talker->talk();        //=> trant B - bigTalk
 //           例外
 //==========================
 function div27($a, $b) {
-  try {
-    if ($b === 0) {
-      throw new Exception("cannot divide by 0!");
+    try {
+        if ($b === 0) {
+            throw new Exception("cannot divide by 0!");
+        }
+        echo $a / $b;
+
+    } catch (Exception $e) {
+        echo $e->getMessage();
+
+        // Exception::getLine        
+        // 例外が作られた行を取得する        
+        echo "The exception was created on line: " . $e->getLine();  //=> 例外が発生した行数を表示
     }
-    echo $a / $b;
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }
 }
 
 div27(7, 2);
 div27(5, 0);
+
 
 
 //==========================
