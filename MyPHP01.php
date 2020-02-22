@@ -1362,6 +1362,49 @@ $info = array('コーヒー', '茶色', 'カフェイン');
 list($drink, $color, $power) = $info;
 
 
+
+//==========================
+//     ユニークID作成
+//==========================
+$uniq_id = uniqid();
+
+echo $uniq_id;  //=> 5e4fa68e7973f,  5e4fa696543c9,  5e4fa69d27492
+
+
+
+//==========================
+//         ハッシュ
+//==========================
+// パスワードのハッシュとか。
+$password = '1234';
+$hashed_password =  password_hash($password, PASSWORD_DEFAULT);
+
+var_dump($hashed_password );
+var_dump(password_verify ( $password , $hashed_password ) );
+
+
+
+//==========================
+//      フォルダ作成
+//==========================
+$target_dir = 'tmp';
+if ( !file_exists( $target_dir ) ) {
+
+    mkdir( $target_dir, 0777 );
+    chmod( $target_dir, 0777 );
+}
+
+
+//==========================
+//      フォルダ作成
+//==========================
+$log_file = 'log_20200221_5e4fa68e7973f';
+if (false === file_exists($log_file) ) {
+    touch($log_file);
+}
+
+
+
 //=======================================
 //  ファイル存在チェック / ファイルサイズ
 //=======================================
