@@ -1,3 +1,29 @@
+## 時間の差分
+```php
+$a = '2018/08/31 10:20:00';
+$b = '2018/08/31 10:15:10';
+
+diff($a, $b);
+
+function diff($a, $b) {
+    $diff_a = strtotime($a);
+    $diff_b = strtotime($b);
+    $secdiff = abs($diff_b - $diff_a);
+
+    $dif_days = $secdiff/(60*60*24);        // 日付の差分
+    $dif_minutes = $secdiff/(60*60*24*60);  // 分の差分
+    var_dump($dif_days); echo "<br>";
+    var_dump($dif_minutes);
+}
+```
+
+```php
+float(0.0033564814814815)
+float(5.5941358024691E-5)
+```
+
+_____________________________________________________________________________________
+## 日付
 ```
 strtotime
 (PHP 4, PHP 5, PHP 7)
@@ -6,7 +32,7 @@ strtotime — 英文形式の日付を Unix タイムスタンプに変換する
 ```
 
 ## 日付を指定フォーマットに変換
-```
+```php
 $a4 =  date('Y/m/d H:i',strtotime('2018-09-18 16:58:33.159892+09'));
 echo $a4 . "<br>";   //=>  2018/09/18 16:58
 ```

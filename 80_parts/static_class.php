@@ -1,4 +1,5 @@
-```php
+<?php
+
 class Project_Utils {
 	public static $general_message = [];
 
@@ -78,4 +79,5 @@ class Project_Utils {
 		}
 
 	}
-```
+
+

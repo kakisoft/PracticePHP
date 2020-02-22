@@ -11,6 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
+
+// ## GET/POST の識別
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     // POST：フォームからの投稿などのとき
+// } else {
+//     // GET：リンクのクリックによる表示のリクエストなどのとき
+// }
+
+
+
 # ↓は、「form action=""」となっているので、submitしたら、このページに遷移する。
 ?>
 <!DOCTYPE html>
@@ -27,3 +37,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </form>
 </body>
 </html>
+
+
