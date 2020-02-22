@@ -7,6 +7,18 @@ namespace kakisoft_utils_03;
 class MyStaticMiscUtil
 {
 
+    /**
+     * 全角Trim
+     *
+     * @param String  $str  target string
+     */
+    public static function mb_trim($str) {
+        $str = preg_replace('#^[ 　]+#u', '', $str);
+        $str = preg_replace('#[ 　]+$#u', '', $str);
+        return $str;
+    }
+
+
      /**
      *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
      *  
