@@ -1744,11 +1744,37 @@ $headers_01 = get_headers($target_url);
 //====================================
 // 現在のリクエストにおけるすべての HTTP ヘッダの連想配列、 あるいは失敗時は FALSE を返します。
 
-// $headers = apache_request_headers();  // PHP Fatal error:  Uncaught Error: Call to undefined function apache_request_headers() 
+$headers = apache_request_headers();  // PHP Fatal error:  Uncaught Error: Call to undefined function apache_request_headers() 
 
-// foreach ($headers as $header => $value) {
-//     echo "$header: $value <br />\n";
-// }
+foreach ($headers as $header => $value) {
+    echo "$header: $value <br />\n";
+}
+
+
+
+//====================================
+//          配列渡し・エスケープ
+//====================================
+/*
+//=====< HTML >=====//
+<input type='hidden' name='prefectureSet[]' value="01">
+<input type='hidden' name='prefectureSet[]' value="02">
+<input type='hidden' name='prefectureSet[]' value="03">
+*/
+
+//=====< PHP >=====//
+$this->prefectureSet = [];
+$prefectureSet = $this->parameters['prefecture'];
+
+foreach ($prefectureSet as $value) {
+	array_push($this->prefectureSet, MY_UTIL::sharpen($value));
+}
+
+// 単純に、
+// $this->prefectureSet = MY_UTIL::sharpen($value);
+// みたいにすると、nullになってしまう。
+
+
 
 ?>
 
