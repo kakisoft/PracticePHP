@@ -20,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // }
 
 
+// PECL   
+//
+// $_REQUEST は現在の $_GET、$_POST、$_COOKIE などの内容をまとめた変数  
+
 
 # ↓は、「form action=""」となっているので、submitしたら、このページに遷移する。
 ?>
