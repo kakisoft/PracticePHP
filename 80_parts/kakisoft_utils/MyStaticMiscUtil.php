@@ -19,6 +19,24 @@ class MyStaticMiscUtil
     }
 
 
+    /**
+	 * 以下を削除
+	 * 　・左右の半角空白および全角空白
+	 * 　・タブ
+	 * 　・改行
+     *
+     * @param String  $str  target string
+     */
+	public static function sharpen($str) {
+		// htmlspecialchars($str, ENT_QUOTES);
+		$str = preg_replace('#\r?\n#u', ' ', $str);
+		$str = preg_replace('#\t#u', ' ', $str);
+		$str = preg_replace('#^[ 　]+#u', '', $str);
+		$str = preg_replace('#[ 　]+$#u', '', $str);
+		return $str;
+	}
+
+
      /**
      *  第１引数にて指定した連想配列から、「第２引数のキー、第３引数の値」に対応する、第４引数のキーの値を取得する。
      *  
