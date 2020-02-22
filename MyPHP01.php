@@ -1043,6 +1043,22 @@ $Hatano->sayHello();
 
 
 //===========================
+//      ポリモーフィズム
+//===========================
+// class_exists
+// method_exists
+
+
+if (class_exists($class)) {
+    $controller =& new $class;
+    if (method_exists($controller, $methodName)) {
+        $controller->$methodName();
+        exit;
+    }
+}
+
+
+//===========================
 //         トレイト
 //===========================
 // コードを再利用するための仕組み。多重継承みたいな事をさせたい時に。
