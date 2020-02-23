@@ -689,8 +689,63 @@ foreach ($fruits as $key => $val) {
 // a = orange
 
 
+//-----( 配列の一部を展開 )-----
+$input = array("a", "b", "c", "d", "e");
+
+$output_01 = array_slice($input, 2);      // returns "c", "d", "e"
+$output_02 = array_slice($input, -3, 2);  // returns "c", "d"
+$output_03 = array_slice($input, 2, 2);   // returns "c", "d"
+
+// 第三引数を true にすると、index を振り直さない。
+print_r(array_slice($input, 2, -1));
+print_r(array_slice($input, 2, -1, true));
+// $preserve_keys = FALSE(default)
+// Array
+// (
+//     [0] => c
+//     [1] => d
+// )
+
+// $preserve_keys = TRUE
+// Array
+// (
+//     [2] => c
+//     [3] => d
+// )
+
+
+
+//-----( 範囲指定して配列を作成 )-----
+$numbers = range(1, 10);
+print_r($numbers);
+// Array
+// (
+//     [0] => 1
+//     [1] => 2
+//     [2] => 3
+//     [3] => 4
+//     [4] => 5
+//     [5] => 6
+//     [6] => 7
+//     [7] => 8
+//     [8] => 9
+//     [9] => 10
+// )
+
+
+//-----( 配列をシャッフル )-----
+$numbers = range(1, 20);
+shuffle($numbers);
+foreach ($numbers as $number) {
+    echo "$number ";
+}
+
+//=> 3 14 19 10 6 11 1 13 18 17 7 15 2 9 5 20 4 12 8 16  （例）
+
+
+
 //==========================
-//     最大値・最小値
+//      最大値・最小値
 //==========================
 echo max(2, 3, 1, 6, 7);   //=> 7
 echo max(array(2, 4, 5));  //=> 5
@@ -1174,6 +1229,16 @@ $aliased_talker = new Aliased_Talker();
 $aliased_talker->smallTalk();   //=> trant B - smallTalk
 $aliased_talker->bigTalk();     //=> trant A - bigTalk
 $aliased_talker->talk();        //=> trant B - bigTalk
+
+
+//==========================
+//      stdClass
+//==========================
+// デフォルトのクラスで宣言することなく、いきなり new して使うことができる特殊なオブジェクト。 
+$member = new stdClass();
+$member->name = 'Tom';
+echo $member->name;  //=> Tom
+
 
 
 //=================================
