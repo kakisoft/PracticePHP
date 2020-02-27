@@ -191,6 +191,7 @@ $replaceText = str_replace("A", "×", $targetText);
 // 小文字に変更
 $str = "Mary Had A Little Lamb and She LOVED It So";
 $str = mb_strtolower($str);
+$str = strtolower($str);
 
 // 大文字に変更
 $str = "Mary Had A Little Lamb and She LOVED It So";
@@ -1498,6 +1499,17 @@ $exists = file_exists($target_file_full_path); // true / false
 
 
 
+//================================
+//  ファイルパスに関する情報を返す
+//================================
+$path_parts = pathinfo('/www/htdocs/inc/lib.inc.php');
+echo $path_parts['dirname']  , "\n";  //=> /www/htdocs/inc
+echo $path_parts['basename'] , "\n";  //=> lib.inc.php
+echo $path_parts['extension'], "\n";  //=> php
+echo $path_parts['filename'] , "\n";  //=> lib.inc  (PHP 5.2.0 以降)
+
+
+
 //=============================
 //   ファイル読み込み  readfile
 //=============================
@@ -1588,6 +1600,17 @@ $encoded_data = json_encode($decoded_data);
 
 
 var_dump($encoded_data);  //=> string(97) "{"id":1,"product_name":"K001-X299022A","check_user":"5656","check_datetime":"2020\/02\/04 12:28"}"
+
+
+
+//=============================
+//          base64
+//=============================
+$str = 'This is an encoded string';
+$encoded_str = base64_encode($str);
+$decoded_str = base64_decode($encoded_str);
+echo $encoded_str;    //=> VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw==
+echo $decoded_str;    //=> This is an encoded string
 
 
 
