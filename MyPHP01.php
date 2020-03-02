@@ -1454,8 +1454,40 @@ echo $uniq_id;  //=> 5e4fa68e7973f,  5e4fa696543c9,  5e4fa69d27492
 
 
 
+
 //==========================
 //         ハッシュ
+//==========================
+
+$algo = 'ripemd160';  // 選択したアルゴリズムの名前 ("md5"、"sha256"、"haval160,4" など)
+$target_data = 'The quick brown fox jumped over the lazy dog.';  // ハッシュするメッセージ。
+$key = 'secret';  // HMAC 方式でのメッセージダイジェストを生成するために使用する 共有の秘密鍵。
+
+
+// hash — ハッシュ値 (メッセージダイジェスト) を生成する
+$hased_param = hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
+echo $hased_param;  //=> ec457d0a974c48d5685a7efa03d137dc8bbde7e3
+
+// パスワードに、ソルト（Salt）を追加してからハッシュを行う。（パスワードを特定させにくくする）
+$hashed_param_add_salt_1 = hash( 'SHA256', 'pass'.'salt' ); 
+$hashed_param_add_salt_2 = hash( 'SHA256', 'pass'.'salt2' ); 
+echo $hashed_param_add_salt_1 . PHP_EOL;  //  Saltが異なれば、異なるハッシュを生成する
+echo $hashed_param_add_salt_2 . PHP_EOL;  //  Saltが異なれば、異なるハッシュを生成する
+
+// hash_hmac — HMAC 方式を使用してハッシュ値を生成する
+$hmac_hased_param = hash_hmac($algo, $target_data, $key);  // 第４引数を true にすると、生のバイナリデータ。false（デフォルト）だと小文字の 16進数
+echo $hmac_hased_param;  //=> b8e7ae12510bdfb1812e463a7f086122cf37e4f7
+
+
+
+//----------( アルゴリズム一覧を表示 )----------
+print_r( hash_algos() );
+print_r( hash_hmac_algos() );
+
+
+
+//==========================
+//  パスワードのハッシュと確認
 //==========================
 // パスワードのハッシュとか。
 $password = '1234';
