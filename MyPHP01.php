@@ -228,29 +228,52 @@ if ($pos === false) {
     echo " 見つかった位置は $pos です";
 }
 
-//==========================
+//---------------------------
 //      文字列を丸める
-//==========================
+//---------------------------
 echo mb_strimwidth("Hello World", 0, 10, "...");  // "Hello W..." と出力します
 
 
 
-//==========================
+//---------------------------
 // フォーマットされた文字列を返す
-//==========================
+//---------------------------
 sprintf('%02d', 1); // 01
 sprintf('%03d', 1); // 001
 sprintf('あなたのIDは%04dです', 1); // あなたのIDは0001です
 
 
 
-//==========================
+//---------------------------
 //         trim
-//==========================
+//---------------------------
 // 末尾の「/」を削除
 $value = rtrim($value, '/');
 
 
+//--------------------------------------
+//   特定の文字で埋める（先頭 0埋めとか）
+//--------------------------------------
+$input = "5";
+echo "【" . str_pad($input, 10                     ) . "】" . PHP_EOL;  //=> 【5         】
+echo "【" . str_pad($input, 10, "0", STR_PAD_LEFT  ) . "】" . PHP_EOL;  //=> 【0000000005】
+echo "【" . str_pad($input, 10, "0", STR_PAD_RIGHT ) . "】" . PHP_EOL;  //=> 【5000000000】
+echo "【" . str_pad($input, 10, "_", STR_PAD_BOTH  ) . "】" . PHP_EOL;  //=> 【____5_____】
+echo "【" . str_pad($input,  6, "*"                ) . "】" . PHP_EOL;  //=> 【5*****】
+
+
+//---------------------------
+//     文字列を繰り返し
+//---------------------------
+echo str_repeat("1",  5);  //=> 11111
+echo str_repeat("34", 5);  //=> 3434343434
+
+//--------------------------------------
+//  指定した長さ、指定した値で配列を埋める
+//--------------------------------------
+$input = array(12, 10, 9);
+
+$result = array_pad($input, 10, 0);  //=> [12, 10, 9, 0, 0, 0, 0, 0, 0, 0]
 
 
 //==========================================================
@@ -436,7 +459,9 @@ var_dump($colors13[1]); // blue
 
 echo "<br>";
 
-//-----< 末尾に要素を追加 >-----
+//---------------------------
+//      末尾に要素を追加
+//---------------------------
 $array2 = [];
 array_push($array2, "a");
 array_push($array2, "bb");
@@ -453,11 +478,15 @@ $fruits[] = 'banana';
 $fruits[] = 'pineapple';
 
 
-//-----< 先頭に要素を追加 >-----
+//---------------------------
+//      先頭に要素を追加
+//---------------------------
 // array_unshift
 
 
-//-----< 末尾に要素を取り出す（破壊的に） >----
+//------------------------------
+//  末尾に要素を取り出す（破壊的に）
+//------------------------------
 //array_pop() は配列 array の最後の要素の値を取り出して返します。 配列 array は、要素一つ分短くなります。
 
 $stack = array("orange", "banana", "apple", "raspberry");
@@ -473,13 +502,15 @@ print_r($stack);
 // )
 
 
-
-
-//-----< 連結(join) >-----
+//---------------------------
+//         連結(join)
+//---------------------------
 echo( join('<br>', $array2) );
 
 
-//-----< キーを指定して追加（連想配列） >-----
+//----------------------------
+//  キーを指定して追加（連想配列）
+//----------------------------
 $array3 = [];
 $array3['a'] = "a";
 $array3['b'] = "bb";
@@ -506,15 +537,23 @@ echo "$userParameters['errMessageArray']['email']";
 */
 
 
-// split
+//---------------------------
+//          split
+//---------------------------
 $pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
 $pieces = explode(" ", $pizza);
 
-// join
+
+//---------------------------
+//           join
+//---------------------------
 $array = array('lastname', 'email', 'phone');
 $comma_separated = implode(",", $array);
 
-//////  配列の結合 /////
+
+//---------------------------
+//        配列の結合
+//---------------------------
 $pager["chunk"] = array_merge($pager["chunk"], $dynamicContentArray);
 $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 
@@ -522,14 +561,21 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 // $newArray02 = array_merge_recursive($arrayFirst, $arraySecond)
 
 
-//文字列⇒配列化
+//---------------------------
+//       文字列 ⇒ 配列
+//---------------------------
 $piecesUserId = explode(" ", preg_replace('/\s+/', ' ', trim($_GET['user_id'])));
 
-//配列⇒文字列
+
+//---------------------------
+//       配列 ⇒ 文字列
+//---------------------------
 $separatedArray = implode(",", $pieces);
 
 
-//-----( map )-----
+//---------------------------
+//           map
+//---------------------------
 $a1 = array_map(function($value) { return mb_strtolower($value); }, $pathArray);
 $a2 = array_map(function($value) { return strtoupper($value); }, $pathArray);
 
@@ -538,8 +584,9 @@ $manipulated_array_01 = array_map(function($v) { return intval($v); }, $array_01
 $manipulated_array_02 = array_map('intval', $array_01);                              //=> [1, 2, 0, 3, 4, 0, 5]  （↑と同じ）
 
 
-
-//-----( filter )-----
+//---------------------------
+//         filter
+//---------------------------
 // フィルタリング（先頭が '?' で開始する文字を対象外とする）
 $stringQueryExcludedRequestUri = array_filter($requestUri, function($v){ return strpos($v, '?') === 0 ? false : true; } );
 
@@ -599,8 +646,9 @@ $array_a01 = array_filter(array_map('trim', explode("\n", $string_a01)), 'strlen
 // )
 
 
-
-//-----( キーの存在チェック )-----
+//---------------------------
+//      キーの存在チェック
+//---------------------------
 // array_key_exists — 指定したキーまたは添字が配列にあるかどうかを調べる
 
 $search_array = array('first' => 1, 'second' => 4);
@@ -609,8 +657,9 @@ if (array_key_exists('first', $search_array)) {
 }
 
 
-
-//-----( 要素が含まれているか確認 )-----
+//---------------------------
+//   要素が含まれているか確認
+//---------------------------
 $os = array("Mac", "NT", "Irix", "Linux");
 if (in_array("Irix", $os, true)) {
     echo "Got Irix";
@@ -620,7 +669,9 @@ if (in_array("mac", $os, true)) {
 }
 
 
-//-----( 特定の要素をカウント )-----
+//---------------------------
+//     特定の要素をカウント
+//---------------------------
 //array_count_values()
 
 $array = array(1, "hello", 1, "world", "hello");
@@ -634,19 +685,27 @@ print_r(array_count_values($array));
 // )
 
 
-//-----( キーのみを取得 )-----
+//---------------------------
+//       キーのみを取得
+//---------------------------
 array_keys($a);
 
 
-//-----( 値のみを取得 )-----
+//---------------------------
+//       値のみを取得
+//---------------------------
 array_values($a);
 
 
-//-----( 重複を削除 )-----
+//---------------------------
+//       重複を削除
+//---------------------------
 array_unique($template_list);
 
 
-//-----( 配列をソート )-----
+//---------------------------
+//       配列をソート
+//---------------------------
 $fruits = array("lemon", "orange", "banana", "apple");
 sort($fruits);
 
@@ -656,7 +715,9 @@ sort($fruits);
 // fruits[3] = orange
 
 
-//-----( 配列を逆順にソート )-----
+//---------------------------
+//     配列を逆順にソート
+//---------------------------
 $fruits = array("lemon", "orange", "banana", "apple");
 rsort($fruits);
 
@@ -666,7 +727,9 @@ rsort($fruits);
 // 3 = apple
 
 
-//-----( 連想配列のソート )-----
+//---------------------------
+//     連想配列のソート
+//---------------------------
 //// arsort() - 連想キーと要素との関係を維持しつつ配列を逆順にソートする
 $fruits = array("d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple");
 arsort($fruits);
@@ -693,7 +756,9 @@ foreach ($fruits as $key => $val) {
 // a = orange
 
 
-//-----( 配列の一部を展開 )-----
+//---------------------------
+//     配列の一部を切り取る
+//---------------------------
 $input = array("a", "b", "c", "d", "e");
 
 $output_01 = array_slice($input, 2);      // returns "c", "d", "e"
@@ -718,26 +783,9 @@ print_r(array_slice($input, 2, -1, true));
 // )
 
 
-
-//-----( 範囲指定して配列を作成 )-----
-$numbers = range(1, 10);
-print_r($numbers);
-// Array
-// (
-//     [0] => 1
-//     [1] => 2
-//     [2] => 3
-//     [3] => 4
-//     [4] => 5
-//     [5] => 6
-//     [6] => 7
-//     [7] => 8
-//     [8] => 9
-//     [9] => 10
-// )
-
-
-//-----( 配列をシャッフル )-----
+//---------------------------
+//     配列をシャッフル
+//---------------------------
 $numbers = range(1, 20);
 shuffle($numbers);
 foreach ($numbers as $number) {
@@ -747,10 +795,9 @@ foreach ($numbers as $number) {
 //=> 3 14 19 10 6 11 1 13 18 17 7 15 2 9 5 20 4 12 8 16  （例）
 
 
-
-//==========================
-//      最大値・最小値
-//==========================
+//---------------------------
+//      最大値・最小値
+//---------------------------
 echo max(2, 3, 1, 6, 7);   //=> 7
 echo max(array(2, 4, 5));  //=> 5
 
@@ -765,9 +812,9 @@ echo min($array);  //=> 2
 
 
 
-//==========================
-//         平均
-//==========================
+//---------------------------
+//          平均
+//---------------------------
 $params = [1, 2, 3, 4, 5];
 $total = array_sum($params);
 $average = round( $total / count($params), 0);
@@ -785,6 +832,158 @@ $tmp_avg_val_2 = floor( array_sum($tmp_params) / count($tmp_params) );
 
 echo $tmp_avg_val_1;  //=> 1.5
 echo $tmp_avg_val_2;  //=> 1
+
+
+//---------------------------
+//  範囲を指定して配列を作成
+//---------------------------
+// 1 ～ 10 まで
+foreach (range(0, 10) as $number) {
+  echo $number;
+}
+
+$numbers = range(1, 10);
+print_r($numbers);
+// Array
+// (
+//     [0] => 1
+//     [1] => 2
+//     [2] => 3
+//     [3] => 4
+//     [4] => 5
+//     [5] => 6
+//     [6] => 7
+//     [7] => 8
+//     [8] => 9
+//     [9] => 10
+// )
+
+
+
+//---------------------------
+//  配列を指定した値で埋める
+//---------------------------
+$a = array_fill(5, 6, 'banana');
+$b = array_fill(-2, 4, 'pear');
+print_r($a);
+// Array
+// (
+//     [5] => banana
+//     [6] => banana
+//     [7] => banana
+//     [8] => banana
+//     [9] => banana
+//     [10] => banana
+// )
+
+print_r($b);
+// Array
+// (
+//     [-2] => pear
+//     [0] => pear
+//     [1] => pear
+//     [2] => pear
+// )
+
+//---------------------------------
+//  キーを指定して、配列を値で埋める
+//---------------------------------
+$keys = array('foo', 5, 10, 'bar');
+$a = array_fill_keys($keys, 'banana');
+print_r($a);
+// Array
+// (
+//     [foo] => banana
+//     [5] => banana
+//     [10] => banana
+//     [bar] => banana
+// )
+
+
+
+//---------------------------------
+//      配列のキーと値を反転
+//---------------------------------
+$input = array("oranges", "apples", "pears");
+$flipped = array_flip($input);
+
+print_r($flipped);
+// Array
+// (
+//     [oranges] => 0
+//     [apples] => 1
+//     [pears] => 2
+// )
+
+
+$input = array("a" => 1, "b" => 1, "c" => 2);
+$flipped = array_flip($input);
+
+print_r($flipped);
+// Array
+// (
+//     [1] => b
+//     [2] => c
+// )
+
+
+//---------------------------------
+//         配列の差を抽出
+//---------------------------------
+// array1 のエントリのうち、他のどの配列にも含まれない要素のみを含む配列を返します。
+$array1 = array("a" => "green", "red", "blue", "red");
+$array2 = array("b" => "green", "yellow", "red");
+$result = array_diff($array1, $array2);
+
+print_r($result);
+// Array
+// (
+//     [1] => blue
+// )
+
+
+//---------------------------------
+//         配列の共通項を抽出
+//---------------------------------
+$array1 = array("a" => "green", "red", "blue");
+$array2 = array("b" => "green", "yellow", "red");
+$result = array_intersect($array1, $array2);
+print_r($result);
+// Array
+// (
+//     [a] => green
+//     [0] => red
+// )
+
+
+//-----------------------------------
+//   配列の差を抽出（添字の確認を含む）
+//-----------------------------------
+$array1 = array("a" => "green", "b" => "brown", "c" => "blue", "red");
+$array2 = array("a" => "green", "yellow", "red");
+$result = array_diff_assoc($array1, $array2);
+print_r($result);
+// Array
+// (
+//     [b] => brown
+//     [c] => blue
+//     [0] => red
+// )
+
+
+//--------------------------------------
+//   配列の共通項を抽出（添字の確認を含む）
+//--------------------------------------
+$array1 = array("a" => "green", "b" => "brown", "c" => "blue", "red");
+$array2 = array("a" => "green", "b" => "yellow", "blue", "red");
+$result_array = array_intersect_assoc($array1, $array2);
+print_r($result_array);
+// Array
+// (
+//     [a] => green
+// )
+
+
 
 
 //==============================================================
