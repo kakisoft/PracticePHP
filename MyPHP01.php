@@ -984,6 +984,43 @@ print_r($result_array);
 // )
 
 
+//==================================================
+//   配列の要素に対し、再帰的にユーザ定義の関数を実行
+//==================================================
+$sweet = array('Tom' => 'apple', 'Ken' => 'banana');
+$fruits = array('sweet' => $sweet, 'sour' => 'lemon');
+
+function test_print($item, $key)
+{
+    echo "$key holds $item\n";
+}
+
+array_walk_recursive($fruits, 'test_print');
+// Tom holds apple
+// Ken holds banana
+// sour holds lemon
+
+
+//----------( コールバックにする事も可 )----------
+$a2 = array("aa<br>bb","<?php  aaa<div>bbb</div>ccc");
+$r2 = strip_tags_recursive($a2);
+print_r($r2);
+// Array
+// (
+//     [0] => aabb
+//     [1] =>
+// )
+
+function strip_tags_recursive( $arg ) {
+
+    $callback = function(&$value) {
+        $value = strip_tags($value);
+    };
+
+    array_walk_recursive( $arg, $callback );
+
+    return $arg;
+}
 
 
 //==============================================================
@@ -1520,6 +1557,21 @@ $replaceText = str_replace("<br>", PHP_EOL, $str_02);
 //==========================
 mb_convert_encoding( $ex->getMessage(), 'utf-8', 'shift_jis' );
 
+$str = mb_convert_encoding($str, "SJIS");
+
+// UTF-8の文字列をSJISに変換
+$sjisStr = mb_convert_encoding($utf8Str, 'SJIS', 'UTF-8');
+
+// EUC-JPからUTF-7に変換
+$str = mb_convert_encoding($str, "UTF-7", "EUC-JP");
+
+// JIS, eucjp-win, sjis-winの順番で自動検出し、UCS-2LEに変換
+$str = mb_convert_encoding($str, "UCS-2LE", "JIS, eucjp-win, sjis-win");
+
+// "auto" は、"ASCII,JIS,UTF-8,EUC-JP,SJIS" に展開される
+$str = mb_convert_encoding($str, "EUC-JP", "auto");
+
+
 
 //==========================
 //        to_string
@@ -1846,79 +1898,81 @@ echo $decoded_str;    //=> This is an encoded string
 
 
 //==========================
-//      URLエンコード
+//      URLエンコード
 //==========================
 //URLとして使用できない文字や記号を、使用できる文字の特殊な組み合わせで表すように変換する。
 
-// urlencode
-$a1 = urlencode('abc_defああああ');
+//----------( urlencode )----------
+$a1 = urlencode('abc_defああああ');  //=>  abc_def%E3%81%82%E3%81%82%E3%81%82%E3%81%82
+$result_1 = '<a href="nextpage?foo=' . urlencode($a1) . '">';  //=> <a href="nextpage?foo=abc_def%25E3%2581%2582%25E3%2581%2582%25E3%2581%2582%25E3%2581%2582">
 
-echo $a1;  #=> abc_def%E3%81%82%E3%81%82%E3%81%82%E3%81%82
-echo "<br>";
 
-// rawurlencode
-//awurlencode関数は、インターネットに関する様々な仕様をまとめたRFC3986に沿った変換をしているため、urlencode関数よりrawurlencode関数を使ったほうが安全
-$a2 = rawurlencode('abc_defああああ');
+//----------( rawurlencode )----------
+// RFC 3986 に基づき URL エンコードを行う。urlencode関数よりrawurlencode関数を使ったほうが安全らしい。
+$a2 = rawurlencode('abc_defああああ');  //=> abc_def%E3%81%82%E3%81%82%E3%81%82%E3%81%82
 
-echo $a2;
 
-// UTF-8の文字列をSJISに変換
-$sjisStr = mb_convert_encoding($utf8Str, 'SJIS', 'UTF-8');
+//==========================
+//      URLデコード
+//==========================
+$userinput = "北斗神拳";
+$encoded_user_input = rawurlencode($userinput);        //=>  %E5%8C%97%E6%96%97%E7%A5%9E%E6%8B%B3
+$decoded_user_input = urldecode($encoded_user_input);  //=>  北斗神拳
+
+
+$userinput = "南斗聖拳";
+$encoded_user_input = rawurlencode($userinput);            //=>  %E5%8D%97%E6%96%97%E8%81%96%E6%8B%B3
+$decoded_user_input = rawurldecode ($encoded_user_input);  //=>  南斗聖拳
 
 
 
 //====================================
-//  特殊文字を HTML エンティティに変換
+//  特殊文字を HTML エンティティに変換
 //====================================
-$a1 = array("1","2","3","&","'","<",">",'"');
-$r1 = htmlspecialchars_recursive($a1);
-print_r($r1);
+$new = htmlspecialchars("<a href='test'>Test</a>", ENT_QUOTES);
+echo $new;  //=> &lt;a href=&#039;test&#039;&gt;Test&lt;/a&gt;
+
+// 配列内のデータを変換したり
+$array_01 = array("1","2","3","&","'","<",">",'"');
+$escaped_array_01 = array_map('htmlspecialchars', $array_01);
+print_r($escaped_array_01);
 // Array
 // (
-//     [0] => 1
-//     [1] => 2
-//     [2] => 3
-//     [3] => &amp;
-//     [4] => '
-//     [5] => &lt;
-//     [6] => &gt;
-//     [7] => &quot;
+//     [0] => 1
+//     [1] => 2
+//     [2] => 3
+//     [3] => &amp;
+//     [4] => '
+//     [5] => &lt;
+//     [6] => &gt;
+//     [7] => &quot;
 // )
 
-function htmlspecialchars_recursive( $arg ) {
 
-    $callback = function(&$value) {
-        $value = htmlspecialchars($value);
-    };
+//----------( htmlentities )----------
+$str = "A 'quote' is <b>bold</b>";
 
-    array_walk_recursive( $arg, $callback );
+echo htmlentities($str);              //=>  A 'quote' is &lt;b&gt;bold&lt;/b&gt;
+echo htmlentities($str, ENT_QUOTES);  //=>  A &#039;quote&#039; is &lt;b&gt;bold&lt;/b&gt;
 
-    return $arg;
-}
+
 
 //====================================
-//  HTML および PHP タグを取り除く
+//  HTML および PHP タグを取り除く
 //====================================
-$a2 = array("aa<br>bb","<?php  aaa<div>bbb</div>ccc");
-$r2 = strip_tags_recursive($a2);
-print_r($r2);
-// Array
+$text = '<p>Test paragraph.</p><!-- Comment --> <a href="#fragment">Other text</a>';
+$striped_text = strip_tags($text);  //=> Test paragraph. Other text
+echo $striped_text;
+
+
+$array_02 = array('<p>a</p>','bb<br>cc','<?php  aaa<div>bbb</div>ccc');
+$escaped_array_02 = array_map('strip_tags', $array_02);
+// print_r($escaped_array_02);
 // (
-//     [0] => aabb
-//     [1] =>
+//     [0] => a
+//     [1] => bbcc
+//     [2] =>
 // )
-
-function strip_tags_recursive( $arg ) {
-
-    $callback = function(&$value) {
-        $value = strip_tags($value);
-    };
-
-    array_walk_recursive( $arg, $callback );
-
-    return $arg;
-}
-
 
 
 //===========================
@@ -1957,6 +2011,19 @@ $username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
 // $_GET['user']、$_POST['user'] そして 'nobody'
 // の順に調べて、非 &null; が定義されている最初の値を返します。
 $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
+
+
+//==========================
+//      METAタグ取得
+//==========================
+$tags = get_meta_tags('http://www.example.com/');
+
+// すべてのキーが小文字であり、. (ピリオド) が _ に
+// 置換されていることに注目してください。
+echo $tags['author'];       // name
+echo $tags['keywords'];     // php documentation
+echo $tags['description'];  // a php manual
+echo $tags['geo_position']; // 49.33;-86.59
 
 
 

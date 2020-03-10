@@ -15,7 +15,7 @@ $authAdapter = new Zend_Auth_Adapter_DbTable( $dbAdapter, 'users_table', 'mail_a
 	 *
 	 */
 	private function authenticate( $login_id, $password, &$company_id ) {
-        
+
         //メールアドレス + パスワードでチェック
         $authAdapter = new Zend_Auth_Adapter_DbTable( $dbAdapter, 'users_table', 'mail_address', 'password' );
 		// ログインID重複許可？
