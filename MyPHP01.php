@@ -157,7 +157,66 @@ $x2 *= 2;
 var_dump($x2);
 
 
-echo "<br>";
+//===========================
+//    定義済み変数を取得
+//===========================
+$a1 = get_defined_constants();
+
+print_r(array_keys($a1));
+
+
+// 実際は1000個ぐらいある
+// Array
+// (
+//     [PHP_VERSION] => 7.3.11
+//     [PHP_MAJOR_VERSION] => 7
+//     [PHP_MINOR_VERSION] => 3
+//     [PHP_RELEASE_VERSION] => 11
+//     [PHP_ZTS] => 0
+//     [PHP_DEBUG] => 0
+//     [PHP_SAPI] => cli
+//     [DEFAULT_INCLUDE_PATH] => .;C:\php\pear
+//     [PHP_PREFIX] => C:\php
+//     [PHP_BINDIR] => C:\php
+//     [PHP_LIBDIR] => C:\php
+//     [PHP_DATADIR] => C:\php
+//     [PHP_BINARY] => C:\tools\php73\php.exe
+// )
+
+
+// get_defined_vars() - 全ての定義済の変数を配列で返す
+// get_defined_constants() - すべての定数の名前とその値を連想配列として返す
+// get_declared_classes() - 定義済のクラスの名前を配列として返す
+
+
+//===========================
+//      ウェイト(wait)
+//===========================
+
+//----------(  実行を遅延させる。単位は秒。 )----------
+// 現在の時刻
+echo date('h:i:s') . "\n";
+
+// 10 秒間遅延させる
+sleep(10);
+
+// 再開!
+echo date('h:i:s') . "\n";
+
+
+
+//----------( マイクロ秒（百万分の一秒）単位で実行を遅延させる )----------
+
+// 現在の時刻
+echo date('h:i:s') . "\n";
+
+// 2 秒待つ
+usleep(2000000);
+
+// 復帰!
+echo date('h:i:s') . "\n";
+
+
 //======================================
 // 文字列
 // "" 特殊文字(\n, \t) 、変数が展開される
@@ -376,6 +435,21 @@ echo($getted_param_n4 . PHP_EOL);  //=> '0'
 
 // リクエストパラメータに使ったりとか
 $user_name = $_POST['user_name'] ?? 'default_user';
+
+//----------(  )----------
+//https://www.php.net/manual/ja/migration70.new-features.php
+
+// $_GET['user'] を取得します。もし存在しない場合は
+// 'nobody' を用います。
+$username = $_GET['user'] ?? 'nobody';
+// 上のコードは、次のコードと同じ意味です。
+$username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
+
+// 合体演算子を連結することもできます。次のように書くと、
+// $_GET['user']、$_POST['user'] そして 'nobody'
+// の順に調べて、非 &null; が定義されている最初の値を返します。
+$username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
+
 
 
 //==========================
@@ -667,6 +741,16 @@ if (in_array("Irix", $os, true)) {
 if (in_array("mac", $os, true)) {
     echo "Got mac";
 }
+
+
+//---------------------------
+//  配列の要素（value）を検索
+//---------------------------
+$array = array(0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red');
+
+$key = array_search('green', $array);  // $key = 2;
+$key = array_search('red', $array);    // $key = 1;
+
 
 
 //---------------------------
@@ -1360,7 +1444,7 @@ $Hatano->sayHello();
 
 
 //===========================
-//      ポリモーフィズム
+//    ポリモーフィズム的なの
 //===========================
 // class_exists
 // method_exists
@@ -1379,85 +1463,109 @@ if (class_exists($class)) {
 //         トレイト
 //===========================
 // コードを再利用するための仕組み。多重継承みたいな事をさせたい時に。
-// 基底クラスのメソッドを trait に持たせた方がよさそう？
-// 基底クラスから継承したメンバーよりも、トレイトで追加したメンバーのほうが優先されます。
-class Base {
-    public function sayHello() {
-        echo 'Hello ';
-    }
+trait LogOutput {
+  public function outputLog() {
+      echo 'output logs';
+  }
 }
 
+class MyClass01 {
+  use LogOutput;
+
+  public function someFunctionA() {
+      echo 'Hello ';
+  }
+}
+
+$my_class_01 = new MyClass01();
+$my_class_01->outputLog();  // 継承関係が無いメソッドを使用可。RubyのMixinみたいなもん。
+//=> output logs
+
+
+
+//-----------------------------
+//  トレイトの優先順位について１
+//-----------------------------
+// 基底クラスから継承したメンバーよりも、トレイトで追加したメンバーのほうが優先される。
 trait SayWorld {
-    public function sayHello() {
-        echo 'Hey! ';
-        parent::sayHello();
-        echo 'World!';
-    }
+  public function sayHello() {
+      echo 'Hey! ';
+      parent::sayHello();
+      echo 'World!';
+  }
+}
+
+class Base {
+  public function sayHello() {
+      echo 'Hello ';
+  }
 }
 
 class MyHelloWorld extends Base {
-    use SayWorld;
+  use SayWorld;
 }
 
 $o = new MyHelloWorld();
-$o->sayHello();  //=> Hey! Hello World!
+$o->sayHello();  // trait SayWorld sayHello() が優先される。（基底クラスのメソッド class Base sayHello() よりも優先して実行される）
+//=> Hey! Hello World!
 
 
-//----------------------------
-//  トレイトの優先順位について
-//----------------------------
+//-----------------------------
+//  トレイトの優先順位について２
+//-----------------------------
+// 自身が保持するメソッドとトレイトが保持するメソッドがバッティングした場合、自身が保持するメソッドが優先される。
 trait HelloWorld {
-    public function sayHello() {
-        echo 'Hello World!';
-    }
+  public function sayHello() {
+      echo 'Hello World!';
+  }
 }
 
 class TheWorldIsNotEnough {
-    use HelloWorld;
-    public function sayHello() {
-        echo 'Hello Universe!';  // この場合、こっちが優先される。
-    }
+  use HelloWorld;
+  public function sayHello() {
+      echo 'Hello Universe!';  // この場合、こっちが優先される。
+  }
 }
 
 $o = new TheWorldIsNotEnough();
-$o->sayHello();  //=> Hello Universe!
-
+$o->sayHello();  // 自身の持つメソッド（class TheWorldIsNotEnough sayHello() が、トレイトで保持している sayHello() よりも優先される。）
+//=> Hello Universe!
 
 
 //-------------------------------------------------------------------------------------------------------
 // 同一クラス内での複数のトレイト間の名前の衝突を解決するには、 insteadof 演算子を使って そのうちのひとつを選ぶ。
 //-------------------------------------------------------------------------------------------------------
 trait A {
-    public function smallTalk() {
-        echo 'trant A - smallTalk'. PHP_EOL;
-    }
-    public function bigTalk() {
-        echo 'trant A - bigTalk' . PHP_EOL;
-    }
+  public function smallTalk() {
+      echo 'trant A - smallTalk'. PHP_EOL;
+  }
+  public function bigTalk() {
+      echo 'trant A - bigTalk' . PHP_EOL;
+  }
 }
 
 trait B {
-    public function smallTalk() {
-        echo 'trant B - smallTalk'. PHP_EOL;
-    }
-    public function bigTalk() {
-        echo 'trant B - bigTalk' . PHP_EOL;
-    }
+  public function smallTalk() {
+      echo 'trant B - smallTalk'. PHP_EOL;
+  }
+  public function bigTalk() {
+      echo 'trant B - bigTalk' . PHP_EOL;
+  }
 }
 
 class Talker {
-    use A, B {
-        B::smallTalk insteadof A;
-        A::bigTalk insteadof B;
-    }
+  use A, B {
+      B::smallTalk insteadof A;
+      A::bigTalk insteadof B;
+  }
 }
 
 class Aliased_Talker {
-    use A, B {
-        B::smallTalk insteadof A;
-        A::bigTalk insteadof B;
-        B::bigTalk as talk;  // as 演算子を使って B の bigTalk の実装に talk というエイリアスを指定して使います
-    }
+  use A, B {
+      B::smallTalk insteadof A;
+      A::bigTalk insteadof B;
+      B::bigTalk as talk;  // as 演算子を使って B の bigTalk の実装に talk というエイリアスを指定して使います
+  }
 }
 
 
@@ -1705,7 +1813,6 @@ echo $uniq_id;  //=> 5e4fa68e7973f,  5e4fa696543c9,  5e4fa69d27492
 
 
 
-
 //==========================
 //         ハッシュ
 //==========================
@@ -1720,8 +1827,8 @@ $hased_param = hash('ripemd160', 'The quick brown fox jumped over the lazy dog.'
 echo $hased_param;  //=> ec457d0a974c48d5685a7efa03d137dc8bbde7e3
 
 // パスワードに、ソルト（Salt）を追加してからハッシュを行う。（パスワードを特定させにくくする）
-$hashed_param_add_salt_1 = hash( 'SHA256', 'pass'.'salt' ); 
-$hashed_param_add_salt_2 = hash( 'SHA256', 'pass'.'salt2' ); 
+$hashed_param_add_salt_1 = hash( 'SHA256', 'pass'.'salt' );
+$hashed_param_add_salt_2 = hash( 'SHA256', 'pass'.'salt2' );
 echo $hashed_param_add_salt_1 . PHP_EOL;  //  Saltが異なれば、異なるハッシュを生成する
 echo $hashed_param_add_salt_2 . PHP_EOL;  //  Saltが異なれば、異なるハッシュを生成する
 
@@ -1950,10 +2057,23 @@ print_r($escaped_array_01);
 
 
 //----------( htmlentities )----------
+// この関数はhtmlspecialchars()と同じですが、 HTML エンティティと等価な意味を有する文字をHTMLエンティティに変換します。
 $str = "A 'quote' is <b>bold</b>";
 
 echo htmlentities($str);              //=>  A 'quote' is &lt;b&gt;bold&lt;/b&gt;
 echo htmlentities($str, ENT_QUOTES);  //=>  A &#039;quote&#039; is &lt;b&gt;bold&lt;/b&gt;
+
+
+//===================================================
+//  HTML エンティティを対応する文字に変換（↑のデコード）
+//===================================================
+$orig = "I'll \"walk\" the <b>dog</b> now";
+
+$a = htmlspecialchars($orig);
+$b = html_entity_decode($a);
+
+echo $a . PHP_EOL;  //=> I'll &quot;walk&quot; the &lt;b&gt;dog&lt;/b&gt; now
+echo $b . PHP_EOL;  //=> I'll "walk" the <b>dog</b> now
 
 
 
@@ -1995,24 +2115,6 @@ header("Content-Disposition: attachment; filename*=utf-8'ja'{$path}");
 header('Content-Transfer-Encoding: binary');
 
 
-
-//==========================
-//   null 合体演算子 (??)
-//==========================
-//https://www.php.net/manual/ja/migration70.new-features.php
-
-// $_GET['user'] を取得します。もし存在しない場合は
-// 'nobody' を用います。
-$username = $_GET['user'] ?? 'nobody';
-// 上のコードは、次のコードと同じ意味です。
-$username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
-
-// 合体演算子を連結することもできます。次のように書くと、
-// $_GET['user']、$_POST['user'] そして 'nobody'
-// の順に調べて、非 &null; が定義されている最初の値を返します。
-$username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
-
-
 //==========================
 //      METAタグ取得
 //==========================
@@ -2024,7 +2126,6 @@ echo $tags['author'];       // name
 echo $tags['keywords'];     // php documentation
 echo $tags['description'];  // a php manual
 echo $tags['geo_position']; // 49.33;-86.59
-
 
 
 //==========================
