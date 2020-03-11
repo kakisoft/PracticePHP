@@ -2039,6 +2039,9 @@ $decoded_user_input = rawurldecode ($encoded_user_input);  //=>  南斗聖拳
 $new = htmlspecialchars("<a href='test'>Test</a>", ENT_QUOTES);
 echo $new;  //=> &lt;a href=&#039;test&#039;&gt;Test&lt;/a&gt;
 
+echo htmlspecialchars("hi! " . $_GET['name'], ENT_QUOTES, "utf-8");
+
+
 // 配列内のデータを変換したり
 $array_01 = array("1","2","3","&","'","<",">",'"');
 $escaped_array_01 = array_map('htmlspecialchars', $array_01);
