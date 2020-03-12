@@ -1,3 +1,60 @@
+#### タイムゾーン一覧
+https://www.php.net/manual/ja/timezones.asia.php  
+
+
+## 現在の時間を取得
+```php
+// 現在の時間を取得（必要に応じて、タイムゾーンをセット）
+date_default_timezone_set('Asia/Tokyo');
+echo date('h:i:s');  //=> 05:45:01
+
+// デフォルトのタイムゾーンを取得
+$default_timezone = date_default_timezone_get();
+var_dump( $default_timezone );  //=> string(3) "UTC"
+```
+
+
+## 現在の時間を取得（ Unix タイムスタンプ ）
+Unixタイムスタンプ - 協定世界時（UTC）での1970年1月1日午前0時0分0秒からの形式的な経過秒数
+```php
+//----------( mktime )----------
+// 日付を Unix のタイムスタンプとして取得する
+date_default_timezone_set('Asia/Tokyo');
+echo date('"Y/m/d H:i:s', mktime(1, 2, 3, 4, 5, 2006));                 //=> "2006/04/05 01:02:03
+
+echo "July 1, 2000 is on a " . date("l", mktime(0, 0, 0, 7, 1, 2000));  //=> July 1, 2000 is on a Saturday
+echo date('c', mktime(1, 2, 3, 4, 5, 2006));                            //=> 2006-04-05T01:02:03+09:00
+
+
+echo date("M-d-Y", mktime(0, 0, 0, 12, 32, 1997));  //=> "Jan-01-1998"
+echo date("M-d-Y", mktime(0, 0, 0, 13, 1, 1997));   //=> "Jan-01-1998"
+echo date("M-d-Y", mktime(0, 0, 0, 1, 1, 1998));    //=> "Jan-01-1998"
+echo date("M-d-Y", mktime(0, 0, 0, 1, 1, 98));      //=> "Jan-01-1998"
+
+
+//----------( 現在の Unix タイムスタンプ(time) )----------
+var_dump( time() );  //=> int(1584001820)
+
+$nextWeek = time() + (7 * 24 * 60 * 60);
+                   // 7 日 * 24 時間 * 60 分 * 60 秒
+var_dump($nextWeek);
+
+
+//----------( マイクロ秒まで )----------
+var_dump( microtime() );  //=> string(21) "0.89002100 1584002005"
+
+$time_start = microtime(true);
+
+// しばらくスリープ
+usleep(100);
+
+$time_end = microtime(true);
+$time = $time_end - $time_start;
+
+echo "Did nothing in $time seconds\n";
+```
+
+
 ## 時間の差分
 ```php
 $a = '2018/08/31 10:20:00';
