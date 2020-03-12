@@ -1133,11 +1133,11 @@ $b = array_fill(-2, 4, 'pear');
 print_r($a);
 // Array
 // (
-//     [5] => banana
-//     [6] => banana
-//     [7] => banana
-//     [8] => banana
-//     [9] => banana
+//     [5]  => banana
+//     [6]  => banana
+//     [7]  => banana
+//     [8]  => banana
+//     [9]  => banana
 //     [10] => banana
 // )
 
@@ -1145,9 +1145,9 @@ print_r($b);
 // Array
 // (
 //     [-2] => pear
-//     [0] => pear
-//     [1] => pear
-//     [2] => pear
+//     [0]  => pear
+//     [1]  => pear
+//     [2]  => pear
 // )
 
 //---------------------------------
@@ -1159,8 +1159,8 @@ print_r($a);
 // Array
 // (
 //     [foo] => banana
-//     [5] => banana
-//     [10] => banana
+//     [5]   => banana
+//     [10]  => banana
 //     [bar] => banana
 // )
 
@@ -1405,8 +1405,6 @@ print_r($myinputs);
 // )
 
 
-
-
 //==========================
 //       foreach
 //==========================
@@ -1445,12 +1443,12 @@ endforeach;
 //===================================
 // current : 配列の現在の内部ポインタの要素の値を取得
 $array = array('Apple', 'Banana', 'Pineapple', 'Strawberry');
-echo $mode = current($array)."<br/>\n";   // Apple
-echo $mode = next($array)."<br/>\n";      // Banana
-echo $mode = current($array)."<br/>\n";   // Banana
-echo $mode = prev($array)."<br/>\n";      // Apple
-echo $mode = end($array)."<br/>\n";       // Strawberry
-echo $mode = current($array)."<br/>\n";   // Strawberry
+echo $mode = current($array)   . PHP_EOL;   // Apple
+echo $mode = next($array)      . PHP_EOL;   // Banana
+echo $mode = current($array)   . PHP_EOL;   // Banana
+echo $mode = prev($array)      . PHP_EOL;   // Apple
+echo $mode = end($array)       . PHP_EOL;   // Strawberry
+echo $mode = current($array)   . PHP_EOL;   // Strawberry
 
 
 
