@@ -251,6 +251,50 @@ var_dump( is_object(new stdClass()) );  //=> bool(true)
 var_dump( is_object(array('Kalle')) );  //=> bool(false)
 
 
+//====================================
+//         空チェック( empty )
+//====================================
+// 0 や "0" を true と判定するのをOKとしない場合は注意を。
+var_dump( empty("")  );       //=> bool(true)
+var_dump( empty(0)  );        //=> bool(true)
+var_dump( empty(0.0)  );      //=> bool(true)
+var_dump( empty("0")  );      //=> bool(true)
+var_dump( empty(NULL)  );     //=> bool(true)
+var_dump( empty(FALSE)  );    //=> bool(true)
+var_dump( empty(array())  );  //=> bool(true)
+var_dump( empty("a")  );      //=> bool(false)
+
+
+//----------( 他にこんな方法とか )----------
+var_dump( strlen("") <= 0  );       //=> bool(true)
+var_dump( strlen(0) <= 0  );        //=> bool(false)
+var_dump( strlen(0.0) <= 0  );      //=> bool(false)
+var_dump( strlen("0") <= 0  );      //=> bool(false)
+var_dump( strlen(NULL) <= 0  );     //=> bool(true)
+var_dump( strlen(FALSE) <= 0  );    //=> bool(true)
+var_dump( strlen(array()) <= 0  );  //=> bool(true)  ※Warningが出る
+var_dump( strlen("a") <= 0  );      //=> bool(false)
+
+
+//====================================
+//     変数がセットさているかチェック
+//====================================
+$param1 = '';
+$param2 = null;
+$param3 = false;
+$param4 = 0;
+$param5 = array();
+var_dump( isset($param1) );  //=> bool(true)
+var_dump( isset($param2) );  //=> bool(false)
+var_dump( isset($param3) );  //=> bool(true)
+var_dump( isset($param4) );  //=> bool(true)
+var_dump( isset($param5) );  //=> bool(true)
+var_dump( isset($paramX) );  //=> bool(false)  未定義の変数
+
+unset($param1);
+var_dump( isset($param1) );  //=> bool(false)
+
+
 
 //==========================
 //      数値型の演算
