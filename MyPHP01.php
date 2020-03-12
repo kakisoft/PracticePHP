@@ -134,6 +134,124 @@ else {
 echo PHP_BINARY;  // C:\tools\php73\php.exe   //  /usr/bin/phppckaki301:PracticePHP
 
 
+
+//====================================
+//      エラーメッセージの表示制御
+//====================================
+// 全てのエラー出力をオフにする
+error_reporting(0);
+
+// 単純な実行時エラーを表示する
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+// E_NOTICE を表示させるのもおすすめ（初期化されていない
+// 変数、変数名のスペルミスなど…）
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
+// E_NOTICE 以外の全てのエラーを表示する
+error_reporting(E_ALL & ~E_NOTICE);
+
+// 全ての PHP エラーを表示する (Changelog を参照ください)
+error_reporting(E_ALL);
+
+// 全ての PHP エラーを表示する
+error_reporting(-1);
+
+// error_reporting(E_ALL); と同じ
+ini_set('error_reporting', E_ALL);
+
+
+
+//====================================
+//         is_XXX 型チェック
+//====================================
+
+//----------( is_numeric )----------
+// 変数が数字または数値形式の文字列であるかを調べる
+var_dump( is_numeric(42)  );              //=> bool(true)
+var_dump( is_numeric("42")  );            //=> bool(true)
+var_dump( is_numeric(4.2) );              //=> bool(true)
+var_dump( is_numeric("4.2") );            //=> bool(true)
+var_dump( is_numeric(".2") );             //=> bool(true)   !!??
+var_dump( is_numeric("4") );              //=> bool(true)
+var_dump( is_numeric("4.") );             //=> bool(true)   !!??
+var_dump( is_numeric("4..2") );           //=> bool(false)
+var_dump( is_numeric("") );               //=> bool(false)
+var_dump( is_numeric("e") );              //=> bool(false)
+var_dump( is_numeric(02471) );            //=> bool(true)
+var_dump( is_numeric("02471") );          //=> bool(true)
+var_dump( is_numeric(0x539) );            //=> bool(true)
+var_dump( is_numeric("0x539") );          //=> bool(false)  !!??
+var_dump( is_numeric(0b10100111001) );    //=> bool(true)   !!??
+var_dump( is_numeric("0b10100111001") );  //=> bool(false)
+var_dump( is_numeric(1337e0) );           //=> bool(true)   !!??
+var_dump( is_numeric(array()) );          //=> bool(false)
+var_dump( is_numeric(null ));             //=> bool(false)
+
+
+ //----------( is_float )----------
+var_dump( is_float(27.25) );    //=> bool(true)
+var_dump( is_float("27.25") );  //=> bool(false)   is_numeric と違う。当然か float じゃないし。
+var_dump( is_float(23) );       //=> bool(false)  ちょっと判定厳しくない？
+var_dump( is_float(23.0) );     //=> bool(true)
+var_dump( is_float(1e7) );      //=> bool(true)    !!??
+var_dump( is_float(true) );     //=> bool(false)
+var_dump( is_float(".1") );     //=> bool(false)
+var_dump( is_float("5.") );     //=> bool(false)
+var_dump( is_float(".5.") );    //=> bool(false)
+var_dump( is_float("5..2") );   //=> bool(false)
+var_dump( is_float('abc') );    //=> bool(false)
+
+
+//----------( is_int )----------
+var_dump( is_int(23) );       //=> bool(true)
+var_dump( is_int("23") );     //=> bool(false)   is_numeric と違う。当然か int じゃないし。
+var_dump( is_int(27.25) );    //=> bool(false)
+var_dump( is_int("27.25") );  //=> bool(false)
+var_dump( is_int(1e7) );      //=> bool(false)
+var_dump( is_int(true) );     //=> bool(false)
+var_dump( is_int(".1") );     //=> bool(false)
+var_dump( is_int("5.") );     //=> bool(false)
+var_dump( is_int(".5.") );    //=> bool(false)
+var_dump( is_int("5..2") );   //=> bool(false)
+var_dump( is_int('abc') );    //=> bool(false)
+
+
+//----------( is_bool )----------
+var_dump( is_bool(0) );       //=> bool(false)
+var_dump( is_bool("0") );     //=> bool(false)
+var_dump( is_bool(true) );    //=> bool(true)
+var_dump( is_bool(false) );   //=> bool(true)
+
+
+//----------( is_string )----------
+var_dump( is_string(false) );   //=> bool(false)
+var_dump( is_string(true) );    //=> bool(false)
+var_dump( is_string(null) );    //=> bool(false)
+var_dump( is_string('abc') );   //=> bool(true)
+var_dump( is_string('23') );    //=> bool(true)
+var_dump( is_string(23) );      //=> bool(false)
+var_dump( is_string('23.5') );  //=> bool(true)
+var_dump( is_string(23.5) );    //=> bool(false)
+var_dump( is_string('') );      //=> bool(true)
+var_dump( is_string(' ') );     //=> bool(true)
+var_dump( is_string('0') );     //=> bool(true)
+var_dump( is_string(0) );       //=> bool(false)
+
+
+ //----------( is_array )----------
+ $yes = array('this', 'is', 'an array');
+ $no = 'this is a string';
+ var_dump( is_array($yes) );  //=> bool(true)
+ var_dump( is_array($no) );   //=> bool(false)
+
+
+//----------( is_object )----------
+var_dump( is_object(new stdClass()) );  //=> bool(true)
+var_dump( is_object(array('Kalle')) );  //=> bool(false)
+
+
+
 //==========================
 //      数値型の演算
 //==========================
@@ -1820,6 +1938,11 @@ echo $uniq_id;  //=> 5e4fa68e7973f,  5e4fa696543c9,  5e4fa69d27492
 $algo = 'ripemd160';  // 選択したアルゴリズムの名前 ("md5"、"sha256"、"haval160,4" など)
 $target_data = 'The quick brown fox jumped over the lazy dog.';  // ハッシュするメッセージ。
 $key = 'secret';  // HMAC 方式でのメッセージダイジェストを生成するために使用する 共有の秘密鍵。
+// https://github.com/kakisoft/PracticePHP/blob/master/memo/hash.md
+
+// HMAC (Hash-based Message Authentication Code)
+// 鍵(メッセージ認証符号のことです)とデータとハッシュ関数を元に計算されたハッシュ値を持つ。
+// 鍵は秘密である必要があり、可能な限り高速となるように設計されている。
 
 
 // hash — ハッシュ値 (メッセージダイジェスト) を生成する
