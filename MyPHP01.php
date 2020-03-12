@@ -472,6 +472,25 @@ sprintf('あなたのIDは%04dです', 1); // あなたのIDは0001です
 $value = rtrim($value, '/');
 
 
+//---------------------------
+//      文字列の切り出し
+//---------------------------
+//----------( substr )----------
+var_dump( substr("abcdef",  0, 3 ) );    //=> string(3) "abc"
+var_dump( substr("abcdef",  1    ) );    //=> string(5) "bcdef"
+var_dump( substr("abcdef",  2    ) );    //=> string(4) "cdef"
+var_dump( substr("abcdef",  1, 2 ) );    //=> string(2) "bc"
+var_dump( substr("abcdef", -1    ) );    //=> string(1) "f"
+var_dump( substr("abcdef", -2    ) );    //=> string(2) "ef"
+var_dump( substr("abcdef", -3, 1 ) );    //=> string(1) "d"
+
+
+//----------( こんな方法も )----------
+$expected_array_got_string = 'somestring';
+var_dump($expected_array_got_string[0]);  //=> string(1) "s"
+var_dump($expected_array_got_string[1]);  //=> string(1) "o"
+
+
 //--------------------------------------
 //   特定の文字で埋める（先頭 0埋めとか）
 //--------------------------------------
