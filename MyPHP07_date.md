@@ -134,9 +134,9 @@ function diff($a, $b) {
     var_dump($dif_days); echo "<br>";
     var_dump($dif_minutes);
 }
+
+
+// float(0.0033564814814815)
+// float(5.5941358024691E-5)
 ```
 
-```php
-float(0.0033564814814815)
-float(5.5941358024691E-5)
-```
