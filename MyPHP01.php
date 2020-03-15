@@ -251,6 +251,19 @@ var_dump( is_object(new stdClass()) );  //=> bool(true)
 var_dump( is_object(array('Kalle')) );  //=> bool(false)
 
 
+//----------( is_resource )----------
+// is_resource() は、厳格な型チェックを行うわけではありません。 var がすでに閉じられたリソース変数である場合は、FALSE を返します。
+
+$fp = fopen(__FILE__, "r");
+
+if ( is_resource($fp) ){
+    echo "This is resorce!";
+}
+else{
+    throw new \RuntimeException("unable open self");
+}
+
+
 //====================================
 //         空チェック( empty )
 //====================================
@@ -400,11 +413,11 @@ var_dump($s5);
 
 echo "<br>";
 
+//-----------------------------
+//        文字列の置換
+//-----------------------------
 
-//-------------------
-//     置換
-//-------------------
-$targetText = "AABBAA";
+// 大文字小文字を区別しない「 str_ireplace() 」というのもある。
 
 // "A" という文字列を "×" に置換する
 $replaceText = str_replace("A", "×", $targetText);
@@ -417,6 +430,30 @@ $str = strtolower($str);
 // 大文字に変更
 $str = "Mary Had A Little Lamb and She LOVED It So";
 $str = strtoupper($str);
+
+
+//          You should eat pizza,  beer,       and ice   every day となります
+$phrase  = "You should eat fruits, vegetables, and fiber every day.";
+$healthy = array("fruits", "vegetables", "fiber");
+$yummy   = array("pizza" , "beer"      , "ice");
+
+$newphrase = str_replace($healthy, $yummy, $phrase);
+
+// 2 となります
+$str = str_replace("ll", "", "good golly miss molly!", $count);
+echo $count;
+
+
+
+//-----------------------------
+//   文字列の一部を指定して置換
+//-----------------------------
+$var = 'ABCDEFGH:/MNRPQR/';
+echo substr_replace($var, 'bob', 10, -1) . PHP_EOL;  //=> ABCDEFGH:/bob/
+echo substr_replace($var, 'bob', 1,   7) . PHP_EOL;  //=> Abob:/MNRPQR/
+
+
+
 
 //----------( 正規表現による置換 )----------
 //連続したスペースを、スペース１個分に置換
@@ -449,6 +486,23 @@ if ($pos === false) {
     echo " 見つかった位置は $pos です";
 }
 
+
+//-------------------
+//    文字列の検索２
+//-------------------
+// strstr — 文字列が最初に現れる位置を見つける
+
+// 説明
+// string strstr ( string $haystack , mixed $needle [, bool $before_needle = false ] )
+
+//もし特定の haystack に needle があるかどうかを調べるだけの場合、 より高速でメモリ消費も少ない strpos() を代わりに使用してください。
+
+$email  = 'name@example.com';
+$domain = strstr($email, '@');        //=> @example.com
+$user   = strstr($email, '@', true);  //=> name
+
+
+
 //---------------------------
 //      文字列を丸める
 //---------------------------
@@ -473,7 +527,7 @@ $value = rtrim($value, '/');
 
 
 //---------------------------
-//      文字列の切り出し
+//  文字列の切り出し/切り取り
 //---------------------------
 //----------( substr )----------
 var_dump( substr("abcdef",  0, 3 ) );    //=> string(3) "abc"
@@ -489,6 +543,23 @@ var_dump( substr("abcdef", -3, 1 ) );    //=> string(1) "d"
 $expected_array_got_string = 'somestring';
 var_dump($expected_array_got_string[0]);  //=> string(1) "s"
 var_dump($expected_array_got_string[1]);  //=> string(1) "o"
+
+
+//----------( 全角 )----------
+// mb_substr - マルチバイト対応
+
+
+//-----------------------------
+//  特定の文字の出現回数を数える
+//-----------------------------
+$text = 'This is a test';
+
+echo substr_count($text, 'is')    . PHP_EOL;     //=> 2（「is」が 2回出現）
+echo substr_count($text, 'is', 3) . PHP_EOL;     //=> 1  （開始時のオフセットを第三引数に指定）
+echo substr_count($text, 'is', 3, 2) . PHP_EOL;  //=> 0 （開始時オフセットから終端までの文字数を第四引数に指定）
+
+$text2 = 'gcdgcdgcd';
+echo substr_count($text2, 'gcdgcd') . PHP_EOL;  //=> 1 （重なっている副文字列はカウントされない）
 
 
 //--------------------------------------
@@ -2144,6 +2215,23 @@ rmdir('examples');
 // parse_ini_file
 
 
+//====================================
+//       リソースタイプを調べる
+//====================================
+// get_resource_type - 指定したリソースの型を取得します。
+
+// mysql link を出力
+$c = mysql_connect();
+echo get_resource_type($c) . "\n";
+
+// stream を出力
+$fp = fopen("foo", "w");
+echo get_resource_type($fp) . "\n";
+
+// domxml document を出力
+$doc = new_xmldoc("1.0");
+echo get_resource_type($doc->doc) . "\n";
+
 
 //================================================================================
 //  ob_start / ob_get_contents / ob_end_flush  （出力内容を buffer に貯めておく）
@@ -2171,6 +2259,34 @@ if (method_exists($this->_account, $name) || preg_match('/^find/', $name)) {
   return call_user_func_array(array($this->_account, $name), $args);
 }
 
+
+//===========================
+//     コールバック関数
+//===========================
+// call_user_func_array - パラメータの配列を指定してコールバック関数をコールする
+
+function foobar($arg, $arg2) {
+  echo __FUNCTION__, " got {$arg} and {$arg2}" . PHP_EOL;
+  return "You enterd :" . substr($arg, 0, 1) . substr($arg2, 0, 1);
+}
+class foo {
+  function bar($arg, $arg2) {
+      echo __METHOD__, " got $arg and $arg2\n";
+      return "You enterd :" . strlen($arg) . strlen($arg2);
+  }
+}
+
+
+// foobar() 関数に引数を 2 つ渡してコールします
+$result1 = call_user_func_array("foobar", array("one", "two"));
+
+// $foo->bar() メソッドに引数を 2 つ渡してコールします
+$foo = new foo;
+$result2 = call_user_func_array(array($foo, "bar"), array("three", "four"));
+
+
+print_r($result1);
+print_r($result2);
 
 
 //===========================
@@ -2325,6 +2441,38 @@ echo $tags['description'];  // a php manual
 echo $tags['geo_position']; // 49.33;-86.59
 
 
+//===========================
+//  指定した時刻まで実行を遅延
+//===========================
+// false を返し、警告を発生します
+var_dump(time_sleep_until(time()-1));
+
+// 高速なコンピュータ上でのみ動作します。実行を 0.2 秒遅延します。
+var_dump(time_sleep_until(microtime(true)+0.2));
+
+
+//===========================
+//   実行時間の最大値を制限
+//===========================
+// スクリプトが実行可能な秒数を設定します。 この制限にかかるとスクリプトは致命的エラーを返します。
+// デフォルトの制限値は 30 秒です。 なお、php.iniでmax_execution_timeの 値が定義されている場合にはそれを用います。
+
+//----------( 5秒超えたら Fatal error を返す )----------
+set_time_limit(5);
+
+$i = 0;
+while ($i<=10)
+{
+        echo "i=$i ";
+        sleep(10);
+        $i++;
+}
+
+//=> Fatal error:  Maximum execution time of 5 seconds exceeded in C:\kaki\__tmp__\PHP\58_time_sleep.php on line 34
+
+
+
+
 //==========================
 //      宇宙船演算子
 //==========================
@@ -2461,6 +2609,36 @@ foreach ($prefectureSet as $value) {
 // $this->prefectureSet = MY_UTIL::sharpen($value);
 // みたいにすると、nullになってしまう。
 
+
+
+//====================================
+//             プロセス
+//====================================
+
+//----------( PHP のプロセスの ID を取得 )----------
+$process_id = getmypid();
+var_dump( getmypid() );    //=> int(16300)
+
+
+//----------( PHP スクリプトの所有者の GID を取得 )----------
+$my_gid = getmygid();
+
+
+//----------( PHP スクリプト所有者のユーザー ID を取得 )----------
+$my_uid = getmyuid();
+
+
+//----------( 現在の PHP スクリプトの所有者の名前を取得 )----------
+$current_user = get_current_user();
+//=> string(4) "IUSR"
+
+
+//----------( 現在のスクリプトの inode を取得する )----------
+$my_inode = getmyinode();
+
+
+//----------( 最終更新時刻を取得 )----------
+$lastmod = getlastmod();  //=> int(1573627087)
 
 
 ?>

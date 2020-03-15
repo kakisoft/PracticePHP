@@ -2,6 +2,34 @@
 https://www.php.net/manual/ja/timezones.asia.php  
 
 
+## 現在の日付を取得
+```php
+date_default_timezone_set('Asia/Tokyo');
+echo time()                             . PHP_EOL;  //=> 1584078499
+echo date('Y/m/d H:i:s', time())        . PHP_EOL;  //=> 2020/03/13 14:48:19
+echo date('Y/m/d H:i:s', 1573627087)    . PHP_EOL;  //=> 2019/11/13 15:38:07
+echo strtotime( '2012/04/18 15:55:53' ) . PHP_EOL;  //=> 1334732153
+// strtotime — 英文形式の日付を Unix タイムスタンプに変換する
+
+$date = new DateTime('2018-01-01 00:00:00');
+echo $date->format('U');  //=> 1514764800
+```
+
+## 特定年月の最終日を取得
+```php
+$month = '2014-02'; 
+$firstDate = date('Y-m-d', strtotime('first day of ' . $month));
+$lastDate = date('Y-m-d', strtotime('last day of ' . $month));
+```
+
+
+## 日付を指定フォーマットに変換
+```php
+$a4 =  date('Y/m/d H:i',strtotime('2018-09-18 16:58:33.159892+09'));
+echo $a4 . "<br>";   //=>  2018/09/18 16:58
+```
+
+
 ## 現在の時間を取得
 ```php
 // 現在の時間を取得（必要に応じて、タイムゾーンをセット）
@@ -13,6 +41,25 @@ $default_timezone = date_default_timezone_get();
 var_dump( $default_timezone );  //=> string(3) "UTC"
 ```
 
+
+## 日付の妥当性チェック
+```php
+$date = "2018/01/32";
+
+//何と、2018/02/01 と判定してしまう。
+$d = DateTime::createFromFormat('Y/m/d', $date);
+
+
+
+if(checkdate(2, 29, 2016)) {
+  echo '受け付けました。';
+} else {
+  echo '存在しない日付です。';
+}
+```
+
+____________________________________________________________________________________________________
+# Unix タイムスタンプ
 
 ## 現在の時間を取得（ Unix タイムスタンプ ）
 Unixタイムスタンプ - 協定世界時（UTC）での1970年1月1日午前0時0分0秒からの形式的な経過秒数
@@ -52,6 +99,21 @@ $time_end = microtime(true);
 $time = $time_end - $time_start;
 
 echo "Did nothing in $time seconds\n";
+
+
+var_dump( microtime() );      //=> string(21) "0.62425500 1584062705"
+var_dump( microtime(true) );  //=> float(1584062705.6248)
+// get_as_float を TRUE に設定すると、microtime() は Unixエポック からの経過秒数を マイクロ秒で正確になるように float で表したものを返します
+```
+
+## 日付の比較
+unix_time
+```php
+$timestamp1 = time();
+$timestamp2 = strtotime($recordInstance[0]['exec_date']);  //postgers:TIMESTAMP
+$secdiff = abs($timestamp1 - $timestamp2);
+$mindiff = $secdiff/(60);
+$dif_days = $secdiff/(60*60*24);
 ```
 
 
@@ -77,73 +139,4 @@ function diff($a, $b) {
 ```php
 float(0.0033564814814815)
 float(5.5941358024691E-5)
-```
-
-_____________________________________________________________________________________
-## 日付
-```
-strtotime
-(PHP 4, PHP 5, PHP 7)
-
-strtotime — 英文形式の日付を Unix タイムスタンプに変換する
-```
-
-## 日付を指定フォーマットに変換
-```php
-$a4 =  date('Y/m/d H:i',strtotime('2018-09-18 16:58:33.159892+09'));
-echo $a4 . "<br>";   //=>  2018/09/18 16:58
-```
-
-
-## 現在の日付を取得
-```php
-echo date("Y-m-d");        // 2019-09-13
-echo PHP_EOL;
-echo date("Y/m/d H:i:s");  // 2019/09/13 11:30:14
-```
-
-
-## 日付の比較
-unix_time
-```php
-$timestamp1 = time();
-$timestamp2 = strtotime($recordInstance[0]['exec_date']);  //postgers:TIMESTAMP
-$secdiff = abs($timestamp1 - $timestamp2);
-$mindiff = $secdiff/(60);			
-$dif_days = $secdiff/(60*60*24);
-```
-
-
-## 日付取得
-```php
-$date = '2015-12-31';
-date('Y年m月d日',  strtotime($date));  // 2015年12月31日
-
-$today = date('Y-m-d');              //2018-10-16
-$lastDayOfThisMonth = date('Y-m-t'); //2018-10-31
-
-$thisYear = date('Y');
-$lastYear = $thisYear -1;
-
-//特定年月の最終日を取得
-$month = '2014-02'; 
-$firstDate = date('Y-m-d', strtotime('first day of ' . $month));
-$lastDate = date('Y-m-d', strtotime('last day of ' . $month));
-```
-
-
-## 日付の妥当性チェック
-```php
-$date = "2018/01/32";
-
-//何と、2018/02/01 と判定してしまう。
-$d = DateTime::createFromFormat('Y/m/d', $date);
-
-
-
-if(checkdate(2, 29, 2016)) {
-  echo '受け付けました。';
-} else {
-  echo '存在しない日付です。';
-}
 ```
