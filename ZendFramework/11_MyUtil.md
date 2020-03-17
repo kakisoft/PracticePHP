@@ -9,8 +9,8 @@
 		global $dbAdapter;
 
 		$select = $dbAdapter->select()
-								->from( array( self:TABLE_NAME, self::TABLE_NAME ) )
-								->where( "id = ?", $id )
+			->from( array( self:TABLE_NAME, self::TABLE_NAME ) )
+			->where( "id = ?", $id )
 		;
 
 		$result = $dbAdapter->query( $select )->fetch();

@@ -58,6 +58,18 @@ https://kakisoftex.co.jp/order/form/
  -> public function formAction()
 ```
 
+## controllers 配下のフォルダ
+#### ファイル例
+```
+application\controllers\test\ChartScoreController.php
+```
+#### アクセス例
+```
+http://sample01.com/test_ChartScore/index
+```
+フォルダ階層は、「_」で繋げる。     
+
+
 ## アクションコントローラの呼出し順序
 http://hensa40.cutegirl.jp/archives/5904
 
@@ -354,6 +366,8 @@ $this->getRequest()->setParam("category", "marketing");
 
 _____________________________________________________________________________________
 ## アクションのみ（View不要の処理）  Actionのみ
+テンプレート tpl 不要の場合   
+（対応するテンプレートが無いと、エラーが発生する）  
 ```php
 //Smarty error: unable to read resource
 //　　「setNoRender」が必要。
@@ -367,6 +381,7 @@ ________________________________________________________________________________
         session_write_close();
 
         // このアクションでのみ自動レンダリングを無効にします
+        //  ＜※重要※＞
         $this->_helper->viewRenderer->setNoRender();
 
         //パラメータを設定
