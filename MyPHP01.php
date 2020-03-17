@@ -671,6 +671,7 @@ var_dump( substr("abcdef",  1, 2 ) );    //=> string(2) "bc"
 var_dump( substr("abcdef", -1    ) );    //=> string(1) "f"
 var_dump( substr("abcdef", -2    ) );    //=> string(2) "ef"
 var_dump( substr("abcdef", -3, 1 ) );    //=> string(1) "d"
+var_dump( substr("abcdef", -3    ) );    //=> string(3) "def"
 
 
 //----------( こんな方法も )----------
@@ -2200,16 +2201,6 @@ $number_02 = 1234.5678;
 $english_format_number_02 = number_format($number_02, 2, '.', ''); //=> 1234.57
 
 
-//=============================
-//        日付の差分
-//=============================
-$time = '2001/7/24';
-
-echo date_create($time)->diff(date_create())->format('%y');
-echo date_create($time)->diff(date_create())->format('%y歳 %mヶ月 %d日 %h時間 %i分 %s秒');
-
-
-
 //=====================================
 //  list を使用した、疑似的な複数戻り値
 //=====================================
@@ -2531,11 +2522,11 @@ file_put_contents($file, $current);
 unlink($file_name);
 
 
-// ディレクトリ削除
 if (!is_dir('examples')) {
     mkdir('examples');
 }
 
+// ディレクトリ削除
 rmdir('examples');
 
 
@@ -2725,7 +2716,7 @@ echo $b . PHP_EOL;  //=> I'll "walk" the <b>dog</b> now
 
 
 //====================================
-//  HTML および PHP タグを取り除く
+//    HTML および PHP タグを取り除く
 //====================================
 $text = '<p>Test paragraph.</p><!-- Comment --> <a href="#fragment">Other text</a>';
 $striped_text = strip_tags($text);  //=> Test paragraph. Other text
@@ -2805,6 +2796,69 @@ while ($i<=10)
 //=> Fatal error:  Maximum execution time of 5 seconds exceeded in C:\kaki\__tmp__\PHP\58_time_sleep.php on line 34
 
 
+//=================================
+//       ジェネレータ（yield）
+//=================================
+function xrange($start, $limit, $step = 1) {
+  for ($i = $start; $i <= $limit; $i += $step) {
+      yield $i;
+  }
+}
+
+echo 'Single digit odd numbers: ';
+
+/*
+* 配列を作ったり配列を返したりしていないことに注目しましょう。
+* そのぶんメモリの節約になります。
+*/
+foreach (xrange(1, 9, 2) as $number) {
+  echo "$number ";
+}
+
+
+//-------------------
+//      簡素化
+//-------------------
+function yieldNumber() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+foreach(yieldNumber() as $number) {
+  echo $number;
+}
+
+
+//-------------------
+//   その他の使い方
+//-------------------
+// テーブルレスにシーケンスを実現したりとか
+function getSequence() {
+  for ($i = 1; $i <= PHP_INT_MAX; $i += 1) {
+      yield $i;
+  }
+}
+
+$gen = getSequence();
+
+echo $gen->current() . PHP_EOL;  //=> 1
+
+echo $gen->next();
+echo $gen->current() . PHP_EOL;  //=> 2
+
+echo $gen->next();
+echo $gen->current() . PHP_EOL;  //=> 3
+
+// methods:
+//   rewind
+//   valid
+//   current
+//   key
+//   next
+//   send
+//   throw
+//   getReturn
 
 
 //==========================
@@ -2818,7 +2872,6 @@ while ($i<=10)
 echo 1 <=> 1; // 0
 echo 1 <=> 2; // -1
 echo 2 <=> 1; // 1
-
 
 
 //==========================
