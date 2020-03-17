@@ -58,6 +58,21 @@ $TokkouyarouA->sayHi();
 <?php
 
 
+//=================================
+//      コマンドライン引数
+//=================================
+
+/*
+
+php .\81_console.php 10 20 
+
+*/
+
+echo $argv[0]; //=> .\81_console.php（ $argv[0] は常に、スクリプトの実行に使う名前となります。 ）
+$num1 = $argv[1] ?? 0;
+$num2 = $argv[2] ?? 0;
+echo $num1 + $num2; //=> 30
+
 
 //=============================
 //       ヒアドキュメント
@@ -199,6 +214,32 @@ error_reporting(-1);
 // error_reporting(E_ALL); と同じ
 ini_set('error_reporting', E_ALL);
 
+
+//=================================
+//       ランダムな値を取得
+//=================================
+
+//----------( rand )----------
+// rand — 乱数を生成する
+echo rand() . PHP_EOL;  //=> 1979097812
+echo rand() . PHP_EOL;  //=> 1539890697
+echo rand(1, 10) . PHP_EOL;  // 1～10 の範囲でランダム
+
+
+//----------( mt_rand )----------
+// mt_rand — メルセンヌ・ツイスター乱数生成器を介して乱数値を生成する（randより精度が高い？）
+// この関数が生成する値は、暗号学的に安全ではありません。そのため、これを暗号として使ってはいけません。
+// 暗号学的に安全な値が必要な場合は、random_int() か random_bytes() あるいは openssl_random_pseudo_bytes() を使いましょう。
+
+echo mt_rand() . PHP_EOL;  //=> 766624948
+echo mt_rand() . PHP_EOL;  //=> 945915221
+echo mt_rand(5, 15);  // 1 ～ 15 の範囲でランダム
+
+
+// mt_getrandmax — 乱数値の最大値を表示する
+// mt_srand — メルセンヌ・ツイスター乱数生成器にシードを指定する
+// random_int — 暗号論的に安全な疑似乱数を生成する
+// random_bytes — 暗号論的に安全な、疑似ランダムなバイト列を生成する
 
 
 //====================================
@@ -577,6 +618,9 @@ if ($pos === false) {
     echo "文字列 '$findme' が文字列 '$mystring' の中で見つかりました";
     echo " 見つかった位置は $pos です";
 }
+
+// stripos   — 大文字小文字を区別せずに文字列が最初に現れる位置を探す
+// mb_strpos — 文字列の中に指定した文字列が最初に現れる位置を見つける
 
 
 //-------------------
@@ -1656,8 +1700,22 @@ endforeach;
   <?php endforeach; ?>
 </ul>
 
-
 <?php
+//----------( foreach で listを使う )----------
+
+// foreach で list() を使って、 ネストした配列を個別の変数に展開できるようになりました。
+$array = [
+  [1, 2],
+  [3, 4],
+];
+
+foreach ($array as list($a, $b)) {
+  echo "A: $a; B: $b\n";
+}
+// A: 1; B: 2
+// A: 3; B: 4
+
+
 
 //===================================
 //    current() / next() / prev()
@@ -1991,19 +2049,21 @@ SpecialUser::instanceMethod();  //なんとコールできてしまう。（ 7 �
 //           例外
 //==========================
 function div27($a, $b) {
-    try {
-        if ($b === 0) {
-            throw new Exception("cannot divide by 0!");
-        }
-        echo $a / $b;
+  try {
+      if ($b === 0) {
+          throw new Exception("cannot divide by 0!");
+      }
+      echo $a / $b;
 
-    } catch (Exception $e) {
-        echo $e->getMessage();
+  } catch (Exception $e) {
+      echo $e->getMessage();
 
-        // Exception::getLine        
-        // 例外が作られた行を取得する        
-        echo "The exception was created on line: " . $e->getLine();  //=> 例外が発生した行数を表示
-    }
+      // Exception::getLine
+      // 例外が作られた行を取得する
+      echo "The exception was created on line: " . $e->getLine();  //=> 例外が発生した行数を表示
+  } finally {
+      echo "First finally.\n";
+  }
 }
 
 div27(7, 2);
@@ -2298,6 +2358,37 @@ echo $path_parts['dirname']  , "\n";  //=> /www/htdocs/inc
 echo $path_parts['basename'] , "\n";  //=> lib.inc.php
 echo $path_parts['extension'], "\n";  //=> php
 echo $path_parts['filename'] , "\n";  //=> lib.inc  (PHP 5.2.0 以降)
+
+
+//----------( パスの最後にある名前の部分を返す )----------
+
+// basename() はロケールに依存します。 
+// マルチバイト文字を含むパスで正しい結果を得るには、それと一致するロケールを setlocale() で設定しておかなければなりません。
+
+echo  basename("/etc/sudoers.d", ".d") . PHP_EOL;  //=>  "sudoers"
+echo  basename("/etc/sudoers.d")       . PHP_EOL;  //=>  "sudoers.d"
+echo  basename("/etc/passwd")          . PHP_EOL;  //=>  "passwd"
+echo  basename("/etc/")                . PHP_EOL;  //=>  "etc"
+echo  basename(".")                    . PHP_EOL;  //=>  "."
+echo  basename("/")                    . PHP_EOL;  //=>  ""
+
+
+//----------( 親ディレクトリのパスを返す )----------
+echo dirname("/etc/passwd")       . PHP_EOL;  //=>  "/etc"
+echo dirname("/etc/")             . PHP_EOL;  //=>  "\"
+echo dirname(".")                 . PHP_EOL;  //=>  "."
+echo dirname("C:\\")              . PHP_EOL;  //=>  "C:\"
+echo dirname("/usr/local/lib", 2) . PHP_EOL;  //=>  "/usr"
+
+
+//----------( 正規化された絶対パス名を返す )----------
+chdir('/var/www/');
+echo realpath('./../../etc/passwd') . PHP_EOL;  //=> /etc/passwd
+echo realpath('/tmp/')              . PHP_EOL;  //=> /tmp
+
+// Win
+echo realpath('/windows/system32'), PHP_EOL;   //=> C:\Windows\System32
+echo realpath('C:\Program Files\\'), PHP_EOL;  //=> C:\Program Files
 
 
 //=================================
@@ -2851,6 +2942,32 @@ foreach ($prefectureSet as $value) {
 // 単純に、
 // $this->prefectureSet = MY_UTIL::sharpen($value);
 // みたいにすると、nullになってしまう。
+
+
+//=================================
+//       ロケール情報を設定
+//=================================
+// Unix 系でロケールの情報を取得するには、locale コマンドを実行する
+
+// setlocale
+// (PHP 4, PHP 5, PHP 7)
+
+// setlocale — ロケール情報を設定する
+
+//----------( ロケール情報を取得 )----------
+// https://blog.sarabande.jp/post/13110109893
+// setlocale 関数の第一引数に知りたいカテゴリ、第2引数に 0 を指定する。
+setlocale(LC_ALL, 'ja_JP.UTF-8');
+echo setlocale(LC_ALL, 0) . PHP_EOL;
+
+
+//----------( NULL が何を意味するのかわかりづらいので、getlocale 関数を定義するのであれば )----------
+function getlocale($category) {
+    return setlocale($category, 0);
+}
+
+setlocale(LC_ALL, 'ja_JP.UTF-8');
+echo getlocale(LC_ALL) . PHP_EOL;
 
 
 
