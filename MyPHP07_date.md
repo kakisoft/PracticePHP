@@ -41,6 +41,42 @@ $default_timezone = date_default_timezone_get();
 var_dump( $default_timezone );  //=> string(3) "UTC"
 ```
 
+## 日付の差分
+```php
+//----------( 日にちの差分 )----------
+$day1 = new DateTime('2018-04-05');
+$day2 = new DateTime('2018-04-11');
+$diff = $day1->diff($day2);
+echo $diff->d;  //=> 6
+
+
+$day1 = new DateTime('2018-04-05');
+$day2 = new DateTime('2018-05-11');
+$diff = $day1->diff($day2);
+echo $diff->d;     //=> 6 （月が変わったのに！？　日だけで判定している模様。）
+echo $diff->days;  //=> 36（このメソッドで。）
+
+
+
+//----------( 月・年の差分 )----------
+$day1 = new DateTime('2018-04-05');
+$day2 = new DateTime('2019-07-11');
+$diff = $day1->diff($day2);
+echo $diff->m;  //=> 3（年が違うのに・・・　月だけで判定している模様。どうやら、年を考慮して差分を取るメソッドは無いみたい）
+echo $diff->y;  //=> 1
+// diff の戻り値は、「DateInterval」オブジェクト
+
+
+
+//----------( 日付の比較 )----------
+$date01 = new DateTimeImmutable('2020-03-15');
+$date02 = new DateTimeImmutable('2020-03-20');
+
+var_dump($date01 == $date02);  //=> bool(false)
+var_dump($date01 < $date02);   //=> bool(true)
+var_dump($date01 > $date02);   //=> bool(false)
+```
+
 
 ## 日付の妥当性チェック
 ```php
