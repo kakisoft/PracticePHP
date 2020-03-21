@@ -943,7 +943,20 @@ $fruits[] = 'pineapple';
 //---------------------------
 //      先頭に要素を追加
 //---------------------------
-// array_unshift
+$fruits = ['apple', 'orange', 'melon'];
+
+array_unshift($fruits, 'banana');
+print_r($fruits);
+// Array
+// (
+//     [0] => banana
+//     [1] => apple
+//     [2] => orange
+//     [3] => melon
+// )
+
+array_unshift($fruits, 'grape', 'kiwi','tomato');
+print_r($fruits);
 
 
 //------------------------------
@@ -1004,6 +1017,16 @@ echo "$userParameters['errMessageArray']['email']";
 //---------------------------
 $pizza  = "piece1 piece2 piece3 piece4 piece5 piece6";
 $pieces = explode(" ", $pizza);
+print_r($pieces);
+// Array
+// (
+//     [0] => piece1
+//     [1] => piece2
+//     [2] => piece3
+//     [3] => piece4
+//     [4] => piece5
+//     [5] => piece6
+// )
 
 
 //---------------------------
@@ -1011,6 +1034,8 @@ $pieces = explode(" ", $pizza);
 //---------------------------
 $array = array('lastname', 'email', 'phone');
 $comma_separated = implode(",", $array);
+var_dump($comma_separated);  //=> lastname,email,phone
+
 
 
 //---------------------------
@@ -1706,15 +1731,16 @@ endforeach;
 
 // foreach で list() を使って、 ネストした配列を個別の変数に展開できるようになりました。
 $array = [
-  [1, 2],
-  [3, 4],
+  [1, 2, 11, 21, 31],
+  [3, 4, 12, 22, 32],
 ];
 
-foreach ($array as list($a, $b)) {
-  echo "A: $a; B: $b\n";
+foreach ($array as list($a, $b, $c, $e, $f)) {
+echo "A:{$a}; B:{$b} C:{$c} D:{$c} E:{$c}" . PHP_EOL;
 }
-// A: 1; B: 2
-// A: 3; B: 4
+//=>
+// A:1; B:2 C:11 D:11 E:11
+// A:3; B:4 C:12 D:12 E:12
 
 
 

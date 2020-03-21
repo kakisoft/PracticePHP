@@ -3,6 +3,11 @@
 //=============================
 //        クラスの解析
 //=============================
+// get_class()       - オブジェクトのクラス名を返す
+// get_class_methods — クラスメソッドの名前を取得する
+// get_class_vars()  - クラスのデフォルトプロパティを取得する
+// get_object_vars() - 指定したオブジェクトのプロパティを取得する
+
 function generate()
 {
 	yield 1;
@@ -39,5 +44,7 @@ echo "methods:" . PHP_EOL;
 foreach ($methods as $method) {
 	echo "  {$method}"  . PHP_EOL;
 }
+echo PHP_EOL;
+
 
 
