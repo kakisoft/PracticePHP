@@ -796,6 +796,14 @@ echo($getted_param_e4 . PHP_EOL);  //=> 'not_exists'
 // リクエストパラメータに使ったりとか
 $user_name = $_POST['user_name'] ?: 'default_user';
 
+```
+(expr1) ? (expr2) : (expr3)
+
+式1 が TRUE の場合に 式2 を、 式1 が FALSE の場合に 式3 を値とします。
+PHP 5.3 以降では、三項演算子のまんなかの部分をなくすこともできるようになりました。 
+式 expr1 ?: expr3 の結果は、expr1 が TRUE と同等の場合は expr1、 それ以外の場合は expr3 となります。
+```
+
 
 //==========================
 //     NULL合体演算子  7～
@@ -955,7 +963,7 @@ print_r($fruits);
 //     [3] => melon
 // )
 
-array_unshift($fruits, 'grape', 'kiwi','tomato');
+array_unshift($fruits, 'grape', 'kiwi','watermelon');
 print_r($fruits);
 
 
