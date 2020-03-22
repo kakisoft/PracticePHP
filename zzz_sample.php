@@ -1,21 +1,11 @@
 <?php
 
-// $piecesUserId = explode(" ", preg_replace('/\s+/', ' ', trim($_GET['user_id'])));
-
-// print_r($piecesUserId);
-
-// // var_dump($comma_separated);
 
 
-
-// preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
-// print_r($matches);
-
-
-
-$a1 = preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
-// print_r($matches);
-print_r($matches);
-
+preg_match_all("|<[^>]+>(.*)</[^>]+>|U",
+    "<b>example: </b><div align=left>this is a test</div>",
+    $out, PREG_PATTERN_ORDER);
+echo $out[0][0] . ", " . $out[0][1] . "\n";
+echo $out[1][0] . ", " . $out[1][1] . "\n";
 
 

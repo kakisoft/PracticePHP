@@ -639,6 +639,70 @@ $user   = strstr($email, '@', true);  //=> name
 
 
 
+//-------------------
+//  正規表現による文字列の検索（preg_match。ただし、今では strpos 推奨）
+//-------------------
+$is_matched = preg_match('/^find/', 'findUser', $matches, PREG_OFFSET_CAPTURE);
+print_r($is_matched);  //=> 1
+// マッチした場合 1 を返し、マッチしなかった場合 0 を返す。エラー発生時 False を返す。
+print_r($matches);  //=> 1
+// Array
+// (
+//     [0] => Array
+//         (
+//             [0] => find
+//             [1] => 0
+//         )
+// )
+//
+// $matches[0] にはパターン全体にマッチしたテキストが代入され、 
+// $matches[1] には 1 番目のキャプチャ用サブパターンにマッチした 文字列が代入され、といったようになります。
+
+
+preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches, PREG_OFFSET_CAPTURE);
+print_r($matches);
+// Array
+// (
+//     [0] => Array
+//         (
+//             [0] => foobarbaz
+//             [1] => 0
+//         )
+//     [1] => Array
+//         (
+//             [0] => foo
+//             [1] => 0
+//         )
+//     [2] => Array
+//         (
+//             [0] => bar
+//             [1] => 3
+//         )
+//     [3] => Array
+//         (
+//             [0] => baz
+//             [1] => 6
+//         )
+// )
+
+
+// パターンのデリミタの後の "i" は、大小文字を区別しない検索を示す
+if (preg_match("/php/i", "PHP is the web scripting language of choice.")) {
+    echo "A match was found.";
+} else {
+    echo "A match was not found.";
+}
+
+
+// ある文字列が他の文字列内に含まれているかどうかを調べるためだけに preg_match() を使うのは避けた方が良いでしょう。 
+// strpos() 関数を使うほうが速くなります。
+
+
+//-------------------
+//  正規表現による文字列の検索（ preg_match_all ）
+//-------------------
+
+
 //---------------------------
 // フォーマットされた文字列を返す
 //---------------------------
@@ -1064,15 +1128,43 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 
 
 //---------------------------
-//       文字列 ⇒ 配列
+//    文字列 ⇒ 配列（正規表現を使うパターン）
+//---------------------------
+// カンマまたは " ", \r, \t, \n , \f などの空白文字で句を分割する。
+$keywords = preg_split("/[\s,]+/", "hypertext language, programming");
+print_r($keywords);
+// Array
+// (
+//     [0] => hypertext
+//     [1] => language
+//     [2] => programming
+// )
+
+//---------------------------
+//       文字列 ⇒ 配列（explode）
 //---------------------------
 $piecesUserId = explode(" ", preg_replace('/\s+/', ' ', trim($_GET['user_id'])));
+
+$getted_user_id = " 119210    425023         583472";
+$formatted_user_id_list = preg_replace('/\s+/', ' ', trim($getted_user_id));
+//=> "119210 425023 583472"
+
+$pieces_user_id_list = explode(" ", preg_replace('/\s+/', ' ', trim($getted_user_id)));
+print_r($formatted_user_id_list);
+// Array
+// (
+//     [0] => 119210
+//     [1] => 425023
+//     [2] => 583472
+// )
 
 
 //---------------------------
 //       配列 ⇒ 文字列
 //---------------------------
-$separatedArray = implode(",", $pieces);
+$pieces = array('lastname', 'email', 'phone');
+$separatedArray = implode(",", $array);
+print_r($separatedArray);  //=> lastname,email,phone
 
 
 //---------------------------
