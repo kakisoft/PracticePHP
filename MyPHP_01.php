@@ -701,6 +701,19 @@ if (preg_match("/php/i", "PHP is the web scripting language of choice.")) {
 //-------------------
 //  正規表現による文字列の検索（ preg_match_all ）
 //-------------------
+$pattern = "/{[^}]*}/";
+$subject = "{token1} foo {token2} bar";
+preg_match_all($pattern, $subject, $matches);
+print_r($matches);
+// Array
+// (
+//     [0] => Array
+//         (
+//             [0] => {token1}
+//             [1] => {token2}
+//         )
+// )
+
 
 
 //---------------------------
@@ -2801,6 +2814,8 @@ $new = htmlspecialchars("<a href='test'>Test</a>", ENT_QUOTES);
 echo $new;  //=> &lt;a href=&#039;test&#039;&gt;Test&lt;/a&gt;
 
 echo htmlspecialchars("hi! " . $_GET['name'], ENT_QUOTES, "utf-8");
+// ENT_QUOTES	シングルクオートとダブルクオートを共に変換します。
+
 
 
 // 配列内のデータを変換したり
