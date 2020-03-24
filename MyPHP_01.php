@@ -2417,6 +2417,47 @@ print_r( hash_algos() );
 print_r( hash_hmac_algos() );
 
 
+//===========================
+//       固定長ハッシュ
+//===========================
+$param_1 = 'sample_hash_param';
+
+$result_fnv132     = hash('fnv132',     $param_1);  //=> 76f6cc44
+$result_fnv1a64    = hash('fnv1a64',    $param_1);  //=> 0ea3de70627549f2
+$result_md5        = hash('md5',        $param_1);  //=> 545c037a3d91ccc197bfc874949a4b1d
+$result_sha1       = hash('sha1',       $param_1);  //=> 08400fb5ce115e0aca6ce0f5e2941c75af3bd94b
+$result_tiger192_5 = hash('haval192,5', $param_1);  //=> 68c65f09739007d95b7bb21806b8e7d8ec2bbd79fbd01e0c
+$result_sha224     = hash('sha224',     $param_1);  //=> d0c98df2183b41eb3ff8ba70e5947a4d195d19091669af12d2bf4c35
+$result_sha256     = hash('sha256',     $param_1);  //=> 93aec7b62a6a5a26ed8792c3c68909d05d7ba38d137cd51a97e3834f032de8ef
+$result_sha384     = hash('sha384',     $param_1);  //=> 5abffd418c379bce4680af89e972653009b8c9bbbb9282981ea2d9e42c627cda46692a066901c1e8ad25580ab5b6afe5
+$result_sha512     = hash('sha512',     $param_1);  //=> ca122e3f7b9474fdda9a93acd0ecf40c4da0cb8aced4f480f53fc3f66a4a7b903cbefaec3c3e862a1e4b1eff3af97f1a8e45ea34d145cf60cb5b21eb69dc708d
+
+// 渡す文字が何であれ、固定のハッシュ値を生成する
+var_dump(hash('md5',''));                                           //=> d41d8cd98f00b204e9800998ecf8427e
+var_dump(hash('md5','1'));                                          //=> c4ca4238a0b923820dcc509a6f75849b
+var_dump(hash('md5','a quick bworn fox jumps over the lazy dog'));  //=> 26bc2fdc51f314cbd386c77b5dcead46
+
+
+// https://www.php.net/manual/ja/faq.passwords.php#faq.passwords.bestpractice
+// よく使われるハッシュ関数である md5() や sha1() は、なぜパスワードのハッシュに適していないのですか?
+// MD5 や SHA1 そして SHA256 といったハッシュアルゴリズムは、 高速かつ効率的なハッシュ処理のために設計されたものです。
+// 最近のテクノロジーやハードウェア性能をもってすれば、 これらのアルゴリズムの出力をブルートフォースで(力ずくで)調べて元の入力を得るのはたやすいことです。
+//
+// 最近のコンピュータではハッシュアルゴリズムを高速に「逆算」できるので、
+// セキュリティ技術者の多くはこれらの関数をパスワードのハッシュに使わないよう強く推奨しています。
+//
+// パスワードをハッシュするときに検討すべき重要な二点は、 その計算量とソルトです。 
+// ハッシュアルゴリズムの計算コストが増えれば増えるほど、 ブルートフォースによる出力の解析に時間を要するようになります。
+//
+// それ以外には、crypt() 関数を使う方法もあります。 この関数は PHP 5.3 以降で使えるもので、いくつかのハッシュアルゴリズムに対応しています。 
+// この関数を使うときには、指定したアルゴリズムが使えるかどうかを気にする必要はありません。 
+// 各アルゴリズムが PHP の内部でネイティブに実装されているので、 ご利用の OS でサポートしていないアルゴリズムでも使うことができます。
+//
+// パスワードをハッシュするときのおすすめのアルゴリズムは Blowfish です。 
+// パスワードハッシュ API でも、このアルゴリズムをデフォルトで使っています。 
+// というのも、このアルゴリズムは MD5 や SHA1 と比較して計算コストが高いにもかかわらず、スケーラブルだからです。
+
+
 
 //==========================
 //  パスワードのハッシュと確認
@@ -2424,9 +2465,23 @@ print_r( hash_hmac_algos() );
 // パスワードのハッシュとか。
 $password = '1234';
 $hashed_password =  password_hash($password, PASSWORD_DEFAULT);
+// 第2引数はハッシュアルゴリズムを示す整数値です。定数 'PASSWORD_DEFAULT' を指定すると、
+// PHP5.5 では Blowfish が使われます。
 
 var_dump($hashed_password );
 var_dump(password_verify ( $password , $hashed_password ) );
+
+
+//===========================
+//      暗号化（ crypt ）
+//===========================
+$password = 'mypassword';
+
+$hash_1 = crypt($password); // ソルトを設定しないと、Notice が出る
+$hash_2 = crypt($password, 'salt');
+
+var_dump($hash_1);  //=> $1$TZmWUmm6$mUqtesTDRsYpPOfoxO1HF0
+var_dump($hash_2);  //=> sayVb7E97UXnw
 
 
 
