@@ -2568,9 +2568,45 @@ var_dump( is_file('a_file.txt') ) . "\n";
 var_dump( is_file('/usr/bin/')  ) . "\n";
 
 
-//=================================
-//    ディレクトリかどうかを調べる
-//=================================
+
+//=====================================
+//  アップロードされたファイルのチェック
+//=====================================
+// is_uploaded_file()
+// HTTP POST でアップロードされたファイルかどうかを調べる
+
+if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
+  echo "ファイル ". $_FILES['userfile']['name'] ." のアップロードに成功しました。\n";
+  echo "その中身を表示します\n";
+  readfile($_FILES['userfile']['tmp_name']);
+} else {
+  echo "おそらく何らかの攻撃を受けました。";
+  echo "ファイル名 '". $_FILES['userfile']['tmp_name'] . "'.";
+}
+
+
+//=====================================
+//    アップロードされたファイルの移動
+//=====================================
+// move_uploaded_file()
+// アップロードされたファイルを新しい位置に移動する
+
+$uploads_dir = '/uploads';
+foreach ($_FILES["pictures"]["error"] as $key => $error) {
+   if ($error == UPLOAD_ERR_OK) {
+       $tmp_name = $_FILES["pictures"]["tmp_name"][$key];
+       // basename() で、ひとまずファイルシステムトラバーサル攻撃は防げるでしょう。
+       // ファイル名についてのその他のバリデーションも、適切に行いましょう。
+       $name = basename($_FILES["pictures"]["name"][$key]);
+       move_uploaded_file($tmp_name, "$uploads_dir/$name");
+   }
+}
+
+
+
+//===================================
+//  ディレクトリ/フォルダ かどうかを調べる
+//===================================
 var_dump( is_dir('a_file.txt') );
 var_dump( is_dir('bogus_dir/abc') );
 
