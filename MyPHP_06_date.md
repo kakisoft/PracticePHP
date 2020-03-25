@@ -22,7 +22,7 @@ $firstDate = date('Y-m-d', strtotime('first day of ' . $month));
 $lastDate = date('Y-m-d', strtotime('last day of ' . $month));
 ```
 
-## 日付を指定フォーマットに変換
+## 日付を指定フォーマットに変換（DateTime::format）
 ```php
 //// フォーマット一覧
 // https://www.php.net/manual/ja/function.date.php
@@ -31,6 +31,13 @@ echo $date_01->format('y/n/j h:i:s');  //=> 18/5/6 09:08:23
 echo $date_01->format('Y/m/d H:i:s');  //=> 2018/05/06 21:08:23
 ```
 
+## 日付を指定フォーマットに変換（date_format）
+```php
+$date_1 = date_format( date_create('20200101'), 'Y/m/d' );
+$date_1 = date_format( date_create('2020/01/01'), 'Y/m/d' );
+$date_1 = date_format( date_create('2020-01-01'), 'Y/m/d' );
+echo $date_1;  //=> 2020/01/01
+```
 
 ## 日付を指定フォーマットに変換（strtotime）
 strtotime — 英文形式の日付を Unix タイムスタンプに変換する  

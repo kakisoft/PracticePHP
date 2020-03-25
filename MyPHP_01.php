@@ -188,6 +188,12 @@ else {
 echo PHP_BINARY;  // C:\tools\php73\php.exe   //  /usr/bin/phppckaki301:PracticePHP
 
 
+$sapi_name = php_sapi_name();
+echo $sapi_name;
+//=> "cli"
+//=> "cgi-fcgi"
+// 等
+
 
 //====================================
 //      エラーメッセージの表示制御
