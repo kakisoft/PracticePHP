@@ -3,11 +3,11 @@
 /*
 １．ビルトインサーバ起動
 
-php -S localhost:8000
+php -S localhost:8000 91_add_xdebug_win.php
 
 
 ２．phpinfo() にて設定確認。（php実行パスとか）。この内容をコピー。
-http://localhost:8000/91_add_xdebug_win.php
+http://localhost:8000/
 
 
 */

@@ -338,6 +338,7 @@ var_dump( is_object(array('Kalle')) );  //=> bool(false)
 
 
 //----------( is_resource )----------
+// is_resource — 変数がリソースかどうかを調べる
 // is_resource() は、厳格な型チェックを行うわけではありません。 var がすでに閉じられたリソース変数である場合は、FALSE を返します。
 
 $fp = fopen(__FILE__, "r");
@@ -2729,7 +2730,7 @@ link($target, $link);
 
 
 //=============================
-//   ファイル読み込み  readfile
+//   ファイル読み込み  readfile（※コンソールへの出力）
 //=============================
 
 $file_name = __FILE__;  // フルパスが入ってる
@@ -2749,6 +2750,58 @@ if (file_exists($file)) {
     readfile($file);
     exit;
 }
+
+
+//=================================
+//  ファイルを読み込み（Stream）
+//=================================
+
+// fopen
+// fopen() は、filename で指定されたリソースをストリームに結び付けます。
+// この関数は、filename がディレクトリの場合でも成功することがあります。 
+// filename がファイルなのかディレクトリなのかがはっきりしない場合は、 まず is_dir() を使ってから fopen() を呼ぶようにしましょう。
+
+
+// https://www.php.net/manual/ja/function.fopen.php
+
+// ファイルを開く
+$handle = fopen("sample01.txt", "r");  // readonly
+
+// ファイル内容を出力
+while ($line = fgets($handle)) {
+  echo $line;
+}
+// ファイルポインタをクローズ
+fclose($handle);
+
+
+//=================================
+//  ファイルを読み込み、配列に格納
+//=================================
+
+// ファイルの内容を配列に取り込みます。
+$lines = file(__FILE__);
+
+// 行単位で出力
+foreach ($lines as $line_num => $line) {
+    echo "Line #{$line_num} : " . htmlspecialchars($line);
+}
+
+
+//----------( URLの指定も可 )----------
+$lines = file('http://www.example.com/');
+
+foreach ($lines as $line_num => $line) {
+    // echo "Line #<b>{$line_num} : " . htmlspecialchars($line);
+    echo "Line # {$line_num} : " . $line;
+}
+
+
+
+//----------( オプション )----------
+// オプションのパラメータは PHP 5 以降で使用できます
+$trimmed = file('somefile.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
 
 
 //==========================
