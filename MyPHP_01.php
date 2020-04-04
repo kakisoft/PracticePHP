@@ -81,7 +81,7 @@ $string_01 = <<<HTML
 変数を解釈する
 HTML;
 
-
+// heredoc
 $this_alias = 'alias_01';
 $html_01 = <<<HTML
 変数を解釈する
@@ -89,10 +89,16 @@ $html_01 = <<<HTML
 HTML;
 
 
+// nowdoc
 $html_02 = <<<'HTML'
 そのまま表示する
 <form name="admin_login" id="admin_login" method="POST" action="{$this_alias}">
 HTML;
+
+
+$html_03 = <<<'HTML'
+  段上げされる
+  HTML;
 
 
 //-----------------------------
