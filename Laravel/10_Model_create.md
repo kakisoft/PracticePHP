@@ -10,7 +10,7 @@ _________________________________________________________
 
 
 _________________________________________________________
-## マイグレーションの設定
+## マイグレーション（app の階層に作成 ）
 ```
 ＜ プロジェクトのルート階層にて実行 ＞
 
@@ -31,17 +31,14 @@ php artisan make:model Post --migration
 　↓
 
 php artisan migrate
+```
 
-------------------
 
-
-## Models 階層に作成
+## マイグレーション（Models の階層に作成）
+```
 php artisan make:model Models/Post                   # app/Models  に、ファイルが生成される。
 php artisan make:migration create_posts_table        # database/migrations/yyyy_mm_dd_hhmmss_create_posts_table.php に、ファイルが生成される。
 php artisan migrate                                  # DBにその内容が反映される。
-
-
-------------------------------------------
 ```
 
 _________________________________________________________
