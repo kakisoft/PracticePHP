@@ -3,9 +3,9 @@ Eloquent モデル（エルクェントモデル？）と呼ばれていて SQL 
 
 _________________________________________________________
 ## 準備
-「.env」の設定  
-「database/migrations/」内のファイル削除  
-「database/database.sqlite」仮作成  
+「.env」の設定  
+「database/migrations/」内のファイル削除  
+「database/database.sqlite」仮作成  
 等  
 
 
