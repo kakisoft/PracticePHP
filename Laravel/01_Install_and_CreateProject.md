@@ -48,22 +48,21 @@ php artisan -V
 
 
 ### 備考（「laravel/laravel」）
-```
-https://packagist.org/
-に登録されているパッケージ名。
-（packagistはPHPで使える便利なプログラムが登録されているサイトです）
+https://packagist.org/  
+に登録されているパッケージ名。  
+（packagistはPHPで使える便利なプログラムが登録されているサイトです）  
 
-laravel/larave
-は、    
-「laravel というベンダーさんが開発している laravel という名前のプロジェクト」
-という意味。
-
+laravel/larave  
+は、  
+「laravel というベンダーさんが開発している laravel という名前のプロジェクト」  
+という意味。  
 
 
---prefer-dist
-インストール方法を指定するオプション。
-ソースコードではなく zip 形式でインストール。
-https://readouble.com/laravel/5.5/ja/installation.html
-```
+## オプションについて
+--prefer-dist  
+インストール方法を指定するオプション。  
+ソースコードではなく zip 形式でインストール。  
+https://readouble.com/laravel/5.5/ja/installation.html  
+
 
 
