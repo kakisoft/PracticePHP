@@ -12,12 +12,12 @@ DB_PASSWORD=secret
 　 ↓
 
 DB_CONNECTION=sqlite
-
-※注意※
-余計なものを消しておかないと、 
-Illuminate\Database\QueryException  : Database (homestead) does not exist. (SQL: PRAGMA foreign_keys = ON;)
-といったエラーが発生する。
 ```
+**※注意※**  
+余計なものを消しておかないと、  
+Illuminate\Database\QueryException  : Database (homestead) does not exist. (SQL: PRAGMA foreign_keys = ON;)  
+といったエラーが発生する。  
+
 
 
 ## config/app.php
