@@ -2505,6 +2505,7 @@ $english_format_number_02 = number_format($number_02, 2, '.', ''); //=> 1234.57
 //  list を使用した、疑似的な複数戻り値
 //=====================================
 list($array_01, $array_02, $array_03) = getListData();
+[$array_01, $array_02, $array_03] = getListData();  // こう書いてもOK
 
 function getListData(){
     $array_01 = [1, 3, 5];

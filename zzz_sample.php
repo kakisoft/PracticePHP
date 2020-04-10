@@ -1,23 +1,18 @@
 <?php
 
 
-//==================================
-//          関数(可変長引数)
-//==================================
-// https://www.php.net/manual/ja/migration56.new-features.php
-function sum(...$numbers)
-{
-  $total = 0;
-  foreach ($numbers as $number) {
-    $total += $number;
-  }
-  return $total;
+// list($array_01, $array_02, $array_03) = getListData();
+[$array_01, $array_02, $array_03] = getListData();
+
+function getListData(){
+    $array_01 = [1, 3, 5];
+    $array_02 = ['A', 'C', 'D'];
+    $array_03 = ['n', 'm', 'k'];
+
+    return array($array_01, $array_02, $array_03);
 }
 
-echo sum(1, 3, 5)    . PHP_EOL;  //=> 9
-echo sum(4, 2, 5, 1) . PHP_EOL;  //=> 12
 
-
-
-
-
+print_r($array_01);
+print_r($array_02);
+print_r($array_03);
