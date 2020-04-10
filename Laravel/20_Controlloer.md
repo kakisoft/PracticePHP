@@ -31,11 +31,12 @@ ________________________________________________________________________
 ## コントローラ作成
 ```
 php artisan make:controller PostsController
-
+php artisan make:controller NewsController --resource
 
 /app/Http/Controllers/PostsControlloer.php
 ```
-
+--resource オプションを付けると、  
+index, create, store, show, edit, update, destroy といったメソッドが作成される。  
 
 ________________________________________________________________________
 ## dd

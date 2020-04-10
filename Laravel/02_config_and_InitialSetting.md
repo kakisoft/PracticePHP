@@ -1,7 +1,8 @@
 # コンフィグ（設定）
 
 ## .env
-以下、SQLiteを使う場合
+以下、SQLiteを使う場合。  
+コメントアウトは「#」
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -56,11 +57,15 @@ _____________________________________________________________________________
 # 初期設定
 
 ## database
-database\migrations\  
+```
+database\migrations\
+```
 以下のファイルを消しておく。（場合によるけど。でも多くの場合は消しといていいんじゃないかな）  
 
 ## SQLiteを使う場合
-database/database.sqlite  
+```
+database/database.sqlite
+```
 という空のファイルを作成しておく。  
 
 
