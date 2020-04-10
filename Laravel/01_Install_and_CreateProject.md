@@ -38,8 +38,8 @@ Laravel の 5.5 だとデフォルトで User モデルが作られる
 
 ## バージョンを指定してインストール
 ```
-composer create-project "laravel/laravel=5.5" sampleproject
-composer create-project "laravel/laravel=5.1.*" sampleproject
+composer create-project --prefer-dist  "laravel/laravel=5.5" sampleproject
+composer create-project --prefer-dist  "laravel/laravel=5.1.*" sampleproject
 
 cd sampleproject
 php artisan -V
