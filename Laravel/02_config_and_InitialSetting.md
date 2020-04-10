@@ -1,6 +1,7 @@
 # コンフィグ（設定）
 
-## .env（SQLiteを使う場合）
+## .env
+以下、SQLiteを使う場合
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
