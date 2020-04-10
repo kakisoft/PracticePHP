@@ -1983,6 +1983,41 @@ $s15 = sayHi15();
 var_dump($s15);
 
 
+
+//==================================
+//   関数(引数の型を指定：タイプヒント)
+//==================================
+// コンパイル時に型の整合性を検査する言語とは違い、 実行時に例外を投げる。
+
+declare(strict_types=1);  // 型を厳密に扱いたい場合（強い型付け。）
+
+function showInfo(string $name, int $score): void
+{
+  echo $name . ': ' . $score . PHP_EOL;
+}
+
+showInfo('kaki', 40);
+// declare(strict_types=1) を付けない場合、OKとなる
+showInfo('kaki', '4');  // デフォルトは弱い型付け。'4' でも、int 型として扱おうとする。
+
+
+
+//==================================
+//          関数(null 許容)
+//==================================
+declare(strict_types=1);
+
+// 引数、戻り値に null を許容する
+function getAward(?int $score): ?string
+{
+  return $score >= 100 ? 'Gold Medal' : null;
+}
+
+echo getAward(150) . PHP_EOL;
+echo getAward(40) . PHP_EOL;
+
+
+
 //==========================
 //        無名関数
 //==========================
