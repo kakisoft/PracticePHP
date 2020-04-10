@@ -115,6 +115,3 @@ sqlite3 database/database.sqlite
 ```
 
 
-
-
-
