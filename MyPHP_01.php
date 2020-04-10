@@ -1673,6 +1673,34 @@ print_r($result_array);
 // )
 
 
+//--------------------------------------
+//              配列の展開
+//--------------------------------------
+// PHP 7.4 あたりから？
+$moreScores = [
+  55,
+  72,
+];
+
+$scores = [
+  90,
+  40,
+  ...$moreScores,
+  100,
+];
+
+print_r($scores);
+// Array
+// (
+//     [0] => 90
+//     [1] => 40
+//     [2] => 55
+//     [3] => 72
+//     [4] => 100
+// )
+
+
+
 //==================================================
 //   配列の要素に対し、再帰的にユーザ定義の関数を実行
 //==================================================
@@ -2015,6 +2043,23 @@ function getAward(?int $score): ?string
 
 echo getAward(150) . PHP_EOL;
 echo getAward(40) . PHP_EOL;
+
+
+//==================================
+//          関数(可変長引数)
+//==================================
+// https://www.php.net/manual/ja/migration56.new-features.php
+function sum(...$numbers)
+{
+  $total = 0;
+  foreach ($numbers as $number) {
+    $total += $number;
+  }
+  return $total;
+}
+
+echo sum(1, 3, 5)    . PHP_EOL;  //=> 9
+echo sum(4, 2, 5, 1) . PHP_EOL;  //=> 12
 
 
 

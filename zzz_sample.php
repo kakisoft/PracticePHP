@@ -1,16 +1,23 @@
 <?php
 
 
-
-declare(strict_types=1);
-
-// 引数、戻り値に null を許容する
-function getAward(?int $score): ?string
+//==================================
+//          関数(可変長引数)
+//==================================
+// https://www.php.net/manual/ja/migration56.new-features.php
+function sum(...$numbers)
 {
-  return $score >= 100 ? 'Gold Medal' : null;
+  $total = 0;
+  foreach ($numbers as $number) {
+    $total += $number;
+  }
+  return $total;
 }
 
-echo getAward(150) . PHP_EOL;
-echo getAward(40) . PHP_EOL;
+echo sum(1, 3, 5)    . PHP_EOL;  //=> 9
+echo sum(4, 2, 5, 1) . PHP_EOL;  //=> 12
+
+
+
 
 
