@@ -1372,30 +1372,77 @@ rsort($fruits);
 //---------------------------
 //     連想配列のソート
 //---------------------------
-//// arsort() - 連想キーと要素との関係を維持しつつ配列を逆順にソートする
-$fruits = array("d" => "lemon", "a" => "orange", "b" => "banana", "c" => "apple");
-arsort($fruits);
-foreach ($fruits as $key => $val) {
-    echo "$key = $val\n";
-}
 
-// a = orange
-// d = lemon
-// b = banana
-// c = apple
+//----------( ksort — 配列をキーでソートする )----------
+$fruits = array(
+  "d" => "lemon",
+  "a" => "orange",
+  "b" => "banana",
+  "c" => "apple"
+);
+ksort($fruits);
+// Array
+// (
+//     [a] => orange
+//     [b] => banana
+//     [c] => apple
+//     [d] => lemon
+// )
 
 
-//// krsort() - 配列をキーで逆順にソートする
-$fruits = array("d"=>"lemon", "a"=>"orange", "b"=>"banana", "c"=>"apple");
+//----------( asort —　valueでソート。PHP公式マニュアルの説明は、何かややこしい )----------
+$fruits = array(
+  "d" => "lemon",
+  "a" => "orange",
+  "b" => "banana",
+  "c" => "apple"
+);
+asort($fruits);
+// Array
+// (
+//     [c] => apple
+//     [b] => banana
+//     [d] => lemon
+//     [a] => orange
+// )
+
+
+//---------------------------
+//     連想配列を逆順にソート
+//---------------------------
+
+//----------( krsort() - 配列をキーで逆順にソートする )----------
+$fruits = array(
+                  "d" => "lemon",
+                  "a" => "orange",
+                  "b" => "banana",
+                  "c" => "apple"
+              );
 krsort($fruits);
-foreach ($fruits as $key => $val) {
-    echo "$key = $val\n";
-}
+// Array
+// (
+//     [d] => lemon
+//     [c] => apple
+//     [b] => banana
+//     [a] => orange
+// )
 
-// d = lemon
-// c = apple
-// b = banana
-// a = orange
+
+//----------( arsort() - value でソート。<連想キーと要素との関係を維持しつつ配列を逆順にソートする> )----------
+$fruits = array(
+                  "d" => "lemon",
+                  "a" => "orange",
+                  "b" => "banana",
+                  "c" => "apple"
+                );
+arsort($fruits);
+// Array
+// (
+//     [a] => orange
+//     [d] => lemon
+//     [b] => banana
+//     [c] => apple
+// )
 
 
 //---------------------------
