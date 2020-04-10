@@ -57,8 +57,7 @@ php artisan make:migration add_user_id_to_posts_table --table=posts
 
 
 ## 作成例
-.11_Model_create_example01.md  
-<a href=".11_Model_create_example01.md">aaa</a>
+<a href="/11_Model_create_example01.md">11_Model_create_example01.md  </a>
 
 _________________________________________________________
 ## --migration オプション
