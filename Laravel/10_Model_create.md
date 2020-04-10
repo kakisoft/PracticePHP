@@ -3,9 +3,10 @@ Eloquent モデル（エルクェントモデル？）と呼ばれていて SQL 
 
 _________________________________________________________
 ## 準備
-「.env」の設定  
-「database/migrations/」内のファイル削除  
-「database/database.sqlite」仮作成（SQLiteの場合）  
+ * 「.env」の設定（DBの接続情報とか）  
+ * 「database/migrations/」内のファイル削除（削除不要と判断したなら別にいいけど）  
+ * 「database/database.sqlite」仮作成（SQLiteの場合）  
+
 等  
 
 
@@ -47,6 +48,9 @@ php artisan make:model Models/Project -m             # app/Models  に、ファ
 php artisan migrate                                  # DBにその内容が反映される。
 ```
 
+## 作成例
+<a href="11_Model_create_example01.md">11_Model_create_example01.md</a>
+
 
 ## スキーマを更新する場合
 ```
@@ -54,10 +58,6 @@ php artisan migrate                                  # DBにそ
 # （別に指定しなくても出来るけど、最初に定義が出てくるんで便利。）
 php artisan make:migration add_user_id_to_posts_table --table=posts
 ```
-
-
-## 作成例
-<a href="11_Model_create_example01.md">11_Model_create_example01.md  </a>
 
 _________________________________________________________
 ## --migration オプション
