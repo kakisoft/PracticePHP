@@ -183,7 +183,7 @@ var_dump(__LINE__); // 現在の行数
 var_dump(__FILE__); // ファイル名
 var_dump(__DIR__);  // ディレクトリ
 var_dump($_SERVER['SERVER_NAME']);
-echo "<br>";
+var_dump(M_PI); // π
 
 
 //====================================
