@@ -126,6 +126,7 @@ Unixタイムスタンプ - 協定世界時（UTC）での1970年1月1日午前0
 date_default_timezone_set('Asia/Tokyo');
 echo date('"Y/m/d H:i:s', mktime(1, 2, 3, 4, 5, 2006));                 //=> "2006/04/05 01:02:03
 
+// 曜日： l 
 echo "July 1, 2000 is on a " . date("l", mktime(0, 0, 0, 7, 1, 2000));  //=> July 1, 2000 is on a Saturday
 echo date('c', mktime(1, 2, 3, 4, 5, 2006));                            //=> 2006-04-05T01:02:03+09:00
 
