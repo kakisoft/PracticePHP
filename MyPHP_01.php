@@ -1189,6 +1189,10 @@ print_r($formatted_user_id_list);
 // )
 
 
+$pattern = '/\d{2}-\d{4}-\d{4}/';
+$input = preg_replace($pattern, '**-****-****', $input);
+
+
 //---------------------------
 //       配列 ⇒ 文字列
 //---------------------------
