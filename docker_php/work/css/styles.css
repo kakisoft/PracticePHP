@@ -85,6 +85,21 @@ header{
   line-height: 1.8;
 }
 
+.works a {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  background: #08c;
+  border-radius: 4px;
+  padding: 12px;
+  color: #fff;
+}
+
+.works a:hover {
+  opacity: 0.8;
+}
+
 footer p {
   text-align: center;
   font-size: 14px;
