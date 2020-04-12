@@ -267,6 +267,21 @@ echo mt_rand(5, 15);  // 1 ～ 15 の範囲でランダム
 // random_bytes — 暗号論的に安全な、疑似ランダムなバイト列を生成する
 
 
+//----------( srand )----------
+// srand — 乱数生成器を初期化する
+// 
+// srand ([ int $seed ] ) : void
+// シード seed で乱数生成器を初期化します。 seed を省略した場合はランダムな値が設定されます。
+
+function make_seed()
+{
+  list($usec, $sec) = explode(' ', microtime());
+  return $sec + $usec * 1000000;
+}
+srand(make_seed());
+$randval = rand();
+
+
 //====================================
 //         is_XXX 型チェック
 //====================================
