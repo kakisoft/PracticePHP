@@ -2923,6 +2923,20 @@ $size = filesize($target_file_full_path);  // 単位は多分 byte
 $exists = file_exists($target_file_full_path); // true / false
 
 
+//=======================================
+//    ファイルが読み書き可能かをチェック
+//=======================================
+
+//----------( 書き込み可能かをチェック )----------
+if (is_writeable('data/taro.txt') === true) {
+  echo 'taro is writable!' . PHP_EOL;
+}
+
+//----------( 読み込み可能かをチェック )----------
+if (is_readable('data/taro.txt') === true) {
+  echo 'taro is readable!' . PHP_EOL;
+}
+
 
 //================================
 //  ファイルパスに関する情報を返す
