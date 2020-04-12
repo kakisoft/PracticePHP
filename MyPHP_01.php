@@ -2877,6 +2877,7 @@ while (($item = readdir($dp)) !== false) {
 }
 
 //----------( glob )----------
+// glob — パターンにマッチするパス名を探す
 // glob の戻り値は配列のため、foreach が使える
 foreach (glob('data/*.txt') as $item) {
   // echo $item . PHP_EOL;
