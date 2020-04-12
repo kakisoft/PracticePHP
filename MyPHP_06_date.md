@@ -2,6 +2,11 @@
 https://www.php.net/manual/ja/timezones.asia.php  
 
 
+date()、mktime()、strtotime() はよく使われているが、  
+32bit のマシンでは 2038 年以降にうまく動作しないということがわかっている。  
+そのため、最近だと DateTime クラスという仕組みのほうを使うのが一般的。  
+
+
 ## 現在の日付を取得
 date の第二引数に、UNIX タイムスタンプを指定。  
 ```php
