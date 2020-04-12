@@ -1171,15 +1171,23 @@ echo count($colors17);  //=> 3
 $scores_1 = [30, 40, 50, 60, 70, 80];
 $scores_2 = [30, 40, 50, 60, 70, 80];
 $scores_3 = [30, 40, 50, 60, 70, 80];
+$scores_4 = [30, 40, 50, 60, 70, 80];
+$scores_5 = [30, 40, 50, 60, 70, 80];
+
+// index 2 以降を削除
+array_splice($scores_1, 2);                 //=> Array( 30, 40)
 
 // index 2～3 を削除
-array_splice($scores_1, 2, 3);              //=> Array( 30, 40, 80)
+array_splice($scores_2, 2, 3);              //=> Array( 30, 40, 80)
 
 // index 2～3 を削除し、間に100を挿入
-array_splice($scores_2, 2, 3, 100);         //=> Array( 30, 40, 100, 80)
+array_splice($scores_3, 2, 3, 100);         //=> Array( 30, 40, 100, 80)
 
 // index 2 の位置に、100, 101 を挿入
-array_splice($scores_3, 2, 0, [100, 101]);  //=> Array( 30, 40, 100, 101, 50, 60, 70, 80)
+array_splice($scores_4, 2, 0, [100, 101]);  //=> Array( 30, 40, 100, 101, 50, 60, 70, 80)
+
+// 前後切り出し
+array_splice($scores_5, 2, -2);             //=> Array( 30, 40, 70, 80)
 
 
 //---------------------------
