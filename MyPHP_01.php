@@ -1435,7 +1435,7 @@ array_unique($template_list);
 
 
 //---------------------------
-//       配列をソート
+//       配列をソート（キーを再構成する）
 //---------------------------
 $fruits = array("lemon", "orange", "banana", "apple");
 sort($fruits);
@@ -1447,7 +1447,7 @@ sort($fruits);
 
 
 //---------------------------
-//     配列を逆順にソート
+//     配列を逆順にソート（キーを再構成する）
 //---------------------------
 $fruits = array("lemon", "orange", "banana", "apple");
 rsort($fruits);
@@ -1480,6 +1480,7 @@ ksort($fruits);
 
 
 //----------( asort —　valueでソート。PHP公式マニュアルの説明は、何かややこしい )----------
+// キーの値を保持する。sort はキーを連番に再構成する。
 $fruits = array(
   "d" => "lemon",
   "a" => "orange",
@@ -1518,6 +1519,7 @@ krsort($fruits);
 
 
 //----------( arsort() - value でソート。<連想キーと要素との関係を維持しつつ配列を逆順にソートする> )----------
+// キーの値を保持する。asort はキーを連番に再構成する。
 $fruits = array(
                   "d" => "lemon",
                   "a" => "orange",
@@ -1532,6 +1534,38 @@ arsort($fruits);
 //     [b] => banana
 //     [c] => apple
 // )
+
+
+//------------------------------
+//  DBから取得した値の形式をソート
+//------------------------------
+// usort — ユーザー定義の比較関数を使用して、配列を値でソートする
+$data = [
+  ['name' => 'taguchi', 'score' => 80],
+  ['name' => 'kikuchi', 'score' => 60],
+  ['name' => 'hayashi', 'score' => 70],
+  ['name' => 'tamachi', 'score' => 60],
+];
+
+usort(
+  $data,
+  function ($a, $b) {
+    if ($a['score'] === $b['score']) {
+      return 0;
+    }
+    return $a['score'] > $b['score'] ? 1 : -1;  // $a['score'] が $b['score'] より大きいという並び替えをしたかったら 1 、そうで無い場合 -1 を返す。
+  }
+);
+
+print_r($data);
+// Array
+// (
+//     [0] => ([name] => kikuchi , [score] => 60)
+//     [0] => ([name] => tamachi , [score] => 60)
+//     [0] => ([name] => hayashi , [score] => 70)
+//     [0] => ([name] => taguchi , [score] => 80)
+// )
+
 
 
 //---------------------------
