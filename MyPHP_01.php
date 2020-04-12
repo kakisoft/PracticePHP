@@ -2866,12 +2866,21 @@ if ( !file_exists( $target_dir ) ) {
 //==========================
 //   ディレクトリ一覧を取得
 //==========================
+
+//----------( opendir )----------
 $dp = opendir('dir_name');
 while (($item = readdir($dp)) !== false) {
   if ($item === '.' || $item === '..') {
     continue;
   }
   echo $item . PHP_EOL;
+}
+
+//----------( glob )----------
+// glob の戻り値は配列のため、foreach が使える
+foreach (glob('data/*.txt') as $item) {
+  // echo $item . PHP_EOL;
+  echo basename($item) . PHP_EOL;
 }
 
 
