@@ -1,33 +1,39 @@
 <?php
 
+//----------------------------------------------
+//  DBから取得した値の形式をソート（複数条件でソート）
+//----------------------------------------------
+// array_multisort — 複数または多次元の配列をソートする
 
-
-
-// usort — ユーザー定義の比較関数を使用して、配列を値でソートする
 $data = [
-  ['name' => 'taguchi', 'score' => 80],
-  ['name' => 'kikuchi', 'score' => 60],
-  ['name' => 'hayashi', 'score' => 70],
-  ['name' => 'tamachi', 'score' => 60],
-];
+    ['name' => 'taguchi', 'score' => 80],
+    ['name' => 'kikuchi', 'score' => 60],
+    ['name' => 'hayashi', 'score' => 70],
+    ['name' => 'tamachi', 'score' => 60],
+  ];
 
-usort(
-  $data,
-  function ($a, $b) {
-    if ($a['score'] === $b['score']) {
-      return 0;
-    }
-    return $a['score'] > $b['score'] ? 1 : -1;  // $a['score'] が $b['score'] より大きいという並び替えをしたかったら 1 、そうで無い場合 -1 を返す。
-  }
+$scores = array_column($data, 'score');
+$names = array_column($data, 'name');
+
+// array_multisort(
+//   $scores,
+//   $names,
+//   $data
+// );
+
+array_multisort(
+    $scores, SORT_DESC, SORT_NUMERIC,
+    $names, SORT_DESC, SORT_STRING,
+    $data
 );
 
 print_r($data);
 // Array
 // (
-//     [0] => ([name] => kikuchi , [score] => 60)
-//     [0] => ([name] => tamachi , [score] => 60)
-//     [0] => ([name] => hayashi , [score] => 70)
 //     [0] => ([name] => taguchi , [score] => 80)
+//     [0] => ([name] => hayashi , [score] => 70)
+//     [0] => ([name] => tamachi , [score] => 60)
+//     [0] => ([name] => kikuchi , [score] => 60)
 // )
 
 
