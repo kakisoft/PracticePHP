@@ -3112,7 +3112,7 @@ if (file_exists($file)) {
 
 // https://www.php.net/manual/ja/function.fopen.php
 
-// ファイルを開く
+// ファイルを開く（戻り値は、FilePointer と呼ばれる特殊な変数）
 $handle = fopen("sample01.txt", "r");  // readonly
 
 // ファイル内容を出力
@@ -3150,6 +3150,22 @@ foreach ($lines as $line_num => $line) {
 // オプションのパラメータは PHP 5 以降で使用できます
 $trimmed = file('somefile.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
+
+//==========================
+//     ファイル読み書き
+//==========================
+
+//----------( 上書きモード )----------
+$fp = fopen('names.txt', 'w');
+fwrite($fp, "taro\n");
+fclose($fp);
+
+
+//----------( 追記モード )----------
+$fp = fopen('names.txt', 'a');
+fwrite($fp, "jiro\n");
+fwrite($fp, "saburo\n");
+fclose($fp);
 
 
 //==========================
