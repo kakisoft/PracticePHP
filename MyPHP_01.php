@@ -1215,6 +1215,12 @@ $pager["chunk"] = array_merge_recursive($pager["chunk"], $dynamicContentArray);
 // $newArray02 = array_merge_recursive($arrayFirst, $arraySecond)
 
 
+$a = [3, 4, 8];
+$b = [4, 8, 12];
+$merged = array_merge($a, $b);
+$merged = [...$a, ...$b];
+
+
 //---------------------------
 //    文字列 ⇒ 配列（正規表現を使うパターン）
 //---------------------------
@@ -1551,7 +1557,7 @@ echo $input[$rand_keys[1]] . PHP_EOL;
 
 //---------------------------
 //      最大値・最小値
-//---------------------------
+//--------------------------  -
 echo max(2, 3, 1, 6, 7);   //=> 7
 echo max(array(2, 4, 5));  //=> 5
 
@@ -1610,6 +1616,18 @@ print_r($numbers);
 //     [7] => 8
 //     [8] => 9
 //     [9] => 10
+// )
+
+
+$numbers = range(1, 10, 2);
+print_r($numbers);
+// Array
+// (
+//     [0] => 1
+//     [1] => 3
+//     [2] => 5
+//     [3] => 7
+//     [4] => 9
 // )
 
 
@@ -1684,15 +1702,25 @@ print_r($flipped);
 //---------------------------------
 //         配列の差を抽出
 //---------------------------------
-// array1 のエントリのうち、他のどの配列にも含まれない要素のみを含む配列を返します。
+// array_diff — 配列の差を計算する
 $array1 = array("a" => "green", "red", "blue", "red");
 $array2 = array("b" => "green", "yellow", "red");
-$result = array_diff($array1, $array2);
 
+//-----( $array1 - $array2 )-----
+$result = array_diff($array1, $array2);
 print_r($result);
 // Array
 // (
 //     [1] => blue
+// )
+
+
+//-----( $array2 - $array1 )-----
+$result = array_diff($array2, $array1);
+print_r($result);
+// Array
+// (
+//     [0] => yellow
 // )
 
 
