@@ -1551,7 +1551,7 @@ usort(
   $data,
   function ($a, $b) {
     if ($a['score'] === $b['score']) {
-      return 0;
+      return 0;  // 同値で順番を変えたく無い場合、0 を返す。
     }
     return $a['score'] > $b['score'] ? 1 : -1;  // $a['score'] が $b['score'] より大きいという並び替えをしたかったら 1 、そうで無い場合 -1 を返す。
   }
