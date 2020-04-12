@@ -1463,8 +1463,9 @@ arsort($fruits);
 $input = array("a", "b", "c", "d", "e");
 
 $output_01 = array_slice($input, 2);      // returns "c", "d", "e"
-$output_02 = array_slice($input, -3, 2);  // returns "c", "d"
-$output_03 = array_slice($input, 2, 2);   // returns "c", "d"
+$output_02 = array_slice($input, 2, 2);   // returns "c", "d"
+$output_03 = array_slice($input, -2);     // returns "d", "e"
+$output_04 = array_slice($input, -3, 2);  // returns "c", "d"
 
 // 第三引数を true にすると、index を振り直さない。
 print_r(array_slice($input, 2, -1));
