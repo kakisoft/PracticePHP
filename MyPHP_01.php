@@ -1276,6 +1276,24 @@ $manipulated_array_01 = array_map(function($v) { return intval($v); }, $array_01
 $manipulated_array_02 = array_map('intval', $array_01);                              //=> [1, 2, 0, 3, 4, 0, 5]  （↑と同じ）
 
 
+//-----( アロー関数を使用する場合 )-----
+$prices = [100, 200, 300];
+
+$newPrices = array_map(
+  fn($n) => $n * 1.1,
+  $prices
+);
+
+print_r($newPrices);
+// Array
+// (
+//     [0] => 110
+//     [1] => 220
+//     [2] => 330
+// )
+
+
+
 //---------------------------
 //         filter
 //---------------------------
