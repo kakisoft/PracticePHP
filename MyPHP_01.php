@@ -1356,6 +1356,17 @@ $array_a01 = array_filter(array_map('trim', explode("\n", $string_a01)), 'strlen
 // )
 
 
+//-----( アロー関数を使う場合 )-----
+$numbers = range(1, 10);
+
+$evenNumbers = array_filter(
+  $numbers,
+  fn($n) => $n % 2 === 0
+);
+
+print_r($evenNumbers);
+
+
 //---------------------------
 //      キーの存在チェック
 //---------------------------
