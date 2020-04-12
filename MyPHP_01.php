@@ -2864,6 +2864,18 @@ if ( !file_exists( $target_dir ) ) {
 
 
 //==========================
+//   ディレクトリ一覧を取得
+//==========================
+$dp = opendir('dir_name');
+while (($item = readdir($dp)) !== false) {
+  if ($item === '.' || $item === '..') {
+    continue;
+  }
+  echo $item . PHP_EOL;
+}
+
+
+//==========================
 //      オーナー変更
 //==========================
 // 使用するファイル名とユーザー名
@@ -3129,6 +3141,7 @@ fclose($handle);
 
 // ファイルの内容を配列に取り込みます。
 $lines = file(__FILE__);
+// $lines = file('names.txt', FILE_IGNORE_NEW_LINES);  // 末尾の改行を無視
 
 // 行単位で出力
 foreach ($lines as $line_num => $line) {

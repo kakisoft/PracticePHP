@@ -1,8 +1,8 @@
 <?php
 
-$fp = fopen('names.txt', 'a');
 
-fwrite($fp, "jiro\n");
-fwrite($fp, "saburo\n");
-
+$fp = fopen('names.txt', 'r');
+while (($line = fgets($fp)) !== false) {
+  echo $line;
+}
 fclose($fp);
