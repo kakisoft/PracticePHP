@@ -3,6 +3,7 @@ https://www.php.net/manual/ja/timezones.asia.php
 
 
 ## 現在の日付を取得
+date の第二引数に、UNIX タイムスタンプを指定。  
 ```php
 date_default_timezone_set('Asia/Tokyo');
 echo time()                             . PHP_EOL;  //=> 1584078499
