@@ -161,8 +161,24 @@ $this->request->getActionName()
 ```
 
 
-## view
+## View ： 普通に使う場合
+```
+http://sampleProject.com/contract/regist
+
+→ application\views\templates\contract\regist.tpl
+```
+
+## View ： イレギュラーパターン（フレームワークのルールに従わない場合） 
 ```php
+$this->render( 'other_template' );
+
+→ application\views\templates\contract\other_template.tpl
+```
+
+## Viewに、コントローラから受け取った値を設定
+```php
+$this->view->assign('param1', $param1);
+$this->view->assign('array1', $array1);
 $this->view->assign('app_path', APPLICATION_PATH);
 ```
 
