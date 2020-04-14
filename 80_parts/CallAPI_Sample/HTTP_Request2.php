@@ -13,18 +13,18 @@ $json = HttpClientUtils::getJson($url);
     static function getJson( $url ) {
 
         $request = new HTTP_Request2();
-    
+
         try {
-    
+
                 $request->setUrl( $url );
                 $options = array(
-    
+
                                      'ssl_verify_peer' => false,
                                      'ssl_verify_host' => true,
                                      // HTTP/Request2.phpを拡張したオプション、標準では存在しない。
                                      'request_proxy'   => 'tls'
                                  );
-    
+
                 $request->setConfig($options);
                 $request->setMethod(HTTP_Request2::METHOD_GET);
 
