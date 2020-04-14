@@ -118,4 +118,52 @@ class PostsController extends Controller
 }
 ```
 
+__________________________________________________________________________________________________________________
+## レスポンスオブジェクト
+https://readouble.com/laravel/5.5/ja/responses.html
+
+#### Eloquentコレクションを返すと、自動的に JSON へ変換される
+```php
+    public function show($id)
+    {
+        return response(News::all());
+        return response(News::find($id));
+    }
+```
+
+#### ヘッダ指定
+```php
+Route::get('home', function () {
+    return response('Hello World', 200)
+                  ->header('Content-Type', 'text/plain');
+
+
+    return response($sample)
+                ->header('Content-Type', $type)
+                ->header('X-Header-One', 'Header Value')
+                ->header('X-Header-Two', 'Header Value');
+});
+```
+
+
+__________________________________________________________________________________________________________________
+## リダイレクト
+https://storehouse-techhack.com/laravel-response/
+```php
+Route::get(‘/‘, function () {
+    // サイト内
+    return redirect('home/welcome’);
+
+    // 外部
+    return redirect()->away('https://storehouse-techhack.com/');
+});
+```
+
+パラメータ付き
+```php
+Route::get('/', function () {
+	return redirect()->route(‘sample’, [’id’ => ’1’]);
+});
+```
+
 
