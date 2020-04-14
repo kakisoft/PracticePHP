@@ -41,7 +41,8 @@ php artisan make:migration create_posts_table        # database/migrations/y
 
 
 ## マイグレーション（Models の階層に作成）
-モデル名は頭大文字、単数形、キャメルケース。Models の後ろの区切り文字は「 / 」（スラッシュ）  
+モデル名は頭大文字、単数形、キャメルケース。  
+Models の後ろの区切り文字は「 / 」（スラッシュ）  
 ```
 php artisan make:model Models/Project -m             # app/Models  に、ファイルが生成される。
 # database\migrations\ に作成されたファイルを編集する
