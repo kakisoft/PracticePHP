@@ -24,7 +24,7 @@ Route::get('/sample/{a}/{b}', 'SampleController@test');
 #### 注意点
 ```php
 Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
-Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（正規表現などで回避する等の方法がある）
+Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
 ```
 
 ________________________________________________________________________
