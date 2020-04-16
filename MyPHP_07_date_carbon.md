@@ -1,4 +1,7 @@
 # Carbon
+Carbon クラスは、PHP 標準の DateTime クラスを継承している  
+
+## 公式サイト
 https://carbon.nesbot.com/
 
 ## インストール
@@ -6,6 +9,13 @@ https://carbon.nesbot.com/
 composer require nesbot/carbon
 ```
 
+____________________________________________________________________________________________________
+## タイムゾーン設定
+https://www.php.net/manual/ja/timezones.asia.php  
+
+```php
+date_default_timezone_set('Asia/Tokyo');
+```
 ____________________________________________________________________________________________________
 ## 使う
 ```php
@@ -48,24 +58,26 @@ echo $dt_12->day         . PHP_EOL;  //=>15
 echo $dt_12->hour        . PHP_EOL;  //=>0
 echo $dt_12->minute      . PHP_EOL;  //=>26
 echo $dt_12->second      . PHP_EOL;  //=>57
-echo $dt_12->dayOfWeek   . PHP_EOL;  //=>3
-echo $dt_12->dayOfYear   . PHP_EOL;  //=>106
+echo $dt_12->dayOfWeek   . PHP_EOL;  //=>3    （週のうちの何日目か？）
+echo $dt_12->dayOfYear   . PHP_EOL;  //=>106  （年のうちの何日目か？）
 echo $dt_12->weekOfMonth . PHP_EOL;  //=>3
 echo $dt_12->weekOfYear  . PHP_EOL;  //=>16
 echo $dt_12->timestamp   . PHP_EOL;  //=>1586910417
 echo $dt_12->tzName      . PHP_EOL;  //=>UTC
-echo $dt_12->format('Y年m月d日') . PHP_EOL;  //=> 2020年04月15日
+echo $dt_12->format('Y年m月d日') . PHP_EOL;    //=> 2020年04月15日
+echo $dt_12->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/15 04:19:34
 ```
 
 
-## _
+## 日付の判定
 ```php
-$dt_13 = Carbon::now();
+// 実行日： 2020/04/16 04:19:34
+$dt_13 = new Carbon('2020-04-16 11:32:32');
 var_dump($dt_13->isToday())     . PHP_EOL;  //=> true
 var_dump($dt_13->isTomorrow())  . PHP_EOL;  //=> false
 var_dump($dt_13->isYesterday()) . PHP_EOL;  //=> false
-var_dump($dt_13->isFuture())    . PHP_EOL;  //=> false
-var_dump($dt_13->isPast())      . PHP_EOL;  //=> true
+var_dump($dt_13->isFuture())    . PHP_EOL;  //=> true
+var_dump($dt_13->isPast())      . PHP_EOL;  //=> false
 var_dump($dt_13->isLeapYear())  . PHP_EOL;  //=> true
 var_dump($dt_13->isWeekday())   . PHP_EOL;  //=> true
 var_dump($dt_13->isWeekend())   . PHP_EOL;  //=> false
@@ -78,34 +90,42 @@ var_dump($dt_13->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
 $dt_01 = Carbon::create(2020, 10, 1);
 $dt_02 = Carbon::create(2020, 11, 1);
 
-// eq
-// gt, gte
-// lt, lte
 
+//----------( 等しいかどうかを判定 )----------
+// eq() - equal
 var_dump($dt_01->eq($dt_02)) . PHP_EOL;  //=> false
+
+
+//----------( 対象より大きいかを判定 )----------
+// gt() - greater than / greater than or equal
 var_dump($dt_01->gt($dt_02)) . PHP_EOL;  //=> false
+
+
+//----------( 対象より小さいかを判定 )----------
+// lt() - less than / less than or equal
 var_dump($dt_01->lt($dt_02)) . PHP_EOL;  //=> true
 
-// between
 
+//----------( 範囲内かを判定 )----------
+// between
 var_dump(Carbon::create(2020, 10, 10)->between($dt_01, $dt_02)) . PHP_EOL;  //=> true
 var_dump(Carbon::create(2022, 10, 10)->between($dt_01, $dt_02)) . PHP_EOL;  //=> false
-
-// max, min
-
-echo $dt_01->max($dt_02) . PHP_EOL;  //=> 2020-11-01 00:00:00
-echo $dt_01->min($dt_02) . PHP_EOL;  //=> 2020-10-01 00:00:00
 ```
 
 
-## _
+
+## 比較の結果の値を返す
 ```php
 $dt_01 = Carbon::create(2020, 10, 1);
 $dt_02 = Carbon::create(2020, 11, 1);
 
-// max, min
-
+//----------( 値が大きい方を返す )----------
+// max
 echo $dt_01->max($dt_02) . PHP_EOL;  //=> 2020-11-01 00:00:00
+
+
+//----------( 値が小さい方を返す )----------
+// min
 echo $dt_01->min($dt_02) . PHP_EOL;  //=> 2020-10-01 00:00:00
 ```
 
