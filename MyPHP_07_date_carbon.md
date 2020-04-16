@@ -132,19 +132,19 @@ echo $dt_01->min($dt_02) . PHP_EOL;  //=> 2020-10-01 00:00:00
 
 ## 加算・減算
 ```php
-$dt = Carbon::now();
-echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-15 00:43:48
-echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-15 00:43:48
-echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-15 00:43:48
-echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-15 00:43:48
+$dt = new Carbon('2020-04-16 11:32:32');
+echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-16 11:32:32
+echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:32:32
+echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:32:32
+echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:32:32
 
 // add, sub
 // Years(n)
 // Year, Month, Day, Hour, Minute, Second
 // Weekday
 
-echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-20 00:43:48
-echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-23 04:03:48
+echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-21 11:32:32
+echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-24 14:52:32
 ```
 
 
