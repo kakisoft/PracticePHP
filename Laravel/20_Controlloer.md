@@ -1,33 +1,3 @@
-## routs/web.php
-```php
-// ↓ 「resources\views\welcome.blade.php」を返す
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/', 'PostsController@index');
-
-// コントローラに渡す値を設定。（ $id ）        show アクション
-Route::get('/posts/{id}', 'PostsController@show');
-
-// Implicit Binding
-Route::get('/posts/preview/{post}', 'PostsController@preview');
-
-// 正規表現で値のルールを指定
-Route::get('/books/{book}', 'BooksController@show')->where('book', '[0-9]+');
-
-// 複数パラメータ
-Route::get('/sample/{a}/{b}', 'SampleController@test');
-
-```
-
-#### 注意点
-```php
-Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
-Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
-```
-
-________________________________________________________________________
 ## コントローラ作成
 ```
 php artisan make:controller PostsController
