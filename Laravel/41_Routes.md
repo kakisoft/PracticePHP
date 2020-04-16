@@ -15,7 +15,7 @@ Web アプリ。
 #### （エンドポイント例）
 ```
 posts
-posts/create 
+posts/create
 posts/{post}
 ```
 
@@ -62,12 +62,35 @@ Route::post('/posts/{post}/edit', 'PostsController@edit');
 Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
 ```
 
-
+________________________________________________________________________
 ## resource
-CRUDルーティングを一度に行うことができる。
+CRUDルーティングを一度に行うことができる。  
+（ GET, POST, PUT, PATCH, DELETE が設定される）
 ```php
 Route::resource('news', 'NewsController');
 ```
+
+#### フィルタリング
+アクション名を指定する？
+```php
+// onlyを使う（ホワイトリスト方式）　
+Route::resource('hoge', 'NewsController', ['only' => ['create', 'edit']]);
+
+// exceptを使う（ブラックリスト方式）
+Route::resource('hoge', 'NewsController', ['except' => ['destroy', 'store']]);
+```
+
+https://readouble.com/laravel/5.7/ja/controllers.html  
+
+|  動詞       |  URI                   |  アクション |  ルート名            |
+|:------------|:-----------------------|:----------|:-----------------|
+|  GET        |  /photos               |  index    |  photos.index    |
+|  GET        |  /photos/create        |  create   |  photos.create   |
+|  POST       |  /photos               |  store    |  photos.store    |
+|  GET        |  /photos/{photo}       |  show     |  photos.show     |
+|  GET        |  /photos/{photo}/edit  |  edit     |  photos.edit     |
+|  PUT/PATCH  |  /photos/{photo}       |  update   |  photos.update   |
+|  DELETE     |  /photos/{photo}       |  destroy  |  photos.destroy  |
 
 
 ________________________________________________________________________
