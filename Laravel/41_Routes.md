@@ -1,8 +1,8 @@
 ## ルーティング情報を表示
 php artisan route:list  
-php artisan route:list -c
+php artisan route:list -c  
 php artisan route:list --path=news  
-php artisan route:list --method=patch
+php artisan route:list --method=patch  
 
 ```
 --path[=PATH]        Filter the routes by path
