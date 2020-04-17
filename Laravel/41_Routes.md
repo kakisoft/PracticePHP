@@ -63,7 +63,7 @@ Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
 ```
 
 ________________________________________________________________________
-## resource
+## Route::resource
 CRUDルーティングを一度に行うことができる。  
 （ GET, POST, PUT, PATCH, DELETE が設定される）
 ```php
@@ -82,7 +82,7 @@ Route::resource('hoge', 'NewsController', ['except' => ['destroy', 'store']]);
 
 https://readouble.com/laravel/5.7/ja/controllers.html  
 
-|  動詞       |  URI                   |  アクション |  ルート名            |
+|  動詞       |  URI                   |  アクション |  ルート名         |
 |:------------|:-----------------------|:----------|:-----------------|
 |  GET        |  /photos               |  index    |  photos.index    |
 |  GET        |  /photos/create        |  create   |  photos.create   |
@@ -94,13 +94,27 @@ https://readouble.com/laravel/5.7/ja/controllers.html
 
 
 ________________________________________________________________________
+## Route::group
+一括して定義
+```php
+Route::group(['namespace' => 'API'], function () {
+
+    //   以下、
+    // App\Http\Controllers\API\AuthController
+    //   のコントローラを参照する
+
+    Route::post('me', 'AuthController@login')->name('auth.login');
+    Route::delete('me', 'AuthController@logout');
+});
+```
+
+
+________________________________________________________________________
 #### 注意点
 ```php
 Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
 Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
 ```
-
-
 
 
 
