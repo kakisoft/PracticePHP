@@ -85,6 +85,52 @@ var_dump($dt_13->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
 ```
 
 
+## 加算・減算
+```php
+$dt = new Carbon('2020-04-16 11:32:32');
+echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-16 11:32:32
+echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:32:32
+echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:32:32
+echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:32:32
+
+// add, sub
+// Years(n)
+// Year, Month, Day, Hour, Minute, Second
+// Weekday
+
+echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-21 11:32:32
+echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-24 14:52:32
+```
+
+
+## 元の値を変えずに、未来（or過去）の日付を取得
+```php
+$dt = new Carbon('2020-04-16 11:32:56');
+echo $dt->addYear()         . PHP_EOL;  //=> 2021-04-16 11:32:56
+echo $dt->copy()->addYear() . PHP_EOL;  //=> 2022-04-16 11:32:56   // 元の値を変えずに、１年後の日付を取得
+echo $dt                    . PHP_EOL;  //=> 2021-04-16 11:32:56
+```
+
+
+## 特定の日付に変更
+```php
+// ※破壊的なメソッド。実行すると、元の値が変わる。
+echo $dt_01->startOfDay()                  . PHP_EOL;  //=> 2020-04-16 00:00:00    今日の始まりの日時
+echo $dt_01->endOfDay()                    . PHP_EOL;  //=> 2020-04-16 23:59:59    今日の終わりの始まりの日時
+echo $dt_01->startOfMonth()                . PHP_EOL;  //=> 2020-04-01 00:00:00    月初日
+echo $dt_01->endOfMonth()                  . PHP_EOL;  //=> 2020-04-30 23:59:59    月末日
+echo $dt_01->startOfWeek()                 . PHP_EOL;  //=> 2020-04-13 00:00:00    週の開始日（月曜）
+echo $dt_01->startOfWeek()->subDay(1)      . PHP_EOL;  //=> 2020-04-12 00:00:00    週の開始日（日曜）
+echo $dt_01->endOfWeek()                   . PHP_EOL;  //=> 2020-04-19 23:59:59    週の終了日（日曜）
+echo $dt_01->endOfWeek()->subDay(1)        . PHP_EOL;  //=> 2020-04-12 00:00:00    週の終了日（土曜）
+echo $dt_01->next(Carbon::MONDAY)          . PHP_EOL;  //=> 2020-04-20 00:00:00    次の月曜日
+echo $dt_01->previous(Carbon::MONDAY)      . PHP_EOL;  //=> 2020-04-27 00:00:00    前の月曜日
+echo $dt_01->firstOfMonth(Carbon::MONDAY)  . PHP_EOL;  //=> 2020-04-06 00:00:00    月の最初の月曜日
+echo $dt_01->lastOfMonth(Carbon::MONDAY)   . PHP_EOL;  //=> 2020-04-27 00:00:00    月の最後の月曜日
+echo $dt_01->nthOfMonth(3, Carbon::MONDAY) . PHP_EOL;  //=> 2020-04-20 00:00:00    第３月曜日
+```
+
+
 ## 比較
 ```php
 $dt_01 = Carbon::create(2020, 10, 1);
@@ -130,55 +176,8 @@ echo $dt_01->min($dt_02) . PHP_EOL;  //=> 2020-10-01 00:00:00
 ```
 
 
-## 加算・減算
-```php
-$dt = new Carbon('2020-04-16 11:32:32');
-echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-16 11:32:32
-echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:32:32
-echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:32:32
-echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:32:32
 
-// add, sub
-// Years(n)
-// Year, Month, Day, Hour, Minute, Second
-// Weekday
-
-echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-21 11:32:32
-echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-24 14:52:32
-```
-
-
-## 元の値を変えずに、未来（or過去）の日付を取得
-```php
-$dt = new Carbon('2020-04-16 11:32:56');
-echo $dt->addYear()         . PHP_EOL;  //=> 2021-04-16 11:32:56
-echo $dt->copy()->addYear() . PHP_EOL;  //=> 2022-04-16 11:32:56   // 元の値を変えずに、１年後の日付を取得
-echo $dt                    . PHP_EOL;  //=> 2021-04-16 11:32:56
-```
-
-
-
-## 特定の日付に変更
-```php
-// ※破壊的なメソッド。実行すると、元の値が変わる。
-echo $dt_01->startOfDay()                  . PHP_EOL;  //=> 2020-04-16 00:00:00    今日の始まりの日時
-echo $dt_01->endOfDay()                    . PHP_EOL;  //=> 2020-04-16 23:59:59    今日の終わりの始まりの日時
-echo $dt_01->startOfMonth()                . PHP_EOL;  //=> 2020-04-01 00:00:00    月初日
-echo $dt_01->endOfMonth()                  . PHP_EOL;  //=> 2020-04-30 23:59:59    月末日
-echo $dt_01->startOfWeek()                 . PHP_EOL;  //=> 2020-04-13 00:00:00    週の開始日（月曜）
-echo $dt_01->startOfWeek()->subDay(1)      . PHP_EOL;  //=> 2020-04-12 00:00:00    週の開始日（日曜）
-echo $dt_01->endOfWeek()                   . PHP_EOL;  //=> 2020-04-19 23:59:59    週の終了日（日曜）
-echo $dt_01->endOfWeek()->subDay(1)        . PHP_EOL;  //=> 2020-04-12 00:00:00    週の終了日（土曜）
-echo $dt_01->next(Carbon::MONDAY)          . PHP_EOL;  //=> 2020-04-20 00:00:00    次の月曜日
-echo $dt_01->previous(Carbon::MONDAY)      . PHP_EOL;  //=> 2020-04-27 00:00:00    前の月曜日
-echo $dt_01->firstOfMonth(Carbon::MONDAY)  . PHP_EOL;  //=> 2020-04-06 00:00:00    月の最初の月曜日
-echo $dt_01->lastOfMonth(Carbon::MONDAY)   . PHP_EOL;  //=> 2020-04-27 00:00:00    月の最後の月曜日
-echo $dt_01->nthOfMonth(3, Carbon::MONDAY) . PHP_EOL;  //=> 2020-04-20 00:00:00    第３月曜日
-```
-
-
-
-## _
+## 差分を計算
 ```php
 $dt_01 = Carbon::create(2020, 10, 1);
 $dt_02 = Carbon::create(2020, 11, 1);
@@ -188,12 +187,12 @@ echo $dt_01->diffInHours($dt_02)   . PHP_EOL;  //=> 744
 echo $dt_01->diffInMinutes($dt_02) . PHP_EOL;  //=> 44640
 
 Carbon::setLocale('ja');
-echo $dt_01->diffForHumans($dt_02) . PHP_EOL;  //=> 1ヶ月前
+echo $dt_01->diffForHumans($dt_02) . PHP_EOL;  //=> 1ヶ月前　（読みやすいように整形されている）
 ```
 
 
 
-## __
+## 日付計算をテスト  setTestNow
 ```php
 $birthday = Carbon::create(1990, 10, 1);
 
