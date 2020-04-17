@@ -196,18 +196,17 @@ echo $dt_01->diffForHumans($dt_02) . PHP_EOL;  //=> 1ヶ月前　（読みやす
 ```php
 $birthday = Carbon::create(1990, 10, 1);
 
-Carbon::setTestNow(Carbon::create(2020, 10, 1));
+Carbon::setTestNow(Carbon::create(2020, 10, 1));  // A
 echo Carbon::now() . PHP_EOL;  //=> 2020-10-01 00:00:00
-Carbon::setTestNow();
+Carbon::setTestNow();  // B
 echo Carbon::now() . PHP_EOL;  //=> 2020-04-15 00:50:05
 
 if ($birthday->isBirthday(Carbon::now())) {
-  echo ':)' . PHP_EOL;
+  echo ':)' . PHP_EOL;   // A
 } else {
-  echo ':<' . PHP_EOL;
+  echo ':<' . PHP_EOL;   // B
 }
 ```
-
 
 
 
