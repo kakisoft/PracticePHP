@@ -108,6 +108,23 @@ Route::group(['namespace' => 'API'], function () {
 });
 ```
 
+________________________________________________________________________
+## ->name（名前付きルート）
+https://readouble.com/laravel/5.7/ja/routing.html  
+名前付きルートは特定のルートへのURLを生成したり、リダイレクトしたりする場合に便利です。  
+ルート定義にnameメソッドをチェーンすることで、そのルートに名前がつけられます。  
+```php
+Route::get('user/profile', 'UserProfileController@show')->name('profile');
+```
+
+名前付きルートへのURLを生成
+```php
+// URLの生成
+$url = route('profile');
+
+// リダイレクトの生成
+return redirect()->route('profile');
+```
 
 ________________________________________________________________________
 #### 注意点
@@ -115,8 +132,6 @@ ________________________________________________________________________
 Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
 Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
 ```
-
-
 
 
 
