@@ -49,6 +49,11 @@ Route::get('/books/{book}', 'BooksController@show')->where('book', '[0-9]+');
 
 // 複数パラメータ
 Route::get('/sample/{a}/{b}', 'SampleController@test');
+
+// 複数パラメータ＋正規表現による制約
+Route::get('user/{id}/{name}', function ($id, $name) {
+    //
+})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
 ```
 
 
@@ -60,6 +65,13 @@ Route::delete('/posts/{post}', 'PostsController@destroy');
 
 Route::post('/posts/{post}/edit', 'PostsController@edit');
 Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
+```
+
+
+#### 注意点
+```php
+Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
+Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
 ```
 
 ________________________________________________________________________
@@ -142,11 +154,18 @@ Route::middleware(['first', 'second'])->group(function () {
 ```
 
 ________________________________________________________________________
-#### 注意点
-```php
-Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create」は、こちらの設定が有効となる。
-Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
-```
+## ルーティングの「api」を消す
 
+#### app\Providers\RouteServiceProvider.php
+prefix を 'api' → null に変更
+```php
+    protected function mapApiRoutes()
+    {
+        Route::prefix(null)
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+```
 
 
