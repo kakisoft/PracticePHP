@@ -29,9 +29,16 @@ use GuzzleHttp\Client;
 $client = new \GuzzleHttp\Client();
 $response = $client->request('GET', 'https://api.github.com/repos/guzzle/guzzle');
 
-echo $response->getStatusCode();                // 200
-echo $response->getHeaderLine('content-type');  // 'application/json; charset=utf8'
-echo $response->getBody();                      // '{"id": 1420053, "name": "guzzle", ...}'
+echo $response->getStatusCode();                    // 200
+echo $response->getHeaderLine('content-type');      // 'application/json; charset=utf8'
+$body = $response->getBody();
+print_r(json_decode($body, true) );                 // '{"id": 1420053, "name": "guzzle", ...}'    長い。
+
+// こんな方法も。
+$contents = $response->getBody()->getContents();
+print_r(json_decode($contents, true) );             // '{"id": 1420053, "name": "guzzle", ...}'
+
+
 
 
 //===============================================
