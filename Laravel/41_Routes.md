@@ -94,7 +94,7 @@ https://readouble.com/laravel/5.7/ja/controllers.html
 
 
 ________________________________________________________________________
-## Route::group
+## Route::group （ルートグループ）
 一括して定義
 ```php
 Route::group(['namespace' => 'API'], function () {
@@ -109,7 +109,7 @@ Route::group(['namespace' => 'API'], function () {
 ```
 
 ________________________________________________________________________
-## ->name（名前付きルート）
+## ->name （名前付きルート）
 https://readouble.com/laravel/5.7/ja/routing.html  
 名前付きルートは特定のルートへのURLを生成したり、リダイレクトしたりする場合に便利です。  
 ルート定義にnameメソッドをチェーンすることで、そのルートに名前がつけられます。  
@@ -124,6 +124,21 @@ $url = route('profile');
 
 // リダイレクトの生成
 return redirect()->route('profile');
+```
+
+________________________________________________________________________
+## middleware （ミドルウェア）
+グループ中の全ルートにミドルウェアを指定するには、そのグループを定義する前にmiddlewareメソッドを使用します。
+```php
+Route::middleware(['first', 'second'])->group(function () {
+    Route::get('/', function () {
+        // firstとsecondミドルウェアを使用
+    });
+
+    Route::get('user/profile', function () {
+        // firstとsecondミドルウェアを使用
+    });
+});
 ```
 
 ________________________________________________________________________
