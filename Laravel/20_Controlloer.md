@@ -87,6 +87,25 @@ class PostsController extends Controller
 
 }
 ```
+__________________________________________________________________________________________________________________
+## JSON を返す
+
+#### response()->json()
+```php
+public function index()
+{
+    return response()->json(['apple' => 'red', 'peach' => 'pink']);
+}
+```
+
+#### 配列をreturn
+```php
+public function index()
+{
+    return ['apple' => 'red', 'peach' => 'pink'];
+}
+```
+
 
 __________________________________________________________________________________________________________________
 ## レスポンスオブジェクト
