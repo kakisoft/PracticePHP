@@ -31,13 +31,13 @@ $response = $client->request('GET', 'https://api.github.com/repos/guzzle/guzzle'
 
 echo $response->getStatusCode();                    // 200
 echo $response->getHeaderLine('content-type');      // 'application/json; charset=utf8'
-$body = $response->getBody();
-print_r(json_decode($body, true) );                 // '{"id": 1420053, "name": "guzzle", ...}'
 
-// こんな方法も。
+
+$body     = $response->getBody();
 $contents = $response->getBody()->getContents();
-print_r(json_decode($contents, true) );             // '{"id": 1420053, "name": "guzzle", ...}'
 
+print_r(json_decode($body, true) );                 // '{"id": 1420053, "name": "guzzle", ...}'
+print_r(json_decode($contents, true) );             // '{"id": 1420053, "name": "guzzle", ...}'
 
 
 
