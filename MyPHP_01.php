@@ -3356,9 +3356,9 @@ print_r($result1);
 print_r($result2);
 
 
-//===========================
+//=============================
 //  json エンコード/デコード
-//===========================
+//=============================
 $original_json_data = '{"id":1, "product_name":"K001-X299022A"}';
 $decoded_data = json_decode($original_json_data, true);  // true の場合、返されるオブジェクトは連想配列形式になります。
 $decoded_data['check_user']     = "5656";
@@ -3367,6 +3367,21 @@ $encoded_data = json_encode($decoded_data);
 
 
 var_dump($encoded_data);  //=> string(97) "{"id":1,"product_name":"K001-X299022A","check_user":"5656","check_datetime":"2020\/02\/04 12:28"}"
+
+
+//=============================
+//  配列から json に エンコード
+//=============================
+$array_data = [
+  'name'    => 'Tom',
+  'Job'     => 'Engineer',
+  'country' => 'USA',
+  'age'     => 28,
+];
+
+$json_encoded_data = json_encode($array_data);
+
+echo $json_encoded_data;  //=> {"name":"Tom","Job":"Engineer","country":"USA","age":28}
 
 
 
