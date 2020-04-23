@@ -136,7 +136,7 @@ Route::get('home', function () {
 
 __________________________________________________________________________________________________________________
 ## リクエストパラメータを取得
-（詳細は <a href="14_Model_Request.md">14_Model_Request.md</a>を参照。）
+（リクエストクラスの詳細は <a href="14_Model_Request.md">14_Model_Request.md</a>を参照。）
 
 ```php
     public function challenge_usersPost(Request $request) {
