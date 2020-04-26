@@ -62,5 +62,13 @@ Migrating: 2020_04_26_153512_create_comments_table
       Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 root@154b5cb61a5c:/var/www/html/my-laravel-app# 
 ```
+
+
+## migration エラー（-m オプションを指定して Model作成時）
+```
+ file_put_contents(/var/www/html/my-laravel-app/database/migrations/2020_04_27_081707_create_posts_table.php): failed to open stream: No such  
+   file or directory   
+```
+
 _________________________________________________________________________________________________________
 
