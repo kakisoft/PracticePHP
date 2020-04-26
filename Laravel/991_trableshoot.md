@@ -26,5 +26,41 @@ extension=sqlite3
 とか。
 
 
+## 外部制約エラー
+```php
+// Laravel 5.5 まで？
+$table->unsignedInteger('post_id');
+
+// Laravel 5.8以降
+$table->unsignedBigInteger('post_id');
+```
+
+```
+Migrating: 2020_04_26_153512_create_comments_table
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint (SQL: alter table `comments` add constraint `comments_post_id_foreign` foreign key (`post_id`) references `posts` (`id`) on delete cascade)
+
+  at vendor/laravel/framework/src/Illuminate/Database/Connection.php:671
+    667|         // If an exception occurs when attempting to run a query, we'll format the error
+    668|         // message to include the bindings with SQL, which will make this exception a
+    669|         // lot more helpful to the developer instead of just the database's errors.
+    670|         catch (Exception $e) {
+  > 671|             throw new QueryException(
+    672|                 $query, $this->prepareBindings($bindings), $e
+    673|             );
+    674|         }
+    675| 
+
+      +9 vendor frames 
+  10  database/migrations/2020_04_26_153512_create_comments_table.php:27
+      Illuminate\Support\Facades\Facade::__callStatic("create")
+
+      +22 vendor frames 
+  33  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+root@154b5cb61a5c:/var/www/html/my-laravel-app# 
+```
 _________________________________________________________________________________________________________
 

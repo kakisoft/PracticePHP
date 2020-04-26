@@ -72,4 +72,27 @@ php artisan migrate
 
 
 _____________________________________________________________________________________
+## 外部制約付き
+```php
+    public function up()
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('post_id');
+            $table->string('body');
+            $table->timestamps();
+
+            $table
+              ->foreign('post_id')
+              ->references('id')
+              ->on('posts')
+              ->onDelete('cascade');
+        });
+    }
+```
+
+_____________________________________________________________________________________
+
+
+
 
