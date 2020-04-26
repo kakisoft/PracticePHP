@@ -24,7 +24,7 @@ or
 php composer.phar -V
 ```
 
-## Laravelインストール
+## Laravelインストール（バージョンを指定する場合、次項を参照）
 「インストール ＆ プロジェクト作成」みたいな感じ。
 ```
 php composer.phar create-project --prefer-dist laravel/laravel myblog
