@@ -62,9 +62,10 @@ _______________________________________________________________________
 ```
 composer install
 ```
+インストールされるライブラリや、ライセンス、オーナーなどは、composer.json または composer.lock を参照。
 
 ________________________________________________
-# ひな形から作成
+## ひな形から作成
 ```
 composer init
 （composer.json が作成される。何かいっぱい聞かれる）
@@ -75,7 +76,7 @@ composer install
 ```
 
 
-## composer.json 編集例
+### composer.json 編集例
 before
 ```json
     "require": {}
@@ -87,5 +88,22 @@ after
         "phpunit/phpunit": "3.7.*"
     }
 ```
+
+________________________________________________
+## パッケージの追加
+```
+composer require vendor/package
+composer require --dev vendor/package
+composer require vendor/package:2.1
+```
+#### 例
+```
+composer require nesbot/carbon
+composer require --dev phpunit/phpunit:3.7
+```
+
+--dev は、「"require-dev"」のセクションに追加される。
+
+________________________________________________
 
 
