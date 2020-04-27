@@ -96,7 +96,7 @@ composer require vendor/package
 composer require --dev vendor/package
 composer require vendor/package:2.1
 ```
-#### 例
+#### 使用例
 ```
 composer require nesbot/carbon
 composer require --dev phpunit/phpunit:3.7
@@ -105,5 +105,30 @@ composer require --dev phpunit/phpunit:3.7
 --dev は、「"require-dev"」のセクションに追加される。
 
 ________________________________________________
+## パッケージの削除
+```
+composer remove [package]
+```
+#### 使用例
+```
+composer remove nesbot/carbon
+composer remove --dev phpunit/phpunit
+```
+
+________________________________________________
+## パッケージの更新
+```
+composer update
+```
+ただし、composer.json から不要になったパッケージを手で削除して composer update は、あまり良くなさそう。
+```
+composer update --with-dependencies
+```
+ならＯＫ？  
+でも、削除したいなら remove が良さげ。（割と最近追加されたコマンドみたい。）
+
+
+_______________________________________________________________________
+
 
 
