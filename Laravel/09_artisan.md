@@ -17,3 +17,11 @@ php artisan route:list
 php artisan route:list --path=posts  
 
 
+## キャッシュをクリア
+php artisan config:clear  
+
+
+## 設定されたキーを確認
+php artisan key:generate --show  
+
+
