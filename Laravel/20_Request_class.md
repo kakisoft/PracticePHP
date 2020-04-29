@@ -20,14 +20,6 @@ class UserController extends Controller
 ```
 
 _________________________________________________________________
-## Request クラス作成
-```
-php artisan make:request PostRequest
-
-app/Http/Requests/PostRequest.php
-```
-
-_________________________________________________________________
 ## app/Http/Controllers/TestController.php
 http://tech.innovation.co.jp/2018/06/24/Laravel56-Request.html
 #### http
