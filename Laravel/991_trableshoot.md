@@ -66,9 +66,17 @@ root@154b5cb61a5c:/var/www/html/my-laravel-app#
 
 ## migration エラー（-m オプションを指定して Model作成時）
 ```
- file_put_contents(/var/www/html/my-laravel-app/database/migrations/2020_04_27_081707_create_posts_table.php): failed to open stream: No such  
-   file or directory   
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'myapp01.migrations' doesn't exist
 ```
+php artisan migrate:install
+
+
+## migration エラー（-m オプションを指定して Model作成時）
+```
+file_put_contents(/var/www/html/my-laravel-app/database/migrations/2020_04_27_081707_create_posts_table.php): failed open stream: No such file or directory
+```
+未解決
+
 
 _________________________________________________________________________________________________________
 # 起動時のエラー
