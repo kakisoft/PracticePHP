@@ -96,3 +96,17 @@ ________________________________________________________________________________
 
 
 
+```
+php artisan cache:clear
+
+composer dump-autoload -o
+composer update
+
+php artisan migrate:rollback
+
+============================================
+
+php artisan migrate:refresh
+
+```
+
