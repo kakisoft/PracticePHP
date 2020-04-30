@@ -128,6 +128,16 @@ composer update --with-dependencies
 でも、削除したいなら remove が良さげ。（割と最近追加されたコマンドみたい。）
 
 
+________________________________________________
+## オートロード
+https://laraweb.net/surrounding/1642/  
+PHPファイルの冒頭に require を書かずに済む仕組み。  
+vendor/autoload.php というファイルがそれ。
+
+```
+composer dump-autoload
+```
+
 _______________________________________________________________________
 # メモ
 composer.lock が存在する場合、composer.lock に書かれているバージョンをダウンロードする。
