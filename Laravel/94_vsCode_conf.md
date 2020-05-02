@@ -6,7 +6,7 @@ PHP Intelephense （拡張機能）によるもの。
 
 プラグイン検索ウィンドウにて「 PHP Intelephense 」→ 右クリック → Extension Settings  
 
-以下のチェックを外す
+以下のチェックを外す  
 ```
 intelephense.diagnostics.undefinedClassConstants
 intelephense.diagnostics.undefinedConstants
@@ -15,4 +15,13 @@ intelephense.diagnostics.undefinedMethods
 intelephense.diagnostics.undefinedProperties
 intelephense.diagnostics.undefinedTypes
 ```
+
+以下だけでも可。  
+https://github.com/bmewburn/vscode-intelephense/issues/780  
+```
+intelephense.diagnostics.undefinedTypes
+```
+
+
+
 
