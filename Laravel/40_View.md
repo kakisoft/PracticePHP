@@ -27,9 +27,12 @@ echo e('<html>foo</html>');
     @forelse ($posts as $post)
         <li><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></li>
 
+
         <li><a href="{{ url('/posts', $post->id) }}">{{ $post->title }}</a></li>
 
+
         <li><a href="{{ action('PostsController@show', $post->id) }}">{{ $post->title }}</a></li>
+
 
                                                           // Implicit Binding
         <li><a href="{{ action('PostsController@preview', $post) }}">{{ $post->title }}</a></li>
