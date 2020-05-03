@@ -84,3 +84,10 @@ URL がどうなっているかは知らなくてもいい
 ```
 
 
+## 値の保持
+old ヘルパーを指定すると、Validationエラー時に、元の値を保持する
+```php
+    <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
+```
+
+
