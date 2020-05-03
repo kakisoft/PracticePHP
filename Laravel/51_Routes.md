@@ -65,6 +65,12 @@ Route::delete('/posts/{post}', 'PostsController@destroy');
 
 Route::post('/posts/{post}/edit', 'PostsController@edit');
 Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
+
+
+//-----( コントローラのメソッドを定義　→　ルーティングルールを設定、といった順番で書くこともできる )-----
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::get('/posts/{post}/editaaaa/bbb/ccc', 'PostsController@edit');
+
 ```
 
 
