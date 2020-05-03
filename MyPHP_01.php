@@ -1,10 +1,42 @@
-<?php
+  <?php
 
 // コメント
 # コメント
 /*
 コメント
 */
+
+
+
+    /**
+     * Update current user's profile
+     *
+     * @bodyParam name string required New name. Example: Johny Doe
+     * @bodyParam email string required New email. Example: johny@doe.com
+     * @bodyParam password string New password (null/blank for no change)
+     *
+     * @response []
+     *
+     * @throws RuntimeException
+     *
+     * @return JsonResponse
+     */
+    public function update(ProfileUpdateRequest $request)
+    {
+        if (config('koel.misc.demo')) {
+            return response()->json();
+        }
+
+        $data = $request->only('name', 'email');
+
+        if ($request->password) {
+            $data['password'] = $this->hash->make($request->password);
+        }
+
+        return response()->json($request->user()->update($data));
+    }
+
+
 
 echo "hello from the TOP!";
 

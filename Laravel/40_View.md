@@ -58,6 +58,15 @@ URL がどうなっているかは知らなくてもいい
 ```
 
 
+## CSRF 対策
+悪意のある不正な投稿を防ぐためにデフォルトで CSRF 対策が施されていて、フォームにはそのためのトークンを仕込む必要がある。  
+以下のようにしけおけば、あとは Laravel が勝手にやってくれる。  
+```php
+<form method="post" action="{{ url('/posts') }}">
+  {{ csrf_field() }}
+```
+
+
 ## Validate
 ```php
     <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">

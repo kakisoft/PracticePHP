@@ -1,4 +1,4 @@
-## ルーティング情報を表示
+## artisan コマンドでルーティング情報を表示
 php artisan route:list  
 php artisan route:list -c  
 php artisan route:list --path=news  

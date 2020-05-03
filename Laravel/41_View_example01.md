@@ -19,6 +19,7 @@
       <li><a href="">{{ $post->title }}</a></li>
       @endforeach
       --}}
+
       @forelse ($posts as $post)
       <li><a href="">{{ $post->title }}</a></li>
       @empty
