@@ -3,6 +3,12 @@ Laravel のテンプレートエンジン
 
 
 ______________________________________
+## エスケープしつつ、改行を br に変換
+```php
+<p>{!! nl2br(e($post->body)) !!}</p>
+```
+
+
 ## e()
 https://laravel.com/docs/master/helpers#method-e    
 The e function runs PHP's htmlspecialchars function with the double_encode option set to true by default:  
@@ -42,6 +48,16 @@ URL がどうなっているかは知らなくてもいい
 という前提の違いがある。
 
 
+## Implicit Binding
+```php
+                                          <!--  ↓Implicit Binding （） -->
+                                          <!--  Route::get('/posts/{id}'　　→　　Route::get('/posts/{post}'　に変更。 -->
+                                          <!--  引数を　show($id)　→　show(Post $post) 　に変更。 -->
+                                          <!-- こうすると、$post->id としなくても、明示しなくても、id を渡す事ができる。 -->
+    <a href="{{ action('PostsController@show', $post) }}">{{ $post->title }}</a>
+```
+
+
 ## Validate
 ```php
     <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
@@ -54,4 +70,5 @@ URL がどうなっているかは知らなくてもいい
         <span class="error">{{ $errors->first('body') }}</span>
     @endif
 ```
+
 
