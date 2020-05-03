@@ -17,37 +17,38 @@ $post = new App\Models\Post::where('id', '>', 1);
 
 ## READ
 ```php
-// 全データを取得
-App\Models\Post::all();
-App\Models\Post::all()->toArray();
-App\Models\Post::all()->toJson();
+//==========< 全データを取得 >==========
+$posts = App\Models\Post::all();
+$posts = App\Models\Post::all()->toArray();
+$posts = App\Models\Post::all()->toJson();
 
 
-// id を指定して参照
-App\Models\Post::find(1);     //findを使う場合、get や firstは不要
-App\Models\Post::find(1)->toArray();
+//==========< 条件を指定して参照（例：id が 1 より大きいデータを取得） >==========
+$posts = App\Models\Post::where('id', '>', 1)->get();
+$posts = App\Models\Post::where('id', '>', 1)->get()->toArray();
+$posts = App\Models\Post::where('id', '>', 1)->first();
 
 
-// 条件を指定して参照（例：id が 1 より大きいデータを取得）
-App\Models\Post::where('id', '>', 1)->get();
-App\Models\Post::where('id', '>', 1)->get()->toArray();
-App\Models\Post::where('id', '>', 1)->first();
+//==========< 並び替え（order by） >==========
+$posts = App\Models\Post::where('id', '>', 1)->orderBy('created_at', 'desc')->get()->toArray();
 
 
-// 並び替え
-App\Models\Post::where('id', '>', 1)->orderBy('created_at', 'desc')->get()->toArray();
+//==========< limit >==========
+$posts = App\Models\Post::where('id', '>', 1)->take(1)->get()->toArray();
 
 
-// limit
-App\Models\Post::where('id', '>', 1)->take(1)->get()->toArray();
-
-
-// 新しい順に取得
+//==========< 新しい順に取得 >==========
 $posts = Post::orderBy('created_at', 'desc')->get();
 
 // created_at で新しい順に取ってくるという処理はよく行うので、latest() という書き方も用意されている。
 // 以下で、上記と同一の意味。
 $posts = Post::latest()->get();
+
+
+//==========< id を指定して、一意のレコードを参照 >==========
+$post = App\Models\Post::find(1);     //findを使う場合、get や firstは不要
+$post = App\Models\Post::find(1)->toArray();
+$post = Post::findOrFail($id);        // データが見つからなかった場合、例外を返す。
 
 ```
 
