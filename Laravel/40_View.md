@@ -60,6 +60,14 @@ URL がどうなっているかは知らなくてもいい
     <a href="{{ action('PostsController@show', $post) }}">{{ $post->title }}</a>
 ```
 
+## Implicit Binding
+https://riptutorial.com/laravel/example/23828/implicit-binding
+```php
+Route::get('api/users/{user}', function (App\User $user) {
+    return $user->email;
+});
+```
+
 
 ## CSRF 対策
 悪意のある不正な投稿を防ぐためにデフォルトで CSRF 対策が施されていて、フォームにはそのためのトークンを仕込む必要がある。  
@@ -88,6 +96,15 @@ URL がどうなっているかは知らなくてもいい
 old ヘルパーを指定すると、Validationエラー時に、元の値を保持する
 ```php
     <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
+```
+
+## HTTPメソッドを指定
+method="post" でないと、正常に動かないっぽい？  
+何かよくわからん。  
+```php
+<form method="post" action="{{ url('/posts', $post->id) }}">
+  {{ csrf_field() }}
+  {{ method_field('patch') }}
 ```
 
 
