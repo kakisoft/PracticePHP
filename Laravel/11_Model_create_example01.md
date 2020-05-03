@@ -78,7 +78,7 @@ ________________________________________________________________________________
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('post_id');
+            $table->unsignedInteger('post_id');     // 外部キーはマイナスにならないので、unsignedInteger を使うことも。
             $table->string('body');
             $table->timestamps();
 
@@ -86,7 +86,7 @@ ________________________________________________________________________________
               ->foreign('post_id')
               ->references('id')
               ->on('posts')
-              ->onDelete('cascade');
+              ->onDelete('cascade');    // 依存関係のあるレコードが削除された時、同時に Delete。
         });
     }
 ```
