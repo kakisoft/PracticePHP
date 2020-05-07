@@ -11,6 +11,7 @@ return redirect()->route($route, $parameters = [], $status = 302, $headers = [])
 
 // redirect関数で取得したリダイレクタインスタンスにアクションを指定する方法
 return redirect()->action($action, $parameters = [], $status = 302, $headers = []);
+return redirect()->action('PostsController@show', $post);
 
 // redirect関数で取得したリダイレクタインスタンスに外部ドメインを指定する方法
 return redirect()->away($path, $status = 302, $headers = []);
