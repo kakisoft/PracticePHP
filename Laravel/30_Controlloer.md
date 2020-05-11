@@ -8,6 +8,27 @@ php artisan make:controller NewsController --resource
 --resource オプションを付けると、  
 index, create, store, show, edit, update, destroy といったメソッドが作成される。  
 
+
+## コントローラを Controllers\API の階層に作成
+```
+php artisan make:controller API/CallMeAPIController
+```
+
+#### api.php
+```php
+// 要プリフィックス
+Route::get('call/me', 'API\CallMeAPIController@callMeGet');
+Route::post('call/me', 'API\CallMeAPIController@callMePost');
+
+
+// こういう書き方でもOK
+Route::group(['namespace' => 'API'], function () {
+    Route::get('call/me', 'CallMeAPIController@callMeGet');
+    Route::post('call/me', 'CallMeAPIController@callMePost');
+});
+```
+
+
 ________________________________________________________________________
 ## dd
 dump & die。  
