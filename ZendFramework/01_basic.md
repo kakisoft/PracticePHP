@@ -455,6 +455,26 @@ nanikanoAction(){
 ```
 
 _____________________________________________________________________________________
+## コントローラクラスをインスタンス化する
+```php
+require_once(dirname(__FILE__) . "/IndivisualReportController.php");
+
+$controllerInstance = new ReportMakerController($this->getRequest(), $this->getResponse());
+$controllerInstance->method01();
+```
+引数が必要。
+
+#### 参考
+library\Zend\Controller\Action.php
+```php
+public function __construct(
+                                  Zend_Controller_Request_Abstract $request
+                                , Zend_Controller_Response_Abstract $response
+                                , array $invokeArgs = array()
+                           )
+```
+
+_____________________________________________________________________________________
 ## URL とアクションメソッドの関係
 ```
 url   : '/common/ajax-set-session-other-site'
