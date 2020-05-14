@@ -128,7 +128,8 @@ https://kakiiiii.dev/order/customer/
 string 'customer' (length=8)
 ```
 
-## アクションにおけるパラメータの取得
+
+## アクションにおけるリクエストパラメータの取得
 ```php
 https://lolipop.pbdev/order/partnership/camid/aaaaa/
 https://lolipop.pbdev/order/partnership/hogep/aaaakkkkkk/
@@ -142,7 +143,7 @@ getUserParam - camid【aaaaa】
 getUserParam - hogep【aaaakkkkkk】
 ```
 
-## アクションにおけるパラメータの取得２
+## アクションにおけるリクエストパラメータの取得２
 ```php
 $request = $this->getRequest();
 
@@ -151,6 +152,15 @@ $a2 = $_POST['param1'];
 $a3 = (int)$request->getParam( 'param1', 1 );
 $a4 = $request->getParam( 'param1');
 ```
+
+
+## アクションにおけるリクエストパラメータの取得（全部）
+```php
+		// パラメータ取得
+		$request = $this->getRequest();
+        $requestParams = $request->getParams();
+```
+
 
 
 ## getXXXName
