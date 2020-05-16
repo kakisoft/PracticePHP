@@ -51,6 +51,18 @@ URL がどうなっているかは知らなくてもいい
 という前提の違いがある。
 
 
+## action の挙動
+```php
+<form method="post" action="{{ url('/posts') }}">
+<form method="post" action="{{ url('/posts', $post->id) }}">
+```
+以下のような html 要素を生成
+```php
+<form method="post" action="http://localhost:8000/posts">
+<form method="post" action="http://localhost:8000/posts/9">
+```
+
+
 ## Implicit Binding
 ```php
                                           <!--  ↓Implicit Binding （） -->
