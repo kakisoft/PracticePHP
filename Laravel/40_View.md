@@ -51,7 +51,7 @@ URL がどうなっているかは知らなくてもいい
 という前提の違いがある。
 
 
-## action の挙動
+## url() の挙動
 ```php
 <form method="post" action="{{ url('/posts') }}">
 <form method="post" action="{{ url('/posts', $post->id) }}">
@@ -64,6 +64,10 @@ URL がどうなっているかは知らなくてもいい
 
 
 ## Implicit Binding
+「引数はユニークな値を渡し（idなど）、受け取る側はそれを元に一意のオブジェクトを取得できる」  
+という性質。  
+(「引数にオブジェクトを渡し、受け取る側もオブジェクトとして受け取る」ではない？）  
+
 ```php
                                           <!--  ↓Implicit Binding （） -->
                                           <!--  Route::get('/posts/{id}'　　→　　Route::get('/posts/{post}'　に変更。 -->
