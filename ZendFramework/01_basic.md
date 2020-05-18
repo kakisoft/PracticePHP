@@ -192,6 +192,13 @@ $this->view->assign('array1', $array1);
 $this->view->assign('app_path', APPLICATION_PATH);
 ```
 
+## View に別のテンプレート（tpl, template）を使用する
+```php
+<h1>
+{{include file="$app_path/views/templates/projectlist/header_content.tpl"}}
+<h2>
+```
+
 
 ## getResponse
 ```php
