@@ -470,7 +470,7 @@ ________________________________________________________________________________
 require_once(dirname(__FILE__) . "/IndivisualReportController.php");
 
 $controllerInstance = new ReportMakerController($this->getRequest(), $this->getResponse());
-$controllerInstance->method01();
+$controllerInstance->fileUploadAction();
 ```
 引数が必要。
 
