@@ -7,7 +7,7 @@ https://readouble.com/laravel/5.5/ja/errors.html
 php artisan config:cache
 ```
 
-## 場所
+## ログが出力される場所
 デフォルト
 ```
 storage\logs\
@@ -31,7 +31,7 @@ ver 5.5
 ```
 
 ```php
-// 「\」を入れないで使うには下記の一文を入れる
+// 先頭に「\」を入れないで使うには下記の一文を入れる
 use Illuminate\Support\Facades\Log;
 ```
 
