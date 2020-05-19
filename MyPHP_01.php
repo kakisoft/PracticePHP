@@ -3445,6 +3445,21 @@ $json_encoded_data = json_encode($array_data);
 echo $json_encoded_data;  //=> {"name":"Tom","Job":"Engineer","country":"USA","age":28}
 
 
+//-------------------
+//    エスケープ
+//-------------------
+$array_data = [
+  'name'    => 'かき',
+  'Job'     => 'エンジニア',
+];
+
+// 日本語はユニコードでエスケープ（\uXXXX）される。
+$json_encoded_data_01 = json_encode($array_data);  //=> {"name":"\u304b\u304d","Job":"\u30a8\u30f3\u30b8\u30cb\u30a2"}
+
+// Unicodeエスケープしないようにする
+$json_encoded_data_02 = json_encode($array_data, JSON_UNESCAPED_UNICODE);  //=> {"name":"かき","Job":"エンジニア"}
+
+
 
 //=============================
 //          base64
