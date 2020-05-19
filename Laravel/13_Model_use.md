@@ -1,6 +1,10 @@
 __________________________________________________________________________________________________________________
 # CRUD
 
+## 生SQLに近い操作は、こちら。
+https://readouble.com/laravel/5.3/ja/queries.html  
+
+
 ## CREATE（INSERT）
 ```php
 $post = new App\Models\Post();
