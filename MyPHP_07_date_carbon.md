@@ -28,7 +28,7 @@ use Carbon\Carbon;
 ## 基本
 ```php
 $dt_01 = new Carbon();
-echo $dt_01 . PHP_EOL;  //=> 2020-04-15 00:22:42
+echo $dt_01 . PHP_EOL;  //=> 2020-04-15 00:22:42（本日の日付）
 ```
 
 
@@ -37,78 +37,81 @@ echo $dt_01 . PHP_EOL;  //=> 2020-04-15 00:22:42
 $dt_02 = new Carbon();
 $dt_03 = Carbon::now();
 
-$dt_04 = new Carbon('2015-12-20 11:32:32');
+$dt_04 = new Carbon('2020-04-20 11:23:45');
 $dt_05 = new Carbon('tomorrow');
 
 $dt_06 = Carbon::today();
 $dt_07 = Carbon::tomorrow();
 $dt_08 = Carbon::yesterday();
 
-$dt_09 = Carbon::parse('2015-12-20 11:32:32');
-$dt_10 = Carbon::create(2020, 12, 20, 11, 34, 33);
+$dt_09 = Carbon::parse('2020-04-20 11:23:45');
+$dt_10 = Carbon::create(2020, 4, 20, 11, 23, 45);
 
 $dt_11 = Carbon::createFromFormat('Y/m/d H', '2015/12/20 20');
 ```
 
 ## 切り出し
 ```php
-echo $dt_12->year        . PHP_EOL;  //=>2020
-echo $dt_12->month       . PHP_EOL;  //=>4
-echo $dt_12->day         . PHP_EOL;  //=>15
-echo $dt_12->hour        . PHP_EOL;  //=>0
-echo $dt_12->minute      . PHP_EOL;  //=>26
-echo $dt_12->second      . PHP_EOL;  //=>57
-echo $dt_12->dayOfWeek   . PHP_EOL;  //=>3    （週のうちの何日目か？）
-echo $dt_12->dayOfYear   . PHP_EOL;  //=>106  （年のうちの何日目か？）
-echo $dt_12->weekOfMonth . PHP_EOL;  //=>3
-echo $dt_12->weekOfYear  . PHP_EOL;  //=>16
-echo $dt_12->timestamp   . PHP_EOL;  //=>1586910417
-echo $dt_12->tzName      . PHP_EOL;  //=>UTC
-echo $dt_12->format('Y年m月d日') . PHP_EOL;    //=> 2020年04月15日
-echo $dt_12->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/15 04:19:34
+$dt = Carbon::parse('2020-04-20 11:23:45');
+
+echo $dt->year        . PHP_EOL;  //=>2020
+echo $dt->month       . PHP_EOL;  //=>4
+echo $dt->day         . PHP_EOL;  //=>20
+echo $dt->hour        . PHP_EOL;  //=>11
+echo $dt->minute      . PHP_EOL;  //=>23
+echo $dt->second      . PHP_EOL;  //=>45
+echo $dt->dayOfWeek   . PHP_EOL;  //=>1    （週のうちの何日目か？）
+echo $dt->dayOfYear   . PHP_EOL;  //=>111  （年のうちの何日目か？）
+echo $dt->weekOfMonth . PHP_EOL;  //=>3
+echo $dt->weekOfYear  . PHP_EOL;  //=>17
+echo $dt->timestamp   . PHP_EOL;  //=>1587349425
+echo $dt->tzName      . PHP_EOL;  //=>Asia/Tokyo
+echo $dt->format('Y年m月d日') . PHP_EOL;     //=> 2020年04月20日
+echo $dt->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/20 11:23:45
 ```
 
 
 ## 日付の判定
 ```php
 // 実行日： 2020/04/16 04:19:34
-$dt_13 = new Carbon('2020-04-16 11:32:32');
-var_dump($dt_13->isToday())     . PHP_EOL;  //=> true
-var_dump($dt_13->isTomorrow())  . PHP_EOL;  //=> false
-var_dump($dt_13->isYesterday()) . PHP_EOL;  //=> false
-var_dump($dt_13->isFuture())    . PHP_EOL;  //=> true
-var_dump($dt_13->isPast())      . PHP_EOL;  //=> false
-var_dump($dt_13->isLeapYear())  . PHP_EOL;  //=> true
-var_dump($dt_13->isWeekday())   . PHP_EOL;  //=> true
-var_dump($dt_13->isWeekend())   . PHP_EOL;  //=> false
-var_dump($dt_13->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
+$dt = new Carbon('2020-04-16 11:23:45');
+var_dump($dt->isToday())     . PHP_EOL;  //=> true
+var_dump($dt->isTomorrow())  . PHP_EOL;  //=> false
+var_dump($dt->isYesterday()) . PHP_EOL;  //=> false
+var_dump($dt->isFuture())    . PHP_EOL;  //=> true
+var_dump($dt->isPast())      . PHP_EOL;  //=> false
+var_dump($dt->isLeapYear())  . PHP_EOL;  //=> true
+var_dump($dt->isWeekday())   . PHP_EOL;  //=> true
+var_dump($dt->isWeekend())   . PHP_EOL;  //=> false
+var_dump($dt->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
 ```
 
 
 ## 加算・減算
+元の値が変わります。  
+具体的には、「$dt->addYear()」を実行すると、$dt インスタンスの日付は１年後になります。  
 ```php
-$dt = new Carbon('2020-04-16 11:32:32');
-echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-16 11:32:32
-echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:32:32
-echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:32:32
-echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:32:32
+$dt = new Carbon('2020-04-16 11:23:45');
+echo $dt->addYear()   . PHP_EOL;  //=> 2021-04-16 11:23:45   +1年
+echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:23:45   +1 +3年
+echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:23:45   +1 +3年 -1年
+echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:23:45   +1 +3年 -1年 -3年
 
 // add, sub
 // Years(n)
 // Year, Month, Day, Hour, Minute, Second
 // Weekday
 
-echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-21 11:32:32
-echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-24 14:52:32
+echo $dt->addWeekdays(3) . PHP_EOL;  //=> 2020-04-21 11:23:45
+echo $dt->addWeekdays(3)->addHours(3)->addMinutes(20) . PHP_EOL;  //=> 2020-04-24 14:43:45
 ```
 
 
 ## 元の値を変えずに、未来（or過去）の日付を取得
 ```php
-$dt = new Carbon('2020-04-16 11:32:56');
-echo $dt->addYear()         . PHP_EOL;  //=> 2021-04-16 11:32:56
-echo $dt->copy()->addYear() . PHP_EOL;  //=> 2022-04-16 11:32:56   // 元の値を変えずに、１年後の日付を取得
-echo $dt                    . PHP_EOL;  //=> 2021-04-16 11:32:56
+$dt = new Carbon('2020-04-16 11:23:45');
+echo $dt->copy()->addYear() . PHP_EOL;  //=> 2021-04-16 11:32:56   // 元の値を変えずに、１年後の日付を取得
+echo $dt                    . PHP_EOL;  //=> 2020-04-16 11:32:56
 ```
 
 
