@@ -63,3 +63,21 @@ https://readouble.com/laravel/5.5/ja/migrations.html
 
 
 
+## カラム修飾子
+```php
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('api_token_1')->nullable()->default(null)->change();
+            $table->dateTime('api_token_1_expiration_date')->nullable()->default(null)->change();
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('api_token_1')->nullable(false)->change();
+            $table->dateTime('api_token_1_expiration_date')->nullable(false)->change();
+        });
+    }
+```

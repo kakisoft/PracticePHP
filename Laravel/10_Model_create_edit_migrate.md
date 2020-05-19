@@ -95,6 +95,21 @@ _________________________________________________________
  * DBを削除（database/database.sqlite 等）
 
 
+
+## スキーマ定義を変更した時のエラー
+https://readouble.com/laravel/5.5/ja/migrations.html
+
+#### エラーメッセージ
+```
+Changing columns for table "users" requires Doctrine DBAL; install "doctrine/dbal".
+```
+
+#### コマンド
+```
+composer require doctrine/dbal
+```
+
+
 _________________________________________________________
 ## SQLiteで確認
 ```

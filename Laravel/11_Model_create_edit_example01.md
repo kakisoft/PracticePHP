@@ -92,7 +92,28 @@ ________________________________________________________________________________
 ```
 
 _____________________________________________________________________________________
+## スキーマ定義を変更
+null を許容したり
+```php
+class AlterApiToken1ToUserTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('api_token_1')->nullable()->default(null)->change();
+            $table->dateTime('api_token_1_expiration_date')->nullable()->default(null)->change();
+        });
+    }
 
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('api_token_1')->nullable(false)->change();
+            $table->dateTime('api_token_1_expiration_date')->nullable(false)->change();
+        });
+    }
+}
+```
 
 
 
