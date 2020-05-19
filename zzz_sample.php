@@ -1,28 +1,33 @@
 <?php
 
 
-// // ファイルの内容を配列に取り込みます。
-// $file = file(__FILE__);
-
-// // 行単位で出力
-// foreach ($file as $lines => $line) {
-//     echo "Line #{$line_num} : " . htmlspecialchars($line);
-// }
-
-// // ファイルを開く（戻り値は、FilePointer と呼ばれる特殊な変数）
-// $handle = fopen(__FILE__, "r");  // readonly
-
-// // ファイル内容を出力
-// while ($line = fgets($handle)) {
-//   echo $line;
-// }
-// // ファイルポインタをクローズ
-// fclose($handle);
+## JSON エンコードした時に「/」が「\/」になる挙動を回避
+<?php
 
 
-// ファイルをオープンして既存のコンテンツを取得します
+// 通常、json_encode した場合、「/」は「\/」にエスケープされます。
+$array_data = [
+    'message' => 'Please register as /regist_users',
+];
 
-$current = file_get_contents(__FILE__);
 
-print_r($current);
+echo json_encode($array_data);
+//=> {"message":"Please register as \/regist_users"}
+
+
+// エスケープさせず、そのまま「/」を表示したい場合、JSON_UNESCAPED_SLASHES オプションを使います。
+$array_data = [
+    'message' => 'Please register as /regist_users',
+];
+
+
+echo json_encode($array_data, JSON_UNESCAPED_SLASHES);
+//=> {"message":"Please register as /regist_users"}
+
+＜参考＞  
+https://www.php.net/manual/ja/function.json-encode.php
+https://www.php.net/manual/ja/json.constants.php
+
+
+
 
