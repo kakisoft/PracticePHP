@@ -47,23 +47,23 @@ php artisan make:migration add_user_id_to_posts_table --table=posts
     {
         Schema::table('posts', function (Blueprint $table) {
             // カラム追加（MySQL の場合。Posgreも多分大丈夫）
-            // $table->string('summary');
+            // $table->string('summary');
 
 
             // カラム追加（SQLite の場合）
             // [migrations] SQLite General error: 1 Cannot add a NOT NULL column with default value NULL
             // のエラーを回避。
-            $table->string('summary')->default('default_value');
+            $table->string('summary')->default('default_value');
         });
     }
 
 
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table) {
             // カラムの削除
-            $table->dropColumn('summary');
-        });
+            $table->dropColumn('summary');
+        });
     }
 ```
 
