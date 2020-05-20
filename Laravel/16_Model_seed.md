@@ -20,9 +20,23 @@ php artisan make:seeder UsersTableSeeder
 composer dump-autoload
 
 
-php artisan db:seed
 php artisan db:seed --class=UsersTableSeeder
 ```
+
+## 全てのシーダを実行
+```
+php artisan db:seed
+```
+database\seeds\DatabaseSeeder.php  
+を編集する。
+```php
+    public function run()
+    {
+        $this->call(UsersTableSeeder::class);
+        $this->call(Question01RegistrationInformationTableSeeder::class);
+    }
+```
+
 
 ## リフレッシュ
 ```
