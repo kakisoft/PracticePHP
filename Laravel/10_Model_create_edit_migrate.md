@@ -67,6 +67,14 @@ php artisan make:model Models/CallMeAPI01 -m
 
   →  Schema::create('call_me_a_p_i01s', function (Blueprint $table) {
 ```
+省略すると、変な複数形になる事が。
+```
+php artisan make:model Models/RegistInfo -m
+
+　　→ regist_infos
+```
+
+
 
 ## スキーマを更新する場合
 ```
