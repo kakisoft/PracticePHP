@@ -59,6 +59,15 @@ php artisan migrate                                  # DBにそ
 <a href="11_Model_create_example01.md">11_Model_create_example01.md</a>
 
 
+## Model名について
+大文字のみの単語がある場合、変な名称のスキーマが出来てしまう。 
+また、末尾を数字にすると違和感バリバリなので、よく考えよう。  
+```
+php artisan make:model Models/CallMeAPI01 -m
+
+  →  Schema::create('call_me_a_p_i01s', function (Blueprint $table) {
+```
+
 ## スキーマを更新する場合
 ```
 # 既存のテーブルに変更を加える場合には、--create オプションではなく、--table オプションを使って、テーブル名を指定する。
