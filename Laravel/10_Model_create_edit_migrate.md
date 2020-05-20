@@ -105,6 +105,21 @@ php artisan migrate:rollback
 php artisan migrate:rollback --step=1
 ```
 
+
+## アプリケーション全部のマイグレーションをロールバック
+```
+php artisan migrate:reset
+```
+
+## 最初にロールバックし、それから migration を実行
+```
+php artisan migrate:refresh
+
+
+// データベースをリフレッシュし、全データベースシードを実行
+php artisan migrate:refresh --seed
+```
+
 _________________________________________________________
 ## リセット（手動）
  * Modelを削除（app/Post.php 等）
