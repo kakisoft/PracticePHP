@@ -54,6 +54,30 @@ $post = App\Models\Post::find(1);     //findを使う場合、get や firstは
 $post = App\Models\Post::find(1)->toArray();
 $post = Post::findOrFail($id);        // データが見つからなかった場合、例外を返す。
 
+
+//==========< 複数条件を指定 >==========
+$query = Question01RegistrationInformation::query();
+$query->where('name', $name);
+$query->where('id', '>=', 10);
+$query->where('is_cleared', Question01RegistrationInformation::IS_CLEARED___TRUE);
+$query->whereIn('id',[14, 15, 16]);
+$registration_information = $query->get();
+
+
+//==========< or条件 >==========
+$comments->where(function($comments) use ($q){
+    $comments->where('title', 'LIKE', "%$q%")
+    ->orWhere('comment_body', 'LIKE', "%$q%");
+});
+
+
+// 性別：男 and  (10才以下 or スコアが70以上) のユーザーリスト
+$user_list = $UserModel::where('sex' , 'male')
+　　->where(function($query){
+　　　　$query->where('age', '<', 10)
+　　　　　　->orWhere('score', '>', 70);
+　　})
+　　->get();
 ```
 
 ## UPDATE
