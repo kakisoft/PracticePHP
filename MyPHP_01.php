@@ -2210,6 +2210,35 @@ echo "A:{$a}; B:{$b} C:{$c} D:{$c} E:{$c}" . PHP_EOL;
 // A:3; B:4 C:12 D:12 E:12
 
 
+//----------( foreach にて、配列の最初と最後の要素に処理を追加 )----------
+// PHP 7.3 以上
+$items = [
+  'tokyo' => '東京',
+  'shibuya' => '渋谷',
+  'harajuku' => '原宿',
+  'yoyogi' => '代々木',
+];
+
+$keyFirst = array_key_first($items);
+$keyLast = array_key_last($items);
+
+foreach ($items as $key => $value) {
+    if ($key === $keyFirst) {
+        echo "$value is first" . PHP_EOL;
+    }
+    if ($key === $keyLast) {
+        echo "$value is last" . PHP_EOL;
+    }
+}
+//=>
+// tokyo: 東京 is first
+// yoyogi: 代々木 is last
+
+
+// 配列から最初と最後の値だけ取り出したい場合
+echo "{$items[array_key_first($items)]} is first" . PHP_EOL;
+echo "{$items[array_key_last($items)]} is last" . PHP_EOL;
+
 
 //===================================
 //    current() / next() / prev()
