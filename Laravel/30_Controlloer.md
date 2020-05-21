@@ -11,10 +11,31 @@ index, create, store, show, edit, update, destroy といったメソッドが作
 
 ## コントローラを Controllers\API の階層に作成
 ```
-php artisan make:controller API/CallMeAPIController
+php artisan make:controller API/Question01ApiController
+```
+API のコントローラは「xxxApiController」とした方がいいかもしんない。  
+理由は webコントローラ作る時に、名前がバッティングする可能性があるから。  
+（上記の例では、「Question01Controller」）  
+バッティングしても問題ない規模なら、別にいいとは思うけど。
+
+
+#### routes\web.php
+```php
+Route::get('/', 'PostsController@index');
+Route::get('/posts/{post}', 'PostsController@show')->where('post', '[0-9]+');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts', 'PostsController@store');
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::patch('/posts/{post}', 'PostsController@update');
+Route::delete('/posts/{post}', 'PostsController@destroy');
+Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
+
+// 異なる階層のコントローラを呼ぶ場合（例「Controllers\API\」）
+Route::get('/question01', 'API\Question01Controller@index');
 ```
 
-#### api.php
+#### routes\api.php
 ```php
 // 要プリフィックス
 Route::get('call/me', 'API\CallMeAPIController@callMeGet');
