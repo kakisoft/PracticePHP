@@ -101,14 +101,14 @@ Route::resource('hoge', 'NewsController', ['except' => ['destroy', 'store']]);
 https://readouble.com/laravel/5.7/ja/controllers.html  
 
 |  動詞       |  URI                   |  アクション |  ルート名         |
-|:------------|:-----------------------|:----------|:-----------------|
-|  GET        |  /photos               |  index    |  photos.index    |
-|  GET        |  /photos/create        |  create   |  photos.create   |
-|  POST       |  /photos               |  store    |  photos.store    |
-|  GET        |  /photos/{photo}       |  show     |  photos.show     |
-|  GET        |  /photos/{photo}/edit  |  edit     |  photos.edit     |
-|  PUT/PATCH  |  /photos/{photo}       |  update   |  photos.update   |
-|  DELETE     |  /photos/{photo}       |  destroy  |  photos.destroy  |
+|:------------|:-----------------------|:-----------|:-----------------|
+|  GET        |  /photos               |  index     |  photos.index    |
+|  GET        |  /photos/create        |  create    |  photos.create   |
+|  POST       |  /photos               |  store     |  photos.store    |
+|  GET        |  /photos/{photo}       |  show      |  photos.show     |
+|  GET        |  /photos/{photo}/edit  |  edit      |  photos.edit     |
+|  PUT/PATCH  |  /photos/{photo}       |  update    |  photos.update   |
+|  DELETE     |  /photos/{photo}       |  destroy   |  photos.destroy  |
 
 
 ________________________________________________________________________
@@ -146,6 +146,10 @@ return redirect()->route('profile');
 // 元の画面に戻るなら、この書き方でも可。
 return redirect()->back();
 ```
+
+##### 名前付きルートの利点
+https://qiita.com/kazuhei/items/935257b0d72fa314d461  
+
 
 ________________________________________________________________________
 ## middleware （ミドルウェア）
