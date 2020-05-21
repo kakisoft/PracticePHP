@@ -77,7 +77,7 @@ $user_list = $UserModel::where('sex' , 'male')
 　　　　$query->where('age', '<', 10)
 　　　　　　->orWhere('score', '>', 70);
 　　})
-　　->get();
+　　->get()->toArray();
 ```
 
 ## UPDATE
