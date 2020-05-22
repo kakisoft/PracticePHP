@@ -203,18 +203,34 @@ https://storehouse-techhack.com/laravel-response/
 ```php
 Route::get(‘/‘, function () {
     // サイト内
-    return redirect('home/welcome’);
+    return redirect('home/welcome');
 
     // 外部
-    return redirect()->away('https://storehouse-techhack.com/');
+    return redirect()->away('https  ://storehouse-techhack.com/');
 });
 ```
 
-パラメータ付き
+#### コントローラアクションへのリダイレクト
+```php
+return redirect()->action('HomeController@index');
+
+
+return redirect()->action(
+    'UserController@profile', ['id' => 1]
+);
+```
+
+#### 名前付きルートへのリダイレクト
 ```php
 Route::get('/', function () {
-	return redirect()->route(‘sample’, [’id’ => ’1’]);
+    return redirect()->route('sample', ['id' => '1']);
 });
+```
+```php
+    return redirect(route('sample', [
+        'param1' => $param1,
+        'param2' => $param2,
+    ]));
 ```
 
 ________________________________________________________________________
