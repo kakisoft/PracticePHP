@@ -143,7 +143,9 @@ $post = Post::findOrFail($id);        // データが見つからなかった場
 
 
 //==========< カウント >==========
-$post = Comment::where('post_id', 1)->count();
+$comment = Comment::count();
+$comment = Comment::where('post_id', 1)->count();
+$comment = Comment::where('post_id', 2)->where('id', '>=', 4)->count();
 $number_of_cleared_users = Question01RegistrationInformation::where('is_cleared', Question01RegistrationInformation::IS_CLEARED___TRUE)->count();
 
 
