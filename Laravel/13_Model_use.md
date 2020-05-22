@@ -5,6 +5,93 @@ ________________________________________________________________________________
 https://readouble.com/laravel/5.3/ja/queries.html  
 
 
+## 生SQLに近い形式
+```php
+//==========< $query >==========
+$query = DB::table('users')->select('name');
+$users = $query->addSelect('age')->get();
+
+
+//==========< SELECT >==========
+$users = DB::table('users')->select('name', 'email as user_email')->get();
+
+
+//==========< DISTINCT >==========
+$users = DB::table('users')->distinct()->get();
+
+
+//==========< COUNT >==========
+$users = DB::table('users')->count();
+
+
+//==========< MAX >==========
+$price = DB::table('orders')->max('price');
+
+
+//==========< WHERE >==========
+$users = DB::table('users')
+                ->where('votes', '>=', 100)
+                ->get();
+
+$users = DB::table('users')
+                ->where('votes', '<>', 100)
+                ->get();
+
+$users = DB::table('users')
+                ->where('name', 'like', 'T%')
+                ->get();
+
+
+//==========< IN / NOT IN >==========
+$users = DB::table('users')
+                    ->whereIn('id', [1, 2, 3])
+                    ->get();
+
+
+$users = DB::table('users')
+                    ->whereNotIn('id', [1, 2, 3])
+                    ->get();
+
+
+//==========< BETWEEN >==========
+$users = DB::table('users')
+                    ->whereBetween('votes', [1, 100])->get();
+
+
+//==========< AVG >==========
+$price = DB::table('orders')
+                ->where('finalized', 1)
+                ->avg('price');
+
+
+//==========< GROUP BY >==========
+$users = DB::table('users')
+                     ->select(DB::raw('count(*) as user_count, status'))
+                     ->where('status', '<>', 1)
+                     ->groupBy('status')
+                     ->get();
+
+
+//==========< JOIN >==========
+// INNER JOIN
+$users = DB::table('users')
+            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();
+
+// LEFT JOIN
+$users = DB::table('users')
+            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+            ->get();
+
+
+//==========< EXISTS/ NOT EXISTS >==========
+return DB::table('orders')->where('finalized', 1)->exists();
+
+return DB::table('orders')->where('finalized', 1)->doesntExist();
+```
+
 ## CREATE（INSERT）
 ```php
 $post = new App\Models\Post();
@@ -53,6 +140,15 @@ $posts = Post::latest()->get();
 $post = App\Models\Post::find(1);     //findを使う場合、get や firstは不要
 $post = App\Models\Post::find(1)->toArray();
 $post = Post::findOrFail($id);        // データが見つからなかった場合、例外を返す。
+
+
+//==========< カウント >==========
+$post = Comment::where('post_id', 1)->count();
+$number_of_cleared_users = Question01RegistrationInformation::where('is_cleared', Question01RegistrationInformation::IS_CLEARED___TRUE)->count();
+
+
+//==========< 最大値 >==========
+$max = App\Flight::where('active', 1)->max('price');
 
 
 //==========< 複数条件を指定 >==========
