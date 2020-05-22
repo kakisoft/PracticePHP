@@ -7,7 +7,7 @@ https://readouble.com/laravel/5.3/ja/queries.html
 
 ## 生SQLに近い形式
 ```php
-//==========< $query >==========
+//==========< クエリビルダ >==========
 $query = DB::table('users')->select('name');
 $users = $query->addSelect('age')->get();
 
