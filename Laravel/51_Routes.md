@@ -132,6 +132,7 @@ https://readouble.com/laravel/5.7/ja/routing.html
 名前付きルートは特定のルートへのURLを生成したり、リダイレクトしたりする場合に便利です。  
 ルート定義にnameメソッドをチェーンすることで、そのルートに名前がつけられます。  
 ```php
+Route::get('/question01',  'Question01Controller@index')->name('question01.index');
 Route::get('user/profile', 'UserProfileController@show')->name('profile');
 ```
 
@@ -142,6 +143,7 @@ $url = route('profile');
 
 // リダイレクトの生成
 return redirect()->route('profile');
+return redirect()->route('question01.index', ['special_message'=>'spm']);
 
 // 元の画面に戻るなら、この書き方でも可。
 return redirect()->back();
