@@ -1,4 +1,5 @@
 # session
+https://laravel.com/docs/5.1/session  
 
 ## コンフィグ
 
@@ -15,8 +16,6 @@
 
 
 ## 参考サイト
-https://qiita.com/reflet/items/5638ab18fd7cededed17
-
 https://readouble.com/laravel/5.4/ja/session.html  
 https://readouble.com/laravel/5.4/ja/helpers.html#method-session  
 https://readouble.com/laravel/5.4/ja/facades.html  
@@ -24,10 +23,28 @@ https://stackoverflow.com/questions/16812747/how-can-i-get-the-session-id-in-lar
 
 
 
+## サクっと使う
+
+#### 送信側（コントローラ）
+```php
+session()->put('session_key_01', 'value_01');
+```
+
+#### 受信側（コントローラ）
+```php
+$session_value_01 = session()->get('session_key_01');
+```
+
+__________________________________________________________________
+# 参考サイト
+https://qiita.com/reflet/items/5638ab18fd7cededed17  
+
+
 ## セッションIDを取得
 ```php
 Session::getId() 
 ```
+
 
 ## HTTPリクエストインスタンスを経由する
 ```php
