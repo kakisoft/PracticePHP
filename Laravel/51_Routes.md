@@ -181,8 +181,8 @@ return redirect()->back()
 
 
 $response = [
-    'success'   =>  'Post saved successfully.',
-    'post_id'   =>  $post->id,
+    'success' => 'Post saved successfully.',
+    'post_id' => $post->id,
 ];
 return redirect()->back()->with($response);
 
