@@ -29,6 +29,8 @@ https://stackoverflow.com/questions/16812747/how-can-i-get-the-session-id-in-lar
 ```php
 session()->put('session_key_01', 'value_01');
 ```
+Session::push('user.teams', 'developers');  
+ってのもあるみたい。（配列に放り込む的なもの）  
 
 #### 受信側（コントローラ）
 ```php
@@ -40,9 +42,13 @@ __________________________________________________________________
 https://qiita.com/reflet/items/5638ab18fd7cededed17  
 
 
-## セッションIDを取得
+## セッションID
 ```php
-Session::getId() 
+// セッションIDを取得
+Session::getId()
+
+// Regenerating The Session ID
+$request->session()->regenerate();
 ```
 
 
