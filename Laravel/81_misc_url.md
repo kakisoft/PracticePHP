@@ -25,3 +25,7 @@ $url_full = url()->full();
 
 ```
 
+
+## その他参考
+https://blog.capilano-fw.com/?p=2537  
+
