@@ -132,6 +132,7 @@ https://readouble.com/laravel/5.7/ja/routing.html
 名前付きルートは特定のルートへのURLを生成したり、リダイレクトしたりする場合に便利です。  
 ルート定義にnameメソッドをチェーンすることで、そのルートに名前がつけられます。  
 ```php
+Route::get('/question01',  'Question01Controller@index')->name('question01.index');
 Route::get('user/profile', 'UserProfileController@show')->name('profile');
 ```
 
@@ -142,13 +143,53 @@ $url = route('profile');
 
 // リダイレクトの生成
 return redirect()->route('profile');
-
-// 元の画面に戻るなら、この書き方でも可。
-return redirect()->back();
+return redirect()->route('question01.index', ['special_message'=>'spm']);
 ```
 
 ##### 名前付きルートの利点
 https://qiita.com/kazuhei/items/935257b0d72fa314d461  
+
+________________________________________________________________________
+## リダイレクト
+GET扱いになる？  
+パラメータが丸見えやぞ・・・  
+```php
+// 元の画面に戻る
+return redirect()->back();
+
+
+// 名前付きルートを指定してリダイレクト
+return redirect()->route('profile');
+return redirect()->route('question01.index', ['special_message'=>'spm']);
+```
+
+https://www.larashout.com/deep-dive-into-laravel-redirect-method
+```php
+// web.php
+Route::get('post/{id}', 'PostController@edit')-name('post.edit');
+
+// Controller
+return redirect()->route('post.edit', ['id' => $post->id]);
+
+return redirect()->route('post.edit', $post->id);
+
+return redirect()->back()->with('success', 'Post saved successfully.');
+
+return redirect()->back()
+                    ->with('success', 'Post saved successfully.')
+                    ->with('post_id', $post->id);
+
+
+$response = [
+    'success' => 'Post saved successfully.',
+    'post_id' => $post->id,
+];
+return redirect()->back()->with($response);
+
+return redirect()->action('PostController@edit');
+
+return response()->action('PostController@edit', ['id' => $post->id]);
+```
 
 
 ________________________________________________________________________
