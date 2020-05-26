@@ -1,11 +1,46 @@
-__________________________________________________________________________________________________________________
 # CRUD
 
+__________________________________________________________________________________________________________________
+## 発行したSQLをトレース
+
+#### toSql() を使う
+```php
+$query = Post::latest()->toSql();
+//=> "select * from `posts` order by `created_at` desc"
+
+
+$query = \App\User::where('id', 1);
+dd($query->toSql(), $query->getBindings());
+//=>
+// "select * from `users` where `id` = ?"
+// array:1 [▼
+//   0 => 1
+// ]
+```
+
+#### enableQueryLog / getQueryLog を使う
+「get()」等の、値を取得するメソッドが必要みたい。  
+　  
+SQL実行前に DB::enableQueryLog() でクエリログを有効化し、  
+SQL実行後に DB::getQueryLog() メソッドを利用する。  
+クエリの内容や、実行時間を取得できる。
+```php
+\DB::enableQueryLog();
+
+$all_post_records = Post::all();
+$user = \App\User::where('id', 1)->get();
+$latest_post_records = Post::latest()->take(5)->get();
+
+dd(\DB::getQueryLog());
+```
+
+
+__________________________________________________________________________________________________________________
 ## 生SQLに近い操作は、こちら。
 https://readouble.com/laravel/5.3/ja/queries.html  
 
 
-## 生SQLに近い形式
+## 生SQLに近い形式（モデルを作成せず、テーブル名を指定する）
 ```php
 //==========< クエリビルダ >==========
 $query = DB::table('users')->select('name');
@@ -92,6 +127,7 @@ return DB::table('orders')->where('finalized', 1)->exists();
 return DB::table('orders')->where('finalized', 1)->doesntExist();
 ```
 
+__________________________________________________________________________________________________________________
 ## CREATE（INSERT）
 ```php
 $post = new App\Models\Post();
