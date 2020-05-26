@@ -80,6 +80,14 @@ Route::get('/posts/{post}', 'PostsController@show');     // 「/posts/create�
 Route::get('/posts/create', 'PostsController@create');   // こっちの設定は有効とならない。（1.こっちを先に書く、2.正規表現などで回避する等の方法がある）
 ```
 
+
+#### web.php にリダイレクトを書ける
+```php
+Route::get('/question01/challenge_users/save/', function () {
+    return redirect('/question01/winners');
+});
+```
+
 ________________________________________________________________________
 ## Route::resource
 CRUDルーティングを一度に行うことができる。  
