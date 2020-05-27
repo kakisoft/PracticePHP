@@ -153,7 +153,8 @@ return view('question01.index')->with([
 ]);
 ```
 
-#### 
+#### View に値を渡す時の注意点
+配列化して渡すとエラー。
 ```php
     public function inputClearedUserInfomation(string $token) {
 
