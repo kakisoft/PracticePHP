@@ -2361,7 +2361,7 @@ echo $sum(100, 300, 500) . PHP_EOL;  //=> 900
 //==========================
 class User {
   // property
-  public $name;
+  public $name;  // アクセス修飾子を付けない場合、public
   # private $name;
   # protected $name;
   public static $count = 0;
