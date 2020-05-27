@@ -219,7 +219,7 @@ ________________________________________________________________________________
 ## リダイレクト
 https://storehouse-techhack.com/laravel-response/
 ```php
-Route::get(‘/‘, function () {
+Route::get('/', function () {
     // サイト内
     return redirect('home/welcome');
 
