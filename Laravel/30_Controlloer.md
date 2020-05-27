@@ -224,7 +224,7 @@ Route::get(‘/‘, function () {
     return redirect('home/welcome');
 
     // 外部
-    return redirect()->away('https  ://storehouse-techhack.com/');
+    return redirect()->away('https://storehouse-techhack.com/');
 });
 ```
 
