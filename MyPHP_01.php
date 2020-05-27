@@ -2399,6 +2399,14 @@ $bob->sayHi(); // hi, i am Bob!
 //         継承
 //==========================
 class AdminUser extends User {
+  private $sponsor;
+
+  public function __construct($name, $sponsor)
+  {
+    parent::__construct($name);  // 親クラスのコンストラクタを使用する
+    $this->sponsor = $sponsor;
+  }
+
   public function sayHello() {
     echo "hello from Admin!";
   }
