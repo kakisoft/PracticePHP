@@ -86,6 +86,25 @@ require "resources/Team.class.php";
 // });
 
 
+
+//===========================
+//         名前空間
+//===========================
+//----------( file_01.php )--------------
+namespace Foo\Bar\Baz\Lib3;
+
+class FooSampleClass01 {
+    public function getSomeName() {
+        $ret = "[" . __NAMESPACE__ . "]-[" . __CLASS__ . "]-[" . __METHOD__ . "]";
+        return $ret;
+    }
+}
+//----------( file_02.php )--------------
+use Foo\Bar\Baz\Lib3 as Lib3;  // Foo\Bar\Baz\Lib1を、Lib1で参照できるようにエイリアスを作成。
+
+//---------------------------------------
+
+
 //===========================
 //  use - 名前空間のインポート
 //===========================
@@ -105,6 +124,7 @@ $TokkouyarouA->sayHi();
 <body>
   <p>Hello World <?php echo " from PHP"; ?></p>
 <?php
+
 
 
 //=================================
