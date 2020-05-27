@@ -138,6 +138,8 @@ return view('posts.index');　
 //==================================
 //            引数の渡し方
 //==================================
+$posts = Post::latest()->get();
+
 // ＜方法１＞ return view() の第 2 引数に渡す
 return view('posts.index', ['posts' => $posts]);　
 
@@ -149,6 +151,21 @@ return view('question01.index')->with([
     "number_of_cleared_users" => $number_of_cleared_users,
     "recent_cleared_users"    => $recent_cleared_users,
 ]);
+```
+
+#### 
+```php
+    public function inputClearedUserInfomation(string $token) {
+
+        //-----< Get RegistrationInformation Record >-----
+        $query = Question01RegistrationInformation::query();
+        $query->where('for_regist_token', $token);
+        $registration_information = $query->get()->toArray();  // この渡し方だとエラー。（htmlspecialchar系）
+        $registration_information = $query->get();             // これだとOK.（配列化しない）
+
+
+        return view('question01.input_cleared_users_infomation')->with('registration_information', $registration_information);
+    }
 ```
 __________________________________________________________________________________________________________________
 ## レスポンス：JSON を返す
