@@ -2472,6 +2472,21 @@ $Hatano->sayHi();
 $Hatano->sayHello();
 
 
+//-----------------------
+// インターフェースを実装していると、interface型として扱う事ができる
+//-----------------------
+$new_commer = new Player("Tom");
+
+// 引数に sayHello インターフェースを実装したクラスを許可
+function processLikable(sayHello $new_commer)
+{
+  $new_commer->sayHello();
+}
+
+// 引数に、sayHello インターフェースを実装したクラスを渡す
+processLikable($new_commer);
+
+
 //===========================
 //    ポリモーフィズム的なの
 //===========================
