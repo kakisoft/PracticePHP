@@ -142,6 +142,7 @@ $request->session()->regenerate();
 
         // IDを取得する
         $id = Session::get('id');
+        // $id = \Session::get('id');
 
         // 名前を取得 (クロージャー利用)
         $name = Session::get('username', function () {
