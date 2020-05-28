@@ -38,3 +38,12 @@ https://github.com/ElementUI/element-in-laravel-starter
 
 ## LavaLite
 https://qiita.com/acro5piano/items/8dc4597e12d9050c0708  
+
+
+_______________________________________________________________________________________
+# Book
+
+## PHPフレームワーク Laravel Webアプリケーション開発
+https://github.com/laravel-socym  
+
+
