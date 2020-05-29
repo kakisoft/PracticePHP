@@ -8,6 +8,21 @@ php artisan make:request PostRequest
 
 #### app/Http/Requests/PostRequest.php
 ```php
+class PostRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * このメソッドが無いと「This action is unauthorized」が発生する。
+     * 
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,12 +44,16 @@ php artisan make:request PostRequest
         'body.required'  => 'please enter body!!!'
       ];
     }
+}
 ```
+____________________________________________________________
 
 
 ____________________________________________________________
 ## Validate
-https://readouble.com/laravel/5.8/ja/validation.html  
+https://readouble.com/laravel/5.8/ja/validation.html  
+
+FormRequest を継承しない場合、以下のようなやり方がある。
 ```php
 public function store(Request $request) {
     $this->validate($request, [
