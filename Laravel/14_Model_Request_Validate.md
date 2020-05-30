@@ -46,6 +46,20 @@ class PostRequest extends FormRequest
     }
 }
 ```
+
+#### コントローラ側
+引数を PostRequest でなく、artisan コマンドで作成した、FormRequest を継承したクラスを指定する。  
+（以下の例では、PostRequest）
+```php
+    public function store(PostRequest $request) {
+      $post = new Post();
+      $post->title = $request->title;
+      $post->body = $request->body;
+      $post->save();
+      return redirect('/');
+    }
+```
+
 ____________________________________________________________
 ## FormRequest を定義せず、$this->validate を使う場合
 https://readouble.com/laravel/5.8/ja/validation.html  
