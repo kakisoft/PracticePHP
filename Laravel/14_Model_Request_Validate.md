@@ -60,6 +60,19 @@ class PostRequest extends FormRequest
     }
 ```
 
+#### View側
+```php
+<!-- 手っ取り早く全部のメッセージを表示するなら、こんな感じ -->
+{{$errors}}
+
+<!-- 個別のエラー -->
+@if ($errors->has('title'))
+    <span class="error">{{ $errors->first('title') }}</span>
+@endif
+
+
+```
+
 ____________________________________________________________
 ## FormRequest を定義せず、$this->validate を使う場合
 https://readouble.com/laravel/5.8/ja/validation.html  
