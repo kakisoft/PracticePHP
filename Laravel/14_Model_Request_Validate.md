@@ -47,10 +47,7 @@ class PostRequest extends FormRequest
 }
 ```
 ____________________________________________________________
-
-
-____________________________________________________________
-## Validate
+## FormRequest を定義せず、$this->validate を使う場合
 https://readouble.com/laravel/5.8/ja/validation.html  
 
 FormRequest を継承しない場合、以下のようなやり方がある。
@@ -68,4 +65,63 @@ public function store(Request $request) {
 }
 ```
 
+カスタムメッセージは、第２引数に渡す。
+```php
+    $this->validate(
+        $request,
+        [
+            'title' => 'required|min:3',
+            'body'  => 'required'
+        ],
+        [
+            'title.required' => 'please enter title.',
+            'body.required'  => 'please enter body.'
+        ]
+    );
+```
+
+____________________________________________________________
+## Validatorファサードを使用する場合
+```php
+      \Validator::make($request->all(),
+          [
+              'title' => 'required|min:3',
+              'body' => 'required',
+          ],
+          [
+              'title.required' => 'please enter title.',
+              'body.required'  => 'please enter body.'
+          ]
+      )->validate();
+```
+
+____________________________________________________________
+## _
+https://laravel.com/docs/7.x/validation  
+```php
+class PostController extends Controller
+{
+    /**
+     * Store a new blog post.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('post/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // Store the blog post...
+    }
+}
+```
 
