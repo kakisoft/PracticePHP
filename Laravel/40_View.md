@@ -18,6 +18,11 @@ echo e('<html>foo</html>');
 // &lt;html&gt;foo&lt;/html&gt;
 ```
 
+## appが使用可。
+直線のURLに飛ぶ。（pushstateの値を拾ってるんで、あんまりオススメはしないけど。）
+```php
+<a href="{{ app('url')->previous() }}" class="header-menu">Back</a>
+```
 
 ## URL を生成する命令
  * url
