@@ -15,7 +15,7 @@ php artisan ui vue --auth
 composer require laravel/ui --dev
 ```
 
-ログイン機能が作成される。（/home の回想）  
+ログイン機能が作成される。（/home の階層）  
 ```php
 Route::get('/home', 'HomeController@index')->name('home');
 ```
