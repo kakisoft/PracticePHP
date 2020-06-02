@@ -11,6 +11,12 @@ composer require barryvdh/laravel-debugbar
 ## .env
 ```
 APP_DEBUG=true
+
+
+## laravel-debugbar　固有のコンフィグで設定する場合
+DEBUGBAR_ENABLED=null   # デフォルト。APP_DEBUGに応じて決まる
+DEBUGBAR_ENABLED=true   # 必ず有効
+DEBUGBAR_ENABLED=false  # 必ず無効
 ```
 
 5.5 以前は Providerやらファサードやらに設定が必要だったみたいだけど、今は Package Auto Discovery という機能のおかげで、特に不要らしい。
