@@ -320,7 +320,7 @@ Route::delete($uri, $callback);
 Route::options($uri, $callback);
 ```
 
- - HEAD 
+ - HEAD
  - CONNECT
  - TRACE
 
