@@ -320,6 +320,11 @@ Route::delete($uri, $callback);
 Route::options($uri, $callback);
 ```
 
+ - HEAD 
+ - CONNECT
+ - TRACE
+
+ は無いみたい。
 ________________________________________________________________________
 
 
