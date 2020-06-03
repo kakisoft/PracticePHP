@@ -3547,8 +3547,8 @@ $json_encoded_data_02 = json_encode($array_data, JSON_UNESCAPED_UNICODE);  //=> 
 //          base64
 //=============================
 $str = 'This is an encoded string';
-$encoded_str = base64_encode($str);
-$decoded_str = base64_decode($encoded_str);
+$encoded_str = base64_encode($str);
+$decoded_str = base64_decode($encoded_str);
 echo $encoded_str;    //=> VGhpcyBpcyBhbiBlbmNvZGVkIHN0cmluZw==
 echo $decoded_str;    //=> This is an encoded string
 
