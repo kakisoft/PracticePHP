@@ -230,4 +230,83 @@ prefix を 'api' → null に変更
     }
 ```
 
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
+## prefix を付ける
+コントローラの下に「API」階層を作った場合、↓みたいな感じになる。
+```php
+// prefix
+Route::group(['prefix' => 'group01'], function () {
+    Route::get('call/me', 'API\Question01ApiController@callMeGet');
+    Route::post('call/me', 'API\Question01ApiController@callMePost');
+    Route::get('challenge_users', 'API\Question01ApiController@challenge_usersGet');
+    Route::post('challenge_users', 'API\Question01ApiController@challenge_usersPost');
+});
+```
+
+```
++----------+-----------------------------------+----------------------------------------------------------------------+
+| Method   | URI                               | Action                                                               |
++----------+-----------------------------------+----------------------------------------------------------------------+
+| GET|HEAD | api/group01/call/me               | App\Http\Controllers\API\Question01ApiController@callMeGet           |
+| POST     | api/group01/call/me               | App\Http\Controllers\API\Question01ApiController@callMePost          |
+| GET|HEAD | api/group01/challenge_users       | App\Http\Controllers\API\Question01ApiController@challenge_usersGet  |
+| POST     | api/group01/challenge_users       | App\Http\Controllers\API\Question01ApiController@challenge_usersPost |
++----------+-----------------------------------+----------------------------------------------------------------------+
+```
+
+________________________________________________________________________
+## Route::prefix('api')->group(
+コントローラの下に「API」階層を作った場合、↓みたいな感じになる。
+```php
+Route::prefix('group01')->group(function () {
+    Route::get('call/me', 'API\Question01ApiController@callMeGet');
+    Route::post('call/me', 'API\Question01ApiController@callMePost');
+    Route::get('challenge_users', 'API\Question01ApiController@challenge_usersGet');
+    Route::post('challenge_users', 'API\Question01ApiController@challenge_usersPost');
+});
+```
+
+```
++----------+-----------------------------------+----------------------------------------------------------------------+
+| Method   | URI                               | Action                                                               |
++----------+-----------------------------------+----------------------------------------------------------------------+
+| GET|HEAD | api/group01/call/me               | App\Http\Controllers\API\Question01ApiController@callMeGet           |
+| POST     | api/group01/call/me               | App\Http\Controllers\API\Question01ApiController@callMePost          |
+| GET|HEAD | api/group01/challenge_users       | App\Http\Controllers\API\Question01ApiController@challenge_usersGet  |
+| POST     | api/group01/challenge_users       | App\Http\Controllers\API\Question01ApiController@challenge_usersPost |
++----------+-----------------------------------+----------------------------------------------------------------------+
+```
+
+________________________________________________________________________
+## namespace 単位に prefix まとめ
+
+```php
+// 先頭「api」をまとめて書き、先頭にプレフィックスを付ける場合、こんな感じ。
+Route::group(['namespace' => 'API'], function () {
+    //--------------------------------
+    //         Question 01
+    //--------------------------------
+    Route::prefix('q01')->group(function () {
+        Route::get('call/me', 'Question01ApiController@callMeGet');
+        Route::post('call/me', 'Question01ApiController@callMePost');
+        Route::get('challenge_users', 'Question01ApiController@challenge_usersGet');
+        Route::post('challenge_users', 'Question01ApiController@challenge_usersPost');
+    });
+
+    //--------------------------------
+    //         Question 02
+    //--------------------------------
+    Route::prefix('q02')->group(function () {
+        Route::get('call/me', 'Question02ApiController@callMeGet');
+        Route::post('call/me', 'Question02ApiController@callMePost');
+        Route::get('challenge_users', 'Question02ApiController@challenge_usersGet');
+        Route::post('challenge_users', 'Question02ApiController@challenge_usersPost');
+    });
+
+});
+```
+
+________________________________________________________________________
 
