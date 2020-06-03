@@ -309,4 +309,17 @@ Route::group(['namespace' => 'API'], function () {
 ```
 
 ________________________________________________________________________
+https://laravel.com/docs/7.x/routing
+
+```php
+Route::get($uri, $callback);
+Route::post($uri, $callback);
+Route::put($uri, $callback);
+Route::patch($uri, $callback);
+Route::delete($uri, $callback);
+Route::options($uri, $callback);
+```
+
+________________________________________________________________________
+
 
