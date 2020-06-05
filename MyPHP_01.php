@@ -3380,7 +3380,9 @@ rmdir('examples');
 //================================
 //----------( XMLファイル )----------
 $config_data = simplexml_load_file('config.xml');
-
+return $config_data->master;
+return $config_data->prerelease;
+return $config_data->development;
 
 //----------( iniファイル)----------
 // parse_ini_file
