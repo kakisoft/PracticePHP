@@ -3379,7 +3379,8 @@ rmdir('examples');
 //  定型フォーマットのファイル読み込み
 //================================
 //----------( XMLファイル )----------
-// simplexml_load_file
+$config_data = simplexml_load_file('config.xml');
+
 
 //----------( iniファイル)----------
 // parse_ini_file
