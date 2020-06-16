@@ -36,8 +36,16 @@ dd(\DB::getQueryLog());
 
 
 __________________________________________________________________________________________________________________
-## 生SQLに近い操作は、こちら。
+# クエリビルダ（生SQLに近い操作）
 https://readouble.com/laravel/5.3/ja/queries.html  
+
+```php
+// これを追加
+use Illuminate\Support\Facades\DB;
+
+// ↑を追加しない場合、↓みたいに、先頭に「\」を付加。
+\DB::table('comments')->where('post_id', '=', 2)->delete();
+```
 
 
 ## 生SQLに近い形式（モデルを作成せず、テーブル名を指定する）
@@ -125,6 +133,13 @@ $users = DB::table('users')
 return DB::table('orders')->where('finalized', 1)->exists();
 
 return DB::table('orders')->where('finalized', 1)->doesntExist();
+
+
+
+//==========< DELETE >==========
+DB::table('comments')->where('post_id', '=', 2)->delete();
+
+
 ```
 
 __________________________________________________________________________________________________________________
