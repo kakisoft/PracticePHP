@@ -55,18 +55,18 @@ $dt_11 = Carbon::createFromFormat('Y/m/d H', '2015/12/20 20');
 ```php
 $dt = Carbon::parse('2020-04-20 11:23:45');
 
-echo $dt->year        . PHP_EOL;  //=>2020
-echo $dt->month       . PHP_EOL;  //=>4
-echo $dt->day         . PHP_EOL;  //=>20
-echo $dt->hour        . PHP_EOL;  //=>11
-echo $dt->minute      . PHP_EOL;  //=>23
-echo $dt->second      . PHP_EOL;  //=>45
-echo $dt->dayOfWeek   . PHP_EOL;  //=>1    （週のうちの何日目か？）
-echo $dt->dayOfYear   . PHP_EOL;  //=>111  （年のうちの何日目か？）
-echo $dt->weekOfMonth . PHP_EOL;  //=>3
-echo $dt->weekOfYear  . PHP_EOL;  //=>17
-echo $dt->timestamp   . PHP_EOL;  //=>1587349425
-echo $dt->tzName      . PHP_EOL;  //=>Asia/Tokyo
+echo $dt->year        . PHP_EOL;  //=> 2020
+echo $dt->month       . PHP_EOL;  //=> 4
+echo $dt->day         . PHP_EOL;  //=> 20
+echo $dt->hour        . PHP_EOL;  //=> 11
+echo $dt->minute      . PHP_EOL;  //=> 23
+echo $dt->second      . PHP_EOL;  //=> 45
+echo $dt->dayOfWeek   . PHP_EOL;  //=> 1    （週のうちの何日目か？）
+echo $dt->dayOfYear   . PHP_EOL;  //=> 111  （年のうちの何日目か？）
+echo $dt->weekOfMonth . PHP_EOL;  //=> 3
+echo $dt->weekOfYear  . PHP_EOL;  //=> 17
+echo $dt->timestamp   . PHP_EOL;  //=> 1587349425
+echo $dt->tzName      . PHP_EOL;  //=> Asia/Tokyo
 echo $dt->format('Y年m月d日') . PHP_EOL;     //=> 2020年04月20日
 echo $dt->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/20 11:23:45
 ```
