@@ -268,14 +268,15 @@ ________________________________________________________________________________
 ```php
 $select = $this->dbAdapter->select()
                                 ->from( array( 'my_table_01' => 'my_table_01' ), $column )
-                                ->joinleft( array( 'buildings' => 'buildings' ),'ptbd.building_id = ptb.building_id', '*' )
-                                ->joinleft( array( 'clients' => 'clients' ),'ptbd.client_id = ptcl.client_id', '*' )
-                                ->where( 'my_table_01.client_id > ?', 0)
+                                ->joinleft( array( 'buildings' => 'buildings' ),'my_table_01.building_id = buildings.building_id', '*' )
+                                ->joinleft( array( 'clients' => 'clients' )    ,'my_table_01.client_id   = clients.client_id'    , '*' )
+                                ->where( 'my_table_01.client_id  > ?', 0 )
                                 ->where( 'my_table_01.service_id = ?', 1 )
-                                ->where( 'my_table_01.del_flag = ?', 0 )
+                                ->where( 'my_table_01.del_flag   = ?', 0 )
                                 ->where( 'my_table_01.building_detail_id IN(?)', $idList )
-                                ->where( 'tc.id is null', '' )
-                                ->order( 'ptbd.building_detail_id' )
+                                ->where( 'buildings.id is null', '' )
+                                ->order( 'buildings.building_detail_id' )
+                                ->order( 'buildings.service_id  DESC' )
 
     $select->order(array(
         "category_id DESC",
