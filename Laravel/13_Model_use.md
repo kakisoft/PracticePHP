@@ -135,6 +135,12 @@ return DB::table('orders')->where('finalized', 1)->exists();
 return DB::table('orders')->where('finalized', 1)->doesntExist();
 
 
+//==========< UPDATE >==========
+DB::table('comments')
+        ->where('id', 8)
+        ->update(['body' => 'changed']);
+
+
 
 //==========< DELETE >==========
 DB::table('comments')->where('post_id', '=', 2)->delete();
