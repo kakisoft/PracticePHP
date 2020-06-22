@@ -1,8 +1,8 @@
 ## 公式サイト
-<https://getcomposer.org/>
+https://getcomposer.org/  
 
 ## インストール
-<https://getcomposer.org/download/>
+https://getcomposer.org/download/  
 ```
 Command-line installation
 
