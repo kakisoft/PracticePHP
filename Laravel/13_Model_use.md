@@ -279,10 +279,24 @@ https://readouble.com/laravel/5.4/ja/database.html
     });
 
 
-    DB::transaction(function () {
-        DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
-        DB::table('comments')->where('id', 8)->update(['post_id' => null]);
-    }, 5);  // トランザクションの再試行回数を指定可。試行回数を過ぎたら、例外が投げられる。
+
+
+    try {
+        $exception = DB::transaction(function () {
+            DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
+            DB::table('comments')->where('id', 8)->update(['post_id' => null]);
+        }, 5);  // トランザクションの再試行回数を指定可。試行回数を過ぎたら、例外が投げられる。
+
+        if(is_null($exception)) {
+            return true;
+        } else {
+            throw new Exception;
+        }
+
+    }
+    catch(Exception $e) {
+        return false;
+    }
 ```
 コミット・ロールバックを手動で制御
 ```php
