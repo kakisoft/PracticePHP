@@ -269,6 +269,37 @@ $post = App\Models\Post::updateOrCreate(
 // という使い方をすることが想定されている。
 ```
 
+__________________________________________________________________________________________________________________
+# トランザクション
+https://readouble.com/laravel/5.4/ja/database.html
+```php
+    DB::transaction(function () {
+        DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
+        DB::table('comments')->where('id', 8)->update(['post_id' => null]);
+    });
+
+
+    DB::transaction(function () {
+        DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
+        DB::table('comments')->where('id', 8)->update(['post_id' => null]);
+    }, 5);  // トランザクションの再試行回数を指定可。試行回数を過ぎたら、例外が投げられる。
+```
+コミット・ロールバックを手動で制御
+```php
+        try{
+            DB::beginTransaction();
+
+            DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
+            DB::table('comments')->where('id', 8)->update(['post_id' => null]);
+
+            DB::commit();
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+        }
+```
+
 
 __________________________________________________________________________________________________________________
 # MassAssignmentエラーを回避
