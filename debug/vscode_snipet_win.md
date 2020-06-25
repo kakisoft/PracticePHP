@@ -2,7 +2,7 @@
 File -> Preference -> User Snipets  
 
 
-##### php.json
+##### ファイル ： php.json
 ```json
     "error_log_output_01": {
         "prefix": "alog",
@@ -21,6 +21,16 @@ File -> Preference -> User Snipets
         "description": "error log output 02"
     },
 
+	"error_log_output_03": {
+		"prefix": "clog",
+		"body": [
+			"error_log(PHP_EOL.'-------------------------------------'.PHP_EOL,'3','C:\\logs\\php\\tmp_log_02.log');",
+			"error_log(  print_r($$log_output_vaalluuee, true)  ,'3','C:\\logs\\php\\tmp_log_02.log');",
+			"error_log(PHP_EOL.'-------------------------------------'.PHP_EOL,'3','C:\\logs\\php\\tmp_log_02.log');",
+		],
+		"description": "error log output 02"
+	},
+
     "var_dump_exit": {
         "prefix": "de",
         "body": [
@@ -33,8 +43,8 @@ File -> Preference -> User Snipets
     },
 ```
 
-「$」を表現する場合、「$$」  
-
+「 $ 」を表現する場合、「 $$ 」  
+「 \ 」 → 「 \\ 」  
 
 
 
