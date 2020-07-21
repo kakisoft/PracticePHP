@@ -3083,6 +3083,7 @@ if (is_readable('data/taro.txt') === true) {
 
 //================================
 //  ファイルパスに関する情報を返す
+//  （拡張子のみ、ファイル名のみ、等）
 //================================
 $path_parts = pathinfo('/www/htdocs/inc/lib.inc.php');
 echo $path_parts['dirname']  , "\n";  //=> /www/htdocs/inc
@@ -3120,6 +3121,21 @@ echo realpath('/tmp/')              . PHP_EOL;  //=> /tmp
 // Win
 echo realpath('/windows/system32'), PHP_EOL;   //=> C:\Windows\System32
 echo realpath('C:\Program Files\\'), PHP_EOL;  //=> C:\Program Files
+
+
+
+//=================================
+//    ファイルの拡張子を取得（ext）
+//=================================
+$info = new SplFileInfo('foo.txt');
+var_dump($info->getExtension());  //=> string(3) "txt"
+
+$info = new SplFileInfo('photo.jpg');
+var_dump($info->getExtension());  //=> string(3) "jpg"
+
+$info = new SplFileInfo('something.tar.gz');
+var_dump($info->getExtension());  //=> string(2) "gz"
+
 
 
 //=================================
