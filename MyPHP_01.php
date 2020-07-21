@@ -3137,6 +3137,11 @@ $info = new SplFileInfo('something.tar.gz');
 var_dump($info->getExtension());  //=> string(2) "gz"
 
 
+$filename = 'foo.png';
+$extension = (new SplFileInfo($filename))->getExtension();
+var_dump($extension);  //=> string(3) "png"
+
+
 
 //=================================
 //    ファイルに関する情報を取得
@@ -3931,6 +3936,21 @@ foreach ($prefectureSet as $value) {
 // 単純に、
 // $this->prefectureSet = MY_UTIL::sharpen($value);
 // みたいにすると、nullになってしまう。
+
+
+//=================================
+//    <input type="file"
+//=================================
+$file = $_FILES['update_file'];
+// [update_file] => Array
+// (
+//     [name] => mudai.jpg
+//     [type] => image/jpeg
+//     [tmp_name] => C:\Windows\Temp\php909C.tmp
+//     [error] => 0
+//     [size] => 6847
+// )
+
 
 
 //=================================
