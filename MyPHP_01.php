@@ -3085,7 +3085,7 @@ if (is_readable('data/taro.txt') === true) {
 //  ファイルパスに関する情報を返す
 //  （拡張子のみ、ファイル名のみ、等）
 //================================
-$path_parts = pathinfo('/www/htdocs/inc/lib.inc.php');
+$path_parts = pathinfo('/www/htdocs/inc/lib.inc.php');
 echo $path_parts['dirname']  , "\n";  //=> /www/htdocs/inc
 echo $path_parts['basename'] , "\n";  //=> lib.inc.php
 echo $path_parts['extension'], "\n";  //=> php
