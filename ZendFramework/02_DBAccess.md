@@ -134,6 +134,17 @@ $table->update($data, $select);
 ```
 
 
+## select（メソッドチェーン）
+```php
+	//-----( 契約データを取得 )-----
+	$select_contract = $this->getDb()->select()
+										->from( array( TABLE_NA<E, _TABLE_NA<E ) )
+										->where( "contract_id = ?", $contract_id );
+
+	$contract_data = $this->getDb()->query( $select_contract )->fetch();
+```
+
+
 ## orWhere
 https://framework.zend.com/manual/1.12/ja/zend.db.select.html
 ```php
