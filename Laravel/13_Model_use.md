@@ -212,7 +212,7 @@ $max = App\Flight::where('active', 1)->max('price');
 
 //==========< 複数条件を指定 >==========
 $query = Question01RegistrationInformation::query();
-$query->where('name', $name);
+$query->where('name', $name);  // 記号を省略した場合、暗黙的に '='
 $query->where('id', '>=', 10);
 $query->where('is_cleared', Question01RegistrationInformation::IS_CLEARED___TRUE);
 $query->whereIn('id',[14, 15, 16]);
