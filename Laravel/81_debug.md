@@ -31,4 +31,12 @@ $posts = Post::latest()->get();
 \Debugbar::info($posts);
 ```
 
+## SQL のトレース
+[13_Model_use.md](13_Model_use.md)
+
+
+## Laravel SQLの実行クエリログを出力する
+https://qiita.com/ucan-lab/items/753cb9d3e4ceeb245341
+
+
 

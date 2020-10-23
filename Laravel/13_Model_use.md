@@ -10,7 +10,7 @@ $query = Post::latest()->toSql();
 
 
 $query = \App\User::where('id', 1);
-dd($query->toSql(), $query->getBindings());
+dd($query->toSql(), $query->getBindings());  // プレースホルダの値は「 getBindings() 」で取得
 //=>
 // "select * from `users` where `id` = ?"
 // array:1 [▼
