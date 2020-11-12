@@ -31,7 +31,7 @@ $posts = Post::latest()->get();
 \Debugbar::info($posts);
 ```
 
-## SQL のトレース
+## 発行した SQL のトレース
 [13_Model_use.md](13_Model_use.md)
 
 
