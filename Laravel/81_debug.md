@@ -35,8 +35,62 @@ $posts = Post::latest()->get();
 [13_Model_use.md](13_Model_use.md)
 
 
+## パラメータを入れた状態にする（メソッド）
+```php
+    public static function getEloquentSqlWithBindings($query)
+    {
+        return vsprintf(str_replace('?', '%s', $query->toSql()), collect($query->getBindings())->map(function ($binding) {
+            $binding = addslashes($binding);
+            return is_numeric($binding) ? $binding : "'{$binding}'";
+        })->toArray());
+    }
+```
+
+```php
+    public static function getEloquentSqlWithBindings($query)
+    {
+        $replaced_sql = str_replace('?', '%s', $query->toSql());
+
+        $ret = vsprintf(
+
+            $replaced_sql, collect($query->getBindings())->map(
+                                                                    function ($binding) {
+                                                                                            $binding = addslashes($binding);
+                                                                                            return is_numeric($binding) ? $binding : "'{$binding}'";
+                                                                                        }
+                                                               )->toArray()
+                        );
+
+        return $ret;
+    }
+
+```
+
+
+## パラメータを入れた状態にする（親クラス）
+```php
+class MyModel extends Eloquent {
+  
+  public function getSql() 
+  {
+    $builder = $this->getBuilder();	
+    $sql = $builder->toSql();
+    foreach($builder->getBindings() as $binding)
+    {
+      $value = is_numeric($binding) ? $binding : "'".$binding."'";
+      $sql = preg_replace('/\?/', $value, $sql, 1);
+    }
+    return $sql;
+  }
+  
+}
+```
+
+
 ## Laravel SQLの実行クエリログを出力する
 https://qiita.com/ucan-lab/items/753cb9d3e4ceeb245341
+
+
 
 
 
