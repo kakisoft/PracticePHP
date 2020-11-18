@@ -52,6 +52,11 @@ composer create-project --prefer-dist laravel/laravel myblog
 https://getcomposer.org/doc/00-intro.md#manual-installation
 
 
+## Chocolatey から
+```
+choco install composer
+```
+
 _______________________________________________________________________
 _______________________________________________________________________
 _______________________________________________________________________
