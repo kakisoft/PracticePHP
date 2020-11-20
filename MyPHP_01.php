@@ -3510,6 +3510,18 @@ var_dump($mbho);  //=> UTF-8
 // mb_detect_order() - 文字エンコーディング検出順序を設定あるいは取得する
 
 
+//=============================
+//       クラス名を取得
+//=============================
+class SampleClass01
+{
+
+}
+$target_class = new SampleClass01();
+
+$target_class_name = get_class($target_class);
+echo "{$target_class_name}"; //=> SampleClass01
+
 
 //====================================
 //        メソッドの存在チェック
