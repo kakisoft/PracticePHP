@@ -1,0 +1,213 @@
+Koel
+https://github.com/koel/koel  
+
+└─tests
+    ├─blobs
+    │  ├─itunes
+    │  ├─lastfm
+    │  ├─rules
+    │  └─youtube
+    ├─Feature
+    │  └─ObjectStorage
+    ├─Integration
+    │  ├─Factories
+    │  ├─Listeners
+    │  ├─Models
+    │  ├─Repositories
+    │  └─Services
+    ├─songs
+    │  ├─.hidden
+    │  └─subdir
+    ├─Traits
+    └─Unit
+        ├─Http
+        │  └─Middleware
+        ├─Jobs
+        ├─Services
+        └─Stubs
+
+
+
+
+
+
+laracom
+https://github.com/jsdecena/laracom
+
+└─tests
+    ├─Feature
+    │  ├─Admin
+    │  │  ├─Addresses
+    │  │  ├─Attributes
+    │  │  ├─AttributeValues
+    │  │  ├─Brands
+    │  │  ├─Categories
+    │  │  ├─Cities
+    │  │  ├─Countries
+    │  │  ├─Courier
+    │  │  ├─Customers
+    │  │  ├─Dashboard
+    │  │  ├─Employees
+    │  │  ├─Orders
+    │  │  ├─OrderStatus
+    │  │  ├─Permissions
+    │  │  ├─Products
+    │  │  ├─Provinces
+    │  │  └─Roles
+    │  └─Front
+    │      ├─Accounts
+    │      ├─Cart
+    │      ├─Categories
+    │      ├─Checkout
+    │      ├─CustomerAddresses
+    │      ├─Home
+    │      ├─Products
+    │      └─States
+    └─Unit
+        ├─Address
+        ├─Attributes
+        ├─AttributeValues
+        ├─Brands
+        ├─Cart
+        ├─Categories
+        ├─Checkout
+        ├─Cities
+        ├─Countries
+        ├─Courier
+        ├─Customers
+        ├─Employees
+        ├─OrderAddress
+        ├─OrderDetails
+        ├─Orders
+        ├─OrderStatuses
+        ├─Permissions
+        ├─ProductAttributeCombinations
+        ├─ProductAttributes
+        ├─Products
+        ├─Provinces
+        └─Roles
+
+
+
+
+
+
+MONICA
+https://github.com/monicahq/monicaa  
+
+└─tests
+    ├─Api
+    │  ├─Account
+    │  │  └─Activity
+    │  ├─Authentication
+    │  ├─Contact
+    │  ├─ContactField
+    │  ├─DAV
+    │  └─Settings
+    ├─Browser
+    │  ├─Auth
+    │  ├─console
+    │  ├─Feature
+    │  ├─Pages
+    │  │  └─Settings
+    │  ├─screenshots
+    │  └─Settings
+    ├─Commands
+    │  └─Scheduling
+    ├─cypress
+    │  ├─fixtures
+    │  ├─integration
+    │  │  ├─auth
+    │  │  ├─contacts
+    │  │  ├─journal
+    │  │  └─settings
+    │  ├─plugins
+    │  └─support
+    │      └─helpers
+    ├─Feature
+    │  └─Authentication
+    ├─Fixtures
+    │  └─Services
+    │      ├─Account
+    │      │  └─Place
+    │      └─Instance
+    │          ├─Geolocalization
+    │          └─Weather
+    ├─stubs
+    ├─Traits
+    └─Unit
+        ├─Controllers
+        │  ├─Account
+        │  │  └─LifeEvent
+        │  ├─Auth
+        │  ├─Contact
+        │  └─Settings
+        ├─Events
+        ├─Helpers
+        ├─Jobs
+        │  └─Reminder
+        ├─Models
+        ├─Services
+        │  ├─Account
+        │  │  ├─Activity
+        │  │  │  ├─ActivityType
+        │  │  │  └─ActivityTypeCategory
+        │  │  ├─Company
+        │  │  ├─Gender
+        │  │  ├─LifeEvent
+        │  │  │  └─LifeEventType
+        │  │  ├─Photo
+        │  │  ├─Place
+        │  │  └─Settings
+        │  ├─Auth
+        │  ├─Contact
+        │  │  ├─Address
+        │  │  ├─Avatar
+        │  │  ├─Call
+        │  │  ├─Contact
+        │  │  ├─ContactField
+        │  │  ├─Conversation
+        │  │  ├─Description
+        │  │  ├─Document
+        │  │  ├─Gift
+        │  │  ├─Label
+        │  │  ├─LifeEvent
+        │  │  ├─Occupation
+        │  │  ├─Relationship
+        │  │  ├─Reminder
+        │  │  └─Tag
+        │  ├─Instance
+        │  │  ├─AuditLog
+        │  │  ├─Geolocalization
+        │  │  └─Weather
+        │  ├─Task
+        │  ├─User
+        │  └─VCard
+        └─Traits
+
+
+
+
+vuedo
+https://github.com/Vuedo/vuedo  
+
+
+
+└─tests
+    ├─api
+    ├─integration
+    └─unit
+
+
+
+
+
+
+LavaLite
+https://github.com/LavaLite/cms
+
+
+└─tests
+    ├─Feature
+    └─Unit
+
