@@ -52,6 +52,10 @@ $posts = Post::latest()->get();
 ## 発行した SQL のトレース
 [13_Model_use.md](13_Model_use.md)
 
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
+# 発行したSQL のトレース
 
 ## パラメータを入れた状態にする（メソッド）
 ```php
@@ -64,6 +68,7 @@ $posts = Post::latest()->get();
     }
 ```
 
+↑のメソッドを、何やってるのか解析するために、少し分解。
 ```php
     public static function getEloquentSqlWithBindings($query)
     {
@@ -88,10 +93,10 @@ $posts = Post::latest()->get();
 ## パラメータを入れた状態にする（親クラス）
 ```php
 class MyModel extends Eloquent {
-  
-  public function getSql() 
+
+  public function getSql()
   {
-    $builder = $this->getBuilder();	
+    $builder = $this->getBuilder();
     $sql = $builder->toSql();
     foreach($builder->getBindings() as $binding)
     {
@@ -100,11 +105,13 @@ class MyModel extends Eloquent {
     }
     return $sql;
   }
-  
+
 }
 ```
 
-
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
 ## Laravel SQLの実行クエリログを出力する
 https://qiita.com/ucan-lab/items/753cb9d3e4ceeb245341
 
