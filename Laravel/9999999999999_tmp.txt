@@ -1,0 +1,104 @@
+#### laracom
+<https://github.com/jsdecena/laracom>  
+
+```
+ └─app
+    ├─Http
+    │  ├─Controllers
+    │  │  ├─Admin
+    │  │  │  ├─Addresses
+    │  │  │  ├─Attributes
+    │  │  │  ├─Brands
+    │  │  ├─Auth
+    │  │  └─Front
+    │  │      ├─Addresses
+    │  │      └─Payments
+    ├─Providers
+    └─Shop
+        ├─Addresses
+        │  ├─Exceptions
+        │  ├─Repositories
+        │  │  └─Interfaces
+        │  ├─Requests
+        │  └─Transformations
+        ├─Attributes
+        │  ├─Exceptions
+        │  ├─Repositories
+        │  └─Requests
+        ├─AttributeValues
+        │  ├─Repositories
+        │  └─Requests
+        ├─Brands
+        │  ├─Exceptions
+        │  ├─Repositories
+        │  └─Requests
+        ├─Carts
+        │  ├─Exceptions
+        │  ├─Repositories
+        │  │  └─Interfaces
+        │  └─Requests
+        ├─Categories
+        │  ├─Exceptions
+        │  └─Repositories
+        │      └─Interfaces
+        ├─Cities
+        │  ├─Exceptions
+        │  ├─Repositories
+        │  │  └─Interfaces
+        │  └─Requests
+```
+
+Models 階層が無い。  
+そして、Models に相当する階層から、Repositories の階層、その下に Interfaces の階層。  
+Request もここに放り込んでる。  
+
+独自色が強め。  
+あと、基底クラスに外部ライブラリを使っているケースがちらほら。  
+Laratrust とか。  
+<https://laratrust.santigarcor.me/>  
+これも。  
+<https://github.com/jsdecena/baserepo>
+
+サービスに対するインターフェースは実装しているが、  
+モデルに対するインターフェースは実装していない。  
+
+そのまま参考にするのは、少しキツいか。  
+特に、フォルダ構成はあんまり参考にしない方がいい。  
+
+
+
+
+
+
+
+#### MONICA
+<https://github.com/monicahq/monicaa>  
+Controller から直接 Model をコールしている
+
+
+#### LavaLite
+<https://github.com/LavaLite/cms>  
+Model を使用していない
+
+
+#### vuedo
+https://github.com/Vuedo/vuedo  
+Controller から直接 Model をコールしている
+
+
+#### October CMS
+<https://github.com/octobercms/october>  
+かなりクセが強い。途中「これ本当にLaravelか？」と思ったほど。  
+あまり参考にしない方がよさそう。  
+
+
+#### Element In Laravel
+<https://github.com/ElementUI/element-in-laravel-starter>  
+Model を使用していない。  
+
+
+#### AIRFLIX
+<https://github.com/wells/airflix>	
+Model を使用していない
+
+
