@@ -1,0 +1,41 @@
+
+
+ └─Repositories
+    ├─User
+    │  ├─UserRepository.php
+    │  ├─UserRepositoryInterface.php
+    │  └─DummyUserRepository.php
+    │
+    ├─Article
+    │  ├─ArticleRepository.php
+    │  ├─ArticleRepositoryInterface.php
+    │  └─DummyArticleRepository.php
+    │
+    ├─Customer
+    │  ├─CustomerRepository.php
+    │  ├─CustomerRepositoryInterface.php
+    │  └─DummyCustomerRepository.php
+
+
+
+
+
+ └─Repositories
+    ├─Interfaces
+    │  ├─UserRepositoryInterface.php
+    │  ├─ArticleRepositoryInterface.php
+    │  └─CustomerRepositoryInterface.php
+    │
+    ├─Dummies
+    │  ├─DummyUserRepository.php
+    │  ├─DummyArticleRepository.php
+    │  └─DummyCustomerRepository.php
+    │
+    ├─UserRepository.php
+    ├─ArticleRepository.php
+    ├─CustomerRepository.php
+
+
+
+
+
