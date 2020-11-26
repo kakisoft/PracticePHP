@@ -37,13 +37,27 @@ https://github.com/ElementUI/element-in-laravel-starter
 
 
 ## LavaLite
-https://qiita.com/acro5piano/items/8dc4597e12d9050c0708  
+https://github.com/LavaLite/cms
 
+
+## 紹介記事
+https://qiita.com/acro5piano/items/8dc4597e12d9050c0708  
 
 _______________________________________________________________________________________
 # Book
 
 ## PHPフレームワーク Laravel Webアプリケーション開発
 https://github.com/laravel-socym  
+
+
+_______________________________________________________________________________________
+# Laravel ベストプラクティス
+
+## 日本語
+https://github.com/alexeymezenin/laravel-best-practices/blob/master/japanese.md
+
+
+## 英語
+https://github.com/alexeymezenin/laravel-best-practices
 
 
