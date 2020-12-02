@@ -747,11 +747,13 @@ echo substr_replace($var, 'bob', 1,   7) . PHP_EOL;  //=> Abob:/MNRPQR/
 
 //----------( 正規表現による置換 )----------
 //連続したスペースを、スペース１個分に置換
-$string = "a  b  c       ddd";
+$string = "a  b   c       ddd";
 $pattern = '/\s+/';
 $replacement = ' ';
 echo preg_replace($pattern, $replacement, $string);  #=> 「a b c ddd」
 $pieces = explode(" ", $a);
+// 置換する回数を指定できる
+echo preg_replace($pattern, $replacement, $string, 1);  #=> 「a b  c ddd」
 
 // 改行コード(\nまたは\rまたは\r\n)を''(空文字)に置き換える
 $text = "";
