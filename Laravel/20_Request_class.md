@@ -26,24 +26,24 @@ http://tech.innovation.co.jp/2018/06/24/Laravel56-Request.html
 ```php
 public function test(Request $request)
 {
-    dd(
-        // リクエストURIの取得
-        $request->path(),
-        // リクエストのURIが指定されたパターンに合致するか確認
-        $request->is('*/sumo'),
-        // 完全なURLを取得(クエリ文字列なし)
-        $request->url(),
-        // 完全なURLを取得(クエリ文字列付き)
-        $request->fullUrl(),
-        // リクエストメソッドの取得
-        $request->method(),
-        // リクエストメソッドの取得
-        $request->isMethod('post')
+    dd(
+        // リクエストURIの取得
+        $request->path(),
+        // リクエストのURIが指定されたパターンに合致するか確認
+        $request->is('*/sumo'),
+        // 完全なURLを取得(クエリ文字列なし)
+        $request->url(),
+        // 完全なURLを取得(クエリ文字列付き)
+        $request->fullUrl(),
+        // リクエストメソッドの取得
+        $request->method(),
+        // リクエストメソッドの取得
+        $request->isMethod('post')
 
         //// すべてのクエリストリングを取得
         $query = $request->query();
-    );
-    return view('test.index');
+    );
+    return view('test.index');
 }
 ```
 
@@ -52,23 +52,23 @@ public function test(Request $request)
 ```php
 public function testRegist(Request $request)
 {
-    dd(
-        // 名前の取得
-        $request->input('name'),
-        // リクエストにnameが存在していない場合に、デフォルト値で指定したsumoを返す
-        $request->input('name', 'sumo'),
-        // リクエストの全入力データを配列で取得
-        $request->all(),
-        // リクエストからmailの入力データだけ取得
-        $request->only('mail'),
-        // リクエストからpassword以外の入力データを取得
-        $request->except('password'),
-        // リクエストにnameが存在するか判定
-        $request->has('name'),
-        // リクエストにnameが存在しており、かつ空でない事を判定
-        $request->filled('name')
-    );
-    return view('test.index');
+    dd(
+        // 名前の取得
+        $request->input('name'),
+        // リクエストにnameが存在していない場合に、デフォルト値で指定したsumoを返す
+        $request->input('name', 'sumo'),
+        // リクエストの全入力データを配列で取得
+        $request->all(),
+        // リクエストからmailの入力データだけ取得
+        $request->only('mail'),
+        // リクエストからpassword以外の入力データを取得
+        $request->except('password'),
+        // リクエストにnameが存在するか判定
+        $request->has('name'),
+        // リクエストにnameが存在しており、かつ空でない事を判定
+        $request->filled('name')
+    );
+    return view('test.index');
 }
 ```
 
