@@ -38,11 +38,13 @@ public function test(Request $request)
         // リクエストメソッドの取得
         $request->method(),
         // リクエストメソッドの取得
-        $request->isMethod('post'),
-
-        //// すべてのクエリストリングを取得
-        $query = $request->query();
+        $request->isMethod('post')
     );
+
+    //// すべてのクエリストリングを取得
+    $query = $request->query();
+    dd($query);
+
     return view('test.index');
 }
 ```
