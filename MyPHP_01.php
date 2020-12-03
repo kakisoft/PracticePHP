@@ -55,6 +55,15 @@ class User extends Authenticatable
 
 
 
+    /**
+     * XXXXX状況問い合わせAPI
+     *
+     * @param Request $request
+     * @param integer $receipt_no 受付番号
+     * @return JsonResponse
+     */
+
+
 echo "hello from the TOP!";
 
 const CANONICAL_TAG_TEMPLATE = "<link rel=\"canonical\" href=\"%s\">";

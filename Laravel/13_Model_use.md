@@ -192,6 +192,9 @@ $posts = Post::orderBy('created_at', 'desc')->get();
 // 以下で、上記と同一の意味。
 $posts = Post::latest()->get();
 
+// 件数とカラムを指定して、最新レコードを取得
+$a1 = $this->model::latest()->select('name', 'email as user_email')->take($limit)->get()->toJson();
+
 
 //==========< id を指定して、一意のレコードを参照 >==========
 $post = App\Models\Post::find(1);     //findを使う場合、get や firstは不要
