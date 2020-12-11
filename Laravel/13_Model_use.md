@@ -236,6 +236,22 @@ $user_list = $UserModel::where('sex' , 'male')
 　　　　　　->orWhere('score', '>', 70);
 　　})
 　　->get()->toArray();
+
+
+
+//==========< パラメータ次第でwhere条件を付加 >==========
+$query = $this->model->query();
+$query->select('item_id', 'name');
+// アイテムID
+if (isset($params['item_id'])) {
+    $query->where('item_id', $params['item_id']);
+}
+// 商品名
+if (isset($params['name'])) {
+    $query->where('name', 'like', "%{$params['name']}%");
+}
+
+
 ```
 
 ## UPDATE
