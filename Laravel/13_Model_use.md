@@ -201,6 +201,7 @@ $post = App\Models\Post::find(1);     //findを使う場合、get や firstは
 $post = App\Models\Post::find(1)->toArray();
 $post = Post::findOrFail($id);        // データが見つからなかった場合、例外を返す。
 
+// ※ 「toSql()」を使っても、where 文がトレースされない ※
 
 //==========< カウント >==========
 $comment = Comment::count();
