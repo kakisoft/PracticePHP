@@ -274,6 +274,28 @@ $post = App\Models\Post::find(1);
 $post->delete();
 App\Models\Post::all()->toArray();
 ```
+親子関係のあるデータをまとめて消したい場合、Migration クラスにて cascade を設定
+```php
+class CreateCommentsTable extends Migration
+{
+    public function up()
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('post_id');
+            $table->string('body');
+            $table->timestamps();
+
+            $table
+              ->foreign('post_id')
+              ->references('id')
+              ->on('posts')
+              ->onDelete('cascade');
+        });
+    }
+}
+```
+
 
 ## MERGE / UPSERT（未登録であれば insert、登録済みであれば update）
 ```php
