@@ -1,3 +1,7 @@
+## キャッシュをクリア
+<a href="09_artisan.md">09_artisan.md</a>
+
+_________________________________________________________________________________________________________
 ## Class XXX not found
 https://qiita.com/niiyz/items/5b83ef5255a1ec64d9d6  
 LaravelはAutoLoaderがあり、composerがクラス管理をしてる。  
