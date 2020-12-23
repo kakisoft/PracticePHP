@@ -20,7 +20,7 @@ Route::get('product/show', [\App\Http\Controllers\Api\Internal\ProductController
 Route::post('product/store', [\App\Http\Controllers\Api\Internal\ProductController::class, 'store']);
 Route::put('product/update', [\App\Http\Controllers\Api\Internal\ProductController::class, 'update']);
 Route::delete('product/destory', [\App\Http\Controllers\Api\Internal\ProductController::class, 'destory']);
-Route::put('product/downloadCsv', [\App\Http\Controllers\Api\Internal\ProductController::class, 'downloadCsv']);
+Route::get('product/downloadCsv', [\App\Http\Controllers\Api\Internal\ProductController::class, 'downloadCsv']);
 Route::put('product/bulkUpdateFromCsv', [\App\Http\Controllers\Api\Internal\ProductController::class, 'bulkUpdateFromCsv']);
 ```
 
