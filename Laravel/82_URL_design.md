@@ -29,8 +29,8 @@ Route::put('product/bulkUpdateFromCsv', [\App\Http\Controllers\Api\Internal\Prod
 |  役割      |  HTTPメソッド  |  URI                     |  アクション    |
 |:----------|:---------------|:-------------------------|:--------------|
 |  一覧表示  |  GET           |  /コントローラ名/index    |  index        |
+|  １件表示  |  GET           |  /コントローラ名/show     |  show         |
 |  新規作成  |  POST          |  /コントローラ名/store    |  store        |
-|  読み込み  |  GET           |  /コントローラ名/show     |  show         |
 |  更新      |  PUT           |  /コントローラ名/update   |  update       |
 |  削除      |  DELETE        |  /コントローラ名/destroy  |  destroy      |
 
