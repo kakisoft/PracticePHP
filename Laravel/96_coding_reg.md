@@ -1,8 +1,33 @@
-# コーディング規約
+# PHP
 
-## マジックナンバーは禁止とする
-マジックナンバーを使用せず、const で定数化する。  
-また、public static 変数を、定数として使わないものとする。  
+## コーディング規約
+PSR-2 に準拠します
+http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html
+
+VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。
+https://bwave.backlog.com/wiki/BBP/%E6%88%90%E6%9E%9C%E7%89%A9%2F%E9%96%8B%E7%99%BA%2F%E9%96%8B%E7%99%BA%E3%83%84%E3%83%BC%E3%83%AB
+
+
+## その他コーディング規約
+
+ - goto文は実行順序を曖昧にする為、使用禁止とする
+ - マジックナンバーは禁止とする。（const で定数化する。また、public static 変数を、定数として使わないものとする。）
+ - 定数は全て大文字のスネークケースとする。(例:FOO_CONST_VALUE)
+ - 改行コードを結合する場合は、PHP_EOL定数を用いる。(例:$bar = 'a'.PHP_EOL)
+ - true, false, null, self 等の予約語は、小文字を使用する。
+ - クラス名は全てアッパーキャメルケースとする。(例:UpperCamelCase)
+ - クラスメソッド及び関数名はローワーキャメルケースとする。(例:lowerCamelCase)
+ - 特別な理由が無い限り、スネークケースではなく、ローワーキャメルケースを使用する。(例:$lowerCamelCaseValue)
+
+（参考情報）
+うまくメソッド名を付けるための参考情報  
+https://qiita.com/KeithYokoma/items/2193cf79ba76563e3db6
+
+うまくクラス名を付けるための参考情報  
+https://qiita.com/KeithYokoma/items/ee21fec6a3ebb5d1e9a8
+
+変数名・メソッド名を考えるときに便利なサービス  
+https://codic.jp/
 
 ______________________________________________________________________________________________________
 # Laravel
