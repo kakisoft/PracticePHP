@@ -11,7 +11,7 @@ https://bwave.backlog.com/wiki/BBP/%E6%88%90%E6%9E%9C%E7%89%A9%2F%E9%96%8B%E7%99
 ## その他コーディング規約
 
  - goto文は実行順序を曖昧にする為、使用禁止とする
- - マジックナンバーは禁止とする。（const で定数化する。また、public static 変数を、定数として使わないものとする。）
+ - マジックナンバーは使用禁止とする。（const で定数化する。また、public static 変数を、定数として使わないものとする。）
  - 定数は全て大文字のスネークケースとする。(例:FOO_CONST_VALUE)
  - 改行コードを結合する場合は、PHP_EOL定数を用いる。(例:$bar = 'a'.PHP_EOL)
  - true, false, null, self 等の予約語は、小文字を使用する。
