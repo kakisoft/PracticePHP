@@ -5,7 +5,6 @@ PSR-2 に準拠します
 http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html
 
 VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。
-https://bwave.backlog.com/wiki/BBP/%E6%88%90%E6%9E%9C%E7%89%A9%2F%E9%96%8B%E7%99%BA%2F%E9%96%8B%E7%99%BA%E3%83%84%E3%83%BC%E3%83%AB
 
 
 ## その他コーディング規約
