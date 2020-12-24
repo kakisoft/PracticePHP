@@ -7,6 +7,19 @@
 ______________________________________________________________________________________________________
 # Laravel
 
+## レスポンスクラス
+レスポンスクラスには、「 Illuminate\Http\Response 」を使用し、
+「 Symfony\Component\HttpFoundation\Response 」は使用しない。
+
+
+## HTTPステータスコードの返却
+HTTP ステータスコードを返却する場合、「 200 」等のハードコーディングをせず、
+「 Illuminate\Http\Response 」の定数を使用する。
+
+（例）
+Response::HTTP_OK
+
+
 ## Request の階層を設ける
 rules や messages は、コントローラに書かず、Request階層に記述するものとする  
 （php artisan make:request xxxRequest といったコマンドでリクエストクラスを生成し、  
