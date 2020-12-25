@@ -253,6 +253,46 @@ if (isset($params['name'])) {
 }
 
 
+
+//==========< with句を使ってリレーションを取得（取得内容は入れ子になる） >==========
+/*
+    [0] => Array
+        (
+            [id] => 1
+            [title] => title01
+            [body] => body01
+            [comment] => Array
+                (
+                    [0] => Array(
+                                   [post_id] => 1
+                                   [body] => comment01
+                                 )
+                    [1] => Array
+                        (
+                            [post_id] => 1
+                            [body] => comment02
+                        )
+
+                )
+        )
+*/
+
+
+$query = Post::query();
+$query->where('title', $params['title']);
+$query->with(['comment' => function ($q) {   // ← Post（リレーション元）に、「comment」というリレーションを表現するメソッド名が必要。
+    $q->select('post_id','body');  // ☆重要☆ キー項目を入れておかないと、上手く取れないみたいだぞ。
+}]);
+$query->select('id', 'title', 'body');  // ☆重要☆ キー項目を入れておいた方がいいみたいだぞ。
+
+
+//-----( リレーションを表すメソッドの例 )-----
+    public function comment() {
+      return $this->hasMany(Comment::class);
+    }
+//-----------------------------------------
+
+
 ```
 
 ## UPDATE
