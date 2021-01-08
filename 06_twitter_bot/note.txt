@@ -1,0 +1,30 @@
+composerインストール
+
+https://packagist.org/
+より、
+abraham/twitteroauth
+をインストール
+
+
+composer require abraham/twitteroauth
+
+
+php composer.phar equire abraham/twitteroauth
+
+
+https://twitteroauth.com/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+＜実行＞
+php bot.php
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+＜APIリファレンス＞
+https://developer.twitter.com/en/docs/api-reference-index
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+
+
