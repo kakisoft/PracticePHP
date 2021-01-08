@@ -7,6 +7,15 @@
 
 
 $str = "Is your name O'Reilly?";
+$a   = 111;
+$a   = 111;
+$a   = 111;
+function aaa(){
+    $a1 = 111;
+        $a   = 111;
+        	$b    = 333;
+				return $b;
+}
 
 // 出力: Is your name O\'Reilly?
 echo addslashes($str);
