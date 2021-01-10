@@ -114,6 +114,24 @@ class AlterApiToken1ToUserTable extends Migration
     }
 }
 ```
+_____________________________________________________________________________________
+## カラム名変更
+
+```php
+$table->renameColumn('from', 'to');
+```
+
+カラム名を変更する時、
+```
+Class 'Doctrine\DBAL\Driver\AbstractMySQLDriver' not found
+```
+といったメッセージが出たら、composer で以下を追加。  
+（laravel、はデフォルトではカラム名の変更や削除はできない）
+
+#### composer
+```
+composer require doctrine/dbal
+```
 
 
 
