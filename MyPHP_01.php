@@ -3974,8 +3974,27 @@ $headers_01 = get_headers($target_url);
 
 
 //====================================
-//      apache_request_headers
+//      ヘッダ取得  HTTP_HEADER
 //====================================
+
+
+//-------------------------
+//     getallheaders
+//-------------------------
+header( 'Foo:200' );
+header( 'Bar:300' );
+foreach (getallheaders() as $name => $value) {
+    echo "$name: $value\n";
+}
+
+// オリジナルのヘッダーは取れないみたい。
+// 使えんな・・。
+
+// ちなみに↓のエイリアス
+
+//-------------------------
+//  apache_request_headers
+//-------------------------
 // 現在のリクエストにおけるすべての HTTP ヘッダの連想配列、 あるいは失敗時は FALSE を返します。
 
 $headers = apache_request_headers();  // PHP Fatal error:  Uncaught Error: Call to undefined function apache_request_headers() 
@@ -3983,7 +4002,6 @@ $headers = apache_request_headers();  // PHP Fatal error:  Uncaught Error: Call
 foreach ($headers as $header => $value) {
     echo "$header: $value <br />\n";
 }
-
 
 
 //====================================
