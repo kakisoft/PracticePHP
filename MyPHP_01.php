@@ -2590,6 +2590,53 @@ if (class_exists($class)) {
 }
 
 
+//================================
+//    メソッド名でポリモーフィズム
+//================================
+
+//-------------
+//  実行クラス
+//-------------
+Class DataConvert
+{
+    static function execute__CONSTANT($arg1, $arg2){
+        echo "execute__CONSTANT executed! {$arg1}, {$arg2}" . PHP_EOL;
+    }
+
+    static function execute__OWN_MASTER($arg1, $arg2){
+        echo "execute__OWN_MASTER executed! {$arg1}, {$arg2}" . PHP_EOL;
+    }
+
+    static function execute__PREFECTURE_CODE_TO_NAME($arg1, $arg2){
+        echo "execute__PREFECTURE_CODE_TO_NAME executed! {$arg1}, {$arg2}" . PHP_EOL;
+    }
+}
+
+//-------------------------------------
+//  引数によって実行するメソッドを変更
+//-------------------------------------
+function executeConversion($conversionType, $arg1, $arg2){
+
+    $targetMethod = "execute__" . $conversionType;
+
+    if (!method_exists(DataConvert::class, $targetMethod)) {
+        echo "method not exist!";
+        return;
+    }
+
+    DataConvert::$targetMethod($arg1, $arg2);
+}
+
+//---------
+//   実行
+//---------
+executeConversion("CONSTANT", 1, 2);
+executeConversion("OWN_MASTER", 3, 4);
+executeConversion("PREFECTURE_CODE_TO_NAME", 5, 6);
+executeConversion("not exist method", 0, 0);
+
+
+
 //===========================
 //         トレイト
 //===========================
