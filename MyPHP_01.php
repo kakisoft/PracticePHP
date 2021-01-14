@@ -3612,6 +3612,23 @@ if (method_exists($this->_account, $name) || preg_match('/^find/', $name)) {
 }
 
 
+//====================================
+//           型チェック
+//====================================
+$value = array(1,2,3);          // array
+// $value = [1 => 2,  3=> 4];   // array
+// $value = 1;                  // integer
+// $value = 1.4;                // double
+// $value = "1";                // string
+
+if( gettype($value) === "array" ){
+    echo "array!";
+}
+else{
+    echo "not array! : " . gettype($value);
+}
+
+
 //===========================
 //     コールバック関数
 //===========================
