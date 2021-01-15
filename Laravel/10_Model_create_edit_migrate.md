@@ -160,4 +160,17 @@ sqlite3 database/database.sqlite
 .quit
 ```
 
+_________________________________________________________
+## 最初から
 
+### refresh
+すべてのマイグレーションをロールバックしてから再びマイグレーション
+```
+php artisan migrate:refresh
+```
+
+### fresh
+すべてのテーブルをドロップ（削除）してから再びマイグレーション
+```
+php artisan migrate:fresh
+```
