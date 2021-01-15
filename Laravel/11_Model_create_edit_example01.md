@@ -134,7 +134,18 @@ composer require doctrine/dbal
 ```
 
 _____________________________________________________________________________________
-## コメントを追加
+## テーブルにコメントを追加
+Laravel コマンドは無いみたいで、ALTER TABLE コマンドを使うしかないみたい。  
+ちょっと嫌。（↓は MySQL）
+```php
+    public function up()
+    {
+        DB::statement("ALTER TABLE `items` COMMENT '商品マスタ'");
+    }
+```
+
+_____________________________________________________________________________________
+## カラムにコメントを追加
 ```php
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
