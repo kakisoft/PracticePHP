@@ -133,5 +133,40 @@ Class 'Doctrine\DBAL\Driver\AbstractMySQLDriver' not found
 composer require doctrine/dbal
 ```
 
+_____________________________________________________________________________________
+## コメントを追加
+```php
+        Schema::create('companies', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->string('name',40);
+            $table->integer('sort')->unsigned()->comment('並び順');
+            $table->integer('code')->unsigned()->comment('コード');
+        });
+```
+
+#### 後付け
+```php
+        Schema::table('companies', function (Blueprint $table) {
+            $table->string('name')->comment('名称')->change();
+        });
+```
+元々持っていた定義が消える。  
+・・・こんな方法しか無いんか？  
+
+
+_____________________________________________________________________________________
+## 論理削除のオプションを付加
+```php
+        Schema::create('companies', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+```
+
+_____________________________________________________________________________________
 
 
