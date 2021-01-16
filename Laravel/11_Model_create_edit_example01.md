@@ -134,6 +134,23 @@ composer require doctrine/dbal
 ```
 
 _____________________________________________________________________________________
+## null 許容
+null 許容
+```php
+Schema::table('users', function (Blueprint $table) {
+    $table->string('name', 50)->nullable()->change();
+});
+```
+
+null を許容しない  
+※php artisan migrate:rollback で戻す場合、null を許容しないレコードが null だったら、rollback がコケる
+```php
+Schema::table('users', function (Blueprint $table) {
+    $table->string('name', 50)->nullable(false)->change();
+});
+```
+
+_____________________________________________________________________________________
 ## テーブルにコメントを追加
 Laravel コマンドは無いみたいで、ALTER TABLE コマンドを使うしかないみたい。  
 ちょっと嫌。（↓は MySQL）
