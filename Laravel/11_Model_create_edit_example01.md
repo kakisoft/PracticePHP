@@ -234,11 +234,16 @@ $table->unique('email');
 
 複数キー
 ```php
-$table->unique(['owner_id', 'item_code']);
+$table->unique(['owner_id', 'product_code']);
 
 
 // デフォルト設定の場合、キーの名前が長くなって許可上限を超えてしまったため、エイリアス（第二引数）を付けています
 $table->unique(['owner_id', 'inventory_type', 'expiration_date', 'lot_no', 'location'], 'inventories_unique_key');
+
+
+// 論理削除場合、ユニークキーに deleted_at を含める。
+$table->unique(['owner_id', 'product_code', 'deleted_at'], 'items_unique_key');
+
 ```
 _____________________________________________________________________________________
 
