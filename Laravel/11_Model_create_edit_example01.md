@@ -246,5 +246,21 @@ $table->unique(['owner_id', 'product_code', 'deleted_at'], 'items_unique_key');
 
 ```
 _____________________________________________________________________________________
+## よく使う型
+
+```php
+$table->id();
+$table->timestamps();
+$table->softDeletes();
+$table->unsignedBigInteger('product_id')->comment('プロダクトID');
+$table->integer('inventory_type')->comment('在庫区分');
+$table->date('flavor_expiration_date')->nullable()->comment('賞味期限');
+$table->date('expiration_date')->nullable()->comment('消費期限');
+$table->dateTime('reported_datetime')->nullable()->comment('報告日時');
+$table->string('name', 255)->nullable()->comment('名称');
+$table->text('key')->nullable()->comment('キー');
+$table->text('value')->nullable()->comment('値');
+
+```
 
 
