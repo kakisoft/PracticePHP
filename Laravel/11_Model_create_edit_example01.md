@@ -246,6 +246,23 @@ $table->unique(['owner_id', 'product_code', 'deleted_at'], 'items_unique_key');
 
 ```
 _____________________________________________________________________________________
+## 参照
+https://laravel.com/docs/8.x/migrations
+
+### id()
+The id method is an alias of the bigIncrements method. By default, the method will create an id column; however, you may pass a column name if you would like to assign a different name to the column:
+```php
+$table->id();
+```
+
+### increments()
+The increments method creates an auto-incrementing UNSIGNED INTEGER equivalent column as a primary key:
+```php
+$table->increments('id');
+```
+
+
+_____________________________________________________________________________________
 ## よく使う型
 
 ```php
