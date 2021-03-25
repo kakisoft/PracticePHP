@@ -62,6 +62,17 @@ https://readouble.com/laravel/5.5/ja/migrations.html
 |  $table->year('birth_year');               |  YEARカラム                                              |
 
 
+## MySQL 5.7
+
+|        Laravel 8.16          |      COLUMN_TYPE      |       EXTRA      |
+|------------------------------|-----------------------|------------------|
+|  $table->id()                |  bigint(20) unsigned  |  auto_increment  |
+|  $table->unsignedBigInteger  |  bigint(20) unsigned  |                  |
+|  $table->bigInteger          |  bigint(20)           |                  |
+|  $table->bigIncrements       |  bigint(20) unsigned  |  auto_increment  |
+|  $table->increments          |  int(10) unsigned     |  auto_increment  |
+
+
 
 ## カラム修飾子
 ```php
