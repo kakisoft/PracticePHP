@@ -58,7 +58,7 @@ php artisan migrate                                  # DBにそ
 ```
 
 ## 作成例
-<a href="11_Model_create_example01.md">11_Model_create_example01.md</a>
+[11_Model_create_edit_example01.md](./11_Model_create_edit_example01.md)  
 
 
 ## Model名について
