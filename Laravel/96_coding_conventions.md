@@ -1,10 +1,10 @@
 # PHP
 
 ## コーディング規約
-PSR-2 に準拠します
-http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html
+PSR-2 に準拠します  
+http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html  
 
-VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。
+VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。  
 
 
 ## その他コーディング規約
@@ -19,27 +19,27 @@ VSCode のプラグインにて、自動整形するようにしています。�
  - クラスメソッド及び関数名はローワーキャメルケースとする。(例:lowerCamelCase)
  - 特別な理由が無い限り、スネークケースではなく、ローワーキャメルケースを使用する。(例:$lowerCamelCaseValue)
 
-（参考情報）
+（参考情報）  
 うまくメソッド名を付けるための参考情報  
-https://qiita.com/KeithYokoma/items/2193cf79ba76563e3db6
+https://qiita.com/KeithYokoma/items/2193cf79ba76563e3db6  
 
 うまくクラス名を付けるための参考情報  
-https://qiita.com/KeithYokoma/items/ee21fec6a3ebb5d1e9a8
+https://qiita.com/KeithYokoma/items/ee21fec6a3ebb5d1e9a8  
 
 変数名・メソッド名を考えるときに便利なサービス  
-https://codic.jp/
+https://codic.jp/  
 
 ______________________________________________________________________________________________________
 # Laravel
 
 ## レスポンスクラス
-レスポンスクラスには、「 Illuminate\Http\Response 」を使用し、
-「 Symfony\Component\HttpFoundation\Response 」は使用しない。
+レスポンスクラスには、「 Illuminate\Http\Response 」を使用し、  
+「 Symfony\Component\HttpFoundation\Response 」は使用しない。  
 
 
 ## HTTPステータスコードの返却
-HTTP ステータスコードを返却する場合、「 200 」等のハードコーディングをせず、
-「 Illuminate\Http\Response 」の定数を使用する。
+HTTP ステータスコードを返却する場合、「 200 」等のハードコーディングをせず、  
+「 Illuminate\Http\Response 」の定数を使用する。  
 
 ```php
 // （例）
@@ -117,12 +117,13 @@ tests 階層に、Feature と Unit を作成。
 ```
 
 ## 備考
-その他、迷った箇所があれば、基本スタンスは可能な限り「 laravel-best-practices 」に沿うものとする。
+その他、迷った箇所があれば、基本スタンスは可能な限り「 laravel-best-practices 」に沿うものとする。  
+
 * [[Laravelベストプラクティス:https://github.com/alexeymezenin/laravel-best-practices/blob/master/japanese.md]]
 
 
 ## URL設計
-[82_URL_design.md](82_URL_design.md)
+[82_URL_design.md](82_URL_design.md)  
 
 
 ## ミドルウェア
