@@ -23,17 +23,31 @@ php artisan route:list --path=posts
 
 ## キャッシュをクリア
 ```
-php artisan cache:clear         # 設定ファイルのキャッシュをクリア
-php artisan config:clear        # アプリケーションのキャッシュをクリア
-php artisan route:clear         # ルートのキャッシュをクリア
-php artisan view:clear          # ビューのキャッシュをクリア
+# 設定ファイルのキャッシュをクリア
+php artisan cache:clear
+
+# アプリケーションのキャッシュをクリア
+php artisan config:clear
+
+# ルートのキャッシュをクリア
+php artisan route:clear
+
+# ビューのキャッシュをクリア
+php artisan view:clear
 ```
+
 もう少し
 ```
 composer dump-autoload
-php artisan clear-compiled      # コンパイルされたクラスをクリア
-php artisan optimize            # 最適化されたクラスローダを生成
-php artisan config:cache        # 設定をキャッシュしておかないと、アクセスするたびに毎回全ファイルを読み込む。
+
+# コンパイルされたクラスをクリア
+php artisan clear-compiled
+
+# 最適化されたクラスローダを生成
+php artisan optimize
+
+# 設定をキャッシュしておかないと、アクセスするたびに毎回全ファイルを読み込む。
+php artisan config:cache
 ```
 
 
