@@ -457,6 +457,9 @@ class Post extends Model
 
     // guarded は ブラックリスト。
     protected $guarded = ['id', 'email','password'];
+
+    //// マスキングするならこんな感じ？
+    protected $maskedColumns = ['masked_column'];
 }
 ```
 

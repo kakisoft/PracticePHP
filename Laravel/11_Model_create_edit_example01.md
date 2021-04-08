@@ -277,7 +277,7 @@ $table->dateTime('reported_datetime')->nullable()->comment('報告日時');
 $table->string('name', 255)->nullable()->comment('名称');
 $table->text('key')->nullable()->comment('キー');
 $table->text('value')->nullable()->comment('値');
-
+$table->integer('quantity_per_case')->nullable()->default(1)->comment('ケース入数');
 ```
 
 
