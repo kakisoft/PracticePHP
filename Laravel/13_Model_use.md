@@ -197,7 +197,8 @@ $item3 = Item::query()->where('id', '=', $id)->firstOrNew([
 // save でレコード作成
 $item3->save();
 ```
-
+bulkFirstOrCreate  
+https://github.com/laravel/ideas/issues/1695  
 
 ## READ
 ```php
