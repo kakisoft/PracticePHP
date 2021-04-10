@@ -162,7 +162,7 @@ $post->body = 'body 1';
 $post->save();
 
 
-// create では id を指定できない？ ⇒ 条件次第ではできるっぽい。テストの時だけ？
+// create では id を指定できない？無視されてるみたい ⇒ seeder の中では有効
 App\Post::create(['title'=>'title 2', 'body'=>'body 2']);
 $post = new App\Models\Post::where('id', '>', 1);
 
@@ -176,8 +176,17 @@ Item::create([
 
 
 ## firstOrCreate / firstOrNew
-// firstOrCreate でも id は指定できないみたい。無視されてる。
+// firstOrCreate でも id は指定できない？無視されてるみたい ⇒ seeder の中では有効
 ```php
+Artist::firstOrCreate(['name' => 'Avril Lavigne']);
+Artist::firstOrCreate(['name' => 'Justin Bieber']);
+Artist::firstOrCreate(['name' => 'Taylor Swift']);
+
+Artist::firstOrCreate(['id' => 11, 'name' => 'Avril Lavigne']);
+Artist::firstOrCreate(['id' => 12, 'name' => 'Justin Bieber']);
+Artist::firstOrCreate(['id' => 13, 'name' => 'Taylor Swift']);
+
+
 //==========< firstOrCreate ：該当のレコードが無ければ作成 >==========
 // インスタンスが戻り値として返ってくる
 $item1 = Item::firstOrCreate([
