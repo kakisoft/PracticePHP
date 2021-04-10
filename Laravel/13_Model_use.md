@@ -1,4 +1,5 @@
 # CRUD
+https://laravel.com/docs/8.x/eloquent  
 
 __________________________________________________________________________________________________________________
 ## Model 定義に使えるデータ型
@@ -161,15 +162,24 @@ $post->body = 'body 1';
 $post->save();
 
 
-
+// create では id を指定できない？ ⇒ 条件次第ではできるっぽい。テストの時だけ？
 App\Post::create(['title'=>'title 2', 'body'=>'body 2']);
 $post = new App\Models\Post::where('id', '>', 1);
+
+
+Item::create([
+    'id' => 1,
+    'name' => 'London to Paris',
+    'sub_name' => 'LP'
+]);
 ```
 
 
 ## firstOrCreate / firstOrNew
+// firstOrCreate でも id は指定できないみたい。無視されてる。
 ```php
 //==========< firstOrCreate ：該当のレコードが無ければ作成 >==========
+// インスタンスが戻り値として返ってくる
 $item1 = Item::firstOrCreate([
     'name' => 'London to Paris',
     'sub_name' => 'LP'
@@ -199,6 +209,50 @@ $item3->save();
 ```
 bulkFirstOrCreate  
 https://github.com/laravel/ideas/issues/1695  
+
+
+## insert （Model を指定）
+id を指定して insert できる
+```php
+// Model を直接操作
+Item::insert([
+    'id' => 1,  // id を指定しなくても OK
+    'name' => 'London to Paris4',
+    'sub_name' => 'LP4'
+]);
+
+
+// インスタンスから
+$requiredData = [
+    'id'         => 1002,
+    'name' => 'London to Paris1002',
+    'created_at' => new \Carbon\Carbon()  // created_at が null になるので、明示する必要がある。（↑も同様）
+];
+
+$item = new Item();
+$item->insert($requiredData);
+```
+
+## fill
+key, value 形式で値を指定して値をセット。  
+id の指定はできないみたい。  
+```php
+$user = new Item();
+$user->fill([
+    'name'     => 'London to Paris4',
+    'sub_name' => 'LP4'
+    ]);
+$user->save();
+```
+
+## insert（DB を指定）
+```php
+DB::table('users')->insert([
+    'name' => Str::random(10),
+    'email' => Str::random(10).'@gmail.com',
+    'password' => Hash::make('password'),
+]);
+```
 
 ## READ
 ```php
@@ -372,6 +426,16 @@ class CreateCommentsTable extends Migration
         });
     }
 }
+```
+
+## forceDelete ：論理削除のカラムに対し、物理削除を実行
+```php
+Artist::whereIn('id', [4])->delete();
+Artist::whereIn('id', [4])->forceDelete();
+
+// 論理削除されたレコードを検索条件に含める場合は withTrashed を使うが、別に使わなくて↑のように書いても行けたぞ。
+Artist::withTrashed()->whereIn('id', [5])->delete();
+Artist::withTrashed()->whereIn('id', [5])->forceDelete();
 ```
 
 
