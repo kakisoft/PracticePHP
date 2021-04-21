@@ -437,6 +437,30 @@ class CreateCommentsTable extends Migration
 }
 ```
 
+## 論理削除
+```php
+    public function up()
+    {
+        Schema::create('artists', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->timestamps();
+            $table->softDeletes();  // deleted_at が追加される
+        });
+    }
+```
+```php
+class Artist extends Model
+{
+    use SoftDeletes;  // このキーワードを入れると、削除処理は物理削除でなく、論理削除（deleted_atに日付が入る）となる。
+    use HasFactory;
+
+     protected $fillable = ['name', 'sub_name', 'cover', 'category_id'];
+ }
+```
+ちなみに、migration ファイルに「$table->softDeletes()」を書かないと、Model クラスで「use SoftDeletes」を書いていても、物理削除として扱われるみたい。（試した）  
+
+
 ## forceDelete ：論理削除のカラムに対し、物理削除を実行
 ```php
 Artist::whereIn('id', [4])->delete();
