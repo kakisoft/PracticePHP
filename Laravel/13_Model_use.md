@@ -450,6 +450,8 @@ class CreateCommentsTable extends Migration
     }
 ```
 ```php
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Artist extends Model
 {
     use SoftDeletes;  // このキーワードを入れると、削除処理は物理削除でなく、論理削除（deleted_atに日付が入る）となる。
