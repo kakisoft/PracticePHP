@@ -287,6 +287,9 @@ $posts = App\Models\Post::where('id', '>', 1)->get();
 $posts = App\Models\Post::where('id', '>', 1)->get()->toArray();
 $posts = App\Models\Post::where('id', '>', 1)->first();
 
+//---[ first() ]---
+$posts->name;
+$posts->address;
 
 //==========< 並び替え（order by） >==========
 $posts = App\Models\Post::where('id', '>', 1)->orderBy('created_at', 'desc')->get()->toArray();
