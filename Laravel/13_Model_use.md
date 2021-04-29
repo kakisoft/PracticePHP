@@ -17,6 +17,30 @@ ________________________________________________________________________________
 |  where()  |  Builderクラス        |  App\Model::where('id',1)           |
 
 __________________________________________________________________________________________________________________
+## オブジェクトをセット
+https://readouble.com/laravel/7.x/ja/container.html
+```php
+$this->model = app(Item::class);
+$this->model = app()->make(Item::class);  // こっちの方が良さそう
+```
+
+```php
+$query = $this->model->query();
+$query->select(
+    'id',
+    'code',
+    'name'
+);
+$query->where('owner_id', '=', $ownerId);
+$query->where('name', 'like', '%' . $params['name'] . '%');
+$query->orderBy('code', 'asc');
+$query->paginate($limit);
+
+$records = $query->get();             // Collection
+$records = $query->get()->toArray();  // Array
+```
+
+__________________________________________________________________________________________________________________
 ## 発行したSQLをトレース
 
 #### toSql() を使う
