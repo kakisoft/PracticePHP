@@ -586,6 +586,7 @@ Laravel ではデフォルトで有効。
 Add [name] to fillable property to allow mass assignment on [App\Models\Models\Item].
 ```
 
+________________________________________________________________________________________________________
 ### 設定（ app/Models/ のファイルを編集）
 ```php
 class Post extends Model
@@ -601,5 +602,25 @@ class Post extends Model
 }
 ```
 
+________________________________________________________________________________________________________
+## 属性キャスト
+https://readouble.com/laravel/5.5/ja/eloquent-mutators.html
+
+```php
+class User extends Model
+{
+    // 
+    protected $casts = [
+        'is_admin' => 'boolean',
+    ];
+}
+
+// ↓こんな感じで、取得した値を自動でキャストしてくれる
+//
+//   array(3) {
+//     ["id"]=> int(1)
+//     ["is_admin"]=> bool(false)
+//   }
+```
 ________________________________________________________________________________________________________
 
