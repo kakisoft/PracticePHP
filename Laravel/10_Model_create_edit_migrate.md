@@ -139,6 +139,7 @@ Changing columns for table "users" requires Doctrine DBAL; install "doctrine/dba
 ```
 
 #### コマンド
+カラム名変更時のエラー。（laravel、はデフォルトではカラム名の変更や削除はできない）
 ```
 composer require doctrine/dbal
 ```
