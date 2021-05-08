@@ -1,3 +1,13 @@
+10
+LINK_EXECUTE_STATUS
+連携処理中
+取得データを作成中
+ -> PROGRESSING_GETTING_RECORD_STATUS
+
+【DOWNLOADING_STATUS】
+
+
+-------------------------------------------
 1
 FAILED_STATUS
 取込不能 -> 取込不可
