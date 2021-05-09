@@ -1,3 +1,13 @@
+【 shipper_job_processing_histories 】
+親荷主ジョブID               parent_shipper_job_id
+子荷主ジョブID               child_shipper_job_id
+子荷主ジョブシーケンスNo.    child_shipper_job_sequence_no
+処理状況                     message
+
+
+========================================================================
+
+
 10
 LINK_EXECUTE_STATUS
 連携処理中
