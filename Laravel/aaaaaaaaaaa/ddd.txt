@@ -1,0 +1,25 @@
+====================================================================
+AppHarborを使って、.NETアプリを無料デプロイ！
+lets-try-dotnet-application-with-appharbor-for-free
+
+
+
+スマートスピーカーで英語の勉強をしている話
+leaning-english-with-smart-speaker
+
+
+Windowsユーザに厳しいWebの世界 ～ほとんどのエンジニアには解けるが、下位10％のダメなエンジニアにだけ解けないパズル？～
+tough-world-for-windows-user
+
+
+俺式情報整理術
+my-method-of-organizing-information
+
+
+お手軽に使う PHP
+lets-use-PHP-easily
+
+
+マークダウンでスライドを作ろう！（REVEAL.JS 編）
+lets-make-slides-with-revealjs
+====================================================================
