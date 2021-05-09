@@ -1,9 +1,14 @@
+shipper_job_processes
+
+shipper_job_status_histories -> 採用
+
 【 shipper_job_processing_histories 】
 親荷主ジョブID               parent_shipper_job_id
 子荷主ジョブID               child_shipper_job_id
 子荷主ジョブシーケンスNo.    child_shipper_job_sequence_no
 処理状況                     message
 
+    progress_message
 
 ========================================================================
 
