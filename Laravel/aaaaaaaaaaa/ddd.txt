@@ -1,3 +1,5 @@
+dsn: pg://postgres:pgpass@localhost:55432/testdb?sslmode=disable
+
 ====================================================================
 AppHarborを使って、.NETアプリを無料デプロイ！
 lets-try-dotnet-application-with-appharbor-for-free
