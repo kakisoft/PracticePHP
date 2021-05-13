@@ -21,3 +21,30 @@ dsn: pg://postgres:pgpass@localhost:55432/testdb?sslmode=disable
 |  15     |  EXPORTED_REQUIRED_DATA_COMPLETED_STATUS     |  ダウンロード成功         |
 
 
+
+
+Quick Start
+Document a database with one command.
+
+$ tbls doc postgres://dbuser:dbpass@hostname:5432/dbname
+
+
+$ tbls doc postgres://dbuser:dbpass@hostname:5432/dbname?sslmode=disable
+
+
+
+
+Using docker image.
+
+$ docker run --rm -v $PWD:/work k1low/tbls doc postgres://dbuser:dbpass@hostname:5432/dbname
+
+
+
+
+
+when using SSL mode, add ```?sslmode=disable```
+
+especiall postgres
+
+
+
