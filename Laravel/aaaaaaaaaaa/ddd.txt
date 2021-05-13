@@ -1,22 +1,23 @@
 dsn: pg://postgres:pgpass@localhost:55432/testdb?sslmode=disable
 
 ====================================================================
-スマートスピーカーで英語の勉強をしている話
-leaning-english-with-smart-speaker
+
+|  value  |  key                                         |  名称               |
+|:--------|:---------------------------------------------|:------------------|
+|  1      |  IMPORT_FAILED_STATUS                        |  取込不能             |
+|  2      |  ACCEPTING_STATUS                            |  受付中              |
+|  3      |  WAITING_FOR_JOB_EXECUTE_STATUS              |  待機中              |
+|  4      |  PROGRESSING_MAPPING_STATUS                  |  マッピング処理中         |
+|  5      |  MAPPING_COMPLETED_STATUS                    |  マッピング完了          |
+|  6      |  PROGRESSING_IMPORTING_STATUS                |  取込処理中            |
+|  7      |  IMPORTED_WITH_ERROR_STATUS                  |  エラーあり取込完了        |
+|  8      |  IMPORTING_COMPLETED_STATUS                  |  取込完了             |
+|  9      |  PROGRESSING_ALLOCATION_STATUS               |  引当処理中            |
+|  10     |  PROGRESSING_CREATING_REQUIERED_DATA_STATUS  |  取得データ作成中         |
+|  11     |  CREATED_REQUIERED_DATA_WITH_ERROR_STATUS    |  取得データ作成失敗        |
+|  12     |  WAITING_FOR_EXPORT_REQUIRED_DATA_STATUS     |  取得データのダウンロード待ち   |
+|  13     |  EXPORTING_REQUIRED_DATA_STATUS              |  対向システムへのアップロード中  |
+|  14     |  EXPORTED_REQUIRED_DATA_WITH_ERROR_STATUS    |  ダウンロード失敗         |
+|  15     |  EXPORTED_REQUIRED_DATA_COMPLETED_STATUS     |  ダウンロード成功         |
 
 
-Windowsユーザに厳しいWebの世界 ～ほとんどのエンジニアには解けるが、下位10％のダメなエンジニアにだけ解けないパズル？～
-tough-world-for-windows-user
-
-
-俺式情報整理術
-my-method-of-organizing-information
-
-
-お手軽に使う PHP
-lets-use-PHP-easily
-
-
-マークダウンでスライドを作ろう！（REVEAL.JS 編）
-lets-make-slides-with-revealjs
-====================================================================
