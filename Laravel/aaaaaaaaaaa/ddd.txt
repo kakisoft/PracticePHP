@@ -1,5 +1,7 @@
 dsn: pg://postgres:pgpass@localhost:55432/testdb?sslmode=disable
 
+https://gist.github.com/kakisoft/ca7dad555c4078242bed96427cb27896
+
 ====================================================================
 
 |  value  |  key                                         |  名称               |
