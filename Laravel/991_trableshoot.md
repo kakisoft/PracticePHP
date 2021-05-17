@@ -2,6 +2,17 @@
 <a href="09_artisan.md">09_artisan.md</a>
 
 _________________________________________________________________________________________________________
+## log : Permission denied
+```
+UnexpectedValueException
+The stream or file "/var/www/html/my-laravel-app/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied
+```
+権限を変更
+```
+chmod -R 777 storage/
+```
+
+_________________________________________________________________________________________________________
 ## Class XXX not found
 https://qiita.com/niiyz/items/5b83ef5255a1ec64d9d6  
 LaravelはAutoLoaderがあり、composerがクラス管理をしてる。  
