@@ -62,6 +62,32 @@ database/database.sqlite
 ```
 という空のファイルを作成しておく。  
 
+_____________________________________________________________________________
+_____________________________________________________________________________
+_____________________________________________________________________________
+## SQLite を使ってる場合、Migration がコケる
+```
+PS C:\kaki\__myrepo__\lara-web-socket\my-laravel-app> php artisan migrate
+
+   Illuminate\Database\QueryException 
+
+  could not find driver (SQL: PRAGMA foreign_keys = ON;)
+```
+
+#### C:\tools\php74\php.ini
+```
+;extension=pdo_sqlite
+　　↓
+extension=pdo_sqlite
+```
+
+こいつは別に無くても動いた。
+```
+;extension=sqlite3
+　　↓
+extension=sqlite3
+```
+
 
 _____________________________________________________________________________
 _____________________________________________________________________________
