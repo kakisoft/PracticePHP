@@ -27,6 +27,38 @@ composer dump-autoload
 ```vendor/composer/autoload_classmap.php``` にて、オートロードするファイルを確認できる。
 
 _________________________________________________________________________________________________________
+## composer requireエラー
+```
+> composer require beyondcode/laravel-websockets
+
+Fatal error: require(): Failed opening required
+```
+
+⇒ composer install
+
+_________________________________________________________________________________________________________
+## composer install エラー
+Windoes 環境のみで発生？
+```
+Your requirements could not be resolved to an installable set of packages.
+
+  Problem 1
+    - laravel/framework[v8.40.0, ..., 8.x-dev] require league/flysystem ^1.1 -> satisfiable by league/flysystem[1.1.0, ..., 1.x-dev].
+    - league/flysystem[1.1.0, ..., 1.x-dev] require ext-fileinfo * -> it is missing from your system. Install or enable PHP's fileinfo extension.
+    - Root composer.json requires laravel/framework ^8.40 -> satisfiable by laravel/framework[v8.40.0, ..., 8.x-dev].
+
+To enable extensions, verify that they are enabled in your .ini files:
+    - C:\tools\php74\php.ini
+```
+
+#### C:\tools\php74\php.ini
+```
+;extension=fileinfo
+　　↓
+extension=fileinfo
+```
+
+_________________________________________________________________________________________________________
 # Model 関係
 
 ## laravelでpowershellからmigrateしようとしたらcould not find driverが出る
