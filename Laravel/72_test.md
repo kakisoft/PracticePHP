@@ -14,6 +14,14 @@ tests\ExampleTest.php
     },
 ```
 
+## 作成
+```
+php artisan make:test 
+php artisan make:test AlbumServiceTest
+php artisan make:test AlbumServiceTest --unit
+```
+
+
 ## 実行
 ```
 ./vendor/bin/phpunit
@@ -50,15 +58,10 @@ class ExampleTest extends TestCase
 }
 ```
 
+## テストコード例
+https://github.com/kakisoft/PracticeLaravel02/blob/master/my-laravel-app/tests/Unit/Question01RegistrationInformationTest.php  
 
-## テストコード
-```php
-$response = $this->get('/api/call/me');
-$return_contents = $response->content();
-$encoded_return_contents = json_decode($return_contents, true);
 
-$this->assertEquals($encoded_return_contents['message'], My_CLASS_01::MESSAGE___CALL_ME_GET);
-```
 
 #### 画面系
 ```php
