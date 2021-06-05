@@ -21,6 +21,35 @@ tests\ExampleTest.php
 ./vendor/bin/phpunit tests/Unit/ExampleTest.php
 ```
 
+## 実行（artisanコマンド）
+```
+php artisan test
+php artisan test tests/ExampleTest.php
+```
+
+
+##　テストコード例： my-laravel-app\tests\ExampleTest.php
+``` php
+<?php
+
+namespace Tests\Unit;
+
+use PHPUnit\Framework\TestCase;
+
+class ExampleTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testBasicTest()
+    {
+        $this->assertTrue(true);
+    }
+}
+```
+
 
 ## テストコード
 ```php
