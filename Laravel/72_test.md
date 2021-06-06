@@ -35,6 +35,8 @@ php artisan make:test Services/AlbumServiceTest --unit
 WebAPI
 ```
 php artisan make:test Api/PingTest
+
+//=> my-laravel-app\tests\Feature\Api\PingTest.php
 ```
 
 
