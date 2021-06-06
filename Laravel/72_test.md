@@ -14,25 +14,48 @@ tests\ExampleTest.php
     },
 ```
 
+## 設定
+phpunit.xml にて設定。  
+詳細は[73_test_conf.md](./73_test_conf.md)。
+
+
 ## 作成
+Service
 ```
-php artisan make:test 
 php artisan make:test AlbumServiceTest
 php artisan make:test AlbumServiceTest --unit
+php artisan make:test Services/AlbumServiceTest --unit
+
+
+//=> my-laravel-app\tests\Feature\AlbumServiceTest.php
+//=> my-laravel-app\tests\Unit\AlbumServiceTest.php
+//=> my-laravel-app\tests\Unit\Services\AlbumServiceTest.php
+```
+
+WebAPI
+```
+php artisan make:test Api/PingTest
 ```
 
 
-## 実行
+## 実行（phpunitコマンド）
 ```
 ./vendor/bin/phpunit
-./vendor/bin/phpunit tests/
 ./vendor/bin/phpunit tests/Unit/ExampleTest.php
+
+// テストスイートを指定
+./vendor/bin/phpunit --configuration phpunit.xml --testsuite 実行したいテストスイート名
+./vendor/bin/phpunit --configuration phpunit.xml --testsuite Feature
 ```
 
 ## 実行（artisanコマンド）
 ```
 php artisan test
 php artisan test tests/ExampleTest.php
+
+// テストスイートを指定
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Sample01
 ```
 
 
@@ -75,6 +98,7 @@ public function testBoard()
     ->see('新規記事投稿');//     新規投稿ページには「新規記事投稿」という文字列がある
 }
 ```
+
 ______________________________________________________________________________________________________
 # 参考
 https://qiita.com/niisan-tokyo/items/264d4e8584ed58536bf4  
