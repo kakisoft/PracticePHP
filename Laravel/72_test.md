@@ -25,6 +25,7 @@ Service
 php artisan make:test AlbumServiceTest
 php artisan make:test AlbumServiceTest --unit
 php artisan make:test Services/AlbumServiceTest --unit
+// 「 --unit」オプションを付けると、「Unit」階層以下に作成される。
 
 
 //=> my-laravel-app\tests\Feature\AlbumServiceTest.php
@@ -58,6 +59,14 @@ php artisan test tests/ExampleTest.php
 // テストスイートを指定
 php artisan test --testsuite=Unit
 php artisan test --testsuite=Sample01
+```
+
+
+## テスト設定例： phpunit.xml
+```xml
+        <testsuite name="Sample01">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
 ```
 
 
@@ -106,6 +115,42 @@ ________________________________________________________________________________
 https://qiita.com/niisan-tokyo/items/264d4e8584ed58536bf4  
 
 https://public-constructor.com/laravel-test-cheatsheet/  
+
+
+______________________________________________________________________________________________________
+______________________________________________________________________________________________________
+______________________________________________________________________________________________________
+## テスト実行例
+
+#### docker-compose
+```
+docker-compose exec MY_CONTAINER php artisan test
+docker-compose exec MY_CONTAINER php artisan test --testsuite=Unit
+docker-compose exec MY_CONTAINER php artisan test --testsuite=Sample01
+docker-compose exec MY_CONTAINER php artisan test tests/Unit/Example01Test.php
+```
+
+#### docker
+```
+docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test"
+docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test --testsuite=Unit"
+docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test --testsuite=Sample01"
+docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test tests/Unit/Example01Test.php"
+```
+
+#### phpunit （コンテナの中から）
+```
+./vendor/bin/phpunit
+./vendor/bin/phpunit --configuration phpunit.xml --testsuite Unit
+./vendor/bin/phpunit --configuration phpunit.xml --testsuite Sample01
+./vendor/bin/phpunit tests/Unit/Example01Test.php
+```
+
+
+______________________________________________________________________________________________________
+______________________________________________________________________________________________________
+______________________________________________________________________________________________________
+
 
 
 
