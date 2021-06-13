@@ -132,10 +132,10 @@ docker-compose exec MY_CONTAINER php artisan test tests/Unit/Example01Test.php
 
 #### docker
 ```
-docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test"
-docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test --testsuite=Unit"
-docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test --testsuite=Sample01"
-docker exec -it asims_MY_CONTAINER_1 sh -c "php artisan test tests/Unit/Example01Test.php"
+docker exec -it MY_CONTAINER_1 sh -c "php artisan test"
+docker exec -it MY_CONTAINER_1 sh -c "php artisan test --testsuite=Unit"
+docker exec -it MY_CONTAINER_1 sh -c "php artisan test --testsuite=Sample01"
+docker exec -it MY_CONTAINER_1 sh -c "php artisan test tests/Unit/Example01Test.php"
 ```
 
 #### phpunit （コンテナの中から）
