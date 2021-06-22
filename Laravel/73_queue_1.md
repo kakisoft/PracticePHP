@@ -1,6 +1,14 @@
 ## official document
 https://laravel.com/docs/8.x/queues
 
+
+## コンフィグファイル
+#### config\queue.php
+
+#### .env
+```
+QUEUE_CONNECTION=sync
+```
 _______________________________________________________
 ## 用語
 
