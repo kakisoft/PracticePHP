@@ -6,6 +6,8 @@ http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html
 
 VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。  
 
+## PHPのコーディング規約まとめ。PSR-2, CakePHP, Symfony, WordPress, FuelPHPなどの5つの規約の概要と特徴的なルール
+https://siderlabs.com/blog/ja/php-codingstyles/
 
 ## その他コーディング規約
 
