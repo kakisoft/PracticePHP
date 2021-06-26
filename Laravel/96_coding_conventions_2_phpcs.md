@@ -104,6 +104,8 @@ Usage: phpcs [-nwlsaepqvi] [-d key[=value]] [--colors] [--no-colors]
                 (the "full" report is printed by default)
 ```
 
+エラーの詳細を調べる場合、--report=full がおススメ。  
+
 
 ## standard （適用する規約）
 ```
@@ -135,6 +137,10 @@ https://github.com/squizlabs/PHP_CodeSniffer/blob/master/src/Config.php#L348
                 'phpcs.xml.dist',
             ];
 ```
+
+適用の優先順位
+
+.phpcs.xml > phpcs.xml > .phpcs.xml.dist > phpcs.xml.dist  
 
 ____________________________________________________________________
 ____________________________________________________________________
