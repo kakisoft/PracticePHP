@@ -1,3 +1,12 @@
+# PHPのコーディング規約まとめ。PSR-2, CakePHP, Symfony, WordPress, FuelPHPなどの5つの規約の概要と特徴的なルール
+https://siderlabs.com/blog/ja/php-codingstyles/
+
+PHP のコーディング規約は、PSR がメジャーですが、「PSR2」と言った場合、PSR0～1 も内包するので、ルールの詳細を把握するのが結構面倒だったりする。  
+（普段は整形ツールにお任せしている派）  
+
+以下のサイトが、体系的にまとめられていて分かりやすかった。  
+[PHPのコーディング規約まとめ。PSR-2, CakePHP, Symfony, WordPress, FuelPHPなどの5つの規約の概要と特徴的なルール](https://siderlabs.com/blog/ja/php-codingstyles/)
+
 PHP_CodeSniffer を使って、コーディング規約に準拠しているかをチェックする
 __________________________________________________________________________________________
 
