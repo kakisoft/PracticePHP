@@ -113,7 +113,7 @@ phpcs --standard=/path/to/MyStandard/ruleset.xml
 また、--standard オプションを省略した時の挙動は以下。  
 The default coding standard used by PHP_CodeSniffer is the PEAR coding standard. To check a file against the PEAR coding standard, simply specify the file's location:
 
-ただし、以下のファイルが存在していた場合、デフォルトとして読み込む模様。  
+ただし、以下のファイルが存在していた場合、デフォルトとして読み込む模様。（PEAR より優先度高）  
 
  * .phpcs.xml
  * phpcs.xml
