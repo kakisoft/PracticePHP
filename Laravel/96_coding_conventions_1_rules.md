@@ -135,10 +135,13 @@ tests 階層に、Feature と Unit を作成。
 _________________________________________________________________________________________________________________________
 _________________________________________________________________________________________________________________________
 _________________________________________________________________________________________________________________________
-# Ref
-https://zenn.dev/kakisoft/articles/f51a6743bb03a8
+# 自分で書いたメモ
+https://kaki-note-02.netlify.app/2020/11/22/  
+https://kaki-note-02.netlify.app/2020/11/25/  
 
-https://dev.to/kakisoft/the-awesome-api-design-rules-for-logistic-engineer-4j99
+https://zenn.dev/kakisoft/articles/f51a6743bb03a8  
+
+https://dev.to/kakisoft/the-awesome-api-design-rules-for-logistic-engineer-4j99  
 
 
 
