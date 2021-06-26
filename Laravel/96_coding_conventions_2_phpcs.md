@@ -12,6 +12,11 @@ phpcs phpcbf
 * phpcbf : PHP Code Beautifier and Fixer （整形）
 
 
+#### 実行
+```
+./vendor/bin/phpcs --report=source --standard=PSR2 app/Repositories/PlaylistRepository.php
+```
+
 ____________________________________________________________________
 ## install
 公式の説明資料は、これ。
@@ -138,4 +143,26 @@ ____________________________________________________________________
 
 ## 公式
 https://github.com/squizlabs/PHP_CodeSniffer/blob/master/src/Standards/PSR2/ruleset.xml
+
+
+
+____________________________________________________________________
+____________________________________________________________________
+____________________________________________________________________
+# tmp
+
+```
+root@ddfa20fadae0:/var/www/html/my-laravel-app# ./vendor/bin/phpcs --report=source --standard=PSR2 app/Repositories/PlaylistRepository.php
+
+PHP CODE SNIFFER VIOLATION SOURCE SUMMARY
+------------------------------------------------------------------------
+STANDARD  CATEGORY            SNIFF                                COUNT
+------------------------------------------------------------------------
+Squiz     Classes             Valid class name not camel caps      1
+------------------------------------------------------------------------
+A TOTAL OF 1 SNIFF VIOLATION WERE FOUND IN 1 SOURCE
+------------------------------------------------------------------------
+
+Time: 1.26 secs; Memory: 8MB
+```
 
