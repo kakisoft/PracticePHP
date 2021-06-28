@@ -129,6 +129,28 @@ interface OutputInterface
     public const VERBOSITY_VERY_VERBOSE = 128;
     public const VERBOSITY_DEBUG = 256;
 ```
+__________________________________________________________________________
+## URL を指定して実行（Laravel 内部から実行）
+
+##### routes\web.php
+```php
+Route::get('/hello-command', function () {
+    Artisan::call('hello:class');
+});
+
+
+Route::get('/hello-command2', function () {
+    Artisan::call('hello:class2', [
+        'name'     => 'kaki',
+        '--switch' => false,
+    ]);
+});
+
+// Kernel クラスを使う
+Route::get('/hello-command-k', function (Kernel $artisan) {
+    $artisan->call('hello:class');
+});
+```
 
 __________________________________________________________________________
 ## エラー表示
