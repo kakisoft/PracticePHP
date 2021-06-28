@@ -50,6 +50,7 @@ make:command コマンドで Command クラスの雛形を作成する
 
 ```
 php artisan make:command HelloCommand
+php artisan make:command sample/SampleCommand
 ```
 
 ##### コマンドのヘルプ（ 引数の  ）

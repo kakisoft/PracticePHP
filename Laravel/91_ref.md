@@ -46,8 +46,11 @@ https://qiita.com/acro5piano/items/8dc4597e12d9050c0708
 _______________________________________________________________________________________
 # Book
 
-## PHPフレームワーク Laravel Webアプリケーション開発
-https://github.com/laravel-socym/  
+## PHPフレームワーク Laravel Webアプリケーション開発：サンプルソース
+https://github.com/laravel-socym/
+
+## PHPフレームワーク Laravel Webアプリケーション開発 8.x 対応：サンプルソース
+https://github.com/laravel-socym2021
 
 _______________________________________________________________________________________
 # Laravel ベストプラクティス
