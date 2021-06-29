@@ -1,9 +1,33 @@
 <?php
 
-$a1 = 111;
+// foo(1, 2, 3);
 
-// dump($a1);
-var_dump($a1);
+function foo()
+{
+    $numargs = func_num_args();
+    echo "引数の数: $numargs \n";  //=> 引数の数: 3
+    if ($numargs >= 2) {
+        echo "二番目の引数は: " . func_get_arg(1) . " です。\n";  //=> 二番目の引数は: 2 です。
+    }
+    $arg_list = func_get_args();
+    for ($i = 0; $i < $numargs; $i++) {
+        echo "引数 $i は: " . $arg_list[$i] . " です。\n";
+    }
+
+    // 引数 0 は: 1 です。
+    // 引数 1 は: 2 です。
+    // 引数 2 は: 3 です。
+
+}
+
+foo(1, 2, 3);
+
+// //=>
+// 引数の数: 3
+// 二番目の引数は: 2 です。
+// 引数 0 は: 1 です。
+// 引数 1 は: 2 です。
+// 引数 2 は: 3 です。
 
 
 // use Exception;

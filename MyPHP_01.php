@@ -2590,6 +2590,12 @@ if (class_exists($class)) {
     }
 }
 
+// function_exists
+if (function_exists('imap_open')) {
+  echo "IMAP 関数が利用可能です。<br />\n";
+} else {
+  echo "IMAP 関数は利用できません。<br />\n";
+}
 
 //================================
 //    メソッド名でポリモーフィズム
@@ -3685,6 +3691,33 @@ print_r($result2);
 
 
 //=============================
+//    引数の数・内容を取得
+//=============================
+// func_num_args — 関数に渡された引数の数を返す
+// func_get_args — 関数の引数リストを配列として返す
+
+// foo(1, 2, 3);
+
+function foo()
+{
+    $numargs = func_num_args();
+    echo "引数の数: $numargs \n";  //=> 引数の数: 3
+
+    if ($numargs >= 2) {
+        echo "二番目の引数は: " . func_get_arg(1) . " です。\n";  //=> 二番目の引数は: 2 です。
+    }
+    $arg_list = func_get_args();
+    for ($i = 0; $i < $numargs; $i++) {
+        echo "引数 $i は: " . $arg_list[$i] . " です。\n";
+    }
+
+    // 引数 0 は: 1 です。
+    // 引数 1 は: 2 です。
+    // 引数 2 は: 3 です。
+}
+
+
+//=============================
 //  json エンコード/デコード
 //=============================
 $original_json_data = '{"id":1, "product_name":"K001-X299022A"}';
@@ -4157,6 +4190,13 @@ function getlocale($category) {
 setlocale(LC_ALL, 'ja_JP.UTF-8');
 echo getlocale(LC_ALL) . PHP_EOL;
 
+
+//====================================
+//     モジュールの読み込み状態確認
+//====================================
+
+// extension_loaded — ある拡張機能がロードされているかどうかを調べる
+// get_loaded_extensions() - コンパイル/ロードされている全てのモジュールの名前を配列として返す
 
 
 //====================================

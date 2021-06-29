@@ -177,11 +177,5 @@ $schedule->command('emails:send')->withoutOverlapping();
 ___________________________________________________________
 
 
-$this->spliceIntoPosition(
-
-
-
-
-$schedule->exec('php '.base_path().'/artisan hello:class kaki --env=production')->dailyAt($time);
 
 
