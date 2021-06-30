@@ -21,3 +21,10 @@ Example of job definition:
 *  *  *  *  * user-name command to be executed
 ```
 
+
+## 設定確認
+crontab -l
+
+
+## 編集
+crontab -e

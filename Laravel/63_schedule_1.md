@@ -1,4 +1,9 @@
 php artisan inspire
+
+___________________________________________________________
+## official
+https://laravel.com/docs/8.x/scheduling
+
 ___________________________________________________________
 # コマンド
 
@@ -175,7 +180,16 @@ $schedule->command('emails:send')->withoutOverlapping();
 ```
 
 ___________________________________________________________
+## スケジューリングの後付け変更
 
+```php
+        $event = $schedule->command('inspire')
+                        ->hourly();
 
+        dd($event->expression); // "0 * * * *"
+
+        // dd($event->expression); // hourly()      : "0 * * * *"
+        // dd($event->expression); // everyMinute() : "* * * * *"
+```
 
 
