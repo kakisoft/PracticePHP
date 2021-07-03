@@ -1,4 +1,4 @@
-## my-laravel-app\app\Providers\EventServiceProvider.php
+## app\Providers\EventServiceProvider.php
 ```php
     protected $listen = [
         // 'Eventクラス' => [
