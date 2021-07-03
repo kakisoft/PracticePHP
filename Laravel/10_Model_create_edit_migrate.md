@@ -177,3 +177,11 @@ php artisan migrate:refresh
 ```
 php artisan migrate:fresh
 ```
+
+
+## wipe, refresh
+```
+db:wipe                Drop all tables, views, and types
+migrate:fresh          Drop all tables and re-run all migrations
+migrate:refresh        Reset and re-run all migrations
+```
