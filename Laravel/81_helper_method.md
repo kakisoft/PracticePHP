@@ -35,3 +35,18 @@ Arr::random($array, 要素数);
         ]);
     }
 ```
+
+
+
+since i said we're going to do this in
+several different ways i can actually
+also do the following if you don't like
+this syntax you can do this instead
+instead of class you put dispatch here
+run our test we're back to green so that
+is still working is yet another way
+that you can do that so if you're
+comfortable with putting that in your
+
+
+

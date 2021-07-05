@@ -76,11 +76,18 @@ php artisan make:job SendReminderEmail
 
 #### app\Jobs\SendReminderEmail.php
 ```php
+class SendReminderEmail implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+// 中略
+
     public function handle()
     {
         // ※このログは/storage/log/laravel.logに記述されます。
         Log::info('「登録が完了しました」というメールを送信');
     }
+}
 ```
 
 #### routes\api.php
