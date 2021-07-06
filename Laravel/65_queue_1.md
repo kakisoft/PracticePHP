@@ -94,12 +94,29 @@ class SendReminderEmail implements ShouldQueue
 ```
 
 #### routes\api.php
-http://localhost:8000/api/SendReminderEmail
 ```php
-Route::get('/SendReminderEmail', function () {
+use App\Jobs\SendReminderEmail;
+
+//================================================================
+//                           Queue
+//================================================================
+// http://localhost:8000/api/SendReminderEmail01
+Route::get('/SendReminderEmail01', function () {
     $log = (new SendReminderEmail)->delay(10);
     dispatch($log);
-    return 'ユーザー登録完了を通知するメールを送信しました。';
+    return 'ユーザー登録完了を通知するメールを送信しました。01';
+});
+
+// http://localhost:8000/api/SendReminderEmail02
+Route::get('/SendReminderEmail02', function () {
+    SendReminderEmail::dispatch("dispatch");
+    return 'ユーザー登録完了を通知するメールを送信しました。02';
+});
+
+// http://localhost:8000/api/SendReminderEmail03
+Route::get('/SendReminderEmail03', function () {
+    SendReminderEmail::dispatch("dispatch")->onQueue('emails');
+    return 'ユーザー登録完了を通知するメールを送信しました。03 - "emails" キュー ';
 });
 ```
 
