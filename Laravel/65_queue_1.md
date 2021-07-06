@@ -3,12 +3,36 @@ https://laravel.com/docs/8.x/queues
 
 
 ## コンフィグファイル
-#### config\queue.php
 
 #### .env
 ```
 QUEUE_CONNECTION=sync
 ```
+
+#### config\queue.php
+```php
+    'connections' => [
+
+        'database' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'default',
+            'retry_after' => 90,
+        ],
+
+        'sqs' => [
+            'driver' => 'sqs',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
+            'queue' => env('SQS_QUEUE', 'your-queue-name'),
+            'suffix' => env('SQS_SUFFIX'),
+            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+        ],
+
+        'redis' => [
+```
+
 _______________________________________________________
 ## 用語
 
