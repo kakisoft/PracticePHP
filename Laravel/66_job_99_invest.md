@@ -1,4 +1,6 @@
 # dispatch メソッド
+dispatch メソッドは２種類ある？  
+トレース先が複数あった。  
 
 ## vendor\laravel\framework\src\Illuminate\Foundation\Bus\Dispatchable.php
 ```php
