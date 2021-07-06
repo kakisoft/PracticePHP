@@ -34,3 +34,41 @@ ________________________________________________________________________
 |  Illuminate\Foundation\Events\Dispatchable     |  イベントクラスにて Dispatcher として作用させる時に利用  |
 |  Illuminate\Broadcasting\InteractsWithSockets  |  socket.io を使ってブラウザにイベント通知する時に利用    |
 
+
+```php
+class AccessDetection
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+```
+
+```php
+abstract class AbstractJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+```
+
+________________________________________________________________________
+________________________________________________________________________
+________________________________________________________________________
+# aaa
+
+「ユーザを追加した時、メールを送信するイベントを発火」みたいな用途とかも。  
+（Observer でも可）  
+
+```php
+class User extends Model
+{
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new AncientScope);
+    }
+}
+```
+
+
+同じことを　Observer でも出来そう。
