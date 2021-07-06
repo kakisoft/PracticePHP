@@ -3,7 +3,8 @@ https://laravel.com/docs/8.x/events#generating-events-and-listeners
 
 
 公式サイトを参考に書いてみた。  
-が、
+が、イベントの登録辺りから良く分かんない。
+
 
 ________________________________________________________________________________________________
 ## 生成コマンドF
@@ -59,7 +60,13 @@ public function boot()
 
 ________________________________________________________________________________________________
 
-
+これは「EventServiceProvider.php」に書けばいいのか？  
+```php
+Event::listen(queueable(function (PodcastProcessed $event) {
+    //
+})->onConnection('redis')->onQueue('podcasts')->delay(now()->addSeconds(10)));
+```
+キューにジョブが送られた事を検知して発生するイベント、という意味だろうか。
 
 
 
