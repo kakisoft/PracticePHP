@@ -57,3 +57,78 @@ queues {
 }
 ```
 
+
+
+______________________________________________________________________________
+______________________________________________________________________________
+______________________________________________________________________________
+# トラブルシュート
+キューを１回実行しないと、以下のようなエラーが出る。
+
+```
+   Aws\Sqs\Exception\SqsException 
+
+  Error executing "SendMessage" on "http://sqs:9324/queue/elasticmq_queue"; AWS HTTP error: Client error: `POST http://sqs:9324/queue/elasticmq_queue` resulted in a `400 Bad Request` response:
+<ErrorResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/">
+      <Error>
+        <Type>Sender</Type>
+        <Co (truncated...)
+ AWS.SimpleQueueService.NonExistentQueue (client): AWS.SimpleQueueService.NonExistentQueue; see the SQS docs. - <ErrorResponse xmlns="http://queue.amazonaws.com/doc/2012-11-05/">
+      <Error>
+        <Type>Sender</Type>
+        <Code>AWS.SimpleQueueService.NonExistentQueue</Code>
+        <Message>AWS.SimpleQueueService.NonExistentQueue; see the SQS docs.</Message>
+        <Detail/>
+      </Error>
+      <RequestId>00000000-0000-0000-0000-000000000000</RequestId>
+    </ErrorResponse>
+
+  at vendor/aws/aws-sdk-php/src/WrappedHttpHandler.php:195
+    191▕         $parts['request'] = $request;
+    192▕         $parts['connection_error'] = !empty($err['connection_error']);
+    193▕         $parts['transfer_stats'] = $stats;
+    194▕ 
+  ➜ 195▕         return new $this->exceptionClass(
+    196▕             sprintf(
+    197▕                 'Error executing "%s" on "%s"; %s',
+    198▕                 $command->getName(),
+    199▕                 $request->getUri(),
+
+      +27 vendor frames
+  28  app/Console/Commands/Test/testPivot.php:46
+      App\Jobs\AbstractJob::dispatch()
+
+      +13 vendor frames
+  42  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+/application # php artisan command:createQueue
+```
+
+#### app\Console\Commands\createSqsQueue.php
+こんな感じのコードを実行する  
+php artisan command:createQueue
+```php
+use Aws\Sqs\SqsClient;
+
+class createSqsQueue extends Command
+{
+//中略
+    public function handle()
+    {
+        $client = new SqsClient([
+            'endpoint'    => config('aws.sqs_endpoint'),
+            'region'      => config('aws.region'),
+            'version' => "2012-11-05",
+            'credentials' => [
+                'key'    => config('aws.key'),
+                'secret' => config('aws.secret'),
+            ]
+        ]);
+
+        $queue = $client->createQueue([
+            'QueueName' =>config('aws.sqs_queue'),
+        ]);
+        return 0;
+    }
+```
+
