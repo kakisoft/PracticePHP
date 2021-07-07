@@ -39,7 +39,7 @@ ShippingInstructionService::divideUploadedCsv にメッセージ送信したと�
 ______________________________________________________________________________
 ______________________________________________________________________________
 ______________________________________________________________________________
-## custom.conf
+#### custom.conf
 ```conf
 queues {
     # http://elasticmq:9324/queue/elasticmq_queue
@@ -57,7 +57,20 @@ queues {
 }
 ```
 
-
+#### docker-compose.yml
+```yaml
+services:
+  sqs:
+    image: softwaremill/elasticmq
+    restart: always
+    ports:
+      - 9324:9324
+    volumes:
+      - ./docker/elasticmq/conf/custom.conf://opt/elasticmq.conf:ro
+    networks:
+      - default
+      - my-shared-network
+```
 
 ______________________________________________________________________________
 ______________________________________________________________________________
@@ -103,6 +116,8 @@ ______________________________________________________________________________
       Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 /application # php artisan command:createQueue
 ```
+※このメッセージは、worker 起動時にも発生する
+
 
 #### app\Console\Commands\createSqsQueue.php
 こんな感じのコードを実行する  
@@ -131,4 +146,25 @@ class createSqsQueue extends Command
         return 0;
     }
 ```
+
+#### 解決策（公式）
+コンフィグで何とかできる。  
+
+#### elasticmq : readme
+https://github.com/softwaremill/elasticmq#automatically-creating-queues-on-startup
+
+#### LaravelをElasticMQ（Amazon SQS互換）と連携してみる
+https://qiita.com/nia_tn1012/items/1bd60b1a3900a2b52939
+
+
+#### ElasticMQのDockerコンテナ起動時にキューを自動作成する
+https://tomcky.hatenadiary.jp/entry/20180413/1523616565
+
+
+|  id   |  queue    |  payload                            |  attempts  |  reserved_at  |  available_at  |  created_at  |
+|:------|:----------|:------------------------------------|:-----------|:--------------|:---------------|:-------------|
+|  1    |  default  |  {"uuid":"05004a83-c6f5", （以下略） |  0         |  « NULL »     |  1625302485    |  1625302485  |
+|  2    |  default  |  {"uuid":"ec278c58-3cef", （以下略） |  0         |  « NULL »     |  1625523028    |  1625523028  |
+|  3    |  emails   |  {"uuid":"c8fdb0e8-5985", （以下略） |  0         |  « NULL »     |  1625534698    |  1625534698  |
+
 
