@@ -25,10 +25,12 @@ https://github.com/monicahq/monica
 
 
 ## AIRFLIX
+Airflix is a web application for browsing and playing movies and TV shows from a local home server.  
 https://github.com/wells/airflix  
 
 
 ## Vuedo
+WordPress っぽいCMS  
 https://github.com/Vuedo/vuedo  
 
 
@@ -37,7 +39,13 @@ https://github.com/ElementUI/element-in-laravel-starter
 
 
 ## LavaLite
+This is an open source of Content Management System developed with Laravel framework.  
 https://github.com/LavaLite/cms
+
+
+## October
+CMS  
+https://github.com/octobercms/october
 
 
 ## 紹介記事
