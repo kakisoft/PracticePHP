@@ -10,6 +10,7 @@ docker コンテナにログインする時、特にユーザを指定が無い�
 以下、記述例。
 「user:」に、デフォルトログインユーザを記述します。
 デフォルトログインユーザを「www-data」としています。
+ちなみに「www-data」は、Apache や Nginx のデフォルト実行ユーザです。
 
 #### docker-compose.yml
 ```yaml
