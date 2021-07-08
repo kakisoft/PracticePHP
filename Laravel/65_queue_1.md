@@ -161,7 +161,14 @@ php artisan queue:work sqs --verbose --tries=3 --timeout=90
 1.QueueにJobがあるか問い合わせを行う  
 2.もしJobがあれば、そのJobを実行させる  
 
-
+#### 別のQueue_Connectionを利用する
+https://reffect.co.jp/laravel/laravel-queue-setting-manuplate
+```php
+SendWelcomeMail::dispatch($user)->onConnection('redis');
+```
+```
+php artisan queue:work redis
+```
 
 ## キューのイメージ
 
