@@ -156,6 +156,7 @@ Route::get('/SendReminderEmail03', function () {
 #### Workerの起動
 ```
 php artisan queue:work
+php artisan queue:work sqs --verbose --tries=3 --timeout=90
 ```
 1.QueueにJobがあるか問い合わせを行う  
 2.もしJobがあれば、そのJobを実行させる  
