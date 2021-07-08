@@ -78,6 +78,8 @@ https://qiita.com/api/v2/items
 
 [LaravelでAPIのバージョニングをする](https://qiita.com/wrbss/items/c7849e5ac998ab9504f1)  
 
+[Versioning your REST API with Laravel](https://medium.com/mestredev/versioning-your-rest-api-with-laravel-646bcc1f70a4)  
+
 
 結局、泥臭く頭捻りながら考え出すしか無さそう。  
 
