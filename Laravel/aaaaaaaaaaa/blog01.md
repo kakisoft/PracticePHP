@@ -1,147 +1,51 @@
-Laravel スケジューラによるバッチ起動に柔軟性を持たせたい：spliceIntoPosition 編
+docker コンテナにログインした時の、デフォルトユーザを設定する。（docker-compose.yml）
+how-to-set-default-login-user-in-docker-container
 
 __________________________________________________________________________________________
-**【環境】**  
-Laravel のバージョン： 8.16.1  
-PHP のバージョン： 7.4.7  
 
+docker コンテナにログインする時、特にユーザを指定が無い場合、root ユーザでのログインになる事があるかと思います。  
 
-Laravel にて、スケジューラを使用してバッチを起動する場合、以下のようなメソッドにて起動するスパンを指定できる。  
+ですが、docker-compose.yml にて、コンテナにログインした時のデフォルトユーザを設定可能です。  
 
-<https://laravel.com/docs/8.x/scheduling>  
+以下、記述例。  
+「user:」に、デフォルトログインユーザを記述します。  
+デフォルトログインユーザを「www-data」としています。  
 
- * ->everyMinute();
- * ->everyTenMinutes();
- * ->everyFiveMinutes();
- * ->hourly();
+#### docker-compose.yml
+```yaml
+services:
 
-etc  
+# 中略
 
-「このタスクは、５分間隔で実行できるようにしたい or １０分間隔で実行できるようにしたい」といった事を、コンフィグで柔軟に設定したいと思った時、上記のようなメソッドを馬鹿正直に適用すると、こんな感じになる。  
+  app:
+    build: ./docker/php
+    depends_on:
+    - mysql
+    volumes:
+      - .:/var/www/html
+    container_name: myapp
+    user: www-data
 
-```php
-    switch ($helloCommandConf) {
-        case EVERY_MINUTE:
-            $schedule->command(HelloCommand::class)
-                ->description('Hello command Scheduler')
-                ->everyMinute();
-            break;
-
-        case EVERY_TEN_MINUTES:
-            $schedule->command(HelloCommand::class)
-                ->description('Hello command Scheduler')
-                ->everyTenMinutes();
-            break;
-
-        case EVERY_FIVE_MINUTES:
-            $schedule->command(HelloCommand::class)
-                ->description('Hello command Scheduler')
-                ->everyFiveMinutes();
-            break;
-
-        default:
-            break;
-    }
+# 以下略
 ```
 
-**ねーよ！**  
 
-もっと柔軟に実現できる方法はないものか。  
-という事で、別の方法を考えてみる。  
-
-## spliceIntoPosition
-spliceIntoPosition というメソッドを使えば、もっと柔軟に設定できるみたい。  
-
- [\[cloudpack開発ブログ]Laravelのスケジューラの小ネタ](https://cloudpack.media/28450)  
-[Tips for Using Laravel’s Scheduler](https://laravel-news.com/tips-for-using-laravels-scheduler)
-
-というワケで、早速試してみる。  
-
-しれっと書いてあるので Laravel の標準関数として使えるのかと思いきや、Method not found の非常なエラーが出てきたので、参照方法を調べてみる。  
-
-しかし、どうやったらそのメソッドを参照できるのかの解説は皆無。  
-
-
-## spliceIntoPosition の参照方法
-ロクな情報がヒットしなかったので、最終的に Laravel のソースコードに行きついた。  
-https://github.com/laravel/framework/blob/8.x/src/Illuminate/Console/Scheduling/ManagesFrequencies.php  
-
-spliceIntoPosition メソッドを Kernel.php で使用するには、以下の設定が必要になります。  
-
-#### app\Console\Kernel.php
-use 宣言を追加
-```php
-use Illuminate\Console\Scheduling\ManagesFrequencies;
+ログインした後、whoami コマンドで、ユーザを確認
 ```
-トレイト使用宣言を追加
-```php
-class Kernel extends ConsoleKernel
-{
-    use ManagesFrequencies;
-```
-上記のコードを追加すると、spliceIntoPosition が参照できるようになる
-```php
-    public function everyFourMinutes()
-    {
-        return $this->spliceIntoPosition(1, '*/4');
-    }
-
-    public function weekly()
-    {
-        return $this->spliceIntoPosition(1, 0)
-                    ->spliceIntoPosition(2, 0)
-                    ->spliceIntoPosition(5, 0);
-    }
+$ whoami
+www-data
 ```
 
-## spliceIntoPosition って、使えるの？
-
-**結論：使えねー**  
-
-スケジュール設定を柔軟に出来るできるようになるかと思いきや、内部的には cron メソッドの内容を置換しているだけで、わざわざこのメソッドをコール理由は薄い。  
-素で「->cron」をコールするだけで十分。  
-
-というか、「everyMinute()」や「everyTenMinutes()」から spliceIntoPosition をコールしているレベルの粒度なので、開発者側が使用する粒度では無いのでは？　という印象。  
-
-以下、ManagesFrequencies.php のソース。  
-spliceIntoPosition が存在しているトレイトと同レベルに、「everyMinute()」「everyTenMinutes()」といったメソッドが宣言されています。  
-
-
-```php
-    public function everyMinute()
-    {
-        return $this->spliceIntoPosition(1, '*');
-    }
+root でログインする場合、--user オプションでユーザを指定。
+```
+docker-compose exec --user root app bash
 ```
 
-```php
-    public function everyTenMinutes()
-    {
-        return $this->spliceIntoPosition(1, '*/10');
-    }
+docker-compose でなく、docker コマンドを使う場合、こんな感じ。
 ```
-```php
-    /**
-     * Splice the given value into the given position of the expression.
-     *
-     * @param  int  $position
-     * @param  string  $value
-     * @return $this
-     */
-    protected function spliceIntoPosition($position, $value)
-    {
-        $segments = explode(' ', $this->expression);
-
-        $segments[$position - 1] = $value;
-
-        return $this->cron(implode(' ', $segments));
-    }
+docker exec -u root -it myapp bash
 ```
 
-見ての通り、cron メソッドの内容を置換しているだけ。  
-
-
-## 結論
-スケジュール設定に柔軟性を持たせたい場合、cron メソッドを使用しましょう。
-
+個人的には、コンテナ名を指定しないといけない docker exec よりも、docker-compose.yml の内容をそのまま使える docker-compose exec の方が好み。
+（container_name を明示していない docker-compose.yml も多いし。）
 

@@ -1,7 +1,13 @@
 ## Amazon SQS でのキューの使用AWSSDK for PHP バージョン 3
 https://docs.aws.amazon.com/ja_jp/sdk-for-php/v3/developer-guide/sqs-examples-using-queues.html
 
+## SQS config
+https://docs.aws.amazon.com/cli/latest/reference/sqs/create-queue.html
 
+## Amazon SQSのDead Letter Queueにメッセージが移動するタイミングを調べてみた
+https://dev.classmethod.jp/articles/examined_the_timing_of_the_move_to_dlq/
+
+____________________________________________________________________________________________________________
 #### app\Console\Commands\Test\createSqsQueue.php
 ```php
 namespace App\Console\Commands\Test;
