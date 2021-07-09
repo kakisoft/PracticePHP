@@ -1,3 +1,48 @@
+## monica
+```php
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        $this->scheduleCommand($schedule, 'send:reminders', 'hourly');
+        $this->scheduleCommand($schedule, 'send:stay_in_touch', 'hourly');
+        $this->scheduleCommand($schedule, 'monica:calculatestatistics', 'daily');
+        $this->scheduleCommand($schedule, 'monica:ping', 'daily');
+        $this->scheduleCommand($schedule, 'monica:clean', 'daily');
+        $this->scheduleCommand($schedule, 'monica:updategravatars', 'weekly');
+        if (config('trustedproxy.cloudflare')) {
+            $this->scheduleCommand($schedule, 'cloudflare:reload', 'daily'); // @codeCoverageIgnore
+        }
+    }
+
+    /**
+     * Define a new schedule command with a frequency.
+     */
+    private function scheduleCommand(Schedule $schedule, string $command, $frequency)
+    {
+        $schedule->command($command)->when(function () use ($command, $frequency) {
+            $event = CronEvent::command($command); // @codeCoverageIgnore
+            if ($frequency) { // @codeCoverageIgnore
+                $event = $event->$frequency(); // @codeCoverageIgnore
+            }
+
+            return $event->isDue(); // @codeCoverageIgnore
+        });
+    }
+```
+
+
+
+
+
+
+
+
+_____________________________________________________________
 october\modules\system\ServiceProvider.php
 
     /**
@@ -10,7 +55,39 @@ october\modules\system\ServiceProvider.php
          */
         Event::listen('console.schedule', function ($schedule) {
             // Fix initial system migration with plugins that use settings for scheduling - see #3208
-            if (App::hasDatabase() && !Schema::hasTable(UpdateManager::instance()->getMigrationTableName())) {
+            if (App::hasDatabase() && !Schema::hasTable(UpdateManager::instance()->    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        $this->scheduleCommand($schedule, 'send:reminders', 'hourly');
+        $this->scheduleCommand($schedule, 'send:stay_in_touch', 'hourly');
+        $this->scheduleCommand($schedule, 'monica:calculatestatistics', 'daily');
+        $this->scheduleCommand($schedule, 'monica:ping', 'daily');
+        $this->scheduleCommand($schedule, 'monica:clean', 'daily');
+        $this->scheduleCommand($schedule, 'monica:updategravatars', 'weekly');
+        if (config('trustedproxy.cloudflare')) {
+            $this->scheduleCommand($schedule, 'cloudflare:reload', 'daily'); // @codeCoverageIgnore
+        }
+    }
+
+    /**
+     * Define a new schedule command with a frequency.
+     */
+    private function scheduleCommand(Schedule $schedule, string $command, $frequency)
+    {
+        $schedule->command($command)->when(function () use ($command, $frequency) {
+            $event = CronEvent::command($command); // @codeCoverageIgnore
+            if ($frequency) { // @codeCoverageIgnore
+                $event = $event->$frequency(); // @codeCoverageIgnore
+            }
+
+            return $event->isDue(); // @codeCoverageIgnore
+        });
+    }getMigrationTableName())) {
                 return;
             }
 
