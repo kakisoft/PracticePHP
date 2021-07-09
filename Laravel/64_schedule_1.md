@@ -52,10 +52,12 @@ use App\Console\Commands\HelloCommand;
         $schedule->command(HelloCommand::class)
             ->description('Hello command Scheduler')
             ->everyMinute();
+
+        // cron
+        $event = $schedule->command(HelloCommand::class)->description('Hello command Scheduler')->cron('* * * * *');
     }
 
 ```
-
 
 
 ```
