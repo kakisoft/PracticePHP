@@ -40,7 +40,7 @@ php artisan list
   schedule:work        Start the schedule worker
 ```
 ___________________________________________________________
-## Command クラスを使用して実行
+## Command を実行
 
 #### app\Console\Kernel.php
 ```php
@@ -49,12 +49,27 @@ use App\Console\Commands\HelloCommand;
 ```php
     protected function schedule(Schedule $schedule)
     {
+        //---------------------------------------------
+        //            クラス名を指定
+        //---------------------------------------------
         $schedule->command(HelloCommand::class)
             ->description('Hello command Scheduler')
             ->everyMinute();
 
-        // cron
+
+        //---------------------------------------------
+        //             コマンド名を指定
+        //---------------------------------------------
+        $schedule->command('hello:class')
+            ->description('Hello command Scheduler')
+            ->everyMinute();
+
+
+        //---------------------------------------------
+        //                 cron
+        //---------------------------------------------
         $event = $schedule->command(HelloCommand::class)->description('Hello command Scheduler')->cron('* * * * *');
+        // dump($event->expression);  //=> "* * * * *"
     }
 
 ```
