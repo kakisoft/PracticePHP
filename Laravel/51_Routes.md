@@ -107,6 +107,7 @@ Route::resource('hoge', 'NewsController', ['except' => ['destroy', 'store']]);
 ```
 
 https://readouble.com/laravel/5.7/ja/controllers.html  
+https://laravel.com/docs/8.x/controllers  
 
 |  動詞       |  URI                   |  アクション |  ルート名         |
 |:------------|:-----------------------|:-----------|:-----------------|
@@ -117,6 +118,7 @@ https://readouble.com/laravel/5.7/ja/controllers.html
 |  GET        |  /photos/{photo}/edit  |  edit      |  photos.edit     |
 |  PUT/PATCH  |  /photos/{photo}       |  update    |  photos.update   |
 |  DELETE     |  /photos/{photo}       |  destroy   |  photos.destroy  |
+
 
 
 ________________________________________________________________________
