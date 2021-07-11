@@ -71,6 +71,16 @@ echo $dt->format('Y年m月d日') . PHP_EOL;     //=> 2020年04月20日
 echo $dt->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/20 11:23:45
 ```
 
+## format の注意点
+```php
+Carbon::today()->format('Y-m-d  H:i:s');  // today() だと、時間情報が取れない（ 00:00:00 ）
+Carbon::now()->format('Y-m-d  H:i:s');    // now() で時間まで取れる。（ 03:22:28 ）
+
+// // https://stackoverflow.com/questions/51882715/convert-am-pm-to-24-hours-clock-in-laravel-input-field
+// \Carbon\Carbon::now()->format('H:i:s') //24 hour format
+// \Carbon\Carbon::now()->format('g:i a') //12 hour format
+```
+
 
 ## 日付の判定
 ```php
