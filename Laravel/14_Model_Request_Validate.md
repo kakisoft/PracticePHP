@@ -4,6 +4,8 @@ Request クラスの代わりに使える。
 #### コマンド例
 ```
 php artisan make:request PostRequest
+
+※作成後は、authorize() の return true; を忘れずに！
 ```
 
 #### app/Http/Requests/PostRequest.php
