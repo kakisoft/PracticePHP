@@ -475,6 +475,16 @@ class CreateCommentsTable extends Migration
 }
 ```
 
+#### firstOrFail
+モデルが見つからない時に、例外を投げたい場合もあります。  
+これはとくにルートやコントローラの中で便利です。  
+findOrFailメソッドとクエリの最初の結果を取得するfirstOrFailメソッドは、該当するレコードが見つからない場合にIlluminate\Database\Eloquent\ModelNotFoundException例外を投げます。
+```php
+$model = App\Flight::findOrFail(1);
+
+$model = App\Flight::where('legs', '>', 100)->firstOrFail();
+```
+
 ## 論理削除
 ```php
     public function up()
