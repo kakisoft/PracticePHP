@@ -73,7 +73,12 @@ use App\Console\Commands\HelloCommand;
     }
 
 ```
+#### 引数を設定
+```php
+$schedule->command('emails:send Taylor --force')->daily();
 
+$schedule->command(SendEmailsCommand::class, ['Taylor', '--force'])->daily();
+```
 
 ```
 [2021-06-29 02:05:10] local.ERROR: Command "AppConsoleHelloCommand" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"AppConsoleHelloCommand\" is not defined. at /var/www/html/my-laravel-app/vendor/symfony/console/Application.php:682)
