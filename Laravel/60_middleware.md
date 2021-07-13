@@ -13,7 +13,7 @@ php artisan make:middleware HtmlMinify
 
 
 ## カーネルに登録
-laravel/app/Http/Kernel.php  
+laravel/app/Http/Kernel.php
 ```php
 protected $routeMiddleware = [
     'auth' => \Illuminate\Auth\Middleware\Authenticate::class,

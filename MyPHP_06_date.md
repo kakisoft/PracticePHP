@@ -64,6 +64,45 @@ $default_timezone = date_default_timezone_get();
 var_dump( $default_timezone );  //=> string(3) "UTC"
 ```
 
+## date_parse
+date_parse — 指定した日付/時刻の詳細な情報を連想配列で返す
+```php
+// date_parse(string $datetime): array
+
+
+$value = "20200715";
+print_r( date_parse($value) );
+checkdate($date['month'], $date['day'], $date['year']);
+
+// print_r( date_parse("2006-12-12 10:00:00.5") );
+
+/*
+Array
+(
+    [year] => 2020
+    [month] => 7
+    [day] => 15
+    [hour] =>
+    [minute] =>
+    [second] =>
+    [fraction] =>
+    [warning_count] => 0
+    [warnings] => Array
+        (
+        )
+
+    [error_count] => 0
+    [errors] => Array
+        (
+        )
+
+    [is_localtime] =>
+)
+
+*/
+```
+
+
 ## 日付の差分
 ```php
 //----------( 日にちの差分 )----------
@@ -101,7 +140,8 @@ var_dump($date01 > $date02);   //=> bool(false)
 ```
 
 
-## 日付の妥当性チェック
+## 日付の妥当性チェック（ is_date ）
+https://www.php.net/manual/ja/function.checkdate.php
 ```php
 $date = "2018/01/32";
 
@@ -109,12 +149,19 @@ $date = "2018/01/32";
 $d = DateTime::createFromFormat('Y/m/d', $date);
 
 
-
+// checkdate(int $month, int $day, int $year): bool
 if(checkdate(2, 29, 2016)) {
   echo '受け付けました。';
 } else {
   echo '存在しない日付です。';
 }
+
+
+$month = substr($argumentData,  4, 2);
+$day   = substr($argumentData,  6, 2);
+$year  = substr($argumentData,  0, 4);
+
+
 ```
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
@@ -180,6 +227,21 @@ $mindiff = $secdiff/(60);
 $dif_days = $secdiff/(60*60*24);
 ```
 
+
+
+## strtotime
+英文形式の日付を Unix タイムスタンプに変換する
+```php
+// strtotime(string $datetime, int|null $baseTimestamp = null): int|false
+
+echo strtotime("now"), "\n";
+echo strtotime("10 September 2000"), "\n";
+echo strtotime("+1 day"), "\n";
+echo strtotime("+1 week"), "\n";
+echo strtotime("+1 week 2 days 4 hours 2 seconds"), "\n";
+echo strtotime("next Thursday"), "\n";
+echo strtotime("last Monday"), "\n";
+```
 
 ## 時間の差分
 ```php

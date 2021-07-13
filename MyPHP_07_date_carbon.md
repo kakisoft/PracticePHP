@@ -71,6 +71,16 @@ echo $dt->format('Y年m月d日') . PHP_EOL;     //=> 2020年04月20日
 echo $dt->format('Y/m/d H:i:s') . PHP_EOL;  //=> 2020/04/20 11:23:45
 ```
 
+## format の注意点
+```php
+Carbon::today()->format('Y-m-d  H:i:s');  // today() だと、時間情報が取れない（ 00:00:00 ）
+Carbon::now()->format('Y-m-d  H:i:s');    // now() で時間まで取れる。（ 03:22:28 ）
+
+// // https://stackoverflow.com/questions/51882715/convert-am-pm-to-24-hours-clock-in-laravel-input-field
+// \Carbon\Carbon::now()->format('H:i:s') //24 hour format
+// \Carbon\Carbon::now()->format('g:i a') //12 hour format
+```
+
 
 ## 日付の判定
 ```php
@@ -85,6 +95,16 @@ var_dump($dt->isLeapYear())  . PHP_EOL;  //=> true
 var_dump($dt->isWeekday())   . PHP_EOL;  //=> true
 var_dump($dt->isWeekend())   . PHP_EOL;  //=> false
 var_dump($dt->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
+```
+
+
+## パース（日付型に変換）
+パースできない時、CRITICAL critical 9999900001 A system error has occurred  
+例外が出てしまうので、この方法で日付キャストできるかどうかのチェックは少し乱暴か。
+```php
+    $date = Carbon::parse('20210101');      // 2021-01-01 00:00:00
+    $date = Carbon::parse('2022-02-02');    // 2022-02-02 00:00:00
+    $date = Carbon::parse('2023/03/03');    // 2023-03-03 00:00:00
 ```
 
 

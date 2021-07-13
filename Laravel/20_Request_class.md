@@ -1,6 +1,8 @@
 ## Requestクラス
 ブラウザを通してユーザーから送られる情報をすべて含んでいるオブジェクト。  
 
+artisan コマンドによる作成については、[こちら](.\14_Model_Request_Validate.md)
+
 ```php
 class UserController extends Controller
 {

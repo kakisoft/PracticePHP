@@ -158,6 +158,66 @@ Route::get('/hello-command-k', function (Kernel $artisan) {
 ## スケジューラから実行
 [schedule_1](./64_schedule_1.md)
 
+
+__________________________________________________________________________
+## 受け取った引数を使う
+```php
+    public function handle()
+    {
+        //=================================
+        //              引数
+        //=================================
+        $name = $this->argument('name');
+        $this->comment('Hello ' . $name);
+
+        //=================================
+        //        オプション引数
+        //=================================
+        $switch = $this->option('switch');  // --switch
+        $this->comment('Hello ' . ($switch ? 'ON' : 'OFF') );
+        $this->comment('$switch : ' . $switch );
+        var_dump($switch);
+
+
+        //=================================
+        //        コンソール出力
+        //=================================
+        // コンソール出力時の文字色や背景色が異なる
+        $this->line('Display this on the screen');   // line($string, $style=null, $verbosity=null)     You may use the line method to display plain, uncolored text:
+        $this->info('The command was successful!');  // Typically, the info method will display in the console as green colored text:
+        $this->comment('comment');
+        $this->error('Something went wrong!');       // To display an error message, use the error method. Error message text is typically displayed in red
+        $this->question('question');
+        $this->warn('warn');
+
+        // 出力レベルを設定
+        $this->info('VERBOSITY_QUIET'       , OutputInterface::VERBOSITY_QUIET);         // 常に出力。
+        $this->info('VERBOSITY_NORMAL'      , OutputInterface::VERBOSITY_NORMAL);        // デフォルトの出力レベル。--quiet 以外で出力
+        $this->info('VERBOSITY_VERBOSE'     , OutputInterface::VERBOSITY_VERBOSE);       // -v, -vv, -vvv で出力
+        $this->info('VERBOSITY_VERY_VERBOSE', OutputInterface::VERBOSITY_VERY_VERBOSE);  // -vv, -vvv で出力
+        $this->info('VERBOSITY_DEBUG'       , OutputInterface::VERBOSITY_DEBUG);         // -vvv でのみ出力
+
+        // table
+        $this->table(
+            ['name', 'age'],
+            [
+                ['John', 20],
+                ['Tom' , 35]
+            ]
+        );
+        /*
+        =>
+        +------+-----+
+        | name | age |
+        +------+-----+
+        | John | 20  |
+        | Tom  | 35  |
+        +------+-----+
+        */
+
+    }
+```
+
 __________________________________________________________________________
 ## エラー表示
 ```
