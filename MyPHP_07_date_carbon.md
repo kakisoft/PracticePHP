@@ -99,7 +99,8 @@ var_dump($dt->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
 
 
 ## パース（日付型に変換）
-パースできない時、CRITICAL critical 9999900001 A system error has occurred
+パースできない時、CRITICAL critical 9999900001 A system error has occurred  
+例外が出てしまうので、この方法で日付キャストできるかどうかのチェックは少し乱暴か。
 ```php
     $date = Carbon::parse('20210101');      // 2021-01-01 00:00:00
     $date = Carbon::parse('2022-02-02');    // 2022-02-02 00:00:00
