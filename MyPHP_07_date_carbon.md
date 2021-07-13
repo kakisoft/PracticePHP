@@ -98,6 +98,15 @@ var_dump($dt->isSameDay(Carbon::now())) . PHP_EOL;  //=> true
 ```
 
 
+## パース（日付型に変換）
+パースできない時、CRITICAL critical 9999900001 A system error has occurred
+```php
+    $date = Carbon::parse('20210101');      // 2021-01-01 00:00:00
+    $date = Carbon::parse('2022-02-02');    // 2022-02-02 00:00:00
+    $date = Carbon::parse('2023/03/03');    // 2023-03-03 00:00:00
+```
+
+
 ## 加算・減算
 元の値が変わります。  
 具体的には、「$dt->addYear()」を実行すると、$dt インスタンスの日付は１年後になります。  

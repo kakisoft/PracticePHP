@@ -1,8 +1,22 @@
 <?php
 
-for($i=0; $i<=1; $i++){
-    echo "{$i}" . PHP_EOL;
-}
+$value = "20200715";
+// $value = "12020y071521";
+
+$date = date_parse($value);
+
+// var_dump($date);
+print_r($date);
+
+// checkdate($date['month'], $date['day'], $date['year']);
+
+
+
+
+
+// for($i=0; $i<=1; $i++){
+//     echo "{$i}" . PHP_EOL;
+// }
 
 
 // //=>
