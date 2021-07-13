@@ -1,3 +1,6 @@
+https://gist.github.com/kakisoft/30e81552d814599cb08c392aa4aabf1c
+
+
 ## リソースの生成
 https://readouble.com/laravel/8.x/ja/eloquent-resources.html
 
