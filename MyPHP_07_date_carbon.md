@@ -159,7 +159,7 @@ echo $dt_01->lastOfMonth(Carbon::MONDAY)   . PHP_EOL;  //=> 2020-04-27 00:00:00 
 echo $dt_01->nthOfMonth(3, Carbon::MONDAY) . PHP_EOL;  //=> 2020-04-20 00:00:00    第３月曜日
 
 
-// subDays もあるみたい。
+// subDays もあるみたい。（こっちのが良さそう）
 echo $dt_01->startOfWeek()->subDays(1)     . PHP_EOL;  //=> 2020-04-12 00:00:00    週の開始日（日曜）
 ```
 

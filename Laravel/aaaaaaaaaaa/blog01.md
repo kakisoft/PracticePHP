@@ -1,59 +1,81 @@
-docker コンテナにログインした時の、デフォルトユーザを設定する。（docker-compose.yml）
-how-to-set-default-login-user-in-docker-container
+【PHP】Carbon：日付の減算は、subDay($value) ではなく、subDays($value) を使おう！（公式）
 
 __________________________________________________________________________________________
 
-docker コンテナにログインする時、特にユーザを指定が無い場合、root ユーザでのログインになる事があるかと思います。
+PHP の Dateユーティリティで、デファクトスタンダードの地位を築きつつあるんじゃないかと思われる Carbon。  
 
-ですが、docker-compose.yml にて、コンテナにログインした時のデフォルトユーザを設定可能です。
+Laravel にデフォルトで入ったるし、色々と便利なのでよく使っているのですが、気になった事があったので調べてみた。
 
-以下、記述例。
-「user:」に、デフォルトログインユーザを記述します。
-デフォルトログインユーザを「www-data」としています。
-ちなみに「www-data」は、Apache や Nginx のデフォルト実行ユーザです。
+## 日付の減算（ subDay と subDays ）
+日付の減算をする時、subDays というメソッドがあるんだけど、ネットを徘徊していると、subDay に引数を渡す使い方もよく見かける。  
+具体的には以下のような感じ。
+```php
+$date1 = new Carbon('2021-07-15 11:23:45');
+$date2 = new Carbon('2021-07-15 11:23:45');
 
-#### docker-compose.yml
-```yaml
-services:
+echo $date1->subDay(1);   //=> 2021-07-14 11:23:45
+echo $date2->subDays(1);  //=> 2021-07-14 11:23:45
+```
+見ての通り、結果は同じ。  
 
-# 中略
+何なんだコレは。どっち使えばいいんだ。  
+つーか統一しないとカオス化するじゃねーか。  
 
-  app:
-    build: ./docker/php
-    depends_on:
-    - mysql
-    volumes:
-      - .:/var/www/html
-    container_name: myapp
-    user: www-data
+## 公式ドキュメントを調べてみよう！
+という事で公式ドキュメント。  
+https://carbon.nesbot.com/docs/  
 
-# 以下略
+
+#### Carbon::subDay
+```
+no arguments   
+
+Sub one day to the instance (using date interval).  
+```
+
+#### Carbon::subDays
+```
+Sub days (the $value count passed in) to the instance (using date interval).
+```
+
+Carbon::subDays を使う方が良さそう。  
+というか、「Carbon::subDay」の実際の挙動が、ドキュメントと違っているのでは？  
+
+
+## ソースコードを読んでみよう！
+という事で、Carbon のソースコードを見てみよう。  
+https://github.com/briannesbitt/Carbon  
+
+
+こんなコードがありました。  
+#### tests\Carbon\SubTest.php
+https://github.com/briannesbitt/Carbon/blob/master/tests/Carbon/SubTest.php#L261
+```php
+    public function testSubDayPassingArg()
+    {
+        // subDay should ideally be used without argument
+        /** @var mixed $date */
+        $date = Carbon::createFromDate(1975, 5, 10);
+        $this->assertSame(8, $date->subDay(2)->day);
+    }
+```
+
+***subDay should ideally be used without argument***  
+***（subDayは理想的には引数なしで使用する必要があります）***  
+
+subDay に引数を渡すと subDays と同様の動きをする事は把握しているけど、それは理想的な使い方ではないみたい。  
+
+あと、メソッドの説明文を読んでも、subDay に引数を渡す内容は無いみたい。  
+
+#### src\Carbon\Carbon.php
+```php
+ * @method $this subDays(int $value = 1) Sub days (the $value count passed in) to the instance (using date interval).
+ * @method $this subDay()                Sub one day to the instance (using date interval).
 ```
 
 
-ログインした後、whoami コマンドで、ユーザを確認
-```
-$ whoami
-www-data
-```
+## 結論
+値を指定した日付の減算には「subDays」を使おう！
 
-root でログインする場合、--user オプションでユーザを指定。
-```
-docker-compose exec --user root app bash
-```
 
-docker-compose でなく、docker コマンドを使う場合、こんな感じ。
-```
-docker exec -u root -it myapp bash
-```
-
-個人的には、コンテナ名を指定しないといけない docker exec よりも、docker-compose.yml の内容をそのまま使える docker-compose exec の方が好み。
-（container_name を明示していない docker-compose.yml も多いし。）
-
-コンテナに入ってキューのワーカーを動かしていた場合、root ユーザで実行していると、ログやキャッシュのオーナーが root になっているので、変更後のユーザでワーカー等のファイルが生成される可能性のあるコマンドを打つ場合、あらかじめ作成されたファイルを削除しておくのがおススメ。
-
-Laravel で言うと、以下のようなフォルダに格納されたファイル。
-
- * storage/logs
- * storage/framework/cache
 
