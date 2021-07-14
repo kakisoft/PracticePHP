@@ -36,12 +36,17 @@ echo $dt_01 . PHP_EOL;  //=> 2020-04-15 00:22:42（本日の日付）
 ## 日付作成
 ```php
 $dt_02 = new Carbon();
+// 現在の日時
 $dt_03 = Carbon::now();
 
+// 指定した日付のオブジェクトを作成
 $dt_04 = new Carbon('2020-04-20 11:23:45');
 $dt_05 = new Carbon('tomorrow');
 
+// 現在の日付
 $dt_06 = Carbon::today();
+
+// 明日の日付・昨日の日付
 $dt_07 = Carbon::tomorrow();
 $dt_08 = Carbon::yesterday();
 
