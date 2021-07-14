@@ -1,4 +1,6 @@
-## my-laravel-app\vendor\laravel\framework\src\Illuminate\Foundation\Inspiring.php
+https://laravel.com/docs/8.x/collections
+
+## vendor\laravel\framework\src\Illuminate\Foundation\Inspiring.php
 ```php
         return Collection::make([
             'Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant',
@@ -27,6 +29,27 @@
             'Well begun is half done. - Aristotle',
             'When there is no desire, all things are at peace. - Laozi',
         ])->random();
+```
+
+
+## pluck()
+```php
+$collection = collect([
+    ['product_id' => 'prod-100', 'name' => 'Desk'],
+    ['product_id' => 'prod-200', 'name' => 'Chair'],
+]);
+
+$plucked = $collection->pluck('name');
+
+$plucked->all();
+//=> ['Desk', 'Chair']
+
+
+$plucked = $collection->pluck('name', 'product_id');
+
+$plucked->all();
+//=> ['prod-100' => 'Desk', 'prod-200' => 'Chair']
+
 ```
 
 
