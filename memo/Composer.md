@@ -153,7 +153,13 @@ _______________________________________________________________________
 
 
 ## Composerの依存性チェックによる phpバージョンエラーを一時的に回避
+```
 composer install --ignore-platform-reqs
+```
+
+#### How to install Composer packages ignoring PHP version requirements
+https://php.watch/articles/composer-ignore-platform-req  
+
 
 _______________________________________________________________________
 # メモ
