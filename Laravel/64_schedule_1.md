@@ -22,6 +22,16 @@ php artisan schedule:test
 php artisan schedule:run
 ```
 
+## サーバで起動（例）
+１回しか実行しないのでは・・？
+```
+php artisan schedule:run --verbose --no-interaction
+
+
+--verbose          Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+-no-interaction    Do not ask any interactive question
+```
+
 ## ワーカーを待機
 ```
 php artisan schedule:work
