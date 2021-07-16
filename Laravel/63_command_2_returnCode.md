@@ -6,13 +6,13 @@ ______________________________________________________
 **PHP のバージョン： 7.4.7**  
 
 
-コマンドを作成する時、以下のようなコマンドで雛形を作ることが出来ます。
-（例：SampleCommand クラス）
+コマンドを作成する時、以下のようなコマンドで雛形を作ることが出来ます。  
+（例：SampleCommand クラス）  
 ```
 php artisan make:command SampleCommand
 ```
 
-上記のコマンドで作成されるファイルは、こんな感じ。
+上記のコマンドで作成されるファイルは、こんな感じ。  
 
 #### app\Console\Commands\SampleCommand.php
 ```php
@@ -33,14 +33,14 @@ class SampleCommand extends Command
 }
 ```
 
-handle メソッドの「return 0;」って何なんだ？  
-と思って調べてみたら、どうやら、コマンドを実行した時に帰って来る終了コードらしい。
+handle メソッドの「return 0;」って何？  
+と思って調べてみたら、どうやら、コマンドを実行した時に帰って来る終了コードみたい。  
 
 
 ## 終了コードって？
 直前に実行したコマンド（ジョブ等）が、成功したのか失敗したのかを識別するためのコード。  
 
-Linux の場合、以下のコマンドで確認できる。
+Linux の場合、以下のコマンドで確認できる。  
 ```
 echo $?
 ```
@@ -49,7 +49,7 @@ echo $?
 
 といった感じ。  
 
-PHPユニットの実行結果の合否判定にも使えます。
+PHPユニットの実行結果の合否判定にも使えます。  
 ```
 （例）
 php artisan test --testsuite=Unit
@@ -107,29 +107,4 @@ class Kernel extends ConsoleKernel
 
     }
 ```
-
-
-
-
-## 終了コードの出力
-
-
-
-
-
-```php
-    public function handle()
-    {
-        Artisan::call('cache:clear');
-        Artisan::call('config:clear');
-        Artisan::call('db:wipe');
-        Artisan::call('migrate');
-        Artisan::call('db:seed');
-        Artisan::call('db:seed --class=LocalSeeder');
-        Artisan::call('command:createQueue');
-        return 0;
-    }
-```
-
-
 
