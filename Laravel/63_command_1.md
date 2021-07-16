@@ -96,7 +96,7 @@ class HelloCommand extends Command
     public function handle()  // Command で実行する処理
     {
         $this->comment('Hello class command');
-        return 0;
+        return 0;  // 終了コード。「 echo $? 」で取得した時の値。
     }
 }
 ```
