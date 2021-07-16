@@ -69,6 +69,21 @@ composer install
 ```
 インストールされるライブラリや、ライセンス、オーナーなどは、composer.json または composer.lock を参照。
 
+
+## require
+https://kekaku.addisteria.com/wp/20190902100602  
+パッケージを追加するときに使います。パッケージ名やバージョンを指定して追加することもできます。  
+
+このコマンドでは、composer.jsonに必要パッケージを記録します。  
+
+ローカル開発環境で行なうべきコマンドです。  
+
+https://www.webdesignleaves.com/pr/php/php_composer.php  
+require サブコマンドは composer.json ファイルに新しいパッケージを追加し、ライブラリをインストールします。  
+```
+composer require predis/predis
+```
+
 ________________________________________________
 ## ひな形から作成
 ```
