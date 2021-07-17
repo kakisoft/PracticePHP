@@ -1,11 +1,18 @@
-## php.ini
+## php.ini の場所（パス）を探す
 ```
 php -i | grep php.ini
 ```
 
-## php.ini を設置している場所
+
+## ブラウザから php.ini の保存パスを確認
 ```
 phpinfo()
 で調べる事ができる。
+```
+
+
+## ファイル追記
+```
+echo "extension=redis.so" >> /usr/local/etc/php/php.ini
 ```
 
