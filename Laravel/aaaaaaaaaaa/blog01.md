@@ -1,69 +1,114 @@
- * php.ini に "extension=redis.so" の追記が必要かもしれないけど、無くても動く。ただし環境によるかも。
+【Laravel】artisan コマンドを叩く場合、.env ファイルは、OSの環境変数の影響を受けるので、知らないとハマる
 
+laravel-env-file-referenced-by-archisan
 
-__________________________
-## その他注意事項
-pecl install redis コマンドにてインストールした後、以下のメッセージが表示されています。
+________________________________________________________________________________________________
 
-> You should add "extension=redis.so" to 
+Laravel で artisan コマンドを打つ場合、「--env=」オプションを付ける事で、コマンドで使用する環境変数を指定できる。
 
-との事ですが、別に追記せずとも動きました。  
-詳細は私も良く分かってないのですが、Laravel が気を利かせて、勝手に読みに行ってるとか？  
-
-[Laravel Redisのライブラリをインストールしたらエラーが発生した](https://qiita.com/miriwo/items/d6ad9e0edc422e8a363a)  
-
-こちらでは、  
-『エラーが出たけど、php.ini「extension="redis.so」をコメントアウトしたら直った。』  
-という内容が書かれています。  
-
-という事は、Laravel を使う場合は、この設定は不要なのかもしれません。  
-
-ただ、別の環境にアップする時にはエラーが発生するケースがあるようです。  
-[AWSにLaravelをデプロイしたらエラーが出たときの対応方法](https://qiita.com/freeneer/items/8162c562337e304b4417)  
-
-EC2 にアップすると動かなかったので、php.ini に extension=redis.so を追記しているようです。  
-
-「本番環境では動かない！」という場合のため、こんな現象があるという事を記憶に留めておいた方がよさそう。  
-
-
-## php.ini に extension=redis.so を追記
-まずは php.ini のパスを確認。  
-以下、コマンド。
+以下、使用例。
 ```
-php -i | grep php.ini
-```
-実行結果例
-```
-/application $ php -i | grep php.ini
-Configuration File (php.ini) Path => /usr/local/etc/php
-Loaded Configuration File => /usr/local/etc/php/php.ini
+// 「.env.local」を参照する
+php artisan schedule:run --env=local
+
+// 「.env.production」を参照する
+php artisan schedule:run --env=production
 ```
 
-上記では、保存パスが「/usr/local/etc/php/php.ini」だったので、追記パスは以下。
+「--env」を省略した時、「.env」を参照してくれるのかと思いきや、**OSの環境変数に依存する**。
+
+どういう事かと言うと、、**OSの環境変数「APP_ENV」の値によって、デフォルトで読み込む .env ファイルが変わる**。
+
+環境変数についての具体的なコマンドは以下。
+ちなみに、Linux を想定しています。
+
+#### 環境変数を確認
 ```
-echo "extension=redis.so" >> /usr/local/etc/php/php.ini
+printenv
 ```
-追記後は php.ini の内容を確認。  
 
-その後、再起動。  
-
-
-## 採用選定基準についての所管
-PhpRedis 速い！ PhpRedis 最高！　絶対 PhpRedis にするべき！  
-みたいな意見もちらほら見かけるけど、結局、OS に手を加えざるを得ず、そこに余計に気を回さないといけなくなり、環境構築の難易度を上げるぐらいなら、いっそ Predis を選択するのもアリなのでは？  
-と思った。  
-
-開発が中断されるのが懸念事項に上がってけど、少なくとも今は再開しているし、composer で管理できるしで、色々メリットはある。  
-
-性能は PhpRedis の方が上だけど、システムによってはキャッシュへのアクセスがそこまで頻繁に起こらないケースもあるだろうし、そこまで厳しいアクセススピードの性能が求められないなら、管理コストを下げられるライブラリを選ぶ、というのも１つの選定基準だと思う。  
-
-少なくとも自分は、上記のような理由で PhpRedis ではなく Predis を採用する責任者が居たとしても何ら疑問を持つ事はないし、その意見に反対するつもりも無い。  
-
-ちなみに自分は  
-「高速化と軽量化は常に正義！（たとえ厳しく求められないケースであっても。技術負債を抱えてでも実施するべき！）」  
-という考え方には否定的です。  
+#### 環境変数を確認（特定の変数のみ）
+「APP_ENV」のみを確認したい場合は以下。
+```
+printenv APP_ENV
+```
+実行して何も出てこなかった場合、環境変数「APP_ENV」は定義されていない。
 
 
+#### 環境変数をセット
+以下、APP_ENV に "production" を設定する場合
+```
+export APP_ENV="production"
+```
+
+#### 環境変数を削除
+以下、環境変数「APP_ENV」を削除する場合
+```
+unset APP_ENV
+```
+
+## 動作例
+例えば、各 .env ファイルに、以下の設定があったとする。
+#### .env
+```
+ENV_PARAM_SAMPLE01=.env
+```
+#### .local
+```
+ENV_PARAM_SAMPLE01=.env.local
+```
+
+#### .production
+```
+ENV_PARAM_SAMPLE01=.env.production
+```
+
+そして、以下のように環境変数を参照するコマンドがあったとする。
+```php
+public function handle()
+{
+    $this->info( env('ENV_PARAM_SAMPLE01') );
+}
+```
+
+実行結果は以下のようになる。
+
+ * Linux の環境変数 APP_ENV が未設定、もしくは空白の場合、出力結果は ".env"
+ * Linux の環境変数 APP_ENV が local の場合、出力結果は ".env.local"
+ * Linux の環境変数 APP_ENV が production の場合、出力結果は ".env.local"
+
+ちなみに、Linux の環境変数を変えた後、キャッシュクリアのコマンドを叩かないと、変更内容は反映されません。
+```
+php artisan hello:class
+```
+
+
+## 適用範囲
+この挙動はコマンドラインから実行した時のみ適用され、**普通にアプリを動かす場合は .env が適用される。**
+
+試しに routes\api.php に以下のようなコードを書いてみたのですが、Linux の環境変数をどのように変えても、結果は常に同じでした。
+```php
+Route::get('env', function(){ return env('ENV_PARAM_SAMPLE01'); });
+```
+
+
+## 開発時に決めておいた方が良さそうな点
+ローカル環境にて、環境変数「APP_ENV=local」等に設定する場合、「.env.local」をプロジェクトに含めない方が良さそう。
+
+そうしないと、アプリは .env を参照し、コマンドラインは .env.local を参照するといった、混乱を招きやすい挙動になってしまう。
+
+ちなみに、環境変数が「APP_ENV=local」と設定されていて、「.env.local」が存在しなかった場合、「.env」を参照します。
+
+
+## Laravel 的に正しい挙動なの？
+ソースを読無限り、意図通りの動作だと思われます。
+
+
+
+
+
+GitHub リポジトリ内のソースの該当箇所はこちら。
+https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/Bootstrap/LoadEnvironmentVariables.php#L51
 
 
 
