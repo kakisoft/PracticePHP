@@ -112,3 +112,33 @@ https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/Bootstra
 
 
 
+
+
+
+
+  happylogi-php:
+    image: 581151730552.dkr.ecr.ap-northeast-1.amazonaws.com/php-fpm/dev:20210630
+    restart: always
+    volumes:
+      - ./sources:/application
+      - hapilogi-vendor:/application/vendor
+      - hapilogi-node_modules:/application/node_modules
+    user: www-data
+    environment:
+      - APP_ENV=local
+
+
+docker-compose を使っている場合、OSの環境変数は「environment:」に記述されています。
+```yaml
+services:
+  app:
+    build: ./docker/php
+    depends_on:
+    - mysql
+    volumes:
+      - .:/var/www/html
+    container_name: myapp
+    user: www-data
+    environment:
+      - APP_ENV=local
+```
