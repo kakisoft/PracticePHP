@@ -129,6 +129,7 @@ https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/Bootstra
 
 
 docker-compose を使っている場合、OSの環境変数は「environment:」に記述されています。
+（記述例）
 ```yaml
 services:
   app:
@@ -142,3 +143,5 @@ services:
     environment:
       - APP_ENV=local
 ```
+
+php artisan config:clear
