@@ -1,7 +1,7 @@
 
-【Laravel】artisan コマンドを叩く場合、参照する .env ファイルは、OSの環境変数の影響を受けるので、知らないとハマる
+【Laravel】Laravel アプリケーションが参照する .env ファイルは、OSの環境変数の影響を受けるので、知らないとハマる
 
-laravel-env-file-referenced-by-archisan
+laravel-env-file-referenced
 
 ________________________________________________________________________________________________
 **【 環境 】**
@@ -67,11 +67,19 @@ ENV_PARAM_SAMPLE01=.env.local
 ENV_PARAM_SAMPLE01=.env.production
 ```
 
+env ファイルを読み込ませる config を追加
+#### config\myconfig01.php
+```php
+return [
+    'env_param_sample01' => env('ENV_PARAM_SAMPLE01'),
+];
+```
+
 そして、以下のように環境変数を参照するコマンドがあったとする。
 ```php
 public function handle()
 {
-    $this->info( env('ENV_PARAM_SAMPLE01') );
+    $this->info( config('myconfig01.env_param_sample01') );
 }
 ```
 
@@ -90,22 +98,44 @@ php artisan config:clear
 
 
 ## 適用範囲
-この挙動は**コマンドラインから実行した時のみ適用**され、**普通にアプリを動かす場合は .env が適用**される。
+この挙動は、コマンドラインから参照した時のみでなく、**普通にアプリを動かす場合にも適用**される。
+（2021年 7/18訂正。当初、アプリ側は常に .env を参照するものと思っておりました。詳細は）
 
-試しに routes\api.php に以下のようなコードを書いてみたのですが、Linux の環境変数をどのように変えても、結果は常に同じでした。
+試しに以下のようなコードを書いて検証してみたところ、コマンドラインから実行した時と全く同じ結果になりました。
 ```php
-Route::get('env', function(){ return env('ENV_PARAM_SAMPLE01'); });
+Route::get('env', function(){
+    return config('myconfig01.env_param_sample01');
+});
 ```
 
 
 ## 開発時に決めておいた方が良さそうな点
-ローカル環境にて、環境変数「APP_ENV=local」等に設定する場合、「.env.local」をプロジェクトに含めない方が良さそう。
+色々と開発者が混乱を招く原因となるので、以下のようなルールを決めておいた方がよさそう。
 
-そうしないと、アプリは .env を参照し、コマンドラインは .env.local を参照するといった、混乱を招きやすい挙動になってしまう。
+#### 案１．OS の APP_ENV を設定しない
+ローカルの開発環境構築時、特に理由がない限り、OS の環境変数を「APP_ENV=local」に設定しない。
+そうしないと、上記のような事象に遭遇し、余計な事でハマる。
 
-ちなみに、環境変数が「APP_ENV=local」と設定されていて、「.env.local」が存在しなかった場合、「.env」を参照します。
+#### 案２．.env.local を編集するようにする
+（OS の環境変数を「APP_ENV=local」が設定されている）
+開発時、.env は編集せず、.env.local を編集するようにする。
+この場合、.env は削除した方が良さそうです。
+ただ、それだと気持ち悪さを感じる人が一定数居そうだし、Laravel に慣れた人は気を利かして自分で .env を用意するので、
+その時「あれ？ちゃんと動かない？」と余計なハマりポイントが出来てしまうので、Readme へ注意書きは必須。
 
-docker-compose を使っている場合、OSの環境変数は「environment:」に記述されています。
+#### 案３．.env.local をリポジトリ管理しない。
+（OS の環境変数を「APP_ENV=local」が設定されている）
+「.env.local」をリポジトリ管理しない。（.env.local　ファイルを作成しない）
+
+ちなみに、OSの環境変数が設定されていた場合、**.env を参照する方法はありません**　。
+指定しなければデフォルト設定の .env.local が参照され、「--env=""」といったように空白を指定しても、デフォルト設定が参照されます。
+
+唯一、「.env.local」が存在しなかった場合、「.env」を参照します。
+が、そんなややこしい事、誰もやりたくないと思うので、最初からリポジトリ管理対象外にしてしまっては？
+という考え。
+
+### OSの環境変数設定内容 : docker-compose を使っている場合
+ちなみに、docker-compose を使っている場合、OSの環境変数は「environment:」に記述されています。
 ```yaml
 services:
   app:
@@ -119,6 +149,20 @@ services:
     environment:
       - APP_ENV=local
 ```
+
+
+## その他の考察
+サーバ環境においては、
+「APP_ENV=staging」
+「APP_ENV=production」
+という設定が入るのは、ごく普通かと思います。
+
+また、CI/CD なんかを組んでいると、コンテナ構築時に
+「.env.production の内容を、.env にコピー」
+といった処理をが含まれている事もあるかと思いますが、**実は無意味**でした。
+
+OSの環境変数が設定されていれば、アプリ・コマンドライン共に .env が参照される事はありません。
+
 
 ## Laravel 的に正しい挙動なの？
 ソースを読無限り、意図通りの動作だと思われます。
