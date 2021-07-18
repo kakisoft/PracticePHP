@@ -1,8 +1,12 @@
-【Laravel】artisan コマンドを叩く場合、.env ファイルは、OSの環境変数の影響を受けるので、知らないとハマる
+
+【Laravel】artisan コマンドを叩く場合、参照する .env ファイルは、OSの環境変数の影響を受けるので、知らないとハマる
 
 laravel-env-file-referenced-by-archisan
 
 ________________________________________________________________________________________________
+**【 環境 】**
+**Laravel のバージョン： 8.16.1**
+**PHP のバージョン： 7.4.7**
 
 Laravel で artisan コマンドを打つ場合、「--env=」オプションを付ける事で、コマンドで使用する環境変数を指定できる。
 
@@ -17,7 +21,7 @@ php artisan schedule:run --env=production
 
 「--env」を省略した時、「.env」を参照してくれるのかと思いきや、**OSの環境変数に依存する**。
 
-どういう事かと言うと、、**OSの環境変数「APP_ENV」の値によって、デフォルトで読み込む .env ファイルが変わる**。
+どういう事かと言うと、**OSの環境変数「APP_ENV」の値によって、デフォルトで読み込む .env ファイルが変わる**。
 
 環境変数についての具体的なコマンドは以下。
 ちなみに、Linux を想定しています。
@@ -78,13 +82,15 @@ public function handle()
  * Linux の環境変数 APP_ENV が production の場合、出力結果は ".env.local"
 
 ちなみに、Linux の環境変数を変えた後、キャッシュクリアのコマンドを叩かないと、変更内容は反映されません。
+
+コンフィグファイルのキャッシュクリアコマンドは以下。
 ```
-php artisan hello:class
+php artisan config:clear
 ```
 
 
 ## 適用範囲
-この挙動はコマンドラインから実行した時のみ適用され、**普通にアプリを動かす場合は .env が適用される。**
+この挙動は**コマンドラインから実行した時のみ適用**され、**普通にアプリを動かす場合は .env が適用**される。
 
 試しに routes\api.php に以下のようなコードを書いてみたのですが、Linux の環境変数をどのように変えても、結果は常に同じでした。
 ```php
@@ -99,37 +105,7 @@ Route::get('env', function(){ return env('ENV_PARAM_SAMPLE01'); });
 
 ちなみに、環境変数が「APP_ENV=local」と設定されていて、「.env.local」が存在しなかった場合、「.env」を参照します。
 
-
-## Laravel 的に正しい挙動なの？
-ソースを読無限り、意図通りの動作だと思われます。
-
-
-
-
-
-GitHub リポジトリ内のソースの該当箇所はこちら。
-https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/Bootstrap/LoadEnvironmentVariables.php#L51
-
-
-
-
-
-
-
-  happylogi-php:
-    image: 581151730552.dkr.ecr.ap-northeast-1.amazonaws.com/php-fpm/dev:20210630
-    restart: always
-    volumes:
-      - ./sources:/application
-      - hapilogi-vendor:/application/vendor
-      - hapilogi-node_modules:/application/node_modules
-    user: www-data
-    environment:
-      - APP_ENV=local
-
-
 docker-compose を使っている場合、OSの環境変数は「environment:」に記述されています。
-（記述例）
 ```yaml
 services:
   app:
@@ -144,33 +120,9 @@ services:
       - APP_ENV=local
 ```
 
-php artisan config:clear
+## Laravel 的に正しい挙動なの？
+ソースを読無限り、意図通りの動作だと思われます。
 
+![laravel-env-file-referenced-by-archisan](https://kaki-engine.com/wp-content/uploads/2021/07/laravel-env-file-referenced-by-archisan.png)
 
-
-
-
-
-
-
-
-
-## 追記
-ある日、何をやってもブラウザに「500 エラー」としか出なくなってて、laravel.log を見たら、こんなの出てた。  
-
-```
-local.ERROR: Please make sure the PHP Redis extension is installed and enabled. 
-{"exception":"[object] (LogicException(code: 0): Please make sure the PHP Redis extension is installed and enabled. 
-at /var/www/html/my-laravel-app/vendor/laravel/framework/src/Illuminate/Redis/Connectors/PhpRedisConnector.php:77)
-```
-
-あれ？　特に何も触ってないのに？  
-と思いきや、.env を弄ってて、環境設定ファイルが読み込みエラーになってたのが原因だった。  
-
-それ以外の全てのエラーを優先して前面に出て来るとは、なかなか主張が強いな・・  
-
-
-
-
-
-
+GitHub リポジトリ内のソースの該当箇所はこちら。<https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/Bootstrap/LoadEnvironmentVariables.php#L51>
