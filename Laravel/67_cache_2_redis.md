@@ -134,3 +134,19 @@ Route::get('/cache/forget', function () {
 ```
 
 
+__________________________________________________________1_______________________
+## troubleshoot
+ある日、何をやってもブラウザに「500 エラー」としか出なくなってて、laravel.log を見たら、こんなの出てた。  
+
+```
+local.ERROR: Please make sure the PHP Redis extension is installed and enabled. 
+{"exception":"[object] (LogicException(code: 0): Please make sure the PHP Redis extension is installed and enabled. 
+at /var/www/html/my-laravel-app/vendor/laravel/framework/src/Illuminate/Redis/Connectors/PhpRedisConnector.php:77)
+```
+
+あれ？　特に何も触ってないのに？  
+と思いきや、.env を弄ってて、環境設定ファイルが読み込みエラーになってたのが原因だった。  
+
+それ以外の全てのエラーを優先して前面に出て来るとは、なかなか主張が強いな・・  
+
+

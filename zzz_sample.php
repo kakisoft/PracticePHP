@@ -1,14 +1,14 @@
 <?php
 
-$value = "20200715";
-// $value = "12020y071521";
+// exec('whoami', null, null);
 
-$date = date_parse($value);
 
-// var_dump($date);
-print_r($date);
 
-// checkdate($date['month'], $date['day'], $date['year']);
+$output=null;
+$retval=null;
+exec('printenv APP_ENV', $output, $retval);
+echo "Returned with status $retval and output:\n";
+print_r($output);
 
 
 

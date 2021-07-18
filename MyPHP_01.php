@@ -4164,6 +4164,24 @@ $file = $_FILES['update_file'];
 // )
 
 
+//=================================
+//       外部コマンドを実行
+//=================================
+// https://www.php.net/manual/ja/function.exec.php
+$output=null;
+$result_code =null;
+exec('whoami', $output, $result_code );
+echo "Returned with status $result_code  and output:\n";
+print_r($output);
+//=>
+/*
+Array
+(
+    [0] => pbw200201\satoru_kakinohana
+)
+*/
+
+
 
 //=================================
 //       ロケール情報を設定
