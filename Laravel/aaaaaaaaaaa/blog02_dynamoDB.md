@@ -32,7 +32,7 @@ config から env の内容を読み込む値を設定
 #### config\myconfig01.php
 ```php
 return [
-    'artisan_env_sample' => env('ENV_PARAM_SAMPLE01'),
+    'env_param_sample01' => env('ENV_PARAM_SAMPLE01'),
 ];
 ```
 
@@ -43,7 +43,7 @@ return [
 ```php
 Route::get('env', function(){
     echo "ENV_PARAM_SAMPLE01 from .env  : " . env('ENV_PARAM_SAMPLE01') . PHP_EOL;
-    echo "ENV_PARAM_SAMPLE01 from .conf : " . config('myconfig01.artisan_env_sample') . PHP_EOL;
+    echo "ENV_PARAM_SAMPLE01 from .conf : " . config('myconfig01.env_param_sample01') . PHP_EOL;
     return;
 });
 ```
