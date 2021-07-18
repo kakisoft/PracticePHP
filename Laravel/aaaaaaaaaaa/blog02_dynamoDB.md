@@ -3,8 +3,9 @@
 laravel-env-read-trap
 
 ________________________________________________________________________________________________________
-「[envファイルのデータを直接参照しない](https://github.com/alexeymezenin/laravel-best-practices/blob/master/japanese.md#env%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E7%9B%B4%E6%8E%A5%E5%8F%82%E7%85%A7%E3%81%97%E3%81%AA%E3%81%84)」
-
+**【 環境 】**
+**Laravel のバージョン： 8.16.1**
+**PHP のバージョン： 7.4.7**
 
 Laravel において、
 「 .env の値を参照する時、直接読み込ませず、config を経由する」
