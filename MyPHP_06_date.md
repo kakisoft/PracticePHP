@@ -140,15 +140,18 @@ var_dump($date01 > $date02);   //=> bool(false)
 ```
 
 
-## 日付の妥当性チェック（ is_date ）
+## 日付の妥当性チェック（ is_date ）※信頼性低
 https://www.php.net/manual/ja/function.checkdate.php
 ```php
 $date = "2018/01/32";
 
 //何と、2018/02/01 と判定してしまう。
 $d = DateTime::createFromFormat('Y/m/d', $date);
+```
 
-
+## 日付の妥当性チェック（ checkdate ）※恐らく PHPで最も高精度
+月・日・年に分けて値を入れないといけないので、使いづらい。
+```php
 // checkdate(int $month, int $day, int $year): bool
 if(checkdate(2, 29, 2016)) {
   echo '受け付けました。';
@@ -160,8 +163,6 @@ if(checkdate(2, 29, 2016)) {
 $month = substr($argumentData,  4, 2);
 $day   = substr($argumentData,  6, 2);
 $year  = substr($argumentData,  0, 4);
-
-
 ```
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
