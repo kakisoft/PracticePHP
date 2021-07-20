@@ -123,6 +123,8 @@ echo $dt->addYears(3) . PHP_EOL;  //=> 2024-04-16 11:23:45   +1 +3年
 echo $dt->subYear()   . PHP_EOL;  //=> 2023-04-16 11:23:45   +1 +3年 -1年
 echo $dt->subYears(3) . PHP_EOL;  //=> 2020-04-16 11:23:45   +1 +3年 -1年 -3年
 
+$dt->ubMinutes(5);
+
 // add, sub
 // Years(n)
 // Year, Month, Day, Hour, Minute, Second

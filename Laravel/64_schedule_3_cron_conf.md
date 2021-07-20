@@ -5,6 +5,12 @@ min hour day month youbi ＜command＞
 
 
 ＜例＞
+毎時 30分に実行したい場合、
+30 */1 * * * ＜command＞
+
+※「30 * * * *」だと、うまく動かない事がある？ こっちでもOK。
+
+
 毎朝 7 時に実行したい場合、
 0 7 * * * ＜command＞
 
