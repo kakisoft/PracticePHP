@@ -7,8 +7,10 @@ Laravel のスケジューラ（ schedule:run コマンド）を使用した時�
 気になったんで実験。  
 結論は既にタイトルに出てます。  
 
-以下のコードで実験しました。
-# 実験１
+以下のコードで実験しました。  
+
+___________________________________________________________________________
+# 実験１：特に何も考えずに記述する
 
 ### app\Console\Kernel.php
 ```php
@@ -66,7 +68,8 @@ Command02 以降は省略。全て同じコード。
 各コマンドでどれだけ処理がかかるかによって、結果が変わってくるかもしれない。  
 
 ___________________________________________________________________________
-# 実験２
+# 実験２：途中でウェイトが発生するジョブを挟む
+
 上記コードの command を以下のように修正して実験。  
 
 Batch02Command, Batch03Command, も、全て同じコードです。  
@@ -123,4 +126,48 @@ Batch02Command は、Batch01Command の終了を確認した後に実行して�
 
 という事で、schedule で command を順番に呼び出している時、非同期で実行するのではなく、１つ１つ完了した後で実行している事が分かりました。  
 
+___________________________________________________________________________
+# 実験３：runInBackground を追加
+
+runInBackground を付ければ、非同期で動くのでは？
+
+### app\Console\Kernel.php
+```php
+    private function scheduleExecuteCommand01(Schedule $schedule)
+    {
+        $schedule->command(Batch01Command::class)
+            ->everyMinute()
+            ->runInBackground();
+    }
+    // Command02 以降は省略
+```
+
+ログは以下のようになりました。  
+
+### storage\logs\laravel.log
+```log
+[2021-07-20 10:41:42] local.INFO: AAAAA  
+[2021-07-20 10:41:45] local.INFO: App\Console\Commands\Batch03Command::handle  
+[2021-07-20 10:41:45] local.INFO: App\Console\Commands\Batch01Command::handle  
+[2021-07-20 10:41:45] local.INFO: App\Console\Commands\Batch02Command::handle  
+[2021-07-20 10:41:55] local.INFO: App\Console\Commands\Batch01Command::handle: after 20 second  
+[2021-07-20 10:41:55] local.INFO: App\Console\Commands\Batch03Command::handle: after 20 second  
+[2021-07-20 10:41:55] local.INFO: App\Console\Commands\Batch02Command::handle: after 20 second  
+[2021-07-20 10:42:05] local.INFO: App\Console\Commands\Batch01Command::handle: after 40 second  
+[2021-07-20 10:42:05] local.INFO: App\Console\Commands\Batch03Command::handle: after 40 second  
+[2021-07-20 10:42:05] local.INFO: App\Console\Commands\Batch02Command::handle: after 40 second  
+[2021-07-20 10:42:15] local.INFO: App\Console\Commands\Batch01Command::handle: after 60 second  
+[2021-07-20 10:42:15] local.INFO: App\Console\Commands\Batch03Command::handle: after 60 second  
+[2021-07-20 10:42:15] local.INFO: App\Console\Commands\Batch02Command::handle: after 60 second  
+[2021-07-20 10:42:17] local.INFO: AAAAA  
+[2021-07-20 10:42:17] local.INFO: AAAAA  
+[2021-07-20 10:42:19] local.INFO: AAAAA  
+```
+
+Batch01Command, Batch02Command, Batch03Command が、並列して同時に動いている。  
+
+以下のように使い分けが出来そうですね。
+
+ * 逐次処理をしたい場合、runInBackground を付けない
+ * 並列で処理したい場合、runInBackground を付ける
 
