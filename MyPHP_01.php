@@ -2845,6 +2845,38 @@ function div27($a, $b) {
 div27(7, 2);
 div27(5, 0);
 
+//==========================
+//【 例外：テンプレ 】
+
+        try {
+            $sample = $this->model->newInstance();
+            $sample->name = $request['name'] . '_' . Carbon::now()->format('Y-m-d H:i:s');
+            $sample->save();
+
+            // Return Saved Model
+            return $sample;
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+
+//----------------------
+
+        try {
+            $numOfResult = $this->model->query()
+                            ->where('created_at','<=' , $deleteBaseDateTime)
+                            ->forceDelete();
+
+            \Log::info(__METHOD__ . ":削除したレコード件数:" . $numOfResult);
+
+            return true;
+
+        } catch (Exception $e) {
+            \Log::error($e->getMessage());
+            return false;
+        }
+
 
 //==========================
 //           改行
