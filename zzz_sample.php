@@ -1,82 +1,42 @@
 <?php
 
-// exec('whoami', null, null);
+class Foo {
+    public static function aStaticMethod() {
+        // ...
+    }
+}
+
+Foo::aStaticMethod();
+$classname = 'Foo';
+$classname::aStaticMethod();
 
 
-
-$output=null;
-$retval=null;
-exec('printenv APP_ENV', $output, $retval);
-echo "Returned with status $retval and output:\n";
-print_r($output);
+//  php -l a.php
 
 
+// class ParentClass {
+//     // 「self」は、定義されたクラスを指す。
+//     // この場合、どこからコールされても、クラス「ParentClass」を指す
+//     public static function getNewSelfName() {
+//         return get_class(new self());
+//     }
 
-
-
-// for($i=0; $i<=1; $i++){
-//     echo "{$i}" . PHP_EOL;
+//     // 「static」は、呼び出された時のクラスを指す。
+//     // このクラスを継承した ChildClass からコールされる場合、「ChildClass」を指す
+//     public static function getNewStaticName() {
+//         return get_class(new static());
+//     }
 // }
 
-
-// //=>
-// 引数の数: 3
-// 二番目の引数は: 2 です。
-// 引数 0 は: 1 です。
-// 引数 1 は: 2 です。
-// 引数 2 は: 3 です。
-
-
-// use Exception;
-
-// function div27($a, $b) {
-//   try {
-//       if ($b === 0) {
-//           throw new Exception("cannot divide by 0!");
-//       }
-//       echo $a / $b;
-//       echo PHP_EOL;
-
-//   } catch (Exception $e) {
-//       // エラーメッセージを取得する
-//       echo $e->getMessage();
-//       echo PHP_EOL . PHP_EOL;
-
-//       // Exception::getCode
-//       // 例外コードを取得する
-//       echo "The exception code is : " . $e->getCode ();  //=> 例外コードを取得
-//       echo PHP_EOL . PHP_EOL;
-
-//       // Exception::getFile
-//       // 例外が作られたファイルを取得する
-//       echo "The exception was created in : " . $e->getFile();  //=> 例外が発生したファイルを表示
-//       echo PHP_EOL . PHP_EOL;
-
-//       // Exception::getLine
-//       // 例外が作られた行を取得する
-//       echo "The exception was created on line: " . $e->getLine();  //=> 例外が発生した行数を表示
-//       echo PHP_EOL . PHP_EOL;
-
-//       // Exception::getTrace
-//       // スタックトレースを取得する
-//       print_r($e->getTrace());  //=> 配列形式
-//       echo PHP_EOL . PHP_EOL;
-
-//       // Exception::getTraceAsString
-//       // スタックトレースを文字列で取得する
-//       echo "The exception's stack trace: " . $e->getTraceAsString ();  //=> スタックトレース
-//       echo PHP_EOL . PHP_EOL;
-
-
-//   } finally {
-//       echo "First finally." . PHP_EOL;
-//   }
+// class ChildClass extends ParentClass {
 // }
 
-// div27(7, 2);
-// div27(5, 0);
+// // 「self」は、定義されたクラスを指す
+// echo ParentClass::getNewSelfName() . PHP_EOL;    //=> ParentClass
+// echo ChildClass::getNewSelfName()  . PHP_EOL;    //=> ParentClass
 
-
-
+// // 「static」は、呼び出されたクラスを指す
+// echo ParentClass::getNewStaticName() . PHP_EOL;  //=> ParentClass
+// echo ChildClass::getNewStaticName()  . PHP_EOL;  //=> ChildClass
 
 
