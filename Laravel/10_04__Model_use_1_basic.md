@@ -58,6 +58,32 @@ dd($query->toSql(), $query->getBindings());  // プレースホルダの値は�
 // ]
 ```
 
+#### toSql() - 検証
+```php
+// latest - OK
+$query = Author::latest()->toSql();
+
+// where - OK
+$query = Author::where('gender', '=', 1)->toSql();
+
+// instance - OK
+$author = new Author();
+$query = $author->where('gender', '=', 1)->toSql();
+
+
+// model - OK
+$this->model = app()->make(Author::class);
+$query = $this->model->where('gender', '=', 1)->toSql();
+
+```
+
+##### エラー
+```
+Object of class Illuminate\Database\Eloquent\Builder could not be converted to string
+```
+単にメソッド名を間違えてる可能性が。「 toSQL() 」とか。  
+
+
 #### enableQueryLog / getQueryLog を使う
 「get()」等の、値を取得するメソッドが必要みたい。  
 　  
