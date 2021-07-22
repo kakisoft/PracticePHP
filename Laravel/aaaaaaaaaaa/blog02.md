@@ -295,5 +295,5 @@ php artisan command:batch04 0 ; echo $?
 
 ## 結論
 Schedule クラスから command を実行する時、リターンコードは取れないけど、onSuccess メソッドと onFailure メソッドを使えばエラーを検知できるので、活用しよう！
-には onSuccess メソッドと onFailure メソッド
+
 
