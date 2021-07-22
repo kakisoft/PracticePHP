@@ -1,4 +1,5 @@
 
+Schedule クラスから command を実行する時、onSuccess と onFailure でエラーを検知しよう
 
 ____________________________________________________________________________________
 
@@ -7,7 +8,7 @@ ________________________________________________________________________________
 以前、こんなの書きました。  
 [Laravel：Command クラスの handle メソッドに記述されている return 0 って何？](https://www.kakistamp.com/entry/2021/07/17/002438)  
 
-##### コード例
+##### make:command で生成する雛形コード例
 ```php
 class SampleCommand extends Command
 {
@@ -41,7 +42,7 @@ php artisan command:name ; echo $?
 ```
 
 
-## スケジューラでもリターンコードはできる？
+## スケジューラから起動してもリターンコードはできる？
 結論としては、出来ませんでした。  
 （詳細は冒頭で紹介したブログを参照）  
 
@@ -244,6 +245,55 @@ php artisan command:batch04 0 ; echo $?
 といった処理は異常終了として検出されないので、常にリターンコードを意識するようにした方がいんじゃないかと思います。  
 
 
+## Try catch で捕捉した時は？
+
+コマンドを以下のように変えて実行してみた。
+```php
+    public function handle()
+    {
+        try {
+            $param1 = $this->argument('param1');
+
+            $val1 = 10 / $param1;
+
+            \Log::info($param1);
+            \Log::info($val1);
+
+            return 0;
+
+        } catch (Exception $e) {
+            \Log::error($e->getMessage());
+            return 1;
+        }
+    }
+```
+
+こんなログが出力されました。
+
+```log
+[2021-07-22 15:48:31] local.ERROR: Division by zero {"exception":"[object] (ErrorException(code: 0): Division by zero at /var/www/html/my-laravel-app/app/Console/Commands/Batch04Command.php:43)
+[stacktrace]
+#0 /var/www/html/my-laravel-app/app/Console/Commands/Batch04Command.php(43): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Division by zer...', '/var/www/html/m...', 43, Array)
+#1 /var/www/html/my-laravel-app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Console\\Commands\\Batch04Command->handle()
+#2 /var/www/html/my-laravel-app/vendor/laravel/framework/src/Illuminate/Container/Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+
+（中略）
+
+[2021-07-22 15:48:36] local.INFO: Batch04Command failed.  
+```
+
+どうやら、コマンド内においては、システム的なエラーが発生しても Try catch で補足できず、エラーを返すようです。  
+
+スケジューラからの起動でなく、コマンドからの起動でも同じ結果となりました。
+```
+> php artisan command:batch04 0 ; echo $?
+> 1
+```
+
+という事で、システム的なエラーが発生した場合は、こっちが return の値を指定しなかったとしても、気を利かしてエラーコードを返し、onFailure に分岐してくれるようです。
 
 
+## 結論
+Schedule クラスから command を実行する時、リターンコードは取れないけど、onSuccess メソッドと onFailure メソッドを使えばエラーを検知できるので、活用しよう！
+には onSuccess メソッドと onFailure メソッド
 
