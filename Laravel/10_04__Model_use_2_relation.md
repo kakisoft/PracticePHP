@@ -54,6 +54,36 @@ class Book extends Model
 }
 ```
 
+```php
+    /**
+     * 【 概要 】
+     * PHP の where メソッド等で設定したパラメータをセットした SQL文を返す
+     *
+     * 呼び出し方法：
+     *     \App\Utils\DebugUtil::getEloquentSqlWithBindings($query);
+     *
+     * 使い方の例：
+     *     -----【 PHP コード 】--------------------------------------------------------
+     *     $query = $this->model->where('gender', '=', 1);
+     *     $paramFilledSql = \App\Utils\DebugUtil::getEloquentSqlWithBindings($query);
+     *     \Log::info($paramFilledSql);
+     *
+     *     -----【 戻り値 】-------------------------------------------------------------
+     *     select * from `authors` where `gender` = 1
+     *
+     *     ※「`gender` = ?」でなく、PHPコードの where メソッドで指定した値がセットされた SQL が出力される
+     *     -----------------------------------------------------------------------------
+     */
+
+
+
+    /**
+     * Dump Query
+     *
+     * getEloquentSqlWithBindings の名前が長かったので、エイリアスとして設定。
+     */
+```
+
 
 _______________________________________________________________________________________________________________________________________
 # _
