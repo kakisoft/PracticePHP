@@ -1,34 +1,60 @@
 
-withoutOverlapping()
-【Laravel】Schedule にて実行するコマンドは、withoutOverlapping() を付けないと、同じジョブが重複して実行される可能性がある
 
 ____________________________________________________________________________________
-## withoutOverlapping()
-Laravel の Schedule には、withoutOverlapping() というメソッドがあり、これを使わない限り、タスクが重複して実行される事があるみたい。  
 
 
-【 公式サイト 】  
-<https://laravel.com/docs/8.x/scheduling#preventing-task-overlaps>
+## Command クラスの handle メソッドの戻り値の意味
+以前、こんなの書きました。  
+[Laravel：Command クラスの handle メソッドに記述されている return 0 って何？](https://www.kakistamp.com/entry/2021/07/17/002438)  
 
-> By default, scheduled tasks will be run even if the previous instance of the task is still running.
-> To prevent this, you may use the withoutOverlapping method:
+##### コード例
+```php
+class SampleCommand extends Command
+{
 
-つまり、「1分に1回実行するバッチ」があり、そのバッチの実行完了に 100秒かかるとすると、バッチの終了を待たずに次々と実行される、という挙動だろうか。  
+// 中略
 
-というわけで、実験してみる。  
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        return 0;  //← これは一体何？
+    }
+}
+```
 
-_________________________________________________________________________
-# 実験１：withoutOverlapping() を付けずに実行
-1分に1回実行する、Batch01Command, Batch02Command, Batch03Command を設定。  
+概要をまとめると、こんな感じ。
 
-### app\Console\Kernel.php
+ * Command クラスの handle() メソッドの戻り値は、「終了コード」
+ * 終了コードは、「0 : 成功」「0以外 : 失敗（エラーコード）」（別に Laravel に限らず、システム全般に適用できる）
+ * Linux の場合、「 echo $? 」コマンドで出力できる。
+ * return を省略した場合、0 が返る
+ * この値で、コマンドが成功したか失敗したかを判別できるようにしておいた方が、障害が発生した時の手掛かりにしやすそう
+
+
+コマンドラインから叩く場合、「;」で繋げると良さげ。
+```
+php artisan command:name ; echo $?
+```
+
+
+## スケジューラでもリターンコードはできる？
+結論としては、出来ませんでした。  
+（詳細は冒頭で紹介したブログを参照）  
+
+が、Schedule クラスには onSuccess メソッドと onFailure メソッドがあり、これを使えば成功したかどうかを検出できるのでは？  
+
+と思ったので実験。
+
+## onSuccess と onFailure
+Kernel クラスは、こんな感じ。  
+
+### Console\Kernel.php
 ```php
     protected function schedule(Schedule $schedule)
-    {
-        $this->scheduleExecuteBatches($schedule);
-    }
-
-    private function scheduleExecuteBatches(Schedule $schedule)
     {
         $this->scheduleExecuteCommand01($schedule);
         $this->scheduleExecuteCommand02($schedule);
@@ -39,155 +65,182 @@ _________________________________________________________________________
     {
         $schedule->command(Batch01Command::class)
             ->everyMinute()
-            ->runInBackground();
+            ->runInBackground()
+            ->withoutOverlapping()
+            ->onSuccess(function () {
+                \Log::info('Batch01Command was successful.');
+            })
+            ->onFailure(function () {
+                \Log::info('Batch01Command failed.');
+            });
     }
 
     private function scheduleExecuteCommand02(Schedule $schedule)
     {
         $schedule->command(Batch02Command::class)
             ->everyMinute()
-            ->runInBackground();
+            ->runInBackground()
+            ->withoutOverlapping()
+            ->onSuccess(function () {
+                \Log::info('Batch02Command was successful.');
+            })
+            ->onFailure(function () {
+                \Log::info('Batch02Command failed.');
+            });
     }
 
     private function scheduleExecuteCommand03(Schedule $schedule)
     {
         $schedule->command(Batch03Command::class)
             ->everyMinute()
-            ->runInBackground();
+            ->runInBackground()
+            ->withoutOverlapping()
+            ->onSuccess(function () {
+                \Log::info('Batch03Command was successful.');
+            })
+            ->onFailure(function () {
+                \Log::info('Batch03Command failed.');
+            });
     }
 ```
 
+Batch01Command は 0 を返し、  
+Batch02Command は 0 以外の値を返すようにする。  
 
 ### app\Console\Commands\Batch01Command.php
-開始・終了にログを吐く。  
-100秒のウェイトをかけて、処理に 1分以上かかるようにする。  
 ```php
     public function handle()
     {
-        $this->info(__METHOD__ . ':start');
-        \Log::info(__METHOD__. ':start');
-
-        // 100 秒間ウェイト
-        sleep(100);
-
-        $this->info(__METHOD__ . ':end');
-        \Log::info(__METHOD__. ':end');
+        return 0;
     }
-
-    // Batch02Command, Batch03Command も、全く同じ処理
 ```
 
 
-そして、以下のコマンドで待ち受けを起動。  
-```
-php artisan schedule:work
+### app\Console\Commands\Batch02Command.php
+```php
+    public function handle()
+    {
+        return 1;
+    }
 ```
 
-以下、ログに出力された内容です。  
+
+### app\Console\Commands\Batch03Command.php
+```php
+    public function handle()
+    {
+        // 戻り値を指定しない
+    }
+```
+
+
+以下のような結果になりました。
 
 ### storage\logs\laravel.log
 ```log
-[2021-07-21 12:51:07] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 12:51:07] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 12:51:09] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 12:52:05] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 12:52:05] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 12:52:05] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 12:52:47] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 12:52:47] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 12:52:49] local.INFO: App\Console\Commands\Batch03Command::handle:end  
-[2021-07-21 12:53:07] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 12:53:07] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 12:53:09] local.INFO: App\Console\Commands\Batch03Command::handle:start  
+[2021-07-22 13:30:17] Batch01Command was successful.  
+[2021-07-22 13:30:17] Batch02Command failed.  
+[2021-07-22 13:30:21] Batch03Command was successful.  
+```
+
+Batch01Command、Batch02Command は、バッチリ意図通りです。  
+そして、return を省略すると 0 が返るので、Batch03Command も予想通り。  
+
+という訳で、コマンドのリターンコードを受け取って判別、という事はできないですが、onSuccess メソッドと onFailure メソッドを使って、コマンドが成功したか失敗したかを判別できそうです。  
+
+
+## どこまでエラーを識別してくれる？
+戻り値を指定しなかった場合は 0 が返るのですが、メソッド内で明らかなエラーが起こった時も 0 を返すの？  
+
+と思い、以下のようなコードで実験。  
+
+
+### Console\Kernel.php
+```php
+    private function scheduleExecuteCommand04(Schedule $schedule)
+    {
+        $schedule->command(Batch04Command::class, [0])
+            ->everyMinute()
+            ->runInBackground()
+            ->withoutOverlapping()
+            ->onSuccess(function () {
+                \Log::info('Batch04Command was successful.');
+            })
+            ->onFailure(function () {
+                \Log::info('Batch04Command failed.');
+            });
+    }
+```
+
+
+### app\Console\Commands\Batch04Command.php
+```php
+    public function handle()
+    {
+        $param1 = $this->argument('param1');
+
+        $val1 = 10 / $param1;
+
+        \Log::info($param1);
+        \Log::info($val1);
+    }
+```
+
+### やってる事
+
+ * コマンド実行時に、コマンドライン引数として「 0 」という値を渡している
+ * 引数として受け取った値（ 0 ）で割る（ゼロ割をする）。Try catch による捕捉をしない。
+
+以下のような結果になりました。
+
+### storage\logs\laravel.log
+```log
+[2021-07-22 13:44:43] local.ERROR: Division by zero {"exception":"[object] (ErrorException(code: 0): Division by zero at /var/www/html/my-laravel-app/app/Console/Commands/Batch01Command.php:42)
+[stacktrace]
+#0 /var/www/html/my-laravel-app/app/Console/Commands/Batch01Command.php(42): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Division by zer...', '/var/www/html/m...', 42, Array)
+#1 /var/www/html/my-laravel-app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Console\\Commands\\Batch01Command->handle()
 
 （中略）
 
-[2021-07-21 12:55:45] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 12:55:45] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 12:55:45] local.INFO: App\Console\Commands\Batch03Command::handle:end  
-[2021-07-21 12:56:05] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 12:56:05] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 12:56:06] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 12:56:48] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 12:56:48] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 12:56:48] local.INFO: App\Console\Commands\Batch03Command::handle:end  
-[2021-07-21 12:56:56] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 12:56:56] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 12:56:56] local.INFO: App\Console\Commands\Batch03Command::handle:end  
+[2021-07-22 13:44:49] local.INFO: Batch01Command failed.  
 ```
 
-Batch01Command, Batch02Command, Batch03Command は、それぞれのジョブの終了を待たず、同じジョブが同時に走っている。  
+ゼロ割によるエラーが出力されています。  
 
-業種や処理内容によっては、調査が非常に難しい障害が発生しそうなので、この挙動は抑えておいたほうがよさそう。  
+そして、onFailure に分岐したようで、「Batch01Command failed」を出力し、しっかりとエラー扱いにしてくれています。  
 
-_________________________________________________________________________
-# 実験２：withoutOverlapping() を付けて事項
-各バッチを「withoutOverlapping()」を付けて実行。  
-それ以外は「実験１」と全く同じ。  
-
-### app\Console\Kernel.php
-```php
-    private function scheduleExecuteCommand01(Schedule $schedule)
-    {
-        $schedule->command(Batch01Command::class)
-            ->everyMinute()
-            ->runInBackground()
-            ->withoutOverlapping();
-    }
-
-    private function scheduleExecuteCommand02(Schedule $schedule)
-    {
-        $schedule->command(Batch02Command::class)
-            ->everyMinute()
-            ->runInBackground()
-            ->withoutOverlapping();
-    }
-
-    private function scheduleExecuteCommand03(Schedule $schedule)
-    {
-        $schedule->command(Batch03Command::class)
-            ->everyMinute()
-            ->runInBackground()
-            ->withoutOverlapping();
-    }
+コマンドの場合はどうなるの？  
+省略した場合は 0 が返るから、正常終了と見なされるの？  
+と、気になったので調べてみた。
+```
+php artisan command:batch04 0 ; echo $?
 ```
 
-以下、ログに出力された内容です。  
+結果、こんな感じ。
+```
+   ErrorException 
 
-### storage\logs\laravel.log
-```log
-[2021-07-21 13:09:07] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 13:09:07] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 13:09:09] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 13:10:47] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 13:10:47] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 13:10:49] local.INFO: App\Console\Commands\Batch03Command::handle:end  
-[2021-07-21 13:11:08] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 13:11:08] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 13:11:10] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 13:12:48] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 13:12:48] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 13:12:50] local.INFO: App\Console\Commands\Batch03Command::handle:end  
-[2021-07-21 13:13:08] local.INFO: App\Console\Commands\Batch01Command::handle:start  
-[2021-07-21 13:13:08] local.INFO: App\Console\Commands\Batch02Command::handle:start  
-[2021-07-21 13:13:09] local.INFO: App\Console\Commands\Batch03Command::handle:start  
-[2021-07-21 13:14:48] local.INFO: App\Console\Commands\Batch02Command::handle:end  
-[2021-07-21 13:14:48] local.INFO: App\Console\Commands\Batch01Command::handle:end  
-[2021-07-21 13:14:49] local.INFO: App\Console\Commands\Batch03Command::handle:end  
+  Division by zero
+
+
+（中略）
+
+  15  artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+1
+```
+ノイズが混ざって見づらくなってるけど、「1」が返ってきています。  
+
+また、ゼロ割が発生しないようにコマンドを叩いたら、「0」が返ってきました。
+```
+> php artisan command:batch04 1 ; echo $?
+> 0
 ```
 
-さっきとは違い、重複して同じバッチが実行されないようになっている。  
+省略時は 0 が返って来るようですが、明らかなエラーが発生した場合は 0以外の値が返って来るようです。  
 
-業務アプリなら、もう無条件で付けといてよいのではないだろうか。  
-余計な事故に発展しそうだし。  
-
-１分に１回動くスケジューラが動いているのですが、前回起動のジョブが完了しておらず、実行できるジョブが無かった場合、コンソールからはこんなメッセージが表示されました。  
-```
-No scheduled commands are ready to run.
-```
-
-
-## 結論
-Schedule にてジョブを起動している場合、重複して実行させたくない場合、「->withoutOverlapping()」を付けよう！  
+しかし、  
+「PHPの処理としては正常に終了しているけど、レコードがちゃんと更新されていない（本当はレコードが更新されているけど、更新件数が 0件）」  
+といった処理は異常終了として
 
 

@@ -64,14 +64,14 @@ class Book extends Model
      *
      * 使い方の例：
      *     -----【 PHP コード 】--------------------------------------------------------
-     *     $query = $this->model->where('gender', '=', 1);
+     *     $query = $this->model->where('gender_type', '=', 1);
      *     $paramFilledSql = \App\Utils\DebugUtil::getEloquentSqlWithBindings($query);
      *     \Log::info($paramFilledSql);
      *
      *     -----【 戻り値 】-------------------------------------------------------------
-     *     select * from `authors` where `gender` = 1
+     *     select * from `authors` where `gender_type` = 1
      *
-     *     ※「`gender` = ?」でなく、PHPコードの where メソッドで指定した値がセットされた SQL が出力される
+     *     ※「`gender_type` = ?」でなく、PHPコードの where メソッドで指定した値がセットされた SQL が出力される
      *     -----------------------------------------------------------------------------
      */
 
