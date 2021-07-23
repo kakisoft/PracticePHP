@@ -4,13 +4,13 @@ File -> Preference -> User Snipets
 
 ##### ファイル ： php.json
 ```json
-    "error_log_output_01": {
-        "prefix": "alog",
-        "body": [
-          "error_log('aaa_01'.PHP_EOL,'3','C:\\logs\\php\\tmp_log_02.log');"
-        ],
-        "description": "error log output 01"
-    },
+	    "error_log_output_01": {
+	        "prefix": "alog",
+	        "body": [
+	          "error_log('aaa_01'.PHP_EOL,'3','C:\\logs\\php\\tmp_log_02.log');"
+	        ],
+	        "description": "error log output 01"
+	    },
 
     "error_log_output_02": {
         "prefix": "blog",
@@ -41,6 +41,17 @@ File -> Preference -> User Snipets
         ],
         "description": "var dump exit"
     },
+
+
+    "dump_query_contents": {
+	        "prefix": "dq",
+	        "body": [
+			  //"$$s1 = \\App\\Facades\\DebugUtil::dq($$q1);",
+			  "$$s1 = \\App\\Utils\\DebugUtil::dq($$q1);",
+			  "\\Log::info($$s1);"
+	        ],
+	        "description": "Dump Query"
+	},
 ```
 
 「 $ 」を表現する場合、「 $$ 」  
