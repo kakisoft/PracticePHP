@@ -1,9 +1,22 @@
-今日は個人開拓してきた。
-【和酒　永田 】
-https://tabelog.com/fukuoka/A4001/A400104/40054467/
 
-外観とは裏腹に、店内がめっちゃ綺麗だった。
-魚料理メインかと思いきや、肉料理もある。（日替わりランチだったので、ある時と無い時があるかも）
+
+
+Overview
+
+Return SQL statement with parameters were set by where method.
+
+
+How to use
+How to call
+
+
+Example:
+PHP コード
+Return value
+
+※「`gender_type` = ?」でなく、PHPコードの where メソッドで指定した値がセットされた SQL が出力される
+*I set alias of "getEloquentSqlWithBindings", because the name is too long.
+
 
 
 ==================================================================================================
