@@ -67,9 +67,46 @@ php artisan make:migration add_user_id_to_posts_table --table=posts
     }
 ```
 
+
+## _
+```
+php artisan make:migration add_column_avatar_artists_table --table=artists
+```
+
+#### migrations ファイルを編集
+```php
+    public function up()
+    {
+        Schema::table('artists', function (Blueprint $table) {
+
+            $table->text('avatar')
+                ->after('name')
+                ->comment('写真');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('artists', function (Blueprint $table) {
+
+            $table->dropColumn('avatar');
+
+        });
+    }
+```
+
+
 ##### migrate
 php artisan migrate
 
+
+##### rollback
+php artisan migrate:rollback --step=1
 
 _____________________________________________________________________________________
 ## 外部制約付き

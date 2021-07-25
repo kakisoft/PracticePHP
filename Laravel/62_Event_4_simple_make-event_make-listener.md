@@ -19,6 +19,7 @@ EventServiceProvider を使うよりも、こっちの方がいい気がする�
  * app\Events\PodcastProcessed.php
  * app\Listeners\SendPodcastNotification.php
 
+今は、こっちが主流？  
 
 
 ## Manually Registering Events

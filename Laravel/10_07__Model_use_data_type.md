@@ -92,3 +92,15 @@ https://readouble.com/laravel/5.5/ja/migrations.html
         });
     }
 ```
+
+______________________________________________________________
+# Enum （ MySQL ）
+こうすると、null は許可するみたい。
+```php
+$table->enum('gender_type', [1, 2, 3])->nullable();
+```
+
+```sql
+`gender_type` enum('1','2','3') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+```
+

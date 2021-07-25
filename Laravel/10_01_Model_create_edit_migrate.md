@@ -79,12 +79,21 @@ php artisan make:model Models/RegistInfo -m
 
 
 
-## スキーマを更新する場合
+## スキーマを更新する場合（カラム追加等）
+※ --table= で指定する内容は、複数形！
 ```
 # 既存のテーブルに変更を加える場合には、--create オプションではなく、--table オプションを使って、テーブル名を指定する。
 # （別に指定しなくても出来るけど、最初に定義が出てくるんで便利。）
 php artisan make:migration add_user_id_to_posts_table --table=posts
 ```
+
+#### カラム追加：使用例
+```
+php artisan make:migration add_column_avatar_artists_table --table=artists
+```
+
+（詳細）  
+[10_02__Model_create_edit_example01.md](./10_02__Model_create_edit_example01.md)
 
 _________________________________________________________
 ## --migration オプション
