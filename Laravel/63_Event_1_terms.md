@@ -30,7 +30,7 @@ ________________________________________________________________________
 
 |  トレイト                                       |  内容                                                |
 |:-----------------------------------------------|:-----------------------------------------------------|
-|  Illuminate\Queue\InteractsWithQueue           |  Queue と組み合わせて非同期イベントを実行する時に利      |
+|  Illuminate\Queue\InteractsWithQueue           |  Queue と組み合わせて非同期イベントを実行する時に利用    |
 |  Illuminate\Foundation\Events\Dispatchable     |  イベントクラスにて Dispatcher として作用させる時に利用  |
 |  Illuminate\Broadcasting\InteractsWithSockets  |  socket.io を使ってブラウザにイベント通知する時に利用    |
 
@@ -44,7 +44,7 @@ class AccessDetection
 ```php
 abstract class AbstractJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels; 
 ```
 
 ________________________________________________________________________
