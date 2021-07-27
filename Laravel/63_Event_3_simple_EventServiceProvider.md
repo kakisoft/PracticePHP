@@ -2,7 +2,7 @@
 ```php
     protected $listen = [
         // 'Eventクラス' => [
-        //     'Eventクラスに対応した Listner クラス',
+        //     'Eventクラスに対応した Listener クラス',
         // ],
 
 

@@ -1,5 +1,23 @@
 ## 作成方法
 
+## 最終結論：イベント・リスナーを個別に作成
+
+### コマンド
+「--event」オプションにて、対応するイベントを追加
+```
+php artisan make:event App\\Events\\MyEvent03
+php artisan make:listener MyListner03 --event MyEvent03
+```
+
+### app\Providers\EventServiceProvider.php
+```php
+    protected $listen = [
+        MyEvent03::class => [
+            MyListener03::class
+        ],
+    ];
+```
+
 _______________________________________________________________________________________________
 ### 方法１．EventServiceProvider.php を編集し、「event:generate」コマンドで追加。  
 【※こっちの方法は、もう主流ではないっぽい。】  
@@ -11,7 +29,7 @@ ________________________________________________________________________________
 ```php
     protected $listen = [
         // 'Eventクラス' => [
-        //     'Eventクラスに対応した Listner クラス',
+        //     'Eventクラスに対応した Listener クラス',
         // ],
 
         // Registered::class, SendEmailVerificationNotification::class は、Laravel 標準の user に紐づいたクラス？  
@@ -200,7 +218,7 @@ class ReviewRegistered
 
 _______________________________________________________________________________________________
 ### 方法２．「make:event」コマンドで追加。
-※　app\Events\　フォルダに格納するようにした方がよいのでは？  
+※　App\Events\　フォルダに格納するようにした方がよいのでは？  
 
 ```
 php artisan make:event App\\CustomNamespace\\PublishProcessor
