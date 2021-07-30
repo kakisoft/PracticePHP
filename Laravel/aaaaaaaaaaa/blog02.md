@@ -4,7 +4,7 @@ ________________________________________________________________________________
 
 Event, Listener, Dispatcher, Job, Queue ...  
 
-何やら複雑に絡み合う事が多いこれらの処理ですが、結構いい加減に使っていたので、整理してみる。  
+何やら複雑に絡み合う事が多い、バックグラウンドで処理をさせる時に使う事が多いパーツですが、結構いい加減に使っていたので整理してみました。  
 
 ___________________________________________________________________________
 ## 用語
@@ -27,10 +27,12 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 ## イベントとリスナーについて
 
- * Event（イベント）
- * Listener（リスナー）
+ * イベント（Event）
+ * リスナー（Listener）
 
 この２つはセット。  
+
+イベントを定義し、それを検知するためのリスナーを定義する、という関係。
 
 app\Providers\EventServiceProvider.php  
 にて、登録されたイベントリスナーを確認できる。  
@@ -77,7 +79,7 @@ php artisan event:list
 
 
 ## generate コマンドによる、イベントとリスナーの作成
-１から作らずとも、雛形を生成するコマンドがある。  
+１から作らずとも、雛形を生成するコマンドが用意されている。  
 コマンドは大きく分けて２種類。  
 
  * １．イベントとリスナーを同時に作成（今は主流ではない？）
@@ -98,9 +100,12 @@ php artisan event:list
 #### app\Providers\EventServiceProvider.php
 ```php
     protected $listen = [
+
+        // 追記した部分
         MyEvent01::class => [
             MyListener01::class
         ],
+
     ];
 ```
 
@@ -132,9 +137,12 @@ EventServiceProvider.php の $listen を、クラス名でなく、クラスが�
 #### app\Providers\EventServiceProvider.php
 ```php
     protected $listen = [
+
+        // 追記した部分
         'App\Events\MyEvent02' => [
             'App\Listeners\MyListener02',
         ],
+
     ];
 ```
 
@@ -191,11 +199,29 @@ app
 #### app\Providers\EventServiceProvider.php
 ```php
     protected $listen = [
+
+        // 追記した部分
         MyEvent03::class => [
             MyListener03::class
         ],
+
     ];
 ```
+
+use を指定するのが面倒な場合はフルパスで。
+
+#### app\Providers\EventServiceProvider.php
+```php
+    protected $listen = [
+
+        // 追記した部分
+        \App\Events\MyEvent03::class => [
+            \App\Listeners\MyListener03::class
+        ],
+
+    ];
+```
+
 
 個別にセットしなくても、以下のコードを追記すると、自動でイベントとリスナーを拾ってくれます。
 
@@ -217,6 +243,132 @@ Laravel で作成されたオープンソースをざっと見てみたところ
 
 という事で、「$listen」に登録しておく方が良さそうです。  
 個人的にも、その方が分かりやすくて助かる。  
+
+
+## その他のイベントの登録方法
+他にも、こんな方法があるみたい。
+
+#### app\Providers\EventServiceProvider.php
+```php
+    public function boot()
+    {
+        parent::boot();
+
+        Event::listen(
+            MyEvent03::class,
+            MyListener03::class
+        );
+
+        $this->app['events']->listen(
+            MyEvent04::class,
+            MyListener04::class
+        );
+    }
+```
+
+何でこんなにいっぱい方法があるのかは謎だ。  
+
+あちこちに書くと乱雑になってメンテしづらくなるので、全部「protected $listen」に記述した方がいいんじゃないか。  
+
+こんな感じで、MyEvent03 と MyListener03 が結びつける必要があります。
+
+## イベントに処理を記述
+イベントにメソッドを定義し、処理したい内容を記述。  
+
+今回はシンプルに「myMethod01()」というメソッドを作成し、ログを出力する処理を追加。  
+```php
+class MyEvent03
+{
+//（中略）
+
+    public function myMethod01()
+    {
+        \Log::info(__METHOD__);
+        return;
+    }
+
+}
+```
+
+## リスナーに、イベントのメソッドをコールする処理を追加
+リスナーの handle メソッドに、先ほどイベントに定義したメソッドをコールする処理を追加。
+
+```php
+class MyListener03
+{
+//（中略）
+    public function handle(MyEvent03 $event)
+    {
+        $event->myMethod01();
+    }
+}
+```
+
+
+## イベントを呼び出す
+手っ取り早く動かすために、routes\api.php に書いてみる。  
+
+イベントの呼び出し方法には、以下の方法があります。  
+
+### routes\api.php
+```php
+// http://localhost:8000/api/my-event03-1
+// 方法１：event メソッドを使用する
+Route::get('my-event03-1', function(){
+    event(new \App\Events\MyEvent03());
+    return 'my-event03-1';
+});
+
+// http://localhost:8000/api/my-event03-2
+// 方法２：ディスパッチャーを使用する
+Route::get('my-event03-2', function(){
+    \App\Events\MyEvent03::dispatch();
+    return 'my-event03-2';
+});
+```
+
+イベントを発生させると、リスナーの handle メソッドがコールされます。  
+
+その後、リスナーの handle メソッドから、イベントの myMethod01() をコールしています。  
+
+
+
+## php artisan event:list で表示した時の注意点
+EventServiceProvider.php の $listen に、存在しないイベントとリスナーを追加してみる。
+
+### app\Providers\EventServiceProvider.php
+```php
+    protected $listen = [
+
+        // 存在しないイベントと存在しないリスナーを記述
+        NotExistEvent::class => [
+            NotExistListener::class
+        ],
+
+    ];
+```
+
+この状態で、「php artisan event:list」を実行してイベントリストを見ると、以下のようになる。
+```
+> php artisan event:list
++-----------------------------+--------------------------------+
+| Event                       | Listeners                      |
++-----------------------------+--------------------------------+
+| App\Providers\NotExistEvent | App\Providers\NotExistListener |
++-----------------------------+--------------------------------+
+```
+
+何と、存在しないイベントとリスナーが、あたかもコールできるかのように見えてしまう。  
+
+このコマンド、案外アテになら無さそうです。  
+
+ちなみに存在するクラスだったとしても、EventServiceProvider.php から参照できなかったりすると、イベントをキックしてもリスナーまで処理されません。  
+
+「あれ？　イベントを発生させているはずなのに、リスナーが動いてないぞ。」となった時は、真っ先にここを疑ってみるといいかもしれません。   
+
+
+
+
 
 
 

@@ -12,11 +12,16 @@ php artisan make:listener MyListner03 --event MyEvent03
 ### app\Providers\EventServiceProvider.php
 ```php
     protected $listen = [
-        MyEvent03::class => [
-            MyListener03::class
+
+        \App\Events\MyEvent03::class => [
+            \App\Listeners\MyListener03::class
         ],
+
     ];
 ```
+
+「php artisan event:list」コマンドは案外アテにならない。  
+設定ミスした内容でも、存在しないクラスを書いても、リスト上に出てきてしまう。  
 
 _______________________________________________________________________________________________
 ### 方法１．EventServiceProvider.php を編集し、「event:generate」コマンドで追加。  
