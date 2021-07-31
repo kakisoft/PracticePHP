@@ -84,6 +84,17 @@ Route::get('my-event04', function(){
 });
 ```
 
+## 設定ファイルとルーティングのキャッシュをクリア　※重要※
+キャッシュをクリアしないと、変更内容が反映されない事があります。
+```
+php artisan cache:clear
+php artisan route:clear
+```
+
+その後、  
+「http://localhost:8000/api/my-event04」  
+の URL を叩く。  
+
 ## キューの内容
 キューを database に指定していると、「jobs」というテーブルを参照すると、キューに溜まった内容を確認できます。
 
