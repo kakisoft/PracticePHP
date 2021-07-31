@@ -311,10 +311,18 @@ api/my-event03-1、api/my-event03-2 の URL を叩くとイベントが起動す
 
 イベントの呼び出し方法には、以下の方法があります。  
 
+ * event メソッドを使用し、引数にイベントクラスのインスタンスを渡す
+ * ディスパッチャーを使用する
+
+多分、差異は無いんじゃないかと思う。（未調査）  
+「好みで使い分けてください。」と言う人も居そうだけど、[Laravel公式](https://laravel.com/docs/8.x/events#dispatching-events)では、ディスパッチャーの方を使用しているんで、こっちを使うようにしている。  
+
+あと、「ディスパッチャー」という用語は、この手の話をしているとよく出てくる用語だし、event メソッドを使っていると、「イベントをディスパッチする」という説明の意味がよく分からなくなってくるし。  
+
 ### routes\api.php
 ```php
 // http://localhost:8000/api/my-event03-1
-// 方法１：event メソッドを使用する
+    // 方法１：event メソッドを使用し、引数にイベントクラスのインスタンスを渡す
 Route::get('my-event03-1', function(){
     event(new \App\Events\MyEvent03());
     return 'my-event03-1';
