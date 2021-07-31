@@ -307,6 +307,7 @@ class MyListener03
 
 ## イベントを呼び出す
 手っ取り早く動かすために、routes\api.php に書いてみる。  
+api/my-event03-1、api/my-event03-2 の URL を叩くとイベントが起動するようにしています。  
 
 イベントの呼び出し方法には、以下の方法があります。  
 

@@ -6,7 +6,7 @@
 「--event」オプションにて、対応するイベントを追加
 ```
 php artisan make:event App\\Events\\MyEvent03
-php artisan make:listener MyListner03 --event MyEvent03
+php artisan make:listener MyListener03 --event MyEvent03
 ```
 
 ### app\Providers\EventServiceProvider.php
