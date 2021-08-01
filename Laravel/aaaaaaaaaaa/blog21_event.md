@@ -119,10 +119,11 @@ php artisan event:generate
 app
  └─Providers
      ├─MyEvent01.php
-     └─MyEvent01.php
+     └─MyListener01.php
 ```
 
 Providers と同じ階層に作成されるので、ちょっと整理しづらい。  
+イベントとリスナーが同階層に作成されるのは、意見が分かれそう。
 
 あと、イベントとリスナーが増えた時にはカオス化しそう。  
 
