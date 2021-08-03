@@ -220,15 +220,15 @@ ________________________________________________________________________________
 ```php
 // http://localhost:8000/api/my-job01-03-2
 Route::get('my-job01-03-2', function(){
-    \App\Jobs\MyJob01::dispatch()->onQueue('my-queue01');;
+    \App\Jobs\MyJob01::dispatch()->onQueue('my-queue01');
     sleep(5);
     echo 'my-job01';
 
-    \App\Jobs\MyJob02::dispatch()->onQueue('my-queue02');;
+    \App\Jobs\MyJob02::dispatch()->onQueue('my-queue02');
     sleep(5);
     echo 'my-job02';
 
-    \App\Jobs\MyJob03::dispatch()->onQueue('my-queue03');;
+    \App\Jobs\MyJob03::dispatch()->onQueue('my-queue03');
     sleep(5);
     echo 'my-job03';
 
@@ -404,6 +404,7 @@ Laravel において、ジョブとキューを使って並列処理を実現す
 キューの名前を動的に設定するのは難しい。（登録するだけなら簡単だけど、それをワーカーに捌いてもらうにはどうしたら？　という事を考える必要がある）  
 
 何かいい方法が見つかったら、また書く。  
+
 
 
 
