@@ -550,10 +550,14 @@ Artist::withTrashed()->whereIn('id', [5])->forceDelete();
 
 ## MERGE / UPSERT（未登録であれば insert、登録済みであれば update）
 ```php
+// 第1引数：一致したかどうかの判定を行いたい変数（連想配列の形式）
+// 第2引数：insertまたはupdateしたいデータを持つ変数（連想配列の形式）
 $post = App\Models\Post::updateOrCreate(
                                            ['id' => 1]
                                           ,['title' => 'title 4', 'body' => 'body 4']
                                        );
+
+
 
 // saveメソッドは、
 // 新しい Eloquent のインスタンスを作って新規に保存する
