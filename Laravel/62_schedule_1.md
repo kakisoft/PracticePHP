@@ -20,6 +20,8 @@ php artisan schedule:test
 ## すぐに１回だけ起動
 ```
 php artisan schedule:run
+
+php artisan config:clear | php artisan config:cache | php artisan schedule:run
 ```
 
 ## サーバで起動（例）
@@ -35,6 +37,8 @@ php artisan schedule:run --verbose --no-interaction
 ## ワーカーを待機
 ```
 php artisan schedule:work
+
+php artisan config:clear | php artisan config:cache | php artisan schedule:work
 ```
 
 ___________________________________________________________
