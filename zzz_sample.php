@@ -1,42 +1,28 @@
 <?php
 
-class Foo {
-    public static function aStaticMethod() {
-        // ...
-    }
-}
+$format = 'Y-m-d H:i:s';
+// $format = 'Y-m-d';
 
-Foo::aStaticMethod();
-$classname = 'Foo';
-$classname::aStaticMethod();
+// 2021-08-06  05:54:28
+$dateTime = "2021-08-06  06:26:55";
+// $dateTime = "2021-08-06";
 
 
-//  php -l a.php
+$d = DateTime::createFromFormat($format, $dateTime);
+
+// var_dump($d);
+
+// $d2 = DateTime::createFromFormat('Y-m-d', "2021-08-06");
+$d2 = DateTime::createFromFormat('Y-m-d H:i:s', "2021
+-08-06  06:26:55");
+$d3 = DateTime::createFromFormat('YmdHis', "20210806062655");
 
 
-// class ParentClass {
-//     // 「self」は、定義されたクラスを指す。
-//     // この場合、どこからコールされても、クラス「ParentClass」を指す
-//     public static function getNewSelfName() {
-//         return get_class(new self());
-//     }
+// var_dump($d2);
+var_dump($d3);
 
-//     // 「static」は、呼び出された時のクラスを指す。
-//     // このクラスを継承した ChildClass からコールされる場合、「ChildClass」を指す
-//     public static function getNewStaticName() {
-//         return get_class(new static());
-//     }
-// }
 
-// class ChildClass extends ParentClass {
-// }
+return $d && $d->format($format) == $dateTime;
 
-// // 「self」は、定義されたクラスを指す
-// echo ParentClass::getNewSelfName() . PHP_EOL;    //=> ParentClass
-// echo ChildClass::getNewSelfName()  . PHP_EOL;    //=> ParentClass
-
-// // 「static」は、呼び出されたクラスを指す
-// echo ParentClass::getNewStaticName() . PHP_EOL;  //=> ParentClass
-// echo ChildClass::getNewStaticName()  . PHP_EOL;  //=> ChildClass
 
 
