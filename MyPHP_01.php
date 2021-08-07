@@ -671,14 +671,17 @@ var_dump($s5);
 
 echo "<br>";
 
-//-----------------------------
+//-------------------------
 //        文字列の置換
-//-----------------------------
+//-------------------------
 
 // 大文字小文字を区別しない「 str_ireplace() 」というのもある。
 
+//----------( 文字列の置換：str_replace )----------
+
 // "A" という文字列を "×" に置換する
-$replaceText = str_replace("A", "×", $targetText);
+$targetText = "ABCABC";
+$replaceText = str_replace("A", "×", $targetText);  //=> ×BC×BC
 
 //----------( 小文字に変更 )----------
 $str = "Mary Had A Little Lamb and She LOVED It So";
@@ -704,6 +707,41 @@ $newphrase = str_replace($healthy, $yummy, $phrase);
 $str = str_replace("ll", "", "good golly miss molly!", $count);
 echo $count;  //=> 2
 
+
+
+//----------( 文字列の置換：strtr )----------
+
+// str_replace と非常によく似ている
+// https://norm-nois.com/blog/archives/4088
+
+$targetText = "ABCABC";
+$replaceText = strtr($targetText, "A", "x");
+echo $replaceText . PHP_EOL;  //=> "xBCxBC"
+
+//-----[ 文字列の置換：配列で対応内容を指定（strtr と str_replace で差が出ないパターン）]-----
+$s1 = strtr('abcde', array('a' => 'A', 'e' => 'E'));           //strtr
+$s2 = str_replace(array('a', 'e'), array('A', 'E'), 'abcde');  //str_replace
+
+echo $s1 . PHP_EOL;  //=> "AbcdE"
+echo $s2 . PHP_EOL;  //=> "AbcdE"
+
+
+//-----[ 文字列の置換：配列で対応内容を指定（strtr と str_replace で差が出るパターン）]-----
+$targetText = "ABCDEABCDE";
+// 以下、どちらも置換内容は同一。（「A→B」「B→C」）
+$s3 = strtr($targetText, array('A' => 'B', 'B' => 'C'));           //strtr
+$s4 = str_replace(array('A', 'B'), array('B', 'C'), $targetText);  //str_replace
+
+echo $s3 . PHP_EOL;  //=> "BCCDEBCCDE"
+echo $s4 . PHP_EOL;  //=> "CCCDECCCDE"
+
+// ・置換１： A→B
+// ・置換２： B→C
+//
+// strtr は、『変換前の文字列』に対してのみ置換を行っている。
+// 「置換１： A→B」で "B" に置換された部分があったとしても、「置換２： B→C」の対象 B は対象外となる。
+//
+// str_replace は、「置換１： A→B」で "B" に変換された部分も、「置換２： B→C」の置換元の対象に含まれる。
 
 
 //---------------------------
