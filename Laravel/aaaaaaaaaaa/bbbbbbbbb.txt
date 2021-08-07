@@ -1,16 +1,24 @@
-スケジューラから起動するコマンド[?] は、設定により無効となっているため、実行されませんでした。。
-スケジューラからコマンドを起動します。[command]:?
+スケジューラから起動するコマンド[?] は、設定により無効となっているため、実行されませんでした。
+The command [?] triggered by scheduler was not executed because it is disabled by configuration.
+
+スケジューラからコマンドを起動しました。[command]:?
+The command by scheduler has been executed.
+
 スケジューラから開始したコマンドが正常終了しました。
+The command by scheduler has been completed successfully.
+
 スケジューラから開始したコマンドはエラー終了しました。
+The command by scheduler has been finished with error(s).
 
 スケジューラ：補足できないエラーが発生しました。
+scheduler:An error has occurred which cannot be resolved.[]
 
 
 指定された日付が不正です    The specified date is invalid
 指定された日時が不正です    The specified datetime is invalid
-コマンドを処理を開始します。
-コマンドを正常終了しました。
-エラーが発生しました。
+コマンドを処理を開始します。  The command has been executed.
+コマンドを正常終了しました。  The command has been completed successfully.
+エラーが発生しました。       The command has been finished with error(s).
 
 
 
