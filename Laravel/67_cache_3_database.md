@@ -23,4 +23,20 @@ php artisan migrate
 cache
 cache_locks
 
+
+### .env
+```
+CACHE_DRIVER=database
+```
+
+### config/cache.php
+```php
+'database' => [
+    'driver' => 'database',
+    'table' => 'cache',
+    'connection' => null,
+],
+```
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+

@@ -3,6 +3,7 @@
     {
         $schedule->command(Batch01Command::class)
             ->everyMinute()
+            ->onOneServer()
             ->runInBackground()
             ->withoutOverlapping()
             ->before(function () {
