@@ -224,6 +224,7 @@ $post->save();
 
 
 // create では id を指定できない？無視されてるみたい ⇒ seeder の中では有効
+// また、create メソッドは、「fillable property」の影響を受ける。（id　を指定してレコードを登録できなかったり）
 App\Post::create(['title'=>'title 2', 'body'=>'body 2']);
 $post = new App\Models\Post::where('id', '>', 1);
 
@@ -285,6 +286,7 @@ https://github.com/laravel/ideas/issues/1695
 id を指定して insert できる
 ```php
 // Model を直接操作
+// insert メソッドは、「fillable property」の影響を受けない。（fillable 設定をしていても、id　を指定してレコードを登録できる）
 Item::insert([
     'id' => 1,  // id を指定しなくても OK
     'name' => 'London to Paris4',
@@ -574,9 +576,15 @@ ________________________________________________________________________________
 __________________________________________________________________________________________________________________
 # トランザクション
 https://readouble.com/laravel/5.4/ja/database.html
+
+### 宣言
 ```php
-    DB::transaction(function () {
-        DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
+use Illuminate\Support\Facades\DB;
+```
+### transaction で囲む
+```php
+    DB::transaction(function () use ($param1) {
+        DB::table('comments')->where('id', 9)->update(['body' => $param1]);
         DB::table('comments')->where('id', 8)->update(['post_id' => null]);
     });
 
@@ -600,7 +608,9 @@ https://readouble.com/laravel/5.4/ja/database.html
         return false;
     }
 ```
-コミット・ロールバックを手動で制御
+
+### beginTransaction で開始宣言をする
+コミット・ロールバックを手動で制御。
 ```php
         try{
             DB::beginTransaction();
