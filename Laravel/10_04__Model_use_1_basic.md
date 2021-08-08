@@ -587,10 +587,10 @@ use Illuminate\Support\Facades\DB;
         DB::table('comments')->where('id', 9)->update(['body' => $param1]);
         DB::table('comments')->where('id', 8)->update(['post_id' => null]);
     });
+```
 
-
-
-
+### transaction で囲む：try-catch - DB::transaction の戻り値で判断
+```php
     try {
         $exception = DB::transaction(function () {
             DB::table('comments')->where('id', 9)->update(['body' => 'changed']);
@@ -609,6 +609,25 @@ use Illuminate\Support\Facades\DB;
     }
 ```
 
+### transaction で囲む：try-catch - Exception に飛んだ内容で判断。（こっちのが楽）
+```php
+    try {
+        $param1 = 'name01';
+        $param2 = 'name02';
+
+        DB::transaction(function () use ($param1, $param2) {
+            Sample::insert(['id' => 1, 'name' => $param1]);
+            Sample::insert(['id' => 1, 'name' => $param2]);
+
+        });
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return false;
+    }
+
+```
+
+
 ### beginTransaction で開始宣言をする
 コミット・ロールバックを手動で制御。
 ```php
@@ -625,7 +644,6 @@ use Illuminate\Support\Facades\DB;
 
         }
 ```
-
 
 __________________________________________________________________________________________________________________
 # MassAssignmentエラーを回避
