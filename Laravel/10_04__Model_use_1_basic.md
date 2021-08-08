@@ -620,6 +620,9 @@ use Illuminate\Support\Facades\DB;
             Sample::insert(['id' => 1, 'name' => $param2]);
 
         });
+
+        return true;
+
     } catch (\Exception $e) {
         Log::error($e->getMessage());
         return false;
