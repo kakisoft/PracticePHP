@@ -106,3 +106,20 @@ php artisan migrate:reset
 ```
 
 
+____________________________________________________________________________________
+# ソースから実行
+```php
+use Artisan;
+
+Artisan::call('command:batch01');
+
+
+Artisan::call('cache:clear');
+Artisan::call('config:clear');
+Artisan::call('db:wipe');
+Artisan::call('migrate');
+Artisan::call('db:seed');
+Artisan::call('db:seed --class=LocalSeeder');
+Artisan::call('command:createQueue');
+```
+
