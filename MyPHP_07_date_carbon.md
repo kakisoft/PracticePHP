@@ -16,6 +16,16 @@ https://www.php.net/manual/ja/timezones.asia.php
 ```php
 date_default_timezone_set('Asia/Tokyo');
 ```
+
+https://github.com/briannesbitt/Carbon/issues/1965  
+```php
+date_default_timezone_set('America/New_York');
+
+var_dump(Carbon::parse('2019-05-10 00:00:00', 'Asia/Tokyo'));
+
+var_dump(Carbon::parse('2019-05-10 00:00:00')->tz('Asia/Tokyo')); // or setTimezone
+```
+
 ____________________________________________________________________________________________________
 ## 使う
 ```php
