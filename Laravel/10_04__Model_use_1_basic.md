@@ -125,6 +125,13 @@ $users = $query->addSelect('age')->get();
 $users = DB::table('users')->select('name', 'email as user_email')->get();
 
 
+    // value はオブジェクト。↓のように値を取り出す。
+    foreach ($tables as $table) {
+        $d1 = $table->table_name;
+        \Log::info($d1);
+    }
+
+
 //==========< DISTINCT >==========
 $users = DB::table('users')->distinct()->get();
 
@@ -569,8 +576,120 @@ $post = App\Models\Post::updateOrCreate(
 
 __________________________________________________________________________________________________________________
 # 生SQL
+※バインド変数のエラーはトレースできない？　発行した SQLが成功したか失敗したかは要確認。  
+　あと、「insert文を発行したけど、DB::update を使用した」という場合も、エラーログには何も出てこなかった。しかも戻り値は true。  
+```php
+$result = DB::select($sql, $params);
+DB::insert($sql, $params);
+DB::update($sql, $params);
+DB::delete($sql, $params);
+```
+
+## 生SQL : select
+```php
+        $sql = <<<SQL
+            select
+                id
+               ,name
+               ,content
+               ,owner_id
+               ,payload
+            from
+                samples
+            where  1=1
+               and  owner_id = :owner_id
+               and  name like  :name
+        SQL;
+
+        $params['owner_id'] = '3';
+        $params['name']     = '%John%';
+        // $params['current_date'] = Carbon::now()->toDateString();
+
+        $result = DB::select($sql, $params);
+
+        // 配列に変換
+        $resultArray = array_map(function ($value) {
+            return (array) $value;
+        }, $result);
 
 
+        \Log::info($result);
+        \Log::info($resultArray);
+```
+
+## 生SQL : insert
+```php
+    try {
+        $sql = <<<SQL
+        INSERT INTO
+            samples (  name ,  content ,  owner_id )
+            VALUES  ( :name , :content , :owner_id )
+        SQL;
+
+        $params['name']     = 'Katie';
+        $params['content']  = 'English';
+        $params['owner_id'] = '6';
+
+        DB::insert($sql, $params);
+
+        return true;
+
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return false;
+    }
+```
+
+## 生SQL : update
+```php
+    try {
+        $sql = <<<SQL
+        UPDATE  samples
+            SET  name    = :name
+                ,content = :content
+            WHERE  1=1
+                AND  owner_id = :owner_id
+        SQL;
+
+        $params['name']     = 'Katie';
+        $params['content']  = 'Spanish';
+        $params['owner_id'] = '6';
+
+        DB::update($sql, $params);
+
+        return true;
+
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return false;
+    }
+```
+
+
+## 生SQL : delete
+```php
+    try {
+        $sql = <<<SQL
+        UPDATE  samples
+            SET  name    = :name
+                ,content = :content
+            WHERE  1=1
+                AND  owner_id = :owner_id
+        SQL;
+
+        $params['name']     = 'Katie';
+        $params['content']  = 'Spanish';
+        $params['owner_id'] = '6';
+
+        DB::update($sql, $params);
+
+        return true;
+
+    } catch (\Exception $e) {
+        Log::error($e->getMessage());
+        return false;
+    }
+```
 
 
 __________________________________________________________________________________________________________________
