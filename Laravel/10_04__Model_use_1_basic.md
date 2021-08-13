@@ -125,6 +125,16 @@ $users = $query->addSelect('age')->get();
 $users = DB::table('users')->select('name', 'email as user_email')->get();
 
 
+
+//==========< SELECT:使用例 >==========
+    $tables = DB::table('information_schema.tables')
+                        ->select('table_name')
+                        ->where('table_schema', 'database()')
+                        ->whereNotIn('table_name', $this->excludeTables)
+                        ->get()
+                        ->toArray()
+                        ;
+
     // value はオブジェクト。↓のように値を取り出す。
     foreach ($tables as $table) {
         $d1 = $table->table_name;
