@@ -617,7 +617,16 @@ DB::delete($sql, $params);
 
         $result = DB::select($sql, $params);
 
-        // 配列に変換
+
+        // value はオブジェクト。↓のように値を取り出す。
+        $samples = DB::select($sql, $params);
+        foreach ($samples as $sample) {
+            $d1 = $sample->name;
+            \Log::info($d1);
+        }
+
+
+        // 配列に変換（して使う場合）
         $resultArray = array_map(function ($value) {
             return (array) $value;
         }, $result);
