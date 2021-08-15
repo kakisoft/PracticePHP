@@ -1,0 +1,146 @@
+【Laravel】コマンドを動的に実行するのは危険なのか？と思いきや、runInBackgroundn の動きを把握しておけばよかっただけみたい。
+
+______________________________________________________________________________
+
+前回の続き。  
+
+前回、コマンドを動的に実行する方法を書いてみました。  
+
+具体的にはこんな感じ。  
+
+### app\Console\Kernel.php
+```php
+    protected function schedule(Schedule $schedule)
+    {
+        $targetCommands = [Batch01Command::class, Batch02Command::class, Batch03Command::class];
+
+        foreach ($targetCommands as $targetCommand) {
+            $this->executeEachCommand($schedule, $targetCommand);
+        }
+    }
+
+
+    private function executeEachCommand(Schedule $schedule, $targetCommand)
+    {
+        try {
+            if (!is_subclass_of($targetCommand, SymfonyCommand::class)) {
+                return;
+            }
+
+            // クラス名のフルパスから、namespace を取り除いた classname のみを取得する。ログ出力のために使ってるだけなので、不要なら省略可。
+            $targetCommandName = ClassUtil::getBaseClassName($targetCommand);
+
+            $schedule->command($targetCommand)
+                ->everyMinute()
+                ->runInBackground()
+                ->withoutOverlapping()
+                ->onOneServer()
+                ->before(function () use ($targetCommandName){
+                    \Log::info('The command by scheduler has been executed.', ['Command' => $targetCommandName]);
+                })
+                ->onSuccess(function () use ($targetCommandName){
+                    \Log::info('The command by scheduler has been completed successfully.', ['Command' => $targetCommandName]);
+                })
+                ->onFailure(function () use ($targetCommandName){
+                    \Log::error('The command by scheduler has been finished with error(s).', ['Command' => $targetCommandName]);
+                });
+
+        } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+            \Log::warning(__METHOD__ . ':' . $e->getMessage());
+        }
+
+    }
+```
+
+無事、重複なく実行された！よし。これで行ける！・・・と思いきや、妙な現象に遭遇した。  
+
+実行するコマンドを動的にしてしまうと、どうやらスケジューラが重複して起動している節があった。  
+
+調査内容としては、以下のように、schedule 開始時にログ吐くようにしてみた。  
+
+
+### app\Console\Kernel.php
+```php
+    protected function schedule(Schedule $schedule)
+    {
+        \Log::info("scheduler start");
+
+        $targetCommands = [Batch01Command::class, Batch02Command::class, Batch03Command::class];
+
+        foreach ($targetCommands as $targetCommand) {
+            $this->executeEachCommand($schedule, $targetCommand);
+        }
+    }
+```
+
+以下、実行結果。（コマンドそのものが吐くログは省略しています）  
+
+work ではなく、run で 1回だけ実行。  
+
+### laravel.log
+```log
+[2021-08-15 05:35:52] local.INFO: scheduler start  
+[2021-08-15 05:35:52] local.INFO: The command by scheduler has been executed. {"Command":"Batch01Command"} 
+[2021-08-15 05:35:53] local.INFO: The command by scheduler has been executed. {"Command":"Batch02Command"} 
+[2021-08-15 05:35:53] local.INFO: The command by scheduler has been executed. {"Command":"Batch03Command"} 
+[2021-08-15 05:35:56] local.INFO: App\Console\Commands\Batch02Command::handle  
+[2021-08-15 05:35:56] local.INFO: App\Console\Commands\Batch01Command::handle  
+[2021-08-15 05:35:58] local.INFO: App\Console\Commands\Batch03Command::handle  
+[2021-08-15 05:35:59] local.INFO: scheduler start  
+[2021-08-15 05:35:59] local.INFO: scheduler start  
+[2021-08-15 05:35:59] local.INFO: The command by scheduler has been completed successfully. {"Command":"Batch01Command"} 
+[2021-08-15 05:35:59] local.INFO: The command by scheduler has been completed successfully. {"Command":"Batch02Command"} 
+[2021-08-15 05:36:03] local.INFO: scheduler start  
+[2021-08-15 05:36:03] local.INFO: The command by scheduler has been completed successfully. {"Command":"Batch03Command"} 
+```
+
+どういうわけか、「scheduler start」が複数吐かれている。  
+
+色々実験してみたところ、どうやら「runInBackground」が付いていると、この動作が起こるみたい。  
+でもこれを付けなかたったら逐次実行になってしまう。  
+
+
+## 実験１：参照渡し
+今回、スケジューラ（$schedule）を引数で渡しているけど、それがマズいのか？（スケジューラのメモリ領域は単一である必要がある？）  
+かと思い、参照渡しにしてみた。  
+
+結果、変わらず。  
+
+
+## 実験２：runInBackground の挙動について、もう少し確認
+何をやってもスケジューラが複数回実行しているんで、これは「runInBackground」の正常な動きなのでは？  
+
+と思い、以下のような超簡単なコードを書いてみた。  
+
+### app\Console\Kernel.php
+```php
+    protected function schedule(Schedule $schedule)
+    {
+        \Log::info("scheduler start");
+
+        $schedule->command(Batch01Command::class)
+            ->everyMinute();
+
+        $schedule->command(Batch02Command::class)
+            ->everyMinute()
+            ->runInBackground();
+    }
+```
+
+スケジューラは run コマンドで 1回だけ実行。  
+
+以下、実行結果。
+
+### laravel.log
+```log
+[2021-08-15 05:59:15] local.INFO: scheduler start  
+[2021-08-15 05:59:20] local.INFO: App\Console\Commands\Batch01Command::handle  
+[2021-08-15 05:59:25] local.INFO: App\Console\Commands\Batch02Command::handle  
+[2021-08-15 05:59:31] local.INFO: scheduler start  
+```
+
+という訳で、「runInBackground」を使うと、スケジューラは複数回起動する事が判明しました。  
+
+それが起因して withoutOverlapping を付けていない別のジョブが変な動きをするかもしれないけど、それは個別対応。という感じになるのだろうか。  
+

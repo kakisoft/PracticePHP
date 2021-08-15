@@ -29,6 +29,7 @@ Artisan::call で何とかできないかと模索してみたが、無理でし
                 return;
             }
 
+            // クラス名のフルパスから、namespace を取り除いた classname のみを取得する。ログ出力のために使ってるだけなので、不要なら省略可。
             $targetCommandName = ClassUtil::getBaseClassName($targetCommand);
 
             $schedule->command($targetCommand)
