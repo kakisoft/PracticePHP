@@ -26,6 +26,19 @@ class PostRequest extends FormRequest
     }
 
     /**
+     * エラーが返ってきたときにのメッセージの項目名を変更できる
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'title' => 'タイトル',
+            'body' => 'ボディ'
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
