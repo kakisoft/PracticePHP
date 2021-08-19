@@ -272,3 +272,155 @@ root@eec3c702faff:/var/www/html/my-laravel-app# php artisan config:clear | php a
 この検証する時、いちいち docker コンテナをリビルドしないといけなかいのが、超面倒。  
 
 
+
+_______________
+
+## ８．ログファイルを指定してみる
+ログ出力内容をカスタマイズしてみる
+
+### config\logging.php
+```php
+    'custom' => [
+        'driver' => 'single',
+        'path' => storage_path('/var/log/test.log'),
+        'level' => 'info',
+        'permission' => 0666,
+    ],
+```
+
+### app\Console\Kernel.php
+```php
+    protected function schedule(Schedule $schedule)
+    {
+        \Log::channel('stdout')->info('Scheduler:Specify the channel');
+```
+
+### app\Console\Commands\Batch01Command.php
+```php
+    public function handle()
+    {
+        // 標準出力
+        $this->info('Standard Output:'. __METHOD__);
+
+        // ログファイルに出力
+        \Log::info('Out to Logfile:' . __METHOD__);
+
+        // チャンネルを指定して出力
+        \Log::channel('stdout')->info('Command:Specify the channel');
+
+        // チャンネルを指定して出力
+        \Log::channel('stdout')->info('Command:Specify the channel');
+
+        // カスタムチャンネルを指定して出力
+        \Log::channel('custom')->info('Scheduler:Specify the channel');
+        return 0;
+    }
+```
+
+### 実験結果８．コンソール
+```
+root@eec3c702faff:/var/www/html/my-laravel-app# php artisan config:clear | php artisan cache:clear | php artisan schedule:run
+[2021-08-19T19:59:54+00:00] Running scheduled command: '/usr/local/bin/php' 'artisan' command:batch01 >> '/var/log/test.log' 2>&1
+```
+
+結果、変わらず。  
+
+
+## ９．カスタムで普通のログファイルを指定してみる
+こんな感じで、リダイレクトが入っていないログに出力してみる。
+
+### config\logging.php
+```php
+    'custom' => [
+        'driver' => 'single',
+        'path' => storage_path('/var/log/non-redirect.log'),
+        'level' => 'info',
+        'permission' => 0666,
+    ],
+```
+
+結果、ログに出力されず。  
+（スケジューラ・コマンド共に）   
+
+という事は、この階層へのアクセスがそもそも出来ないという事？  
+
+
+## １０．カスタムで普通のログファイルを指定してみる２
+通常の Laravel プロジェクト配下を指定してみる。  
+
+### config\logging.php
+```php
+    'custom' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/custom.log'),
+        'level' => 'info',
+        'permission' => 0666,
+    ],
+```
+
+スケジューラ・コマンド共に、こんな感じで出力されました。  
+
+### storage\logs\custom.log
+```
+[2021-08-19 20:09:59] local.INFO: Scheduler:Specify the channel  
+[2021-08-19 20:10:05] local.INFO: Command:Specify the channel  
+```
+
+という事は、docker プロジェクト配下のパスにシンボリックリンクを作成しておけば行けるのか？  
+
+
+## １１．Laravel プロジェクト配下に、シンボリックリンクを作成
+Docker リビルドが面倒になってきたので、普通にシンボリックリンクを作成。  
+
+「test.log」としました。  
+```
+ln -sf /proc/self/fd/1 /var/www/html/my-laravel-app/storage/logs/test.log
+```
+
+コンフィグを修正。
+### config\logging.php
+```php
+    'custom' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/test.log'),
+        'level' => 'info',
+        'permission' => 0666,
+    ],
+```
+
+### 実験結果１１．コンソール
+```
+root@eec3c702faff:/var/www/html/my-laravel-app# php artisan config:clear | php artisan cache:clear | php artisan schedule:run
+[2021-08-19 20:20:52] local.INFO: Scheduler:Specify the channel  
+[2021-08-19T20:20:52+00:00] Running scheduled command: '/usr/local/bin/php' 'artisan' command:batch01 > '/dev/null' 2>&1
+```
+
+スケジューラからは上手くいっているみたい。  
+しかし、コマンドからの内容は相変わらず。  
+
+が、この方法でもリダイレクトが効くという事が判明。  
+
+それなら、appendOutputTo で、リダイレクトが有効だったパスを指定し見るとよいのでは？  
+### app\Console\Kernel.php
+```php
+    protected function schedule(Schedule $schedule)
+    {
+        \Log::channel('stdout')->info('Scheduler:Specify the channel');
+
+        $schedule->command(Batch01Command::class)
+            ->appendOutputTo('logs/test.log')
+            ->everyMinute()
+```
+
+### 実験結果１１―２．コンソール
+```
+root@eec3c702faff:/var/www/html/my-laravel-app# php artisan config:clear | php artisan cache:clear | php artisan schedule:run
+[2021-08-19 20:24:21] local.INFO: Scheduler:Specify the channel  
+[2021-08-19T20:24:22+00:00] Running scheduled command: '/usr/local/bin/php' 'artisan' command:batch01 >> 'logs/test.log' 2>&1
+```
+結果、変わらず。  
+コマンドの内容は、相変わらず出てきませんでした。  
+
+
+
+
