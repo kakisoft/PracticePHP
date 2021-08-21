@@ -12,7 +12,7 @@ pecl install redis
 
 ## インストール済みか確認
 ```
--m | grep redis
+php -m | grep redis
 ```
 
 

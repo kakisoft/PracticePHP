@@ -11,7 +11,7 @@ Debug Build => no
 ```
 php -m
 ```
-
+7
 
 
 ## xdebug のインストール
@@ -55,8 +55,4 @@ php -i | grep xdebug
 ```
 csrutil enable
 ```
-
-
-
-
 
