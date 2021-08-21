@@ -10,6 +10,12 @@ _________________________________________________________
 pecl install redis
 ```
 
+## インストール済みか確認
+```
+-m | grep redis
+```
+
+
 ## docker-compose.yml
 ```yaml
   redis:
