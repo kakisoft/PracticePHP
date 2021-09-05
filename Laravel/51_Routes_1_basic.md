@@ -328,5 +328,21 @@ Route::options($uri, $callback);
 
  は無いみたい。
 ________________________________________________________________________
+## apiResource
+１つの命令で、まとめて定義
+```php
+Route::apiResource('user', UserController::class);
+```
 
-
+```
+$ php artisan route:list
++--------+-----------+-----------------+--------------+-------------------------------------------------+------------+
+| Domain | Method    | URI             | Name         | Action                                          | Middleware |
++--------+-----------+-----------------+--------------+-------------------------------------------------+------------+
+|        | GET|HEAD  | api/user        | user.index   | App\Http\Controllers\Api\UserController@index   | api        |
+|        | POST      | api/user        | user.store   | App\Http\Controllers\Api\UserController@store   | api        |
+|        | GET|HEAD  | api/user/{user} | user.show    | App\Http\Controllers\Api\UserController@show    | api        |
+|        | PUT|PATCH | api/user/{user} | user.update  | App\Http\Controllers\Api\UserController@update  | api        |
+|        | DELETE    | api/user/{user} | user.destroy | App\Http\Controllers\Api\UserController@destroy | api        |
++--------+-----------+-----------------+--------------+-------------------------------------------------+------------+
+```
