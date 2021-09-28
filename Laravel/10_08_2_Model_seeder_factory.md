@@ -71,6 +71,8 @@ $faker->numberBetween(1, 3)    // 範囲指定
 $faker->unique()->safeEmail    // メールアドレス
 
 
+randomNumber
+
 
 
 'email' => $this->faker->unique()->safeEmail,
