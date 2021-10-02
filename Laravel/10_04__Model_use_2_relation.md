@@ -1,3 +1,37 @@
+## LeftJoin
+```php
+        $jobSchedulerSettings = $this->model->select(
+                                                        'shipper_job_scheduler_settings.shipper_id',
+                                                        'shipper_job_scheduler_settings.sales_channel_id',
+                                                        'shipper_job_scheduler_settings.api_type',
+                                                        'shipper_job_scheduler_settings.job_type',
+                                                        'shipper_job_scheduler_settings.job_start_time')
+                                                ->leftJoin('sales_channels', 'shipper_job_scheduler_settings.sales_channel_id', '=', 'sales_channels.id')
+                                                ->where('sales_channels.is_enabled_api_service_provider', '=', 1)
+                                                ->where('sales_channels.is_enabled_job_scheduler', '=', 1)
+                                                ->where('shipper_job_scheduler_settings.job_start_time', $targetJobStartTime)
+                                                ->get()
+                                                ->toArray();
+```
+
+## LeftJoin・複数条件
+```php
+        $jobSchedulerSettings = $this->model->select(
+                                                        'warehouse_job_scheduler_settings.warehouse_id',
+                                                        'warehouse_job_scheduler_settings.shipper_id',
+                                                        'warehouse_job_scheduler_settings.api_type',
+                                                        'warehouse_job_scheduler_settings.job_type',
+                                                        'warehouse_job_scheduler_settings.job_start_time')
+                                            ->leftJoin('shipper_warehouse_connects', function ($join) {
+                                                $join->on('warehouse_job_scheduler_settings.warehouse_id', '=', 'shipper_warehouse_connects.warehouse_id')
+                                                  ->where('warehouse_job_scheduler_settings.shipper_id',   '=', 'shipper_warehouse_connects.shipper_id');
+                                                })
+                                            ->where('shipper_warehouse_connects.is_enabled_api_service_provider', '=', 1)
+                                            ->where('shipper_warehouse_connects.is_enabled_job_scheduler', '=', 1)
+                                            ->get()
+                                            ->toArray();
+```
+_________________________________________________________________
 # _
 whereDoesntHave
 ```php
