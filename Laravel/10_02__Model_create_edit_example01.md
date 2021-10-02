@@ -264,6 +264,10 @@ ________________________________________________________________________________
 
 _____________________________________________________________________________________
 ## ユニークキー
+```
+php artisan make:migration add_uniquekey_to_posts_table --table=posts
+```
+
 メソッドチェーン
 ```php
 $table->string('email')->unique();
@@ -287,6 +291,12 @@ $table->unique(['owner_id', 'inventory_type', 'expiration_date', 'lot_no', 'loca
 $table->unique(['owner_id', 'product_code', 'deleted_at'], 'items_unique_key');
 
 ```
+
+## ユニークキーを削除
+```php
+$table->dropUnique(['other_id']);
+```
+
 _____________________________________________________________________________________
 ## 参照
 https://laravel.com/docs/8.x/migrations
@@ -305,7 +315,7 @@ $table->increments('id');
 
 
 _____________________________________________________________________________________
-## よく使う型
+# よく使う型
 
 ```php
 $table->id();
@@ -322,4 +332,27 @@ $table->text('value')->nullable()->comment('値');
 $table->integer('quantity_per_case')->nullable()->default(1)->comment('ケース入数');
 ```
 
+_____________________________________________________________________________________
+# よく使うコマンド
 
+## migrate / rollback
+```
+php artisan migrate
+php artisan migrate:rollback --step=1
+
+php artisan migrate:rollback
+```
+
+## add / edit
+```
+php artisan make:model ShipperJobSchedulerSetting --migration
+
+php artisan make:migration add_user_id_to_posts_table --table=posts
+```
+
+## リフレッシュ
+```
+php artisan migrate:refresh --seed
+
+php artisan migrate:fresh
+```
