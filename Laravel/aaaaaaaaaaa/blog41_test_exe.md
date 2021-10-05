@@ -108,6 +108,12 @@ QUEUE_CONNECTION=sqs
 
 ソースコードの内容によっては、こんな事に気を付けなくても正しく動くケースもありますが、こうしておいた方がイレギュラーな動作に悩まされる心配が少なくなるかと思います。  
 
+____
+＜参考＞  
+https://github.com/laravel/framework/issues/13374  
+https://github.com/laravel/framework/issues/32556  
+
+
 
 
 https://qiita.com/acro5piano/items/9de74564c121d1a8e606
