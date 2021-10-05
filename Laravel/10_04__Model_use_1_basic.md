@@ -322,6 +322,26 @@ $item = new Item();
 $item->insert($requiredData);
 ```
 
+## まとめて Insert ：１
+```php
+Prefecture::insert([
+    ['id' => 1, 'name' => '北海道', 'sort_order' => 1, 'code' => '01'],
+    ['id' => 2, 'name' => '青森県', 'sort_order' => 2, 'code' => '02'],
+    ['id' => 3, 'name' => '岩手県', 'sort_order' => 3, 'code' => '03'],
+]);
+```
+
+
+## まとめて Insert ：２
+```php
+DB::table('prefectures')->insert([
+    ['id' => 1, 'name' => '北海道', 'sort_order' => 1, 'code' => '01'],
+    ['id' => 2, 'name' => '青森県', 'sort_order' => 2, 'code' => '02'],
+    ['id' => 3, 'name' => '岩手県', 'sort_order' => 3, 'code' => '03'],
+]);
+```
+
+
 ## fill
 key, value 形式で値を指定して値をセット。  
 id の指定はできないみたい。  
