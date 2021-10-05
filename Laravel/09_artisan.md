@@ -139,3 +139,8 @@ php artisan cache:clear | php artisan config:clear | php artisan route:clear | p
 php artisan cache:clear | php artisan config:clear | php artisan route:clear | php artisan view:clear | php artisan clear-compiled | php artisan optimize | php artisan config:cache
 ```
 
+「php artisan config:cache」を実行した場合、以下のキャッシュファイルを作成する。
+```
+/bootstrap/cache/config.php
+```
+
