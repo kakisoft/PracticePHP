@@ -36,3 +36,24 @@ return [
 ];
 ```
 
+
+## _
+https://placehold.jp/
+
+https://placehold.jp/250x150.png
+
+```php
+        $this->storeRequestArray = [
+            'title' => 'テスト',
+            'description' => 'テスト',
+            'photos' => [
+                'photo' => [
+                    'data:image/png;base64,'.base64_encode(file_get_contents('https://placehold.jp/250x150.png')),
+                    'data:image/png;base64,'.base64_encode(file_get_contents('https://placehold.jp/250x150.png')),
+                ],
+                'id' => [],
+            ],
+        ];
+```
+
+
