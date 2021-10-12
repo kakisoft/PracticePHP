@@ -273,6 +273,11 @@ $item1 = Item::firstOrCreate([
     'sub_name' => 'LP'
 ]);
 
+AppendItem::create([
+    'item_id' => $item1->id,
+    'append_item_name' => 'AppendName1',
+]);
+
 $item2 = Item::firstOrCreate(
     ['name' => 'London to Paris2'],
     ['sub_name' => 'LP2']
