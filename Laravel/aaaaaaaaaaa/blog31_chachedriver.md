@@ -64,14 +64,15 @@ Schema::create('cache_locks', function ($table) {
 
 どうやら、分散ロックを実現する場合、コレが必要になるらしい。  
 
-ローカルで実行した時はエラーが発生しなかったが、AWS 上にデプロイした時には発生したので、恐らく、ECS等で複数コンテナで動いている時のみ発生すると思われます。  
-（）
+ローカルで実行した時はエラーが発生しなかったが、AWS 上にデプロイした時には発生したので、恐らく、ECS等で複数コンテナで動いている時のみ発生する可能性があると思われます。  
+（詳細未調査）  
 
 「固定で 'cache_locks' というテーブル名なの？」と思い、Laravel のソースを見てみましたが、デフォルトだとその名前のようです。  
 
-ただ、
+使用するテーブル名は「config\cache.php」にて変更可。  
 
 ## framework\src\Illuminate\Cache\CacheManager.php
+Laravel フレームワークのソース
 ```php
     /**
      * Create an instance of the database cache driver.
@@ -98,6 +99,7 @@ Schema::create('cache_locks', function ($table) {
 ```
 
 ### config\cache.php
+
 ```php
     'stores' => [
 
