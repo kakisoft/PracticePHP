@@ -64,4 +64,40 @@ use Illuminate\Support\Facades\Storage;
 $url = Storage::url('file.jpg');
 ```
 
+______________________________________________________________________________
+
+https://tektektech.com/laravel-storage-app-public/
+
+
+"storage/app/public"
+
+## オープンスペース有効化コマンド
+```
+php artisan storage:link
+```
+
+## config\filesystems.php
+```php
+    'disks' => [
+
+        'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app'),
+        ],
+
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+```
+
+ポート番号注意
+## .env
+APP_URL=http://localhost
+APP_URL=http://localhost:8000
+
+
+
 
