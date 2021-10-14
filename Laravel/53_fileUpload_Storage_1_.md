@@ -56,4 +56,12 @@ https://placehold.jp/250x150.png
         ];
 ```
 
+______________________________________________________________________________
+## ファイルのURL
+```php
+use Illuminate\Support\Facades\Storage;
+
+$url = Storage::url('file.jpg');
+```
+
 
