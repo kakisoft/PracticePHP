@@ -4,7 +4,7 @@
 
 ```
 php artisan config:clear | php artisan config:cache
-``
+```
 
 ```
 php artisan cache:clear | php artisan config:clear | php artisan route:clear | php artisan view:clear | php artisan clear-compiled
@@ -153,20 +153,23 @@ php artisan key:generate
 ```
 
 _________________________________________________________________________________________________________
+## 419 unknown status
 
+一時回避策
 
-
+#### app\Http\Kernel.php
+```php
+    protected $middlewareGroups = [
+        'web' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,      // ←これをコメントアウト
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
 ```
-php artisan cache:clear
 
-composer dump-autoload -o
-composer update
-
-php artisan migrate:rollback
-
-============================================
-
-php artisan migrate:refresh
-
-```
+web 経由だからこんなのが出るので、api 経由にしておけばよいのでは。
 

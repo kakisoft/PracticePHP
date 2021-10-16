@@ -1,7 +1,7 @@
 
 https://readouble.com/laravel/8.x/ja/filesystem.html
 
-
+# Strage
 ```php
 use Illuminate\Support\Facades\Storage;
 ```
@@ -99,5 +99,43 @@ APP_URL=http://localhost
 APP_URL=http://localhost:8000
 
 
+_____________________________________________________________________________________________________________________
+# ファイルアップロード  File Upload
 
+## フォームから
+
+「 enctype="multipart/form-data" 」が無いとエラーとなる。
+### enctype="multipart/form-data"
+```php
+<form method="POST" action="uploadImagePublic" enctype="multipart/form-data">
+```
+
+### enctype なし
+```php
+<form method="POST" action="uploadImagePublic">
+```
+Base 64 に変換して保存、等の方法がある。  
+
+content-type は、こうなる。  
+デフォルトだと、「 application/x-www-form-urlencoded 」となる模様。
+```log
+[2021-10-16 16:24:32] local.INFO: array (
+  'content-type' => 
+  array (
+    0 => 'application/x-www-form-urlencoded',
+  ),
+```
+
+
+＜参考＞  
+https://zenn.dev/mimikaki/articles/f129e9b4d30760  
+https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data  
+
+
+## _
+https://www.tagindex.com/html_tag/form/form_enctype.html
+```
+multipart/form-data
+データをマルチパートデータとして送信します。フォーム内にファイルの送信欄を配置する場合は、この形式を指定しておく必要があります。
+````
 
