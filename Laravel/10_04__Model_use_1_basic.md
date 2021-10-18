@@ -614,6 +614,8 @@ ________________________________________________________________________________
 ※バインド変数のエラーはトレースできない？　発行した SQLが成功したか失敗したかは要確認。  
 　あと、「insert文を発行したけど、DB::update を使用した」という場合も、エラーログには何も出てこなかった。しかも戻り値は true。  
 ```php
+use Illuminate\Support\Facades\DB;
+
 $result = DB::select($sql, $params);
 DB::insert($sql, $params);
 DB::update($sql, $params);
