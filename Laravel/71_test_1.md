@@ -53,14 +53,35 @@ php artisan make:test Api/PingTest
 
 ## 実行（artisanコマンド）
 ```
+// フォルダ単位・ファイル単位で実行
 php artisan test
-php artisan test tests/ExampleTest.php
+php artisan test tests/Unit
+php artisan test tests/Feature
+php artisan test tests/Api/ExampleTest.php
+
+// メソッド単位で実行（アノテーションを使用）
+php artisan test tests/Api/ExampleTest.php --group=testing
+
 
 // テストスイートを指定
 php artisan test --testsuite=Unit
 php artisan test --testsuite=Sample01
+
+
+// レポート付き実行
+php artisan test --testsuite=Unit --coverage-html
+php artisan test --coverage-html reports
+php artisan test --testsuite=Unit --coverage-html reports
 ```
 
+## メソッド単位で実行する : アノテーションを使用する
+```php
+    /**
+     * @group testing
+     */
+    public function testApiLoginWrongLoginId()
+    {
+```
 
 ## テスト設定例： phpunit.xml
 ```xml
