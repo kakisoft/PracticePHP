@@ -1,6 +1,3 @@
-【Laravel】response()->json の文字化けを解消する
-
-
 Laravel にて、以下のように記述すると、json 形式でデータを返す事が出来ます。  
 ```php
     return response()->json(
@@ -19,7 +16,7 @@ Laravel にて、以下のように記述すると、json 形式でデータを�
 }
 ```
 
-対策として、「JSON_UNESCAPED_UNICODE」のオプションを追加する。
+対策として、「JSON\_UNESCAPED\_UNICODE」のオプションを追加する。
 ```php
     return response()->json(
         [
@@ -31,7 +28,7 @@ Laravel にて、以下のように記述すると、json 形式でデータを�
     );
 ```
 
-こうなる。
+すると、以下のように日本語が正常に表示されるようになる。
 ```php
 {
   "data1": "English message",
@@ -41,10 +38,15 @@ Laravel にて、以下のように記述すると、json 形式でデータを�
 
 ## response()->json の残りの引数は？
 第一引数がデータで、第二引数が HTTP ステータス、ってのは推測出来るんだけど、それ以降には何が？  
+
 公式ドキュメントにはロクな情報が無かったので、Laravel のソースを読んでみました。  
 
 どうやら、以下のようになっているらしいです。  
 
+ * 第１引数：データ
+ * 第２引数：ステータス
+ * 第３引数：ヘッダ
+ * 第４引数：オプション
 
 ### framework\src\Illuminate\Contracts\Routing\ResponseFactory.php
 ```php
@@ -60,7 +62,7 @@ Laravel にて、以下のように記述すると、json 形式でデータを�
     public function json($data = [], $status = 200, array $headers = [], $options = 0);
 ```
 
-第三引数には HTTP ヘッダを渡す事が可。  
+第３引数には HTTP ヘッダを渡す事が可。  
 
 という事で、こんな感じで HTTP ヘッダを好きに編集できます。  
 場合によっては、ミドルウェアを入れて制御するよりもお手軽かつ柔軟に対応できそう。  
