@@ -1,3 +1,5 @@
+【Laravel】response()->json ：日本語の文字化けを解消する
+
 Laravel にて、以下のように記述すると、json 形式でデータを返す事が出来ます。  
 ```php
     return response()->json(
