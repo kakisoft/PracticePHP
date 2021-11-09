@@ -107,6 +107,16 @@ class Book extends Model
 }
 ```
 
+### 通常のキー以外で結びつける方法
+https://readouble.com/laravel/8.x/ja/eloquent-relationships.html
+```php
+public function user()
+{
+    return $this->belongsTo(User::class, 'foreign_key', 'owner_key');
+}
+```
+
+
 ```php
     /**
      * 【 概要 】
