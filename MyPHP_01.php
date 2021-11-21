@@ -1534,6 +1534,32 @@ print_r($evenNumbers);
 
 
 //---------------------------
+//       array_reduce
+//---------------------------
+$details = [];
+$details[0]['id'] = 19;  $details[0]['row_no'] = 1;
+$details[1]['id'] = 20;  $details[1]['row_no'] = 2;
+$details[2]['id'] = 21;  $details[2]['row_no'] = 3;
+
+
+$maxRowNo = getMaxRowNo($details);
+echo $maxRowNo . PHP_EOL;
+
+function getMaxRowNo(array $details): int
+{
+    return array_reduce(
+        $details,
+        function ($carry, $row) {  // コールバックの第１引数の最初の値は、以下で定義した「初期値」。それ以降の第一引数の値は、メソッドの戻り値。　コールパックの第二引数は配列の要素。
+            if ($row['row_no'] > $carry) {
+                $carry = $row['row_no'];
+            }
+            return $carry;
+        },
+        0);  // 初期値
+}
+
+
+//---------------------------
 //      キーの存在チェック
 //---------------------------
 // array_key_exists — 指定したキーまたは添字が配列にあるかどうかを調べる
