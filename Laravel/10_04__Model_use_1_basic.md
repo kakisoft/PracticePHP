@@ -178,6 +178,19 @@ $users = DB::table('users')
                     ->whereNotIn('id', [1, 2, 3])
                     ->get();
 
+//==========< whereColumn / orWhereColumn （カラムの比較） >==========
+// https://readouble.com/laravel/8.x/ja/queries.html
+$users = DB::table('users')
+                ->whereColumn('first_name', 'last_name')
+                ->get();
+
+
+$users = DB::table('users')
+                ->whereColumn([
+                    ['first_name', '=', 'last_name'],
+                    ['updated_at', '>', 'created_at'],
+                ])->get();
+
 
 //==========< BETWEEN >==========
 $users = DB::table('users')
