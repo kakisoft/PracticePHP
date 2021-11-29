@@ -757,6 +757,21 @@ $str = "ｺﾝﾅｶﾝｼﾞ１Ａ";
 $converted_str = mb_convert_kana($str, "KVa");
 echo $converted_str;  //=> "コンナカンジ1A"
 
+// 「全角カタカナ」を「半角カタカナ」に変換。濁点は別の文字扱い。
+$str = "ｺﾝﾅｶﾝｼﾞ１Ａ";
+$converted_str = mb_convert_kana($str, "K");
+echo $converted_str;  //=> "コンナカンシ゛１Ａ"
+
+// 多分これが一番実用的。『 KV 』：「半角カタカナ」を「全角カタカナ」に変換、濁点付きの文字を一文字に変換します。
+$str1 = "ｺﾝﾅｶﾝｼﾞ１Ａ";
+$str2 = "こんなかんじ１Ａ";
+$converted_str1 = mb_convert_kana($str1, "KV");
+$converted_str2 = mb_convert_kana($str2, "KV");
+echo $converted_str1 . PHP_EOL;  //=> "コンナカンジ１Ａ"
+echo $converted_str2 . PHP_EOL;  //=> "こんなかんじ１Ａ"
+
+
+
 //// オプション
 // r	「全角」英字を「半角」に変換します。
 // R	「半角」英字を「全角」に変換します。
