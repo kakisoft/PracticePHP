@@ -2319,7 +2319,7 @@ $sales14 = [
 ];
 
 foreach ($sales14 as $key => $value) {
-  echo "($key) $value ";
+  echo "($key) $value " . PHP_EOL;
 }
 
 $colors14 = ["red", "blue", "pink"];
@@ -3576,6 +3576,7 @@ fclose($handle);
 //=================================
 //  ファイルを読み込み、配列に格納
 //=================================
+// foreach index インデックス番号
 
 // ファイルの内容を配列に取り込みます。
 $lines = file(__FILE__);
