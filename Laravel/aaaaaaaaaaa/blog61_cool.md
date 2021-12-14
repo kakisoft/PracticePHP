@@ -1,3 +1,34 @@
+```sql
+CREATE TABLE `customers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_kana` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+```
+
+```sql
+select
+  id
+ ,name
+ ,name_kana
+from
+ customers
+where  1=1
+  and  name_kana like '%たざき%'
+```
+
+|  id   |  name   |  name_kana  |
+|:------|:--------|:------------|
+|  1    |  田崎　浩平  |  たざき　こうへい   |
+|  2    |  田崎　耕平  |  たさき　こうへい   |
+
+
+
+
 
 https://zudoh.com/mysql/should-use-collation-utf8mb4_bin-as-default
 
@@ -73,6 +104,12 @@ AWS環境の方はこの後devだけ実施して、stg及びprodは誰も使っ�
 
 ALTER TABLE `asims`.`items` 
 MODIFY COLUMN `barcode3` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '繝舌・繧ｳ繝ｼ繝・' AFTER `barcode2`
+
+
+
+
+
+___
 
 
 

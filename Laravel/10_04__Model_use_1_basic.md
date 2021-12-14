@@ -514,6 +514,26 @@ $query->select('id', 'title', 'body');  // ☆重要☆ キー項目を入れて
 //-----------------------------------------
 
 
+//==========< selectRaw / select 句の内容を記述 >==========
+$data = $users
+    ->select('id',
+        'shipper_id',
+        'item_code')
+    ->selectRaw('(group_by_inventories.gross_inventory_quantity - ifnull(allocation_quantity, 0)) as calc_gross_inventory_quantity')
+    ->groupBy('role')
+    ->having('role', '>', 5)
+    ->get();
+
+
+//==========< whereRaw / where 句の内容を記述 >==========
+$data = $users
+    ->whereExists(function ($query) {
+        $query->select(DB::raw(1))
+            ->from('orders')
+            ->whereRaw('items.ordering_point_quantity > (group_by_inventories.gross_inventory_quantity - ifnull(allocation_quantity, 0) )')
+    })
+
+
 ```
 
 ## UPDATE
