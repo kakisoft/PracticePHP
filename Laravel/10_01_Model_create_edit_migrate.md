@@ -132,6 +132,12 @@ php artisan migrate:refresh
 php artisan migrate:refresh --seed
 ```
 
+## ロールバックをせず、全テーブルを drop した後に migration を実行
+https://laravel-news.com/migrate-fresh
+```
+php artisan migrate:fresh
+```
+
 _________________________________________________________
 ## リセット（手動）
  * Modelを削除（app/Post.php 等）
