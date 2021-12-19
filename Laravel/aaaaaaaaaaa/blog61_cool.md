@@ -56,14 +56,14 @@ CREATE TABLE `customers` (
 ```
 
 ## 原因
-「collation」という、文字列を比較するためのルール（COLLATE）があり、デフォルトでは「utf8_unicode_ci」が設定されるのが原因らしい。  
+「collation」という、文字列を比較するためのルール（COLLATE）があり、デフォルトでは「utf8\_unicode\_ci」が設定されるのが原因らしい。  
 
 
 |        collation       |    説明    |
 |:-----------------------|:--------------------------------------------------------------------------------------------------------------------------|
-|  utf8mb4_unicode_ci    |  アルファベットの大文字小文字を区別せず、全角半角も混同する。ひらがな・かたかなの大文字小文字も区別しない。  |
-|  utf8mb4_general_ci    |  アルファベットの大文字小文字を区別しなくなる。それ以外は区別される。  |
-|  utf8mb4_bin           |  完全に文字の一致を照合する。  |
+|  utf8mb4\_unicode\_ci  |  アルファベットの大文字小文字を区別せず、全角半角も混同する。ひらがな・かたかなの大文字小文字も区別しない。  |
+|  utf8mb4\_general\_ci  |  アルファベットの大文字小文字を区別しなくなる。それ以外は区別される。  |
+|  utf8mb4\_bin          |  完全に文字の一致を照合する。  |
 
 参考サイト  
 [MySQLの文字コード事情](https://www.slideshare.net/tmtm/mysql-62004569)  
@@ -119,4 +119,17 @@ CREATE TABLE `customers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
 ```
 
+場合によっては、varchar や text のカラムは、「utf8mb4_bin」と変更され無いケースがあり、その場合は個別のカラムに対して alter table を書ける必要があるみたいです。
+```sql
+ALTER TABLE customers MODIFY name_kana VARCHAR(80) CHARACTER SET utf8mb4  COLLATE utf8mb4_bin
+```
+
+**構文**  
+<https://dev.mysql.com/doc/refman/5.6/ja/charset-column.html>  
+```sql
+ALTER TABLE t1 MODIFY
+    col1 VARCHAR(5)
+      CHARACTER SET latin1
+      COLLATE latin1_swedish_ci;
+```
 
