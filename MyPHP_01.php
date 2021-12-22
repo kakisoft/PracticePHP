@@ -1474,6 +1474,18 @@ print_r($newPrices);
 // )
 
 
+// function の引数は、第二引数の１要素
+array_map( function($record) use ($edit_form, $otherfields, $otherfields_keys)
+{
+    User::parseData($record, $edit_form['metadata']);
+
+    if (isset($otherfields[$record['user_id']])) {
+        return $record + $otherfields[$record['user_id']];
+    }
+
+    return $record + $otherfields_keys;
+
+}, $records);
 
 //---------------------------
 //         filter
