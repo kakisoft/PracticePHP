@@ -1,8 +1,21 @@
+# ヘルプ表示
+https://www.php.net/manual/en/features.commandline.options.php
+```
+php -h
+```
+
 # インストールチェック
 ```
 php -m
 php -m | grep redis
 ```
+
+```
+php -i | grep pcntl
+```
+
+-i : PHP information  
+-m : Show compiled in modules  
 
 ___________________________________________________________
 ## php-devel
