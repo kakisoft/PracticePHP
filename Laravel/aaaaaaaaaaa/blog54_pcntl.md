@@ -21,13 +21,40 @@ Laravel の特定の機能を使う場合、pcntl（プロセス制御機能）�
 
 ですが、別に PHP をリコンパイルせずとも、Dockerfile を編集する事で pcntl（プロセス制御機能）を有効化する事は可能です。  
 
-以下、編集例。  
-
+具体的には、以下の記述を追加します。  
+Docker イメージは、公式配布の php-fpm を使う事を前提としています。  
 ```
 RUN docker-php-ext-configure pcntl --enable-pcntl \
   && docker-php-ext-install \
     pcntl
 ```
+
+以下、Dockerfile の編集例。  
+```
+FROM php:7.4.11-fpm
+
+# install composer
+RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
+RUN apt-get update \
+&& apt-get install -y \
+git \
+zip \
+unzip \
+vim
+
+RUN apt-get update \
+    && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo_mysql pdo_pgsql
+
+RUN docker-php-ext-configure pcntl --enable-pcntl \
+  && docker-php-ext-install \
+    pcntl
+
+# WORKDIR /var/www/html
+# WORKDIR /var/
+WORKDIR /var/www/html
+```
+
 
 Docker-composer を使っている場合、「docker-compose up -d --build」等のコマンドでリビルド。  
 
