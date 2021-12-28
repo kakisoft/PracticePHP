@@ -1,97 +1,75 @@
-【PHP】Docker ファイルから、pcntl を有効にする方法
+【PHP】Docker コンテナ起動の PHP にて、pcntl を有効にする方法
 
 _____________________________________________________________________
 
-プロセス制御
+Laravel の特定の機能を使う場合、pcntl（プロセス制御機能）が要求される事があります。  
+
+それを使うためにはどうすれば？　という事を調べると、「PHPをコンパイルしてください」と凄いテンションが上がらない方法が見つかったりする。  
+
+**PHP公式**    
+[PHP: インストール手順 - Manual][https://www.php.net/manual/ja/pcntl.installation.php) ※PHP公式  
+
+> PHPがサポートするプロセス制御機能は、デフォルトでは有効となってい ません。プロセス制御機能を有効にするには、  
+> configure のオプションに > --enable-pcntl を付け、CGI 版あるいは CLI 版の PHP をコンパイルする必要があります。  
+
+**Stack Overflow**  
+[How to enable pcntl in php ( while using a framework like Symfony2 )](https://stackoverflow.com/questions/33036773/how-to-enable-pcntl-in-php-while-using-a-framework-like-symfony2)  
+[How to enable PCNTL on Ubuntu server 16.04 - Stack Overflow](https://stackoverflow.com/questions/40408152/how-to-enable-pcntl-on-ubuntu-server-16-04)  
 
 
-## _
-https://stackoverflow.com/questions/33036773/how-to-enable-pcntl-in-php-while-using-a-framework-like-symfony2
-```
+普段、Docker を使って開発しているデベロッパーにとっては、なかなか辛みのある修正。   
 
-```
+ですが、別に PHP をリコンパイルせずとも、Dockerfile を編集する事で pcntl（プロセス制御機能）を有効化する事は可能です。  
 
-
-## Timeout
-https://laravel.com/docs/8.x/queues#timeout
-
-```
-The pcntl PHP extension must be installed in order to specify job timeouts.
-```
-
-
-## インストール手順
-https://www.php.net/manual/ja/pcntl.installation.php
-
-PHPがサポートするプロセス制御機能は、デフォルトでは有効となってい ません。プロセス制御機能を有効にするには、 configure のオプションに --enable-pcntl を付け、CGI 版あるいは CLI 版の PHP をコンパイルする必要があります。
-
-
-## 
-https://github.com/codereviewvideos/docker-php-7/blob/master/Dockerfile
-```
-# Install various PHP extensions
-RUN docker-php-ext-configure bcmath --enable-bcmath \
-  && docker-php-ext-configure pcntl --enable-pcntl \
-  && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-```
-
-
-
-
-
-
-
+以下、編集例。  
 
 ```
-wget "https://www.php.net/distributions/php-7.4.0.tar.gz"
-tar xvf "php-7.4.0.tar.gz"
-cd "php-7.4.0/ext/pcntl/"
-phpize
-./configure
-make
+RUN docker-php-ext-configure pcntl --enable-pcntl \
+  && docker-php-ext-install \
+    pcntl
 ```
 
+Docker-composer を使っている場合、「docker-compose up -d --build」等のコマンドでリビルド。  
 
-
-
-________________________________________________________________________________________________
-
-
-
-
-
-pcntl
-
-
-php -m | grep pcntl
+pcntl が有効となっているかは、コンテナログイン後に以下のコマンドで確認します。  
+```
 php -i | grep pcntl
+```
+
+以下の表示があれば、pcntl は有効となっています。  
+```
+pcntl support => enabled
+```
+
+php コマンドのオプションについては、以下を参照。  
+[PHP: Options - Manual](https://www.php.net/manual/en/features.commandline.options.php)  
+
+> -m    Show compiled in modules
+
+
+**参考サイト**  
+<https://github.com/codereviewvideos/docker-php-7/blob/master/Dockerfile>  
+
+
+**おまけ**  
+一応、こういう方法もあるみたい。  
+[Installing PCNTL module for PHP without recompiling](https://newbedev.com/installing-pcntl-module-for-php-without-recompiling)  
 
 
 
-https://rj-bl.hatenablog.com/entry/2017/04/09/165858
-
-https://stackoverflow.com/questions/40408152/how-to-enable-pcntl-on-ubuntu-server-16-04
-
-https://stackoverflow.com/questions/33036773/how-to-enable-pcntl-in-php-while-using-a-framework-like-symfony2
 
 
 
 
-うっわ！やりたくない！
-と思ってしまうような
-
-
-pcntlというPHPのマルチスレッドプログラミングはdefaultでは使えないようです。
-
-pcntl を 有効にして PHP をコンパイルすると、
-
-プロセス制御のPCNTL関数を使えば似たようなことができるそうだ。
 
 
 
-## _
-一応、こういう方法もあるみたい。
-https://newbedev.com/installing-pcntl-module-for-php-without-recompiling
+
+
+
+
+
+
 
 
 
