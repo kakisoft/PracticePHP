@@ -1,60 +1,6 @@
-【Laravel】ジョブのタイムアウトを設定には、特定の条件が必要？
+【Laravel】ジョブのタイムアウトを設定には、pcnt（PHPの拡張項目）を有効化する必要がある
 
 _____________________________________________________________________
-
-プロセス制御
-
-
-## _
-https://stackoverflow.com/questions/33036773/how-to-enable-pcntl-in-php-while-using-a-framework-like-symfony2
-```
-
-```
-
-
-## Timeout
-https://laravel.com/docs/8.x/queues#timeout
-
-```
-The pcntl PHP extension must be installed in order to specify job timeouts.
-```
-
-
-## インストール手順
-https://www.php.net/manual/ja/pcntl.installation.php
-
-PHPがサポートするプロセス制御機能は、デフォルトでは有効となってい ません。プロセス制御機能を有効にするには、 configure のオプションに --enable-pcntl を付け、CGI 版あるいは CLI 版の PHP をコンパイルする必要があります。
-
-
-## 
-https://github.com/codereviewvideos/docker-php-7/blob/master/Dockerfile
-```
-# Install various PHP extensions
-RUN docker-php-ext-configure bcmath --enable-bcmath \
-  && docker-php-ext-configure pcntl --enable-pcntl \
-  && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
-```
-
-
-
-
-
-
-
-
-```
-wget "https://www.php.net/distributions/php-7.4.0.tar.gz"
-tar xvf "php-7.4.0.tar.gz"
-cd "php-7.4.0/ext/pcntl/"
-phpize
-./configure
-make
-```
-
-
-
-
-________________________________________________________________________________________________
 
 ジョブを実行する時、以下のようにタイムアウトの時間（X 秒経過するとエラー）を設定できる。  
 ```
@@ -76,30 +22,43 @@ class ProcessPodcast implements ShouldQueue
     public $timeout = 120;
 }
 ```
+優先順位としては、コードに記述した時間の方が高くなる。  
 
-＜公式サイト＞  
-https://readouble.com/laravel/8.x/ja/queues.html#cleaning-up-after-failed-jobs  
+例えば、「php artisan queue:listen --timeout=60」とコマンドを打っても、ソースコードでは「$timeout = 120」となっていた場合、タイムアウト時間は 120秒となる。  
 
+
+**＜Laravel 公式サイト＞**  
+<https://readouble.com/laravel/8.x/ja/queues.html#cleaning-up-after-failed-jobs>  
 
 が、実験したところ、ソースコードにて指定された「120」が有効とならなかった。  
-何か条件があるかもしれないし、
+
+実はこの設定だけでは不十分で、「pcnt」という PHPの拡張項目を有効にする必要がある。  
+詳細は以下を参照。  
 
 
+**\# Timeout**
+<https://laravel.com/docs/8.x/queues#timeout>  
+```
+The pcntl PHP extension must be installed in order to specify job timeouts.
+```
+
+pcntl を有効にするには、以下を参照してください。  
+[PHP・Docker：Docker コンテナ起動の PHP にて、pcntl を有効にする方法](https://www.kakistamp.com/entry/2021/12/28/125832)  
+
+この設定を有効化すると、ジョブ実行のタイムアウト時間を設定する事ができます。  
+
+## 失敗したジョブを再実行
+失敗したジョブを全て実行する場合、以下のコマンドを実行すると、失敗ジョブが再びキューに戻る。  
+```
+php artisan queue:retry all
+```
+
+その後、「queue:work」や「queue:listen」等で、再び実行できる。  
+```
+php artisan queue:listen
+```
 
 
-pcntl
-
-
-php -m | grep pcntl
-php -i | grep pcntl
-
-
-
-https://rj-bl.hatenablog.com/entry/2017/04/09/165858
-
-https://stackoverflow.com/questions/40408152/how-to-enable-pcntl-on-ubuntu-server-16-04
-
-https://stackoverflow.com/questions/33036773/how-to-enable-pcntl-in-php-while-using-a-framework-like-symfony2
 
 
 
@@ -110,46 +69,18 @@ php artisan queue:failed
 
 
 
-
-
-うっわ！やりたくない！
-と思ってしまうような
-
-
-pcntlというPHPのマルチスレッドプログラミングはdefaultでは使えないようです。
-
-pcntl を 有効にして PHP をコンパイルすると、
-
-プロセス制御のPCNTL関数を使えば似たようなことができるそうだ。
-
-
-
-## _
-一応、こういう方法もあるみたい。
-https://newbedev.com/installing-pcntl-module-for-php-without-recompiling
-
-
-
-
-
-
-
-_____
-
-Alpine 
+## 失敗ジョブの確認
 ```
-#===+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
-# 拡張モジュールビルドステージ： pcntl
-#===+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8====+====9====+====0
-FROM php:7.4-fpm-alpine AS build-pcntl
-RUN set -xe && apk add --update-cache --no-cache autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c
-RUN set -xe && docker-php-ext-install pcntl
-
-
-# 拡張モジュールインストール： pcntl
-COPY --from=build-pcntl ${PHP_EXTENSION_PATH}/pcntl.so ${PHP_EXTENSION_PATH}/pcntl.so
-COPY --from=build-pcntl ${PHP_CONFIG_PATH}/docker-php-ext-pcntl.ini ${PHP_CONFIG_PATH}/docker-php-ext-pcntl.ini
-
+php artisan queue:failed
 ```
 
+```
+root@6ebd042018af:/var/www/html/my-laravel-app# php artisan queue:failed
++--------------------------------------+------------+---------+------------------+---------------------+
+| ID                                   | Connection | Queue   | Class            | Failed At           |
++--------------------------------------+------------+---------+------------------+---------------------+
+| 930ab89d-ec4e-4899-b943-d0f7c533a682 | database   | default | App\Jobs\MyJob12 | 2021-12-28 05:18:29 |
+| be2efe30-b3c0-4bfd-9cbc-7fc9f3608c1b | database   | default | App\Jobs\MyJob12 | 2021-12-28 05:12:23 |
++--------------------------------------+------------+---------+------------------+---------------------+
+```
 
