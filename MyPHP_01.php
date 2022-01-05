@@ -1853,6 +1853,71 @@ print_r(array_slice($input, 2, -1, true));
 
 
 //---------------------------
+//     配列を分割する
+//---------------------------
+
+// array_chunk( 分割する配列, 分割サイズ [, true] )
+
+
+// array_chunk(array $array, int $length, bool $preserve_keys = false): array
+// array
+// 処理を行う配列。
+
+// length
+// 各部分のサイズ。
+
+// preserve_keys
+// true の場合はキーをそのまま保持します。 デフォルトは false で、各部分のキーをあらためて数字で振りなおします。
+
+
+$a = array('あ', 'い', 'う', 'え', 'お');
+print_r( array_chunk($a, 2) );
+print_r( array_chunk($a, 2, true) );
+
+/*
+Array
+(
+    [0] => Array
+        (
+            [0] => あ
+            [1] => い
+        )
+
+    [1] => Array
+        (
+            [0] => う
+            [1] => え
+        )
+
+    [2] => Array
+        (
+            [0] => お
+        )
+
+)
+Array
+(
+    [0] => Array
+        (
+            [0] => あ
+            [1] => い
+        )
+
+    [1] => Array
+        (
+            [2] => う
+            [3] => え
+        )
+
+    [2] => Array
+        (
+            [4] => お
+        )
+
+)
+*/
+
+//---------------------------
 //     配列をシャッフル
 //---------------------------
 $numbers = range(1, 20);
