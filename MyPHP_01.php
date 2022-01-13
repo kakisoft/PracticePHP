@@ -1585,6 +1585,51 @@ function getMaxRowNo(array $details): int
         0);  // 初期値
 }
 
+//=========< array_reduce >=========
+function sum($carry, $item)
+{
+    echo '$carry:' . $carry . ', $item:'  . $item . PHP_EOL;
+
+    $carry += $item;
+    return $carry;
+}
+
+function product($carry, $item)
+{
+    echo '$carry:' . $carry . ', $item:'  . $item . PHP_EOL;
+
+    $carry *= $item;
+    return $carry;
+}
+
+$a = array(1, 2, 3, 4, 5);
+$x = array();
+
+var_dump(array_reduce($a, "sum")); // int(15)
+var_dump(array_reduce($a, "product", 10)); // int(1200), because: 10*1*2*3*4*5
+var_dump(array_reduce($x, "sum", "No data to reduce")); // string(17) "No data to reduce"
+
+/*
+
+$carry:, $item:1
+$carry:1, $item:2
+$carry:3, $item:3
+$carry:6, $item:4
+$carry:10, $item:5
+int(15)
+
+$carry:10, $item:1
+$carry:10, $item:2
+$carry:20, $item:3
+$carry:60, $item:4
+$carry:240, $item:5
+int(1200)
+
+string(17) "No data to reduce"
+
+*/
+
+
 
 //---------------------------
 //      キーの存在チェック
