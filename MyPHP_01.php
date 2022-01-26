@@ -543,6 +543,26 @@ unset($param1);
 var_dump( isset($param1) );  //=> bool(false)
 
 
+//==========================
+//      日付チェック  date
+//==========================
+
+//// date_parse で分解し、checkdate で判定
+
+// $value = "202211"; //=> false
+// $value = "2022111"; //=> false （2022年1月111日）
+// $value = "2021/2/2"; //=> 2021年2月2日
+// $value = "2021/11"; //=> false
+// $value = "2021/11/1"; //=> 2021年11月1日
+
+$date = date_parse($value);
+
+echo $date['year'] . '年' . $date['month'] . '月' . $date['day'] . '日' . PHP_EOL;
+
+$isDate = checkdate($date['month'], $date['day'], $date['year']);
+var_dump($isDate);
+
+
 
 //==========================
 //      数値型の演算
