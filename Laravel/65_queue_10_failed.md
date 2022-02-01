@@ -45,6 +45,9 @@ class MyJob11 implements ShouldQueue
 php artisan queue:listen
 
 php artisan queue:listen --tries=3 --timeout=60
+
+// 「queue:listen」の場合、$time の影響を受けない？ timeout を指定し、長めに取っておく方が良さそう
+php artisan queue:listen --timeout=1200
 ```
 
 ______________________________________________________________________________
