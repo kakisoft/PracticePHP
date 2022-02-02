@@ -2,6 +2,10 @@
 ```
 php -i | grep php.ini
 ```
+この方法も
+```
+php --ini
+```
 
 
 ## ブラウザから php.ini の保存パスを確認
