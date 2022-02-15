@@ -1,3 +1,49 @@
+公式サイトを見ると、「--innodb-autoinc-lock-mode=#」みたいなコマンドで出来るように見える。  
+<https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode>  
+
+以下、抜粋した内容。
+
+ * innodb_autoinc_lock_mode
+
+|          -             |              -                 |
+|:-----------------------|:-------------------------------|
+|  Command-Line Format   |  --innodb-autoinc-lock-mode=#  |
+|  System Variable       |  innodb_autoinc_lock_mode      |
+|  Scope                 |  Global                        |
+|  Dynamic               |  No                            |
+|  SET_VAR Hint Applies  |  No                            |
+|  Type                  |  Integer                       |
+|  Default Value         |  2                             |
+|  Valid Values          |  0, 1, 2                       |
+
+
+
+試しにコマンドを入力してみる。  
+```
+mysql> SET GLOBAL innodb_autoinc_lock_mode = 2;
+ERROR 1238 (HY000): Variable 'innodb_autoinc_lock_mode' is a read only variable
+```
+読み取り専用という無情なメッセージが。  
+
+一応、「 SET innodb_autoinc_lock_mode = 2; 」でも試してみましたが、結果は同じでした。  
+
+『 Command-Line Format ： --innodb-autoinc-lock-mode=# 』というのはいったい何者？  
+こいつを使う事ができれば、innodb_autoinc_lock_mode の値を変える事ができるのでは？  
+と疑問に思い、コマンドをこねくり回すも、シンタックスエラーの無情なメッセージが出るのみ。  
+
+調べてみると、こんなのが見つかった。  
+
+[AUTO_INCREMENT Handling in InnoDB](http://doc.docs.sk/mysql-refman-5.5/innodb-auto-increment-handling.html)  
+
+> In MySQL 5.5, there is a configuration parameter that controls how InnoDB uses locking when generating values for AUTO_INCREMENT columns.   
+>  
+> This parameter can be set using the --innodb-autoinc-lock-mode option at mysqld startup.
+
+どうやら、「 --innodb-autoinc-lock-mode 」を使ったパラメータの指定は、MySQL のデーモンを起動する時にしか指定できないみたい。  
+
+という事で、事実上 mysql.cnf を編集するしか変更方法は無い事になります。  
+
+
 ________________________________________________________________________
 ________________________________________________________________________
 ________________________________________________________________________
