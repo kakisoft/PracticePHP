@@ -1,4 +1,4 @@
-【Laravel】ジョブのタイムアウトを設定する変数「$timeout」は、コメントアウト時でも有効？
+【MySQL・Laravel】too many placeholders エラー発生時の対処方法
 
 ________________________________________________________________
 【 環境 】
@@ -6,24 +6,37 @@ Laravel のバージョン： 8.16.1
 PHP のバージョン： 7.4.7
 
 
-```log
+バルクインサートする時、大量のデータがあった場合、「Prepared statement contains too many placeholders」といったエラーメッセージが出る事があります。  
 
+例えば、以下のような内容です。  
+```log
 出力内容 :critical 9999900001 A system error has occurred. :
 [trace]PDOException: SQLSTATE[HY000]: General error: 1390 Prepared statement contains too many placeholders in /application/vendor/laravel/framework/src/Illuminate/Database/Connection.php:458
 Stack trace:
 #0 /application/vendor/laravel/framework/src/Illuminate/Database/Connection.php(458): PDO-&gt;prepare(&#039;insert into `tm...&#039;)
 
 
-
-Next Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1390 Prepared statement contains too many placeholders (SQL: insert into `tmp_advanced_shipping_notice_details` (`advanced_shipping_notice_detail_status`, `child_shipper_job_sequence_no`, `csv_row_number`, `error_message`, `estimated_inbound_date`, `estimated_inbound_quantity`, `is_enabled_importing`, `item_code`, `item_id`, `note`, `parent_shipper_job_id`, `row_no`, `supplier_code`, `supplier_name`, 
+Next Illuminate\Database\QueryException: SQLSTATE[HY000]: General error: 1390 Prepared statement contains too many placeholders (SQL: insert into `advanced_shipping_notice_details` (`advanced_shipping_notice_detail_status`, `child_shipper_job_sequence_no`, `csv_row_number`, `error_message`, `estimated_inbound_date`, `estimated_inbound_quantity`, `is_enabled_importing`, `item_code`, `item_id`, `note`, `parent_shipper_job_id`, `row_no`, `supplier_code`, `supplier_name`, 
 ```
 
-## プレースホルダ
+## プレースホルダとは？
+SQLインジェクション対策のため、変数部分をバインドして障害を回避するための方法。  
+
+以下のコードでは、「:name」がプレースホルダにあたる。
 ```php
 $sql = "SELECT * FROM user WHERE name=:name";
 
 bindValue(':name', $name, PDO::PARAM_STR);
 ```
+プレースホルダは 65536 が上限らしい。  
+
+そのため、大量データを insert する時、その上限を超えてしまうと、上記のようなエラーが発生する。  
+
+＜参考＞  
+
+## 
+
+
 
 
 PDO::ATTR_EMULATE_PREPARES => false,
