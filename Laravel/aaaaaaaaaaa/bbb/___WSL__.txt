@@ -1,0 +1,24 @@
+https://t-dilemma.info/official-install-wsl2/
+
+PowerShell を管理者モードで起動
+
+
+## WSL1 をインストール
+
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+
+## Windows 10 October 2020 Update を適用
+https://www.microsoft.com/ja-jp/software-download/windows10
+今すぐアップデート
+
+
+## WSL2に更新
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+
+Windows 再起動
+
+## WSL 2 を既定のバージョンとして設定
+wsl --set-default-version
+

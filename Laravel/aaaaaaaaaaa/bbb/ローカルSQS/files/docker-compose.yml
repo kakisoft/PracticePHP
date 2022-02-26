@@ -1,0 +1,53 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: asims3
+      MYSQL_USER: asims3
+      MYSQL_PASSWORD: pzHG8lB8zWbNjXl1
+      MYSQL_ROOT_PASSWORD: CPBgcYxBOI5bnPRr
+    volumes:
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./data/mysql:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql
+    networks:
+      - default
+      - bigbang-shared-network
+  sqs:
+    image: softwaremill/elasticmq
+    restart: always
+    ports:
+      - 9324:9324
+    volumes:
+      - ./docker/elasticmq/conf/custom.conf://opt/elasticmq.conf:ro
+    networks:
+      - default
+      - bigbang-shared-network
+  redis:
+    image: "redis:6.0"
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
+    networks:
+      - default
+      - bigbang-shared-network
+  fluentd:
+    image: fluent/fluentd:v1.11
+    ports:
+      - 24224:24224
+    volumes:
+      - ./docker/fluentd/etc:/fluentd/etc
+      - ./logs/fluentd:/fluentd/log
+    networks:
+      - default
+      - bigbang-shared-network
+
+networks:
+  bigbang-shared-network:
+    external: true

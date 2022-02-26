@@ -1,0 +1,42 @@
+# Windows 10 用 Windows Subsystem for Linux のインストール ガイド
+https://docs.microsoft.com/ja-jp/windows/wsl/install-win10
+
+
+
+## 必要条件
+x64 システムの場合: バージョン 1903 以降、 ビルド 18362 以上。
+ARM64 システムの場合: バージョン 2004 以降、 ビルド 19041 以上。
+18362 より前のビルドは WSL 2 をサポートしていません。 Windows 更新アシスタントを使用して、お使いのバージョンの Windows を更新します。
+
+
+
+
+
+winver 
+
+
+Get-ChildItem env:processor*
+
+
+
+
+PS C:\WINDOWS\system32> Get-ChildItem env:processor*
+
+Name                           Value
+----                           -----
+PROCESSOR_ARCHITECTURE         AMD64
+PROCESSOR_LEVEL                6
+PROCESSOR_IDENTIFIER           Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+PROCESSOR_REVISION             8e0c
+
+
+
+
+
+----------------------------------------------------------------------------------------
+Docker と Virtual Box が共存できないかと、WSL2 で Docker を動かしてみようと増したが、
+WSL2 を入れるには
+----------------------------------------------------------------------------------------
+
+
+
