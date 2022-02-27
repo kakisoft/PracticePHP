@@ -346,3 +346,15 @@ $ php artisan route:list
 |        | DELETE    | api/user/{user} | user.destroy | App\Http\Controllers\Api\UserController@destroy | api        |
 +--------+-----------+-----------------+--------------+-------------------------------------------------+------------+
 ```
+
+________________________________________________________________________
+## blade
+'''html
+<form method="post" action="{{ route('login') }}" class="is-box">
+'''
+以下のように変換される。（Chrome デベロッパーツール等で確認）
+'''
+action="https://app01.test:44300/login"
+'''
+
+
