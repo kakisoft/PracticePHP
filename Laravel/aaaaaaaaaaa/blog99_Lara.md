@@ -16,7 +16,6 @@
 ```
 
 <form method="POST" action="{{ route('department-conditions.update', $departmentId) }}">
-
 action="https://ryuki.test:44300/department-conditions/2"
 
 
