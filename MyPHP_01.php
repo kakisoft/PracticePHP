@@ -551,7 +551,7 @@ var_dump( isset($param1) );  //=> bool(false)
 // 現在の時刻
 echo date('h:i:s')       . PHP_EOL;  //=> 10:36:57
 echo date('Y/m/d H:i:s') . PHP_EOL;  //=> 2022/03/09 10:36:57
-echo date('YmdHis')      . PHP_EOL;  //=> 20220309104132
+echo date('YmdHis')      . PHP_EOL;  //=> 20220309704132
 
 
 /*
@@ -4014,7 +4014,7 @@ function foo()
 //  json エンコード/デコード
 //=============================
 $original_json_data = '{"id":1, "product_name":"K001-X299022A"}';
-$decoded_data = json_decode($original_json_data, true);  // true の場合、返されるオブジェクトは連想配列形式になります。
+$decoded_data = json_decode($original_json_data, true);  // true の場合、返されるオブジェクトは連想配列形式。 false の場合、返されるオブジェクトは object。省略時は null（そのため false）
 $decoded_data['check_user']     = "5656";
 $decoded_data['check_datetime'] = date("Y/m/d H:i");
 $encoded_data = json_encode($decoded_data);
