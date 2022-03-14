@@ -16,7 +16,7 @@ tests\ExampleTest.php
 
 ## 設定
 phpunit.xml にて設定。  
-詳細は[73_test_conf.md](./73_test_conf.md)。
+詳細は[71_test_2_conf.md](./71_test_2_conf.md)。
 
 
 ## 作成
