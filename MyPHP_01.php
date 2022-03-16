@@ -12,6 +12,14 @@
 //=====================================================================
 
 /**
+ * now writing...
+ *
+ * @var string
+ */
+protected $token;
+
+
+/**
  * A list of the exception types that are not reported.
  *
  * @var array
