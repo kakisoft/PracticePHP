@@ -8,6 +8,7 @@ https://laravel.com/docs/8.x/testing
  * phpunit - PHPUnit動作に関する設定
  * testsuites - 【テストスイート】テスト対象ディレクトリ、ファイルを指定・グループ化
  * php - PHP 動作に関する設定・環境変数
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
