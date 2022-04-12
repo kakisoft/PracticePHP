@@ -81,3 +81,15 @@ ____________________________________________________________
     }
 ```
 
+
+## 外部参照キー（外部キー）を一時的に無効化
+https://laravel.com/docs/9.x/migrations  
+
+null 許容でも使えるらしい。
+```php
+//外部キー制約を一旦無効化
+Schema::disableForeignKeyConstraints();
+
+//外部キー制約を有効化
+Schema::enableForeignKeyConstraints();
+```
