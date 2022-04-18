@@ -12,12 +12,19 @@ sudo yum install php[バージョン]-php-[extension]
 例：
 sudo yum install php74-php-mbstring
 
-``
+```
 
 ## Ubuntu   
 ```
 sudo apt install php7.4
 sudo apt install php7.4-cli
+```
+
+
+## Amazon Linux
+```
+amazon-linux-extras enable php8.0
+yum install php
 ```
 
 ## Windows
