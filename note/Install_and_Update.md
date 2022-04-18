@@ -6,6 +6,14 @@ Update もこっちでいいの？
 sudo yum install -y --enablerepo=remi-php71 php
 ```
 
+```
+この方法でも行ける？
+sudo yum install php[バージョン]-php-[extension]
+例：
+sudo yum install php74-php-mbstring
+
+``
+
 ## Ubuntu   
 ```
 sudo apt install php7.4
