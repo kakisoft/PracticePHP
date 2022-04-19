@@ -24,6 +24,17 @@ mv composer.phar /usr/local/bin/composer
 php composer-setup.php --install-dir=bin --filename=composer
 
 
+## インストール（Amazon Linux）
+https://dev.to/alexandrefreire/install-composer-on-amazon-ami-running-on-ec2-10a6
+```
+sudo curl -sS https://getcomposer.org/installer | sudo php
+sudo mv composer.phar /usr/local/bin/composer
+sudo ln -s /usr/local/bin/composer /usr/bin/composer
+```
+
+＜公式インストールスクリプト＞  
+https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
+
 
 ## パッケージスト
 composer を使ってインストールできる定番パッケージリスト。  
