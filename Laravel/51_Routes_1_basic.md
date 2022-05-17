@@ -154,6 +154,27 @@ $url = route('profile');
 // リダイレクトの生成
 return redirect()->route('profile');
 return redirect()->route('question01.index', ['special_message'=>'spm']);
+
+
+// Link
+<a href="{{ route('projects.edit', $project->id) }}" class="button is-white has-text-weight-semibold">
+    <span class="icon">
+        <i class="chevron-double-left"></i>
+    </span>
+    <span>
+        @lang('project.return_to_detail')
+    </span>
+</a>
+```
+```php
+        //Project Routes
+        Route::prefix('projects')->name('projects.')->group(function () {
+            Route::get('{type}/create/{parentId?}', [ProjectController::class, 'create'])->name('create');
+            Route::get('{id}/edit', [ProjectController::class, 'edit'])->name('edit');
+            Route::post('/{parentId?}', [ProjectController::class, 'store'])->name('store');
+            Route::put('{id}', [ProjectController::class, 'update'])->name('update');
+            Route::get('{projectId}/approve/{detailId?}', [ProjectController::class, 'approve'])->name('approve');
+        });
 ```
 
 ##### 名前付きルートの利点
