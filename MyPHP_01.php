@@ -3431,6 +3431,9 @@ var_dump($hashed_password );
 var_dump(password_verify ( $password , $hashed_password ) );
 
 
+// Laravel だと、Hash::check, Hash::make で行けるみたい
+
+
 //===========================
 //      暗号化（ crypt ）
 //===========================
