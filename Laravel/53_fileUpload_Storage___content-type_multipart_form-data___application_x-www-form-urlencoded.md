@@ -6,6 +6,31 @@ https://readouble.com/laravel/8.x/ja/filesystem.html
 use Illuminate\Support\Facades\Storage;
 ```
 
+## S3 にアップロードする場合
+< install s3 component >  
+https://laravel.com/docs/8.x/filesystem
+```
+composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"
+```
+
+
+```php
+$functionName = 'stamps';
+$userId = '8001';
+
+$filePath = $functionName . DIRECTORY_SEPARATOR . $userId;
+$fileName = 'sample01_' . Carbon::now('UTC')->format('YmdHisu') . '.png';
+
+// local に保存（保存先のストレージを指定）
+Storage::disk('local')->put($filePath . DIRECTORY_SEPARATOR . $fileName, file_get_contents('https://placehold.jp/250x150.png'));
+
+// S3 に保存（保存先のストレージを指定）
+Storage::disk('s3')->put($filePath . DIRECTORY_SEPARATOR . $fileName, file_get_contents('https://placehold.jp/250x150.png'));
+
+// 保存先を .env によって切り替え（ .env にて 「FILESYSTEM_DRIVER=s3」なら S3 に保存。設定されていない場合は local に保存。[config\filesystems.php] ）
+Storage::put($filePath . DIRECTORY_SEPARATOR . $fileName, file_get_contents('https://placehold.jp/250x150.png'));
+```
+
 
 ## _
 ```php

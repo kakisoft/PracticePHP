@@ -3190,6 +3190,7 @@ $replaceText = str_replace("<br>", PHP_EOL, $str_02);
 //==========================
 mb_convert_encoding( $ex->getMessage(), 'utf-8', 'shift_jis' );
 
+// 内部文字エンコーディングからSJISに変換
 $str = mb_convert_encoding($str, "SJIS");
 
 // UTF-8の文字列をSJISに変換
@@ -3916,6 +3917,7 @@ mb_language("uni");  // ※UTF-8
 
 
 //----------( 内部文字エンコーディングを設定 )----------
+// デフォルトの文字コード
 
 // mb_internal_encoding — 内部文字エンコーディングを設定あるいは取得する
 
