@@ -15,7 +15,9 @@ php artisan cache:clear | php artisan config:clear | php artisan route:clear | p
 ```
 
 _________________________________________________________________________________________________________
-## log : Permission denied
+## Permission denied
+
+### log
 ```
 UnexpectedValueException
 The stream or file "/var/www/html/my-laravel-app/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied
@@ -23,6 +25,17 @@ The stream or file "/var/www/html/my-laravel-app/storage/logs/laravel.log" could
 権限を変更
 ```
 chmod -R 777 storage/
+```
+
+### sessions
+```
+file_put_contents(/var/www/src/storage/framework/sessions/cct6lH7C4xwdtmMRPwTvWELTnX111j0xLyWvWlKf): Failed to open stream: Permission denied
+```
+https://qiita.com/naka46/items/e562e38764441d2b5b4a
+```
+chmod 777 storage/logs
+chmod 777 storage/framework/sessions/
+chmod 777 storage/framework/views/
 ```
 
 _________________________________________________________________________________________________________
