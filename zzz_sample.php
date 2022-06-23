@@ -1,10 +1,14 @@
 <?php
 
 
-$urlParam = "tenantCd=B096&shopCd=88888SGHIJlEW";
-$urlEncodedParam = mb_convert_encoding($urlParam, 'SJIS');
-echo md5($urlEncodedParam) . PHP_EOL;
-//=> b63135c20cc945a96698c9183667266d
+$doc = new DOMDocument();
+$doc->loadXML('<root><node/></root>');
+echo $doc->saveXML();
+
+// $urlParam = "tenantCd=B096&shopCd=88888SGHIJlEW";
+// $urlEncodedParam = mb_convert_encoding($urlParam, 'SJIS');
+// echo md5($urlEncodedParam) . PHP_EOL;
+// //=> b63135c20cc945a96698c9183667266d
 
 
 
