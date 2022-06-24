@@ -3206,6 +3206,50 @@ $str = mb_convert_encoding($str, "UCS-2LE", "JIS, eucjp-win, sjis-win");
 $str = mb_convert_encoding($str, "EUC-JP", "auto");
 
 
+//=====================================
+//     文字コード  エンコーディング（SJIS, shift_jis, sjift-jis, shift jis）
+//=====================================
+// 最終的に URL パラメータに含める場合、「rawurlencode」にて URL エンコードが必要。（文字化けが発生する）
+// また、「=」は rawurlencode の変換パラメータに含めない。
+$a1 = "田";
+$a2 = mb_convert_encoding($a1, "SJIS");
+$a3 = rawurlencode($a2);
+echo $a1 . PHP_EOL;  //=> 田
+echo $a2 . PHP_EOL;  //=> �c
+echo $a3 . PHP_EOL;  //=> %93c
+
+
+$b1 = "lastName=田";
+$b2 = mb_convert_encoding($b1, "SJIS");
+$b3 = rawurlencode($b2);
+echo $b1 . PHP_EOL;  //=> lastName=田
+echo $b2 . PHP_EOL;  //=> lastName=�c
+echo $b3 . PHP_EOL;  //=> lastName%3D%93c
+
+//----------------------------------------------------
+//     全パラメータをエンコードするサンプルソース
+//----------------------------------------------------
+
+$params = [
+  'netShopMemberId' => 1,
+  'lastName'        => '織田',
+  'firstName'       => '信長',
+];
+
+//==========< URLパラメータを設定(エンコードした値) >==========
+$encodedUrlParamList = [];
+foreach ($params as $key => $value) {
+  array_push($encodedUrlParamList, $key . '=' . rawurlencode(mb_convert_encoding((string)$value, 'SJIS')));
+}
+
+print_r($encodedUrlParamList);
+// Array
+// (
+//     [0] => netShopMemberId=1
+//     [1] => lastName=%90D%93c
+//     [2] => firstName=%90M%92%B7
+// )
+
 
 //==========================
 //        to_string

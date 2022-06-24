@@ -1,9 +1,86 @@
 <?php
 
+$params = [
+    'netShopMemberId' => 1,
+    'lastName'        => '織田',
+    'firstName'       => '信長',
+];
 
-$doc = new DOMDocument();
-$doc->loadXML('<root><node/></root>');
-echo $doc->saveXML();
+//==========< URLパラメータを設定(エンコードした値) >==========
+$encodedUrlParamList = [];
+foreach ($params as $key => $value) {
+    array_push($encodedUrlParamList, $key . '=' . rawurlencode(mb_convert_encoding((string)$value, 'SJIS')));
+}
+
+print_r($encodedUrlParamList);
+// Array
+// (
+//     [0] => netShopMemberId=1
+//     [1] => lastName=%90D%93c
+//     [2] => firstName=%90M%92%B7
+// )
+
+/*
+ mb_convert_encoding(): Argument #1 ($string) must be of type array|string, int given
+*/
+
+
+// //==============================================================
+// // $a1 = "lastName=田";
+// $a1 = "lastName=田";
+// $a2 = mb_convert_encoding($a1, "SJIS");
+// $a3 = rawurlencode($a2);
+// echo $a1 . PHP_EOL;
+// echo $a2 . PHP_EOL;
+// echo $a3 . PHP_EOL;
+// //==============================================================
+
+
+
+// // OK 
+// // $a1 = mb_convert_encoding("田", "sjis", "utf-8");
+// $a1 = mb_convert_encoding("田", "SJIS");
+// $a2 = rawurlencode($a1);
+// echo $a2 . PHP_EOL;
+
+
+// $dataA1 = "田";
+// $dataA2= mb_convert_encoding("田", "sjis", "utf-8");
+// $dataA3= mb_convert_encoding($dataA2, "utf-8", "sjis");
+// echo $dataA1 . PHP_EOL;
+// echo $dataA2 . PHP_EOL;
+// echo $dataA3 . PHP_EOL;
+
+// $dataA4 = mb_convert_encoding($dataA1, "SJIS-win", "UTF-8");
+// echo $dataA4 . PHP_EOL;
+
+
+// $str = mb_convert_encoding($data,"utf-8","sjis"); // シフトJISからUTF-8に変換
+
+//// NG
+// $strA1 = "田";
+// $strA2 = mb_convert_encoding($strA1, "SJIS");
+// // $strA2 = mb_convert_encoding($strA1, "SJIS", "UTF8");
+// echo $strA2 . PHP_EOL;
+
+// var_dump($strA2);
+
+
+
+// $urlParam = "lastName=田";
+// $urlEncodedParam = mb_convert_encoding($urlParam, 'SJIS');
+// echo $urlEncodedParam . PHP_EOL;
+// echo md5($urlEncodedParam) . PHP_EOL;
+// //=> b63135c20cc945a96698c9183667266d
+
+
+// $urlParam = "太郎";
+// $urlEncodedParam = mb_convert_encoding($urlParam, 'SJIS');
+// echo $urlEncodedParam . PHP_EOL;
+// echo md5($urlEncodedParam) . PHP_EOL;
+// //=> b63135c20cc945a96698c9183667266d
+
+
 
 // $urlParam = "tenantCd=B096&shopCd=88888SGHIJlEW";
 // $urlEncodedParam = mb_convert_encoding($urlParam, 'SJIS');
