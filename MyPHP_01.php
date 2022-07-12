@@ -3226,6 +3226,13 @@ echo $b1 . PHP_EOL;  //=> lastName=田
 echo $b2 . PHP_EOL;  //=> lastName=�c
 echo $b3 . PHP_EOL;  //=> lastName%3D%93c
 
+
+// mb_convert_encoding + rawurlencode
+$value = "織田";
+$convertedData = rawurlencode(mb_convert_encoding((string)$value, 'SJIS'));
+echo $convertedData . PHP_EOL;
+
+
 //----------------------------------------------------
 //     全パラメータをエンコードするサンプルソース
 //----------------------------------------------------
@@ -3868,9 +3875,9 @@ fwrite($fp, "saburo\n");
 fclose($fp);
 
 
-//==========================
-//     ファイル書き込み
-//==========================
+//=======================================
+//     ファイル書き込み / ファイル出力
+//=======================================
 $file = 'people.txt';
 // ファイルをオープンして既存のコンテンツを取得します
 $current = file_get_contents($file);
@@ -3880,9 +3887,9 @@ $current .= "John Smith\n";
 file_put_contents($file, $current);
 
 
-//==========================
+//=======================================
 //     ファイル削除
-//==========================
+//=======================================
 // ファイル削除
 unlink($file_name);
 
