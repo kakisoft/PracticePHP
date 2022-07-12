@@ -4118,9 +4118,9 @@ $json_encoded_data = json_encode($array_data);
 echo $json_encoded_data;  //=> {"name":"Tom","Job":"Engineer","country":"USA","age":28}
 
 
-//-------------------
-//    エスケープ
-//-------------------
+//----------------------------------
+//    エスケープ / json エンコード
+//----------------------------------
 $array_data = [
   'name'    => 'かき',
   'Job'     => 'エンジニア',
