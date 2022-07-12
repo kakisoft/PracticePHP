@@ -3914,6 +3914,16 @@ return $config_data->development;
 //----------( iniファイル)----------
 // parse_ini_file
 
+const CONF_FILE_NAME = "conf";
+
+$conf = parse_ini_file(CONF_FILE_NAME);
+$DEFINED_TOKEN = $conf['token'];
+
+/*
+
+token=aaaabbbbcccc
+
+*/
 
 //====================================
 //       リソースタイプを調べる
