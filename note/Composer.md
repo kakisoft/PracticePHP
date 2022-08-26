@@ -193,3 +193,33 @@ composer.lock が存在する場合、composer.lock に書かれているバー�
 リポジトリには composer.lockも一緒にコミットをすると良さげ。
 
 
+_______________________________________________________________________
+
+# composer install と composer updateの違い
+https://qiita.com/YusukeHigaki/items/47dd3ec23544225f7301
+
+## composer install
+composer.lockに書かれている各ライブラリをインストールする。
+
+## composer update
+composer.jsonをもとに各ファイルを最新版にアップデートする。
+
+
+### composer.lock
+現在使用しているバンドルのバージョン等が管理されます。
+
+### composer.json
+必要となるバンドルを記述します。
+
+
+```
+新しい環境ではじめにインストールするとき：
+composer install
+
+何か新しいバンドルを追加したい：
+composer.json に追記して composer update
+
+本番のライブラリを最新版にしたい：
+開発環境でcomposer updateして問題なければcomposer.lockファイルを本番にコピーしてcomposer intallする
+```
+
