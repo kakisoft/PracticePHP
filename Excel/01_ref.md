@@ -18,5 +18,6 @@ http://github.com/iliaal/php_excel
 http://www.libxl.com
 
 
-
+## Laravel Excel
+https://laravel-excel.com/
 
