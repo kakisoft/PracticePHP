@@ -11,11 +11,12 @@ php -m | grep redis
 ```
 
 ```
+php -i
 php -i | grep pcntl
 ```
 
--i : PHP information  
 -m : Show compiled in modules  
+-i : PHP information  
 
 ___________________________________________________________
 ## php-devel
