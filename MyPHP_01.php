@@ -3046,7 +3046,7 @@ $aliased_talker->talk();        //=> trant B - bigTalk
 //==========================
 //      stdClass
 //==========================
-// デフォルトのクラスで宣言することなく、いきなり new して使うことができる特殊なオブジェクト。 
+// デフォルトのクラスで宣言することなく、いきなり new して使うことができる特殊なオブジェクト。（特殊なクラス） 
 $member = new stdClass();
 $member->name = 'Tom';
 echo $member->name;  //=> Tom
