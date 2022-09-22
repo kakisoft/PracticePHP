@@ -4113,6 +4113,21 @@ $encoded_data = json_encode($decoded_data);
 var_dump($encoded_data);  //=> string(97) "{"id":1,"product_name":"K001-X299022A","check_user":"5656","check_datetime":"2020\/02\/04 12:28"}"
 
 
+//-----( 日本語 Unicode エスケープ )-----
+// 【Laravel】response()->json ：日本語の文字化けを解消する
+// https://kaki-note-02.netlify.app/2021/11/09/
+$original_json_data = '{"id":1, "product_name":"\u8a31\u53ef\u3055\u308c\u3066\u3044\u306a\u3044\u65b9\u6cd5"}';
+$decoded_data = json_decode($original_json_data, true);  // true の場合、返されるオブジェクトは連想配列形式。 false の場合、返されるオブジェクトは object。省略時は null（そのため false）
+print_r($decoded_data); //=>
+/*
+Array
+(
+    [id] => 1
+    [product_name] => 許可されていない方法
+)
+*/
+
+
 //=============================
 //  配列から json に エンコード
 //=============================
