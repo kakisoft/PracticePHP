@@ -1016,6 +1016,17 @@ print_r($matches);
 
 
 //---------------------------
+//      文字列の検索(PHP8～)   (含む)
+//---------------------------
+// str_contains(string $haystack, string $needle): bool
+// needle が haystack に含まれるかを調べます。 大文字小文字は区別されます。
+
+var_dump(  str_contains('abc', 'a')  );  //=> bool(true)
+var_dump(  str_contains('abc', 'x')  );  //=> bool(false)
+var_dump(  str_contains('abc', '')   );  //=> bool(true)  何でやねん挙動
+
+
+//---------------------------
 //      文字列を丸める
 //---------------------------
 echo mb_strimwidth("Hello World", 0, 10, "...");  // "Hello W..." と出力します
