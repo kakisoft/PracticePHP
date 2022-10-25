@@ -1649,6 +1649,104 @@ $evenNumbers = array_filter(
 print_r($evenNumbers);
 
 
+
+
+/*
+=======================================================================
+PHP】array_filterの色々な書き方
+https://qiita.com/westhouse_k/items/56cc472edfe3d53ded49
+=======================================================================
+*/
+
+
+//----------( コールバック関数 )----------
+$arr = ['a', 'b'];
+
+$res = array_filter($arr, function($val) {
+    return $val === 'a';
+});
+
+
+//----------( クロージャ )----------
+$arr = ['a', 'b'];
+
+$func = function($val) {
+    return $val === 'a';
+};
+
+$res = array_filter($arr, $func);
+// ['a']
+
+
+//----------( 関数 )----------
+$arr = ['a', 'b'];
+
+function func($val) {
+    return $val === 'a';
+}
+
+$res = array_filter($arr, 'func');
+// ['a']
+
+
+//----------( クラス )----------
+class Filter {
+
+  public function func($val) {
+      return $val === 'a';
+  }
+}
+
+$arr = ['a', 'b'];
+$obj = new Filter;
+
+$res = array_filter($arr, [$obj, 'func']);
+// or
+$res = array_filter($arr, [new Filter, 'func']);
+// ['a']
+
+
+
+//----------( クラスの静的メソッド )----------
+class Filter {
+
+  public static function func($val) {
+      return $val === 'a';
+  }
+}
+
+$arr = ['a', 'b'];
+
+$res = array_filter($arr, 'Filter::func');
+// or
+$res = array_filter($arr, ['Filter', 'func']);
+// ['a']
+
+
+
+//----------( マジックメソッド __invoke() )----------
+class Filter {
+
+  public function __invoke($val) {
+      return $val === 'a';
+  }
+}
+
+$arr = ['a', 'b'];
+
+$res = array_filter($arr, new Filter);
+// ['a']
+
+
+
+//----------( アロー関数 )----------
+$arr = ['a', 'b'];
+
+$res = array_filter($arr, fn ($val) => $val === 'a');
+// ['a']
+
+
+
 //---------------------------
 //       array_reduce
 //---------------------------
@@ -1785,6 +1883,11 @@ array_values($a);
 //       重複を削除
 //---------------------------
 array_unique($template_list);
+
+
+$input = array("a" => "green", "red", "b" => "green", "blue", "red");
+$result = array_unique($input);
+print_r($result);
 
 
 //---------------------------
