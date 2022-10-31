@@ -99,7 +99,22 @@ ____________________________________________________________
 
 
 
+```php
+use lluminate\Http\Request;
 
+$request = new Request;
+$request->merge(['name' => 'ichiro']);
+
+//Add member
+if ($request->has('name')) {
+    //Add
+    $request->merge(['team' => 'Mariners']);
+}
+echo $request->input('name'); //ichiro
+//Overwrite
+$request->merge(['name' => 'taro']);
+echo $request->input('name'); //taro
+```
 
 
 
