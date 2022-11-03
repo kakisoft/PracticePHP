@@ -621,6 +621,42 @@ $isDate = checkdate($date['month'], $date['day'], $date['year']);
 var_dump($isDate);
 
 
+//==========================
+//      タイムゾーン
+//==========================
+
+//----------( 現在のタイムゾーンを表示 )----------
+
+// date_default_timezone_get()
+echo date_default_timezone_get();  // UTC
+
+
+//----------( タイムゾーン一覧 )----------
+$timezone_list = DateTimeZone::listIdentifiers();
+
+foreach($timezone_list as $val){
+  echo $val . PHP_EOL;
+}
+
+/*
+
+America/Los_Angeles
+America/Whitehorse
+Asia/Tokyo
+UTC
+
+*/
+
+//----------( タイムゾーンを設定 )----------
+
+//// ini_set
+ini_set('date.timezone', 'Asia/Tokyo');
+echo date_default_timezone_get();  // Asia/Tokyo
+
+//// date_default_timezone_set  ※これが良さそう
+date_default_timezone_set("Asia/Tokyo");
+echo date_default_timezone_get();  // Asia/Tokyo
+
 
 //==========================
 //      数値型の演算
