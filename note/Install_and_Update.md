@@ -23,8 +23,8 @@ sudo apt install php7.4-cli
 
 ## Amazon Linux
 ```
-amazon-linux-extras enable php8.0
-yum install php
+sudo amazon-linux-extras enable php8.0
+sudo yum install php
 ```
 
 ## Windows
