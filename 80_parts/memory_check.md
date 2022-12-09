@@ -1,3 +1,16 @@
+速度計測
+実行速度計測
+
+
+```php
+$time_start = microtime(true);
+
+
+$time = microtime(true) - $time_start;
+echo "{$time} 秒";
+```
+
+
 https://www.php.net/manual/ja/dir.constants.php
 ```
 定義済み定数
