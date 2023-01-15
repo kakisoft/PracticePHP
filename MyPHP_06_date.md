@@ -267,6 +267,26 @@ function diff($a, $b) {
 // float(5.5941358024691E-5)
 ```
 
+
+## UNIXタイムスタンプを現在の日時に変更
+```php
+$date = new DateTime();
+$date->setTimestamp(1666482043341 / 1000);  // ミリ秒の場合
+$variable = $date->format('Y/m/d H:i:s');
+echo "$variable" . PHP_EOL;  //=> 2022/10/22 23:40:43
+```
+
+```php
+$dateList = [1673728504040, 1673727005473, 1673726954457];
+foreach($dateList as $el){
+    $date = new DateTime();
+    $date->setTimestamp($el / 1000);  // ミリ秒の場合
+    $variable = $date->format('Y/m/d H:i:s');
+    echo "$el : $variable" . PHP_EOL;
+}
+```
+
+
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
