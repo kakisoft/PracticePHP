@@ -1631,6 +1631,17 @@ $filterd_array_01 = array_filter($array_11);  // コールバック関数省略�
 // )
 
 
+// key, value を両方使う
+$filteredArray = array_filter($countedArrayValues, function($v, $k) {
+  echo "$k : $v" . PHP_EOL;
+  return $v !== 1 ? true : false;
+}, ARRAY_FILTER_USE_BOTH);
+
+
+// 無名関数
+$a1 = array_filter($countedArrayValues, fn($v) => $v === 1);
+
+
 //「無視リストにあるドメインは false を返す」みたいな感じの。
 return array_filter($domains, function ($d) use ($ignoreDomainList) {
   return !in_array($d, $ignoreDomainList);
