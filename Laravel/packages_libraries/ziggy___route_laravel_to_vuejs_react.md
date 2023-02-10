@@ -31,6 +31,18 @@ resources 配下なので、リポジトリの管理対象となる（事も多�
 
 Chrome developer tools の、Network タブにて history を選択し、Header タブを見てルーティングを確認。
 
+また、ベースとなる URL は、.env の APP_URL の影響を受ける。
+
+#### .env
+```conf
+APP_NAME=MY_Laravel_APP_01
+APP_ENV=local
+APP_KEY=abcde
+APP_DEBUG=true
+APP_URL=http://localhost:44300  # ← これ
+```
+
+
 
 ### ファイル生成例
 ```js
