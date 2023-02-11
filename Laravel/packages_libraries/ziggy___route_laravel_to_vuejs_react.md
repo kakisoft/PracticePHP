@@ -45,6 +45,8 @@ APP_URL=http://localhost:44300  # ← これ
 
 
 ### ファイル生成例
+
+#### src\resources\js\ziggy.js
 ```js
 const Ziggy = {"url":"https:\/\/localhost","port":44300,"defaults":{},"routes":{"approvals.latest":{"uri":"approvals\/{mode}\/{id}\/latest","methods":["GET","HEAD"]},"approvals.create":{"uri":"approvals\/{mode}\/{id}\/create","methods":["POST"]},"approvals.history":{"uri":"approvals\/{mode}\/{id}\/history","methods":["GET","HEAD"]}}};
 
