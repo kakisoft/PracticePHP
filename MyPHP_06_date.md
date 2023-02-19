@@ -1,5 +1,22 @@
 #### タイムゾーン一覧
-https://www.php.net/manual/ja/timezones.asia.php  
+https://www.php.net/manual/ja/timezones.america.php
+https://www.php.net/manual/ja/timezones.america.php
+https://www.php.net/manual/ja/timezones.asia.php
+https://www.php.net/manual/ja/timezones.europe.php
+https://www.php.net/manual/ja/timezones.indian.php
+
+America/New_York
+America/Los_Angeles
+Asia/Tokyo
+
+Europe/London
+Europe/Madrid
+Europe/Copenhagen
+Europe/Berlin
+
+Australia/Sydney
+
+UTC
 
 
 date()、mktime()、strtotime() はよく使われているが、  
