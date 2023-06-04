@@ -41,6 +41,11 @@ Laravel の 5.5 だとデフォルトで User モデルが作られる
 composer create-project --prefer-dist  "laravel/laravel=5.5" sampleproject
 composer create-project --prefer-dist  "laravel/laravel=5.1.*" sampleproject
 
+※階層を意識する時、docker-compose.yml で指定している working_dir に注意
+composer create-project --prefer-dist "laravel/laravel=10" api
+composer create-project --prefer-dist "laravel/laravel=10" .
+
+
 cd sampleproject
 php artisan -V
 ```
