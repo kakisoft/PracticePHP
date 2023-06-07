@@ -1,25 +1,29 @@
 # PHP
 
-## コーディング規約
-PSR-2 に準拠します  
-http://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.html  
+＜PSR-2＞
+https://www.infiniteloop.co.jp/docs/psr/psr-2-coding-style-guide.php
 
-VSCode のプラグインにて、自動整形するようにしています。設定方法は以下を参照。  
+＜PHPのコーディング規約まとめ。PSR-2, CakePHP, Symfony, WordPress, FuelPHPなどの5つの規約の概要と特徴的なルール＞https://siderlabs.com/blog/ja/php-codingstyles/
 
-## PHPのコーディング規約まとめ。PSR-2, CakePHP, Symfony, WordPress, FuelPHPなどの5つの規約の概要と特徴的なルール
-https://siderlabs.com/blog/ja/php-codingstyles/
 
-## その他コーディング規約
+## 基本ルール
+PSR12 に準拠します。
+https://www.php-fig.org/psr/psr-12/
+
+PHP_CodeSniffer にてチェック。
+実行コマンドは Makefile を参照。
+
+## その他ルール
 
  - goto文は実行順序を曖昧にする為、使用禁止とする
  - マジックナンバーは使用禁止とする。（const で定数化する。また、public static 変数を定数として使わないものとする。）
  - 定数は全て大文字のスネークケースとする。(例:FOO_CONST_VALUE) 
+ - 改行コードを結合する場合は、PHP_EOL定数を用いる。(例:$bar = 'a'.PHP_EOL)   
    ただし、CSVのファイル作成処理などで、ユーザが指定した改行コードでファイルを作る必要がある場合は例外とする
- - 改行コードを結合する場合は、PHP_EOL定数を用いる。(例:$bar = 'a'.PHP_EOL)
  - true, false, null, self 等の予約語は、小文字を使用する。
  - クラス名は全てアッパーキャメルケースとする。(例:UpperCamelCase)
  - クラスメソッド及び関数名はローワーキャメルケースとする。(例:lowerCamelCase)
- - 特別な理由が無い限り、スネークケースではなく、ローワーキャメルケースを使用する。(例:$lowerCamelCaseValue)
+ - 特別な理由が無い限り、変数名はスネークケースではなく、ローワーキャメルケースを使用する。(例:$lowerCamelCaseValue)
 
 （参考情報）  
 うまくメソッド名を付けるための参考情報  
@@ -31,7 +35,9 @@ https://qiita.com/KeithYokoma/items/ee21fec6a3ebb5d1e9a8
 変数名・メソッド名を考えるときに便利なサービス  
 https://codic.jp/  
 
-______________________________________________________________________________________________________
+_____________________________________________________________________________________________________________
+# バックエンド（Laravel）
+
 # Laravel
 
 ## レスポンスクラス
@@ -70,11 +76,10 @@ extends Model のクラスのみを格納する。
 の流れで操作する。  
 
 ## Controllers
- **コントローラ名は、「単数形 + "Controller"」とし、パスカルケース（先頭大文字）にする。（Good：ArticleController　　Bad： %%ArticlesController%% ）**  
+ **コントローラ名は、「単数形 + "Controller"」とし、パスカルケース（先頭大文字）にする。（Good：ArticleController　　Bad： ArticlesController ）**  
 １つのファイルには１つのクラスのみを記述し、ファイル名とクラス名は一致させる。  
-ビジネスロジックの記述を禁止とする。  
-Model の直接操作は禁止とする。  
-基本的には Service をコールし、ロジックを書くことは避ける。  
+ビジネスロジックの記述を禁止とする。  （基本的には Service をコールし、ビジネスロジックを書くことは避ける。  ）
+Model の直接操作は禁止とする。  （サービスクラスを仲介させる）
 
 
 ## Services
@@ -103,6 +108,7 @@ tests 階層に、Feature と Unit を作成。
 機能単位でのテストであれば、Feature に階層を切って保存する。  
 
 （例）
+
 ```
  └─tests
     ├─Feature
