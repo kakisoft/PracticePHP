@@ -41,7 +41,7 @@ php artisan make:test Api/PingTest
 ```
 
 
-## 実行（phpunitコマンド）
+## 実行（phpunitコマンド） execute
 ```
 ./vendor/bin/phpunit
 ./vendor/bin/phpunit tests/Unit/ExampleTest.php
@@ -51,7 +51,7 @@ php artisan make:test Api/PingTest
 ./vendor/bin/phpunit --configuration phpunit.xml --testsuite Feature
 ```
 
-## 実行（artisanコマンド）
+## 実行（artisanコマンド） execute
 ```
 // フォルダ単位・ファイル単位で実行
 php artisan test
