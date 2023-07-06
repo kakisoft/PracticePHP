@@ -21,6 +21,9 @@ composer dump-autoload
 
 
 php artisan db:seed --class=UsersTableSeeder
+
+// 階層が分かれている場合
+php artisan db:seed --class=Database\\Seeders\\Mst\\MstPrefectureSeeder
 ```
 
 ## 全てのシーダを実行
