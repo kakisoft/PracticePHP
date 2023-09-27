@@ -108,6 +108,8 @@ Route::resource('hoge', 'NewsController', ['except' => ['destroy', 'store']]);
 
 https://readouble.com/laravel/5.7/ja/controllers.html  
 https://laravel.com/docs/8.x/controllers  
+https://laravel.com/docs/10.x/controllers#actions-handled-by-resource-controller  
+
 
 |  動詞       |  URI                   |  アクション |  ルート名         |
 |:------------|:-----------------------|:-----------|:-----------------|
