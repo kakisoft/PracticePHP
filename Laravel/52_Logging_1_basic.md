@@ -72,6 +72,26 @@ Laravelはデフォルトで、以下のログモードへのログ情報書き�
     'log_max_files' => 30
 ```
 
+#### 修正箇所
+
+##### api\config\logging.php
+```php
+    'channels' => [
+        'stack' => [
+            'driver' => 'stack',
+            'channels' => ['single'],  //=> 'channels' => ['daily'],
+            'ignore_exceptions' => false,
+        ],
+
+//（中略）
+
+        'daily' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,  //=> 'days' => 0,
+        ],
+```
 
 ## ログレベル
 
