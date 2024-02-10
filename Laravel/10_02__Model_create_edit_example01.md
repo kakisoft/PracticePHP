@@ -237,6 +237,18 @@ ________________________________________________________________________________
     DB::statement("ALTER TABLE `users` CHANGE first_name first_name varchar(40) COMMENT 'ファーストネーム'");
 ```
 
+
+#### パラメータを列挙して change()
+これが一番ミスが少なそう。
+```php
+    Schema::table('residential_building_calculation_settings', function (Blueprint $table) {
+        $table->boolean('is_calculate_water_heater_enabled')
+                ->default(false)
+                ->comment('住宅一次エネルギー消費量（給湯設備の計算を行う）')
+                ->change();
+    });
+```
+
 _____________________________________________________________________________________
 ## ドライバを指定
 MySQL の時だけ実行するコマンドを設定する
